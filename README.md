@@ -13,3 +13,6 @@ detailmodules.txtを書き換えたいときに使えるかと思います。
 車両ファイルを複数指定している路線データ、DetailManager非対応のプラグイン、自動追加削除機能   
   
 【注意事項】※動作保証なし、自己責任かつ個人使用でお願いします※  
+  
+【作製環境】  
+Windows 10 .net Framework 4.0 C# Visual Studio 2017
