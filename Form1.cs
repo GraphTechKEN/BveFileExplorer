@@ -12,7 +12,6 @@ namespace AtsPluginEditor
         public Form1()
         {
             InitializeComponent();
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             lblAtsPluginFileName.Text = "";
         }
 
@@ -20,6 +19,19 @@ namespace AtsPluginEditor
         private string strVehicleFilePath = "";
         private string strAtsPluginSettingFilePath = "";
         private string strAtsPluginFilePath = "";
+        private string strMapFilePath = "";
+        private string strPerfoemanceCurveFilePath = "";
+        private string strParametersFilePath = "";
+        private string strPanelFilePath = "";
+        private string strSoundFilePath = "";
+        private string strMotorNoiseFilePath = "";
+        private string strAtsPlugin32SettingFilePath = "";
+        private string strAtsPlugin64SettingFilePath = "";
+        private string strStructureFilePath = "";
+        private string strStationFilePath = "";
+        private string strSignalFilePath = "";
+        private string strSoundListFilePath = "";
+        private string strTrainFilePath = "";
         private bool flgAtsPluginFileOpen = false;
         private bool flgAtsPluginDirectoryOpen = false;
 
@@ -30,13 +42,61 @@ namespace AtsPluginEditor
             btnOpenVehicleDirectory.Enabled = false;
             btnOpenAtsPluginFile.Enabled = false;
             btnOpenAtsPluginDirectory.Enabled = false;
+            btnMapOpen.Enabled = false;
             strRouteFilePath = "";
             strVehicleFilePath = "";
             strAtsPluginSettingFilePath = "";
+            strMapFilePath = "";
+            strPerfoemanceCurveFilePath = "";
+            strParametersFilePath = "";
+            strPanelFilePath = "";
+            strSoundFilePath = "";
+            strMotorNoiseFilePath = "";
+            strAtsPlugin32SettingFilePath = "";
+            strAtsPlugin64SettingFilePath = "";
+            strStructureFilePath = "";
+            strSignalFilePath = "";
+            strSoundListFilePath = "";
+            strTrainFilePath = "";
+
             flgAtsPluginFileOpen = false;
             btnGenerateRelativePath.Enabled = false;
+            btnVehicleOpen.Enabled = false;
+            btnPerfoemanceCurveOpen.Enabled = false;
+            btnParametersOpen.Enabled = false;
+            btnPanelOpen.Enabled = false;
+            btnSoundOpen.Enabled = false;
+            btnMotorNoiseOpen.Enabled = false;
+            btnAts32Open.Enabled = false;
+            btnAts64Open.Enabled = false;
+
+            tbMapFilePath.Text = "";
+            tbVehicle.Text = "";
+            tbPerfoemanceCurve.Text = "";
+            tbParameters.Text = "";
+            tbPanel.Text = "";
+            tbSound.Text = "";
+            tbMotorNoise.Text = "";
+            tbAts32.Text = "";
+            tbAts64.Text = "";
+
+
+            //マップファイルページ
+            btnStructureOpen.Enabled = false;
+            btnStationOpen.Enabled = false;
+            btnSignalOpen.Enabled = false;
+            btnSoundListOpen.Enabled = false;
+            btnTrainOpen.Enabled = false;
+            tbStructure.Text = "";
+            tbStation.Text = "";
+            tbSignal.Text = "";
+            tbSoundList.Text = "";
+            tbTrain.Text = "";
 
             textBox1.Clear();
+
+            pictureBox1.Image = null;
+
             //OpenFileDialogクラスのインスタンスを作成
             OpenFileDialog ofd2 = new OpenFileDialog();
             ofd2.Filter = "路線ファイル(*.txt)|*.txt";
@@ -64,6 +124,7 @@ namespace AtsPluginEditor
                     int row = 0;
                     bool errflg = false;
                     string path = "";
+                    string dir = Path.GetDirectoryName(strRouteFilePath);
                     textBox1.AppendText("路線ファイル：" + strRouteFilePath + "\r\n");
 
                     while ((line = sr.ReadLine()) != null)
@@ -101,6 +162,39 @@ namespace AtsPluginEditor
 
                                     pictureBox1.ImageLocation = Path.GetDirectoryName(strRouteFilePath) + "\\" + file.Trim();
                                 }
+                            } else if (line.IndexOf("Route") >= 0 && line.IndexOf("RouteTitle") < 0)
+                            {
+
+                                if (line.Substring(line.IndexOf("=")).Length > 1)
+                                {
+                                    if (line.IndexOf("*") > 0)
+                                    {
+                                        strMapFilePath = Path.GetFullPath(dir + "\\" + line.Substring(0, line.IndexOf("*")).Substring(line.IndexOf("=") + 1).Trim());
+                                    }
+                                    else if (line.IndexOf("|") > 0)
+                                    {
+                                        strMapFilePath = Path.GetFullPath(dir + "\\" +  line.Substring(0, line.IndexOf("|")).Substring(line.IndexOf("=") + 1).Trim());
+                                    }
+                                    else
+                                    {
+                                        strMapFilePath = Path.GetFullPath(dir + "\\" +  line.Substring(line.IndexOf("=") + 1).Trim());
+                                    }
+                                    if (File.Exists(strMapFilePath))
+                                    {
+                                        tbMapFilePath.Text = strMapFilePath;
+                                        btnMapOpen.Enabled = true;
+                                        OpenNewMapFile(strMapFilePath);
+                                    }
+                                    else
+                                    {
+                                        tbMapFilePath.Text = "Cannot Open";
+                                    }
+                                    
+                                }
+                                else
+                                {
+                                    tbMapFilePath.Text = "Not Found";
+                                }
                             }
                         }
                         i++;
@@ -109,17 +203,16 @@ namespace AtsPluginEditor
                     //閉じる
                     sr.Close();
                     stream.Close();
-
                     if ((row > 0) && !errflg)
-                    {
-                        string dir = Path.GetDirectoryName(strRouteFilePath);
+                    {                         
                         strVehicleFilePath = dir + "\\" + path.Trim();
                         if (File.Exists(strVehicleFilePath))
                         {
-                            MessageBox.Show("車両ファイルが見つかりました");
+                            //MessageBox.Show("車両ファイルが見つかりました");
                             if (multiVehicle > 0)
                             {
-                                MessageBox.Show("車両ファイルが複数あります、手動で設定してください。データ数：" + multiVehicle);
+                                //MessageBox.Show("車両ファイルが複数あります、手動で設定してください。データ数：" + multiVehicle);
+                                MessageBox.Show("車両ファイルが複数あります、手動で設定してください");
                             }
                             OpenNewVehicleFile(strVehicleFilePath);
                         }
@@ -136,53 +229,175 @@ namespace AtsPluginEditor
             }
         }
 
+        private void OpenNewMapFile(string strMapFilePath_)
+        {
+            if (File.Exists(strMapFilePath_))
+            {
+                //内容を読み込み、表示する
+                StreamReader sr = new StreamReader(strMapFilePath_);
+                string line = "";
+                int i = 0;
+                int error = 0;
+                textBox1.AppendText("\r\n");
+                textBox1.AppendText("車両ファイル：" + strMapFilePath_ + "\r\n");
+                tbVehicle.Text = strVehicleFilePath;
+                while (((line = sr.ReadLine()) != null))
+                {
+                    if (line.IndexOf("Structure.Load") >= 0)
+                    {
+                        if (PathControl_Map(ref tbStructure, ref btnStructureOpen, line, strMapFilePath_, out strStructureFilePath) <= 0)
+                        {
+                            error++;
+                        }
+                          
+                    }
+                    else if (line.IndexOf("Station.Load") >= 0)
+                    {
+                        if (PathControl_Map(ref tbStation, ref btnStationOpen, line, strMapFilePath_, out strStationFilePath) <= 0) {
+                            error++;
+                        }
+                    }
+                    else if (line.IndexOf("Signal.Load") >= 0)
+                    {
+                        if (PathControl_Map(ref tbSignal, ref btnSignalOpen, line, strMapFilePath_, out strSignalFilePath) <= 0) {
+                            error++;
+                        }
+
+                    }
+                    else if (line.IndexOf("Sound.Load") >= 0)
+                    {
+                        if (PathControl_Map(ref tbSoundList, ref btnSoundListOpen, line, strMapFilePath_, out strSoundListFilePath) <= 0)
+                        {
+                            error++;
+                        }
+                    }
+                    else if (line.IndexOf("Train.Add") >= 0)
+                    {
+                        
+                        if (line.Substring(line.IndexOf("(")).Length > 1)
+                        {
+                            line = line.Substring(line.IndexOf(","));
+                            int index = line.IndexOf("'");
+                            strTrainFilePath = Path.GetFullPath(Path.GetDirectoryName(strMapFilePath_) + "\\" + (line.Substring(index + 1, line.IndexOf("'", index + 1) - index - 1)).Trim());
+                            if (File.Exists(strTrainFilePath))
+                            {
+                                tbTrain.Text = strTrainFilePath;
+                                btnTrainOpen.Enabled = true;
+                            }
+                            else
+                            {
+                                tbTrain.Text = "Cannot Open";
+                                error++;
+                            }
+                        }
+                        else
+                        {
+                            tbTrain.Text = "Not Found";
+                            error++;
+                        }
+                    }
+                    i++;
+                }
+                //閉じる
+                sr.Close();
+                if (error > 0)
+                {
+                    MessageBox.Show("いくつかのファイルにエラーがあるか、読込未対応ファイル形式ですm(_ _)m");
+                }
+            }
+            else
+            {
+                MessageBox.Show("マップファイルが指定されていません");
+            }
+        }
+
         private void OpenNewVehicleFile(string strVehicleFilePath_)
         {
             if (File.Exists(strVehicleFilePath_))
             {
                 btnOpenVehicleFile.Enabled = true;
                 btnOpenVehicleDirectory.Enabled = true;
+                btnVehicleOpen.Enabled = true;
                 //内容を読み込み、表示する
                 StreamReader sr = new StreamReader(strVehicleFilePath_);
                 string line = "";
                 int i = 0;
                 int row = 0;
-                string path = "";
+                int error = 0;
                 textBox1.AppendText("\r\n");
                 textBox1.AppendText("車両ファイル：" + strVehicleFilePath_ + "\r\n");
+                tbVehicle.Text = strVehicleFilePath;
                 while ((line = sr.ReadLine()) != null)
                 {
                     textBox1.AppendText(line+"\r\n");
-                    if (line.IndexOf("ATS") >= 0 || line.IndexOf("Ats") >= 0)
+                    if ((line.IndexOf("ATS") >= 0 || line.IndexOf("Ats") >= 0 || line.IndexOf("Ats32") >= 0) && line.IndexOf("Ats64") < 0)
                     {
                         row = i;
-
-                        path = line.Substring(line.IndexOf("=") + 1);
-                        /*while (line.IndexOf("..") >=0 ){
-                            line = line.Substring(line.IndexOf("..") + 1);
-                            upDirCount++;
-                        }*/
-
+                        if(PathControl_Vehicle(ref tbAts32, ref btnAts32Open, line, strVehicleFilePath_, out strAtsPlugin32SettingFilePath) <= 0)
+                        {
+                            error++;
+                        }
+                    }
+                    else if (line.IndexOf("PerformanceCurve") >= 0)
+                    {
+                        if(PathControl_Vehicle(ref tbPerfoemanceCurve, ref btnPerfoemanceCurveOpen, line, strVehicleFilePath_, out strPerfoemanceCurveFilePath) <= 0){
+                            error++;
+                        }
+                    }
+                    else if (line.IndexOf("Parameters") >= 0)
+                    {
+                        if(PathControl_Vehicle(ref tbParameters, ref btnParametersOpen, line, strVehicleFilePath_, out strParametersFilePath) <= 0)
+                        {
+                            error++;
+                        }
+                    }
+                    else if (line.IndexOf("Panel") >= 0)
+                    {
+                        if(PathControl_Vehicle(ref tbPanel, ref btnPanelOpen, line, strVehicleFilePath_, out strPanelFilePath) <= 0)
+                        {
+                            error++;
+                        }
+                    }
+                    else if (line.IndexOf("Sound") >= 0 && ( line.IndexOf("Sound") < line.IndexOf("=")))
+                    {
+                        if(PathControl_Vehicle(ref tbSound, ref btnSoundOpen, line, strVehicleFilePath_, out strSoundFilePath) <= 0)
+                        {
+                            error++;
+                        }
+                    }
+                    else if (line.IndexOf("MotorNoise") >= 0)
+                    {
+                        if(PathControl_Vehicle(ref tbMotorNoise, ref btnMotorNoiseOpen, line, strVehicleFilePath_, out strMotorNoiseFilePath) <= 0)
+                        {
+                            error++;
+                        }
+                    }
+                    else if (line.IndexOf("Ats64") >= 0)
+                    {
+                        if(PathControl_Vehicle(ref tbAts64, ref btnAts64Open, line , strVehicleFilePath_, out strAtsPlugin64SettingFilePath) <= 0)
+                        {
+                            error++;
+                        }
                     }
                     i++;
                 }
                 //閉じる
                 sr.Close();
-                //MessageBox.Show(upDirCount.ToString());
-                if (row > 0)
-                {
-                    string dir = Path.GetDirectoryName(strVehicleFilePath_);
-                    strAtsPluginSettingFilePath = Path.GetFullPath(Path.GetDirectoryName(dir + "\\" + path.Trim()) + "\\detailmodules.txt");
-                    if (File.Exists(strAtsPluginSettingFilePath))
-                    {
-                        MessageBox.Show("ATSプラグインが見つかりました");
-                        OpenNewAtsPluginFile(strAtsPluginSettingFilePath);
-                    }
-                    else
-                    {
-                        MessageBox.Show("ATSプラグインが見つからないか、対応していません(DetailModule以外)");
-                    }
 
+                if (error > 0)
+                {
+                    MessageBox.Show("いくつかのファイルにエラーがあるか、読込未対応ファイル形式ですm(_ _)m");
+                }
+
+                if (strAtsPlugin32SettingFilePath.IndexOf("DetailManager") > 0)
+                {
+                    MessageBox.Show("ATSプラグイン(DetailManager)が見つかりました");
+                    strAtsPluginSettingFilePath = Path.GetFullPath(Path.GetDirectoryName(strAtsPlugin32SettingFilePath) + "\\detailmodules.txt");
+                    OpenNewAtsPluginFile(strAtsPluginSettingFilePath);
+                }
+                else
+                {
+                    MessageBox.Show("ATSプラグインが見つからないか、対応していません(DetailManager以外)");
                 }
             }
             else
@@ -202,7 +417,6 @@ namespace AtsPluginEditor
                 string line = "";
                 int i = 0;
                 int row = 0;
-                string dir = "";
                 textBox1.AppendText("\r\n");
                 textBox1.AppendText("ATSプラグイン：" + AtsPluginFilePath_ + "\r\n");
                 while ((line = sr.ReadLine()) != null)
@@ -222,7 +436,7 @@ namespace AtsPluginEditor
                 }
                 else
                 {
-                    MessageBox.Show("ATSプラグインファイルを開き、ATSプラグインパス生成ボタンによりパスを生成し、追記してください。", "SerialOutputプラグインの追加");
+                    MessageBox.Show("ATSプラグインのターゲットを確認後、ATSプラグインパス生成ボタンにより相対パスを生成し、追記してください。", "SerialOutputプラグインの追加");
                 }
                 flgAtsPluginFileOpen = true;
                 if (flgAtsPluginDirectoryOpen)
@@ -278,7 +492,7 @@ namespace AtsPluginEditor
             {
                 Properties.Settings.Default.AtsPluginFileDirectory = Path.GetDirectoryName(ofd.FileName);
                 strAtsPluginFilePath = ofd.FileName;
-                lblAtsPluginFileName.Text = "ターゲット:" + Path.GetFileName(ofd.FileName);
+                lblAtsPluginFileName.Text = "ターゲット:" + ofd.FileName;
                 flgAtsPluginDirectoryOpen = true;
                 btnOpen.Enabled = true;
                 if (flgAtsPluginFileOpen)
@@ -315,10 +529,11 @@ namespace AtsPluginEditor
                 "2.路線ファイルを指定する\r\n" +
                 "\r\n3.ATSプラグインファイルを開く\r\n" +
                 "4.ATSプラグインファイルパスを生成し、追記する\r\r" +
-                "\r\n" + 
+                "\r\n" +
                 "【できないこと】\r\n" +
-                "車両ファイルを複数している路線データ、DetailManager非対応のプラグイン、自動追加削除機能\r\n" + 
-                "\r\n" + 
+                "車両ファイルを複数している路線データ、DetailManager非対応のプラグイン、自動追加削除機能\r\n" +
+                "include形式ファイル、パス内変数形式、自動追加削除機能\r\n" +
+                "\r\n" +
                 "【注意事項】\r\n※動作保証なし、自己責任かつ個人使用でお願いします※", "使い方");
         }
 
@@ -326,5 +541,147 @@ namespace AtsPluginEditor
         {
             Properties.Settings.Default.Save();
         }
+
+        private void btnMapOpen_Click(object sender, EventArgs e)
+        {
+            Process.Start(strMapFilePath);
+        }
+
+        private void btnPerfoemanceCurveOpen_Click(object sender, EventArgs e)
+        {
+            Process.Start(strPerfoemanceCurveFilePath);
+        }
+
+        private void btnParametersOpen_Click(object sender, EventArgs e)
+        {
+            Process.Start(strParametersFilePath);
+        }
+
+        private void btnPanelOpen_Click(object sender, EventArgs e)
+        {
+            Process.Start(strPanelFilePath);
+        }
+
+        private void btnSoundOpen_Click(object sender, EventArgs e)
+        {
+            Process.Start(strSoundFilePath);
+        }
+
+        private void btnMotorNoiseOpen_Click(object sender, EventArgs e)
+        {
+            Process.Start(strMotorNoiseFilePath);
+        }
+
+        private void btnAts64Open_Click(object sender, EventArgs e)
+        {
+            Process.Start(strAtsPlugin64SettingFilePath);
+        }
+
+        private void btnMapOpen_Click_1(object sender, EventArgs e)
+        {
+            Process.Start(strMapFilePath);
+        }
+
+        private void btnStructureOpen_Click(object sender, EventArgs e)
+        {
+            Process.Start(strStructureFilePath);
+        }
+
+        private void btnStationOpen_Click(object sender, EventArgs e)
+        {
+            Process.Start(strStationFilePath);
+        }
+
+        private void btnSignalOpen_Click(object sender, EventArgs e)
+        {
+            Process.Start(strSignalFilePath);
+        }
+
+        private void btnSoundListOpen_Click(object sender, EventArgs e)
+        {
+            Process.Start(strSoundListFilePath);
+        }
+
+        private void btnTrainOpen_Click(object sender, EventArgs e)
+        {
+            Process.Start(strTrainFilePath);
+        }
+
+        private string PathGenerator_Map (string line_ , string dirPath_)
+        {
+            string s = "";
+            if (line_.IndexOf("'") > 0)
+            {
+                int index = line_.IndexOf("'");
+                s = Path.GetFullPath(Path.GetDirectoryName(dirPath_) + "\\" + (line_.Substring(index + 1, line_.IndexOf("'", index + 1) - index - 1)).Trim());
+            }else if((line_.IndexOf("(") > 0))
+            {
+                s = Path.GetFullPath(Path.GetDirectoryName(dirPath_) + "\\" + (line_.Substring(line_.IndexOf("(") + 1, line_.IndexOf(")", line_.IndexOf("(") + 1) - line_.IndexOf("(") - 1)).Trim());
+            }
+            else
+            {
+                s = "";
+            }
+            return s;
+        }
+
+        private string PathGenerator_Vehicle(string line_, string dirPath_)
+        {
+            string s = "";
+            s = Path.GetFullPath(Path.GetDirectoryName(dirPath_) + "\\" + line_.Substring(line_.IndexOf("=") + 1).Trim());
+            return s;
+        }
+
+        private int PathControl_Map(ref TextBox tb, ref Button btn, string line_, string mapPath_, out string strFilePath_)
+        {
+            if (line_.Substring(line_.IndexOf("(")).Length > 1)
+            {
+                strFilePath_ = PathGenerator_Map(line_, mapPath_);
+                if (File.Exists(strFilePath_))
+                {
+                    tb.Text = strFilePath_;
+                    btn.Enabled = true;
+                    return 1;
+                }
+                else
+                {
+                    tb.Text = "Not Found or Path Error : " + strFilePath_;
+                    return -1;
+                }
+            }
+            else
+            {
+                strFilePath_ = "Not Found : Not declared";
+                tb.Text = "Not Found : Not Declared";
+                return 0;
+            }
+        }
+
+        private int PathControl_Vehicle(ref TextBox tb, ref Button btn, string line_, string vehiclePath_, out string strFilePath_)
+        {
+            if (line_.Substring(line_.IndexOf("=")).Length > 1)
+            {
+                strFilePath_ = PathGenerator_Vehicle(line_, vehiclePath_);
+                if (File.Exists(strFilePath_))
+                {
+                    tb.Text = strFilePath_;
+                    btn.Enabled = true;
+                    return 1;
+                }
+                else
+                {
+                    tb.Text = "Not Found or Path Error : " + strFilePath_;
+                    return -1;
+                }
+
+            }
+            else
+            {
+                strFilePath_ = "Not Found : Not declared";
+                tb.Text = "Not Found : Not Declared";
+                return 0;
+            }
+        }
+
     }
 }
