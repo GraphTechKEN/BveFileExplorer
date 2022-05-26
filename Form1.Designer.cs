@@ -66,6 +66,7 @@
             this.tbMapFilePath = new System.Windows.Forms.TextBox();
             this.btnMapOpen = new System.Windows.Forms.Button();
             this.tpVehicle = new System.Windows.Forms.TabPage();
+            this.cbxVehicle = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -482,6 +483,7 @@
             // 
             // tpVehicle
             // 
+            this.tpVehicle.Controls.Add(this.cbxVehicle);
             this.tpVehicle.Controls.Add(this.label10);
             this.tpVehicle.Controls.Add(this.label9);
             this.tpVehicle.Controls.Add(this.label8);
@@ -513,6 +515,16 @@
             this.tpVehicle.TabIndex = 1;
             this.tpVehicle.Text = "車両ファイル関連";
             this.tpVehicle.UseVisualStyleBackColor = true;
+            // 
+            // cbxVehicle
+            // 
+            this.cbxVehicle.FormattingEnabled = true;
+            this.cbxVehicle.Location = new System.Drawing.Point(247, 46);
+            this.cbxVehicle.Name = "cbxVehicle";
+            this.cbxVehicle.Size = new System.Drawing.Size(626, 20);
+            this.cbxVehicle.TabIndex = 3;
+            this.cbxVehicle.Visible = false;
+            this.cbxVehicle.SelectionChangeCommitted += new System.EventHandler(this.cbxVehicle_SelectionChangeCommitted);
             // 
             // label10
             // 
@@ -754,7 +766,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "AtsPluginEditor ( Beta ver 0.9.1.1 )";
+            this.Text = "AtsPluginEditor ( Beta ver 0.9.2.1 )";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
@@ -833,6 +845,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox tbTrain;
         private System.Windows.Forms.Button btnTrainOpen;
+        private System.Windows.Forms.ComboBox cbxVehicle;
     }
 }
 
