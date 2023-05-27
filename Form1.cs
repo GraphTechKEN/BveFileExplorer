@@ -38,6 +38,8 @@ namespace AtsPluginEditor
         private bool flgAtsPluginDirectoryOpen = false;
         private int cbxVehicleIndex = 0;
 
+        private string strDisp = "";
+
         private void btnOpen_Click(object sender, EventArgs e)
         {
 
@@ -55,10 +57,12 @@ namespace AtsPluginEditor
 
                 Properties.Settings.Default.RouteFileDirectory = Path.GetDirectoryName(ofd2.FileName);
                 //OKボタンがクリックされたとき、選択されたファイルを読み取り専用で開く
-                System.IO.Stream stream;
+                Stream stream;
                 stream = ofd2.OpenFile();
                 strRouteFilePath = ofd2.FileName;
                 btnOpenRouteFile.Enabled = true;
+                btnBootBVE.Enabled = true;
+                lblSeinarioFileName.Text = "シナリオファイル:" + ofd2.FileName;
                 if (stream != null)
                 {
                     //内容を読み込み、表示する
@@ -66,7 +70,6 @@ namespace AtsPluginEditor
                         new StreamReader(stream);
                     string line = "";
                     int i = 0;
-                    int multiVehicle = 0;
                     int row = 0;
                     bool errflg = false;
                     var listPath = new List<string>();
@@ -175,20 +178,17 @@ namespace AtsPluginEditor
                         }
                         if (File.Exists(listVehicleFilePath[0]))
                         {
-                            //MessageBox.Show("車両ファイルが見つかりました");
                             if (listPath.Count > 1)
                             {
                                 cbxVehicle.Visible = true;
                                 tbVehicle.Visible=false;
-                                MessageBox.Show("車両ファイルが複数あります、手動で設定してください。データ数：" + listPath.Count);
-                                //MessageBox.Show("車両ファイルが複数あります、手動で設定してください");
+                                strDisp += "車両ファイルが複数あります、手動で設定してください。データ数：" + listPath.Count + "\n\n";
                                 index_ = 0;
                                 while(index_ < listVehicleFilePath.Count)
                                 {
                                     cbxVehicle.Items.Add(listVehicleFilePath[index_]);
                                     index_++;
                                 }
-                                //cbxVehicle.SelectedIndex = 0;
                             }
                             else
                             {
@@ -200,12 +200,12 @@ namespace AtsPluginEditor
                         }
                         else
                         {
-                            MessageBox.Show("車両ファイルが見つかりません。");
+                            strDisp += "車両ファイルが見つかりません。\n\n";
                         }
                     }
                     else
                     {
-                        MessageBox.Show("車両ファイルが指定されていません。");
+                        strDisp += "車両ファイルが指定されていません。\n\n";
                     }
                 }
             }
@@ -221,7 +221,7 @@ namespace AtsPluginEditor
                 int i = 0;
                 int error = 0;
                 textBox1.AppendText("\r\n");
-                textBox1.AppendText("車両ファイル：" + strMapFilePath_ + "\r\n");
+                textBox1.AppendText("マップファイル：" + strMapFilePath_ + "\r\n");
                 tbMapFilePath.Text = strMapFilePath_;
                 while (((line = sr.ReadLine()) != null))
                 {
@@ -284,12 +284,12 @@ namespace AtsPluginEditor
                 sr.Close();
                 if (error > 0)
                 {
-                    MessageBox.Show("いくつかのファイルにエラーがあるか、読込未対応ファイル形式ですm(_ _)m");
+                    strDisp += "いくつかのファイルにエラーがあるか、読込未対応ファイル形式ですm(_ _)m\n\n";
                 }
             }
             else
             {
-                MessageBox.Show("マップファイルが指定されていません");
+                strDisp += "マップファイルが指定されていません\n\n";
             }
         }
 
@@ -369,24 +369,30 @@ namespace AtsPluginEditor
 
                 if (error > 0)
                 {
-                    MessageBox.Show("いくつかのファイルにエラーがあるか、読込未対応ファイル形式ですm(_ _)m");
+                    strDisp += "いくつかのファイルにエラーがあるか、読込未対応ファイル形式ですm(_ _)m\n\n";
                 }
 
                 if (strAtsPlugin32SettingFilePath.IndexOf("DetailManager") > 0)
                 {
-                    MessageBox.Show("ATSプラグイン(DetailManager)が見つかりました");
+                    strDisp += "ATSプラグイン(DetailManager)が見つかりました\n\n";
                     strAtsPluginSettingFilePath = Path.GetFullPath(Path.GetDirectoryName(strAtsPlugin32SettingFilePath) + "\\detailmodules.txt");
                     OpenNewAtsPluginFile(strAtsPluginSettingFilePath);
                 }
                 else
                 {
-                    MessageBox.Show("ATSプラグインが見つからないか、対応していません(DetailManager以外)");
+                    strDisp += "ATSプラグインが見つからないか、対応していません(DetailManager以外)\n\n";
                 }
             }
             else
             {
-                MessageBox.Show("ATSプラグインが指定されていません");
+                strDisp += "ATSプラグインが指定されていません\n\n";
             }
+            if (strDisp != "" && cbMessage.Checked)
+            {
+                MessageBox.Show(strDisp);
+                strDisp = "";
+            }
+
         }
 
         private void OpenNewAtsPluginFile(string AtsPluginFilePath_)
@@ -415,11 +421,11 @@ namespace AtsPluginEditor
                 sr.Close();
                 if (row > 0)
                 {
-                    MessageBox.Show("既に追記されています。", "SerialOutputプラグインの追加");
+                    strDisp += "既に追記されています。\n\n";
                 }
                 else
                 {
-                    MessageBox.Show("ATSプラグインのターゲットを確認後、ATSプラグインパス生成ボタンにより相対パスを生成し、追記してください。", "SerialOutputプラグインの追加");
+                    strDisp += "ATSプラグインのターゲットを確認後、ATSプラグインパス生成ボタンにより相対パスを生成し、追記してください。\n\n";
                 }
                 flgAtsPluginFileOpen = true;
                 if (flgAtsPluginDirectoryOpen)
@@ -429,7 +435,7 @@ namespace AtsPluginEditor
             }
             else
             {
-                MessageBox.Show("ATSプラグインが見つかりません:" + AtsPluginFilePath_);
+                strDisp += "ATSプラグインが見つかりません:" + AtsPluginFilePath_ + "\n\n";
             }
         }
 
@@ -482,7 +488,7 @@ namespace AtsPluginEditor
             {
                 Properties.Settings.Default.AtsPluginFileDirectory = Path.GetDirectoryName(ofd.FileName);
                 strAtsPluginFilePath = ofd.FileName;
-                lblAtsPluginFileName.Text = "ターゲット:" + ofd.FileName;
+                lblAtsPluginFileName.Text = "ATSプラグインターゲット:" + ofd.FileName;
                 flgAtsPluginDirectoryOpen = true;
                 btnOpen.Enabled = true;
                 if (flgAtsPluginFileOpen)
@@ -676,6 +682,14 @@ namespace AtsPluginEditor
         //車両ファイル選択コンボボックス　選択変更イベント発生時
         private void cbxVehicle_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            tbPerfoemanceCurve.Text = "";
+            tbParameters.Text = "";
+            tbPanel.Text = "";
+            tbSound.Text = "";
+            tbMotorNoise.Text = "";
+            tbAts32.Text = "";
+            tbAts64.Text = "";
+            cbxVehicle.Text = "";
             //コンボボックスのインデックスを取得
             cbxVehicleIndex = cbxVehicle.SelectedIndex;
             //コンボボックスのインデックス番号のファイルパスで車両ファイルを開く
@@ -722,6 +736,7 @@ namespace AtsPluginEditor
             tbVehicle.Text = "";
             cbxVehicle.Items.Clear();
             listVehicleFilePath.Clear();
+
             tbPerfoemanceCurve.Text = "";
             tbParameters.Text = "";
             tbPanel.Text = "";
@@ -729,6 +744,7 @@ namespace AtsPluginEditor
             tbMotorNoise.Text = "";
             tbAts32.Text = "";
             tbAts64.Text = "";
+            cbxVehicle.Text = "";
 
 
             //マップファイルページ
@@ -747,6 +763,17 @@ namespace AtsPluginEditor
 
             pictureBox1.Image = null;
 
+        }
+
+        private void btnBootBVE_Click(object sender, EventArgs e)
+        {
+            Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\mackoy\\BveTs5\\bvets.exe" ,   "\"" + strRouteFilePath + "\"");
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            lblAtsPluginFileName.Text = "";
+            lblSeinarioFileName.Text = "";
         }
     }
 }

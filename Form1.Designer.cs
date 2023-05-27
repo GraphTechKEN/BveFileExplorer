@@ -43,7 +43,6 @@
             this.lblAtsPluginFileName = new System.Windows.Forms.Label();
             this.btnGenerateRelativePath = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpLog = new System.Windows.Forms.TabPage();
             this.tpRoute = new System.Windows.Forms.TabPage();
@@ -91,11 +90,17 @@
             this.btnVehicleOpen = new System.Windows.Forms.Button();
             this.tbPerfoemanceCurve = new System.Windows.Forms.TextBox();
             this.btnPerfoemanceCurveOpen = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnBootBVE = new System.Windows.Forms.Button();
+            this.lblSeinarioFileName = new System.Windows.Forms.Label();
+            this.cbMessage = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tpLog.SuspendLayout();
             this.tpRoute.SuspendLayout();
             this.tpVehicle.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -205,7 +210,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(882, 435);
+            this.textBox1.Size = new System.Drawing.Size(882, 412);
             this.textBox1.TabIndex = 11;
             // 
             // label1
@@ -250,22 +255,13 @@
             // 
             // btnHelp
             // 
-            this.btnHelp.Location = new System.Drawing.Point(739, 122);
+            this.btnHelp.Location = new System.Drawing.Point(698, 122);
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(86, 24);
             this.btnHelp.TabIndex = 16;
             this.btnHelp.Text = "ヘルプ";
             this.btnHelp.UseVisualStyleBackColor = true;
             this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(572, 624);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(257, 12);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "Copyright ©  2022 ぐらふ(Twitter@GraphTechKEN)";
             // 
             // tabControl1
             // 
@@ -275,10 +271,10 @@
             this.tabControl1.Controls.Add(this.tpLog);
             this.tabControl1.Controls.Add(this.tpRoute);
             this.tabControl1.Controls.Add(this.tpVehicle);
-            this.tabControl1.Location = new System.Drawing.Point(12, 148);
+            this.tabControl1.Location = new System.Drawing.Point(12, 171);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(904, 473);
+            this.tabControl1.Size = new System.Drawing.Size(904, 450);
             this.tabControl1.TabIndex = 18;
             // 
             // tpLog
@@ -287,7 +283,7 @@
             this.tpLog.Location = new System.Drawing.Point(4, 22);
             this.tpLog.Name = "tpLog";
             this.tpLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tpLog.Size = new System.Drawing.Size(896, 447);
+            this.tpLog.Size = new System.Drawing.Size(896, 424);
             this.tpLog.TabIndex = 0;
             this.tpLog.Text = "読込ログ";
             this.tpLog.UseVisualStyleBackColor = true;
@@ -314,7 +310,7 @@
             this.tpRoute.Controls.Add(this.btnMapOpen);
             this.tpRoute.Location = new System.Drawing.Point(4, 22);
             this.tpRoute.Name = "tpRoute";
-            this.tpRoute.Size = new System.Drawing.Size(896, 447);
+            this.tpRoute.Size = new System.Drawing.Size(896, 424);
             this.tpRoute.TabIndex = 2;
             this.tpRoute.Text = "マップファイル関連";
             this.tpRoute.UseVisualStyleBackColor = true;
@@ -511,7 +507,7 @@
             this.tpVehicle.Location = new System.Drawing.Point(4, 22);
             this.tpVehicle.Name = "tpVehicle";
             this.tpVehicle.Padding = new System.Windows.Forms.Padding(3);
-            this.tpVehicle.Size = new System.Drawing.Size(896, 447);
+            this.tpVehicle.Size = new System.Drawing.Size(896, 424);
             this.tpVehicle.TabIndex = 1;
             this.tpVehicle.Text = "車両ファイル関連";
             this.tpVehicle.UseVisualStyleBackColor = true;
@@ -744,15 +740,67 @@
             this.btnPerfoemanceCurveOpen.UseVisualStyleBackColor = true;
             this.btnPerfoemanceCurveOpen.Click += new System.EventHandler(this.btnPerfoemanceCurveOpen_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 622);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(920, 22);
+            this.statusStrip1.TabIndex = 19;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(265, 17);
+            this.toolStripStatusLabel1.Text = "Copyright ©  2022 ぐらふ(Twitter@GraphTechKEN)";
+            // 
+            // btnBootBVE
+            // 
+            this.btnBootBVE.Enabled = false;
+            this.btnBootBVE.Location = new System.Drawing.Point(297, 67);
+            this.btnBootBVE.Name = "btnBootBVE";
+            this.btnBootBVE.Size = new System.Drawing.Size(109, 49);
+            this.btnBootBVE.TabIndex = 20;
+            this.btnBootBVE.Text = "BVEを起動";
+            this.btnBootBVE.UseVisualStyleBackColor = true;
+            this.btnBootBVE.Click += new System.EventHandler(this.btnBootBVE_Click);
+            // 
+            // lblSeinarioFileName
+            // 
+            this.lblSeinarioFileName.AutoSize = true;
+            this.lblSeinarioFileName.Location = new System.Drawing.Point(22, 151);
+            this.lblSeinarioFileName.Name = "lblSeinarioFileName";
+            this.lblSeinarioFileName.Size = new System.Drawing.Size(81, 12);
+            this.lblSeinarioFileName.TabIndex = 14;
+            this.lblSeinarioFileName.Text = "Target:Seinario";
+            // 
+            // cbMessage
+            // 
+            this.cbMessage.AutoSize = true;
+            this.cbMessage.Checked = true;
+            this.cbMessage.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbMessage.Location = new System.Drawing.Point(790, 127);
+            this.cbMessage.Name = "cbMessage";
+            this.cbMessage.Size = new System.Drawing.Size(93, 16);
+            this.cbMessage.TabIndex = 21;
+            this.cbMessage.Text = "メッセージ表示";
+            this.cbMessage.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(920, 644);
+            this.Controls.Add(this.cbMessage);
+            this.Controls.Add(this.btnBootBVE);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.btnGenerateRelativePath);
+            this.Controls.Add(this.lblSeinarioFileName);
             this.Controls.Add(this.lblAtsPluginFileName);
             this.Controls.Add(this.btnAtsPluginDirectory);
             this.Controls.Add(this.label1);
@@ -766,8 +814,9 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "AtsPluginEditor ( Beta ver 0.9.2.1 )";
+            this.Text = "AtsPluginEditor ( Beta ver 0.9.3 )";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tpLog.ResumeLayout(false);
@@ -776,6 +825,8 @@
             this.tpRoute.PerformLayout();
             this.tpVehicle.ResumeLayout(false);
             this.tpVehicle.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -798,7 +849,6 @@
         private System.Windows.Forms.Label lblAtsPluginFileName;
         private System.Windows.Forms.Button btnGenerateRelativePath;
         private System.Windows.Forms.Button btnHelp;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tpLog;
         private System.Windows.Forms.TabPage tpVehicle;
@@ -846,6 +896,11 @@
         private System.Windows.Forms.TextBox tbTrain;
         private System.Windows.Forms.Button btnTrainOpen;
         private System.Windows.Forms.ComboBox cbxVehicle;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.Button btnBootBVE;
+        private System.Windows.Forms.Label lblSeinarioFileName;
+        private System.Windows.Forms.CheckBox cbMessage;
     }
 }
 
