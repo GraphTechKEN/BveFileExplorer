@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace AtsPluginEditor
@@ -39,15 +41,14 @@ namespace AtsPluginEditor
         private int cbxVehicleIndex = 0;
 
         private string strDisp = "";
-
         private void btnOpen_Click(object sender, EventArgs e)
         {
-
+            TempFileChecker();
             //OpenFileDialogクラスのインスタンスを作成
             OpenFileDialog ofd2 = new OpenFileDialog();
             ofd2.Filter = "路線ファイル(*.txt)|*.txt";
             //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
-            ofd2.InitialDirectory = Properties.Settings.Default.RouteFileDirectory;
+            ofd2.InitialDirectory = BveFileExplorer.Properties.Settings.Default.RouteFileDirectory;
             //ofd.RestoreDirectory = true;
 
             //ダイアログを表示する
@@ -55,13 +56,15 @@ namespace AtsPluginEditor
             {
                 Reset();
 
-                Properties.Settings.Default.RouteFileDirectory = Path.GetDirectoryName(ofd2.FileName);
+                BveFileExplorer.Properties.Settings.Default.RouteFileDirectory = Path.GetDirectoryName(ofd2.FileName);
                 //OKボタンがクリックされたとき、選択されたファイルを読み取り専用で開く
                 Stream stream;
                 stream = ofd2.OpenFile();
                 strRouteFilePath = ofd2.FileName;
                 btnOpenRouteFile.Enabled = true;
                 btnBootBVE.Enabled = true;
+                btnBveBootChooseVehicle.Enabled = true;
+
                 lblSeinarioFileName.Text = "シナリオファイル:" + ofd2.FileName;
                 if (stream != null)
                 {
@@ -167,6 +170,8 @@ namespace AtsPluginEditor
                     //閉じる
                     sr.Close();
                     stream.Close();
+
+                    //車両ファイルが指定されている場合の処理
                     if ((row > 0) && !errflg)
                     {                         
                         strVehicleFilePath = dir + "\\" + listPath[0].Trim();
@@ -182,27 +187,33 @@ namespace AtsPluginEditor
                             {
                                 cbxVehicle.Visible = true;
                                 tbVehicle.Visible=false;
+                                btnBveBootChooseVehicle.Enabled = true;
                                 strDisp += "車両ファイルが複数あります、手動で設定してください。データ数：" + listPath.Count + "\n\n";
                                 index_ = 0;
-                                while(index_ < listVehicleFilePath.Count)
+                                for (index_ = 0; index_ < listVehicleFilePath.Count; index_++)
                                 {
                                     cbxVehicle.Items.Add(listVehicleFilePath[index_]);
-                                    index_++;
                                 }
                             }
                             else
                             {
                                 tbVehicle.Visible = true;
                                 cbxVehicle.Visible = false;
+                                btnBveBootChooseVehicle.Enabled = false;
                             }
                             cbxVehicle.Text = listVehicleFilePath[0];
                             OpenNewVehicleFile(listVehicleFilePath[0]);
                         }
+
+                        //車両ファイルが見つからない場合の処理
                         else
                         {
+                            btnBootBVE.Enabled = false;
+                            btnBveBootChooseVehicle.Enabled = false;
                             strDisp += "車両ファイルが見つかりません。\n\n";
                         }
                     }
+                    //車両ファイルが空欄のとき
                     else
                     {
                         strDisp += "車両ファイルが指定されていません。\n\n";
@@ -480,13 +491,13 @@ namespace AtsPluginEditor
             ofd.Filter = "ATSプラグインファイル(*.dll)|*.dll";
             ofd.Title = "ATSプラグインファイルを選択してください";
             //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
-            ofd.InitialDirectory = Properties.Settings.Default.AtsPluginFileDirectory;
+            ofd.InitialDirectory = BveFileExplorer.Properties.Settings.Default.AtsPluginFileDirectory;
             //ofd.RestoreDirectory = true;
 
             //ダイアログを表示する
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                Properties.Settings.Default.AtsPluginFileDirectory = Path.GetDirectoryName(ofd.FileName);
+                BveFileExplorer.Properties.Settings.Default.AtsPluginFileDirectory = Path.GetDirectoryName(ofd.FileName);
                 strAtsPluginFilePath = ofd.FileName;
                 lblAtsPluginFileName.Text = "ATSプラグインターゲット:" + ofd.FileName;
                 flgAtsPluginDirectoryOpen = true;
@@ -535,7 +546,20 @@ namespace AtsPluginEditor
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.Save();
+            TempFileChecker();
+            BveFileExplorer.Properties.Settings.Default.Save();
+        }
+
+        private void TempFileChecker()
+        {
+            if (File.Exists(strRouteFilePath + ".tmp.txt"))
+            {
+                File.Delete(strRouteFilePath + ".tmp.txt");
+            }
+            if (File.Exists(strRouteFilePath + ".bak"))
+            {
+                File.Delete(strRouteFilePath + ".bak");
+            }
         }
 
         private void btnMapOpen_Click(object sender, EventArgs e)
@@ -772,8 +796,72 @@ namespace AtsPluginEditor
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            cbMessage.Checked = BveFileExplorer.Properties.Settings.Default.cbMessage;
             lblAtsPluginFileName.Text = "";
             lblSeinarioFileName.Text = "";
+        }
+
+        private void btnBackUp_Click(object sender, EventArgs e)
+        {
+            make_newVehicleFile(@strRouteFilePath, @strRouteFilePath + ".tmp.txt");
+        }
+
+        private void make_newVehicleFile(string oldFileName_ , string newFileName_)
+        {
+            File.Copy(oldFileName_, oldFileName_ + ".bak", true);
+
+            //読み込むテキストファイル
+            string textFile = oldFileName_;
+            //文字コード(ここでは、Shift JIS)
+            Encoding enc = Encoding.GetEncoding("utf-8");
+
+            string[] lines = File.ReadAllLines(textFile);
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i].Contains("Vehicle =") && lines[i].IndexOf(";") != 0)
+                {
+                    // 引用 https://dobon.net/vb/dotnet/file/getabsolutepath.html#uriencode
+
+                    //"%"を"%25"に変換しておく（デコード対策）
+                    string u1_Path = oldFileName_.Replace("%", "%25");
+                    string u2_Path = cbxVehicle.Text.Replace("%", "%25");
+
+                    //相対パスを取得する
+                    Uri u1 = new Uri(u1_Path);
+                    Uri u2 = new Uri(u2_Path);
+
+                    Uri relativeUri = u1.MakeRelativeUri(u2);
+
+                    string relativePath = relativeUri.ToString();
+
+                    //URLデコードする（エンコード対策）
+                    relativePath = Uri.UnescapeDataString(relativePath);
+
+                    //"%25"を"%"に戻す
+                    relativePath = relativePath.Replace("%25", "%");
+
+                    relativePath = relativePath.Replace('/', '\\');
+                    lines[i] = "Vehicle = " + relativePath;
+                    //MessageBox.Show(enc.GetString(enc.GetBytes(lines[i])));
+                }
+            }
+            //内容を書き込む
+            //ファイルが存在しているときは、上書きする
+            File.WriteAllLines(newFileName_, lines, enc);
+        }
+
+        private void cbMessage_CheckedChanged(object sender, EventArgs e)
+        {
+            BveFileExplorer.Properties.Settings.Default.cbMessage = cbMessage.Checked;
+            BveFileExplorer.Properties.Settings.Default.Save();
+        }
+
+        private void btnBveBootChooseVehicle_Click(object sender, EventArgs e)
+        {
+            string strNewRouteFile = strRouteFilePath + ".tmp.txt";
+            make_newVehicleFile(@strRouteFilePath, strNewRouteFile);
+            Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\mackoy\\BveTs5\\bvets.exe", "\"" + strNewRouteFile + "\"");
         }
     }
 }

@@ -86,8 +86,8 @@
             this.btnPanelOpen = new System.Windows.Forms.Button();
             this.tbParameters = new System.Windows.Forms.TextBox();
             this.btnParametersOpen = new System.Windows.Forms.Button();
-            this.tbVehicle = new System.Windows.Forms.TextBox();
             this.btnVehicleOpen = new System.Windows.Forms.Button();
+            this.tbVehicle = new System.Windows.Forms.TextBox();
             this.tbPerfoemanceCurve = new System.Windows.Forms.TextBox();
             this.btnPerfoemanceCurveOpen = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -95,6 +95,7 @@
             this.btnBootBVE = new System.Windows.Forms.Button();
             this.lblSeinarioFileName = new System.Windows.Forms.Label();
             this.cbMessage = new System.Windows.Forms.CheckBox();
+            this.btnBveBootChooseVehicle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tpLog.SuspendLayout();
@@ -235,7 +236,7 @@
             // lblAtsPluginFileName
             // 
             this.lblAtsPluginFileName.AutoSize = true;
-            this.lblAtsPluginFileName.Location = new System.Drawing.Point(22, 133);
+            this.lblAtsPluginFileName.Location = new System.Drawing.Point(22, 216);
             this.lblAtsPluginFileName.Name = "lblAtsPluginFileName";
             this.lblAtsPluginFileName.Size = new System.Drawing.Size(89, 12);
             this.lblAtsPluginFileName.TabIndex = 14;
@@ -271,10 +272,10 @@
             this.tabControl1.Controls.Add(this.tpLog);
             this.tabControl1.Controls.Add(this.tpRoute);
             this.tabControl1.Controls.Add(this.tpVehicle);
-            this.tabControl1.Location = new System.Drawing.Point(12, 171);
+            this.tabControl1.Location = new System.Drawing.Point(12, 264);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(904, 450);
+            this.tabControl1.Size = new System.Drawing.Size(904, 411);
             this.tabControl1.TabIndex = 18;
             // 
             // tpLog
@@ -283,7 +284,7 @@
             this.tpLog.Location = new System.Drawing.Point(4, 22);
             this.tpLog.Name = "tpLog";
             this.tpLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tpLog.Size = new System.Drawing.Size(896, 424);
+            this.tpLog.Size = new System.Drawing.Size(896, 385);
             this.tpLog.TabIndex = 0;
             this.tpLog.Text = "読込ログ";
             this.tpLog.UseVisualStyleBackColor = true;
@@ -310,7 +311,7 @@
             this.tpRoute.Controls.Add(this.btnMapOpen);
             this.tpRoute.Location = new System.Drawing.Point(4, 22);
             this.tpRoute.Name = "tpRoute";
-            this.tpRoute.Size = new System.Drawing.Size(896, 424);
+            this.tpRoute.Size = new System.Drawing.Size(896, 385);
             this.tpRoute.TabIndex = 2;
             this.tpRoute.Text = "マップファイル関連";
             this.tpRoute.UseVisualStyleBackColor = true;
@@ -500,14 +501,14 @@
             this.tpVehicle.Controls.Add(this.btnPanelOpen);
             this.tpVehicle.Controls.Add(this.tbParameters);
             this.tpVehicle.Controls.Add(this.btnParametersOpen);
-            this.tpVehicle.Controls.Add(this.tbVehicle);
             this.tpVehicle.Controls.Add(this.btnVehicleOpen);
+            this.tpVehicle.Controls.Add(this.tbVehicle);
             this.tpVehicle.Controls.Add(this.tbPerfoemanceCurve);
             this.tpVehicle.Controls.Add(this.btnPerfoemanceCurveOpen);
             this.tpVehicle.Location = new System.Drawing.Point(4, 22);
             this.tpVehicle.Name = "tpVehicle";
             this.tpVehicle.Padding = new System.Windows.Forms.Padding(3);
-            this.tpVehicle.Size = new System.Drawing.Size(896, 424);
+            this.tpVehicle.Size = new System.Drawing.Size(896, 385);
             this.tpVehicle.TabIndex = 1;
             this.tpVehicle.Text = "車両ファイル関連";
             this.tpVehicle.UseVisualStyleBackColor = true;
@@ -519,7 +520,6 @@
             this.cbxVehicle.Name = "cbxVehicle";
             this.cbxVehicle.Size = new System.Drawing.Size(626, 20);
             this.cbxVehicle.TabIndex = 3;
-            this.cbxVehicle.Visible = false;
             this.cbxVehicle.SelectionChangeCommitted += new System.EventHandler(this.cbxVehicle_SelectionChangeCommitted);
             // 
             // label10
@@ -704,13 +704,6 @@
             this.btnParametersOpen.UseVisualStyleBackColor = true;
             this.btnParametersOpen.Click += new System.EventHandler(this.btnParametersOpen_Click);
             // 
-            // tbVehicle
-            // 
-            this.tbVehicle.Location = new System.Drawing.Point(247, 47);
-            this.tbVehicle.Name = "tbVehicle";
-            this.tbVehicle.Size = new System.Drawing.Size(626, 19);
-            this.tbVehicle.TabIndex = 1;
-            // 
             // btnVehicleOpen
             // 
             this.btnVehicleOpen.Enabled = false;
@@ -721,6 +714,13 @@
             this.btnVehicleOpen.Text = "開く";
             this.btnVehicleOpen.UseVisualStyleBackColor = true;
             this.btnVehicleOpen.Click += new System.EventHandler(this.btnOpenVehicleFile_Click);
+            // 
+            // tbVehicle
+            // 
+            this.tbVehicle.Location = new System.Drawing.Point(247, 46);
+            this.tbVehicle.Name = "tbVehicle";
+            this.tbVehicle.Size = new System.Drawing.Size(626, 19);
+            this.tbVehicle.TabIndex = 1;
             // 
             // tbPerfoemanceCurve
             // 
@@ -744,7 +744,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 622);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 676);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(920, 22);
             this.statusStrip1.TabIndex = 19;
@@ -771,7 +771,7 @@
             // lblSeinarioFileName
             // 
             this.lblSeinarioFileName.AutoSize = true;
-            this.lblSeinarioFileName.Location = new System.Drawing.Point(22, 151);
+            this.lblSeinarioFileName.Location = new System.Drawing.Point(22, 234);
             this.lblSeinarioFileName.Name = "lblSeinarioFileName";
             this.lblSeinarioFileName.Size = new System.Drawing.Size(81, 12);
             this.lblSeinarioFileName.TabIndex = 14;
@@ -788,13 +788,26 @@
             this.cbMessage.TabIndex = 21;
             this.cbMessage.Text = "メッセージ表示";
             this.cbMessage.UseVisualStyleBackColor = true;
+            this.cbMessage.CheckedChanged += new System.EventHandler(this.cbMessage_CheckedChanged);
+            // 
+            // btnBveBootChooseVehicle
+            // 
+            this.btnBveBootChooseVehicle.Enabled = false;
+            this.btnBveBootChooseVehicle.Location = new System.Drawing.Point(297, 122);
+            this.btnBveBootChooseVehicle.Name = "btnBveBootChooseVehicle";
+            this.btnBveBootChooseVehicle.Size = new System.Drawing.Size(109, 49);
+            this.btnBveBootChooseVehicle.TabIndex = 20;
+            this.btnBveBootChooseVehicle.Text = "選択車両で\r\nBVEを起動";
+            this.btnBveBootChooseVehicle.UseVisualStyleBackColor = true;
+            this.btnBveBootChooseVehicle.Click += new System.EventHandler(this.btnBveBootChooseVehicle_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(920, 644);
+            this.ClientSize = new System.Drawing.Size(920, 698);
             this.Controls.Add(this.cbMessage);
+            this.Controls.Add(this.btnBveBootChooseVehicle);
             this.Controls.Add(this.btnBootBVE);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
@@ -814,7 +827,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "AtsPluginEditor ( Beta ver 0.9.3 )";
+            this.Text = "BVE File Explorer ( Beta ver 0.9.3 )";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -878,7 +891,6 @@
         private System.Windows.Forms.TextBox tbMapFilePath;
         private System.Windows.Forms.Button btnMapOpen;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox tbVehicle;
         private System.Windows.Forms.Button btnVehicleOpen;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox tbStructure;
@@ -901,6 +913,8 @@
         private System.Windows.Forms.Button btnBootBVE;
         private System.Windows.Forms.Label lblSeinarioFileName;
         private System.Windows.Forms.CheckBox cbMessage;
+        private System.Windows.Forms.TextBox tbVehicle;
+        private System.Windows.Forms.Button btnBveBootChooseVehicle;
     }
 }
 
