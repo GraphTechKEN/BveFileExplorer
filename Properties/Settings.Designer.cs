@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AtsPluginEditor.Properties {
+namespace BveFileExplorer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -44,6 +44,18 @@ namespace AtsPluginEditor.Properties {
             }
             set {
                 this["AtsPluginFileDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool cbMessage {
+            get {
+                return ((bool)(this["cbMessage"]));
+            }
+            set {
+                this["cbMessage"] = value;
             }
         }
     }

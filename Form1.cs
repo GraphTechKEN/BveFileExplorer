@@ -72,7 +72,6 @@ namespace AtsPluginEditor
                     StreamReader sr =
                         new StreamReader(stream);
                     string line = "";
-                    int i = 0;
                     int row = 0;
                     bool errflg = false;
                     var listPath = new List<string>();
@@ -80,99 +79,161 @@ namespace AtsPluginEditor
                     string dir = Path.GetDirectoryName(strRouteFilePath);
                     textBox1.AppendText("路線ファイル：" + strRouteFilePath + "\r\n");
 
+                    //最後まで読込
                     while ((line = sr.ReadLine()) != null)
                     {
                         textBox1.AppendText(line + "\r\n");
+                        //余計な文字列をトリム
                         line = line.Trim();
+                        //先頭文字が「;」と「#」でないとき
                         if (line.IndexOf(";") < 0 && line.IndexOf("#") < 0) {
-                            if (line.IndexOf("Vehicle") >= 0 && line.IndexOf("VehicleTitle") < 0)
+                            //先頭文字がVehicleでVehicleTileでないとき
+                            if (line.IndexOf("Vehicle") >= 0)
                             {
-
-                                if (line.Substring(line.IndexOf("=")).Length > 1)
+                                if (line.IndexOf("VehicleTitle") < 0)
                                 {
-                                    row = i;
-                                    if (line.IndexOf("|") > 0)
+                                    //文字列中に「=」があり、切り抜き後の文字列が存在するとき
+                                    if (line.Substring(line.IndexOf("=")).Length > 1)
                                     {
-                                        path = line.Substring(0, line.IndexOf("|"));
-                                        //listPath.Add(path.Substring(line.IndexOf("=") + 1));
-                                        string temp_line = line.Substring(line.IndexOf("=") + 1);
-                                        //"|"が文字列に無くなるまで
-                                        while (temp_line.IndexOf("|") > 0)
+                                        //文字列に「|」があるとき
+                                        if (line.IndexOf("|") > 0)
                                         {
-                                            
-                                            path = temp_line.Substring(0, temp_line.IndexOf("|"));
-                                            if(path.IndexOf("*") > 0)
+                                            path = line.Substring(0, line.IndexOf("|"));
+                                            //listPath.Add(path.Substring(line.IndexOf("=") + 1));
+                                            string temp_line = line.Substring(line.IndexOf("=") + 1);
+                                            //"|"が文字列に無くなるまで
+                                            while (temp_line.IndexOf("|") > 0)
+                                            {
+                                                //パスを仮文字列から「|」まで切り抜き
+                                                path = temp_line.Substring(0, temp_line.IndexOf("|"));
+                                                //もし「*」が含まれていたらそこまで切り抜く処理
+                                                if (path.IndexOf("*") > 0)
+                                                {
+                                                    path = temp_line.Substring(0, temp_line.IndexOf("*"));
+                                                }
+                                                //パスリストに追加
+                                                listPath.Add(path);
+                                                //次のループ用に文字列切り抜き
+                                                temp_line = temp_line.Substring(temp_line.IndexOf("|") + 1);
+                                            }
+                                            path = temp_line;
+                                            if (path.IndexOf("*") > 0)
                                             {
                                                 path = temp_line.Substring(0, temp_line.IndexOf("*"));
                                             }
                                             //パスリストに追加
                                             listPath.Add(path);
-                                            //次のループ用に文字列切り抜き
-                                            temp_line = temp_line.Substring(temp_line.IndexOf("|") + 1);
-                                        };
+
+                                        }
+                                        else
+                                        {
+                                            listPath.Add(line.Substring(line.IndexOf("=") + 1));
+                                        }
                                     }
+                                    //Vehicle後に「=」がない場合エラーフラグを立てる
                                     else
                                     {
-                                        listPath.Add(line.Substring(line.IndexOf("=") + 1));
+                                        errflg = true;
                                     }
                                 }
+                                //VehicleTitleのとき
                                 else
-                                {
-                                    errflg = true;
+                                {                                    
+                                    //文字列中に「=」があり、切り抜き後の文字列が存在するとき
+                                    if (line.Substring(line.IndexOf("=")).Length > 1)
+                                    {
+                                        lblVehicleTitle.Text = line;
+                                    }
+
                                 }
-                            } else if (line.IndexOf("Image") >= 0 )
+                            }
+                            else if (line.IndexOf("Image") >= 0 )
                             {
                                 if (line.Substring(line.IndexOf("=")).Length > 1)
                                 {
-                                    row = i;
                                     string file = line.Substring(line.IndexOf("=") + 1);
 
                                     pictureBox1.ImageLocation = Path.GetDirectoryName(strRouteFilePath) + "\\" + file.Trim();
                                 }
-                            } else if (line.IndexOf("Route") >= 0 && line.IndexOf("RouteTitle") < 0)
+                            }
+                            else if (line.IndexOf("Route") >= 0)
                             {
-
-                                if (line.Substring(line.IndexOf("=")).Length > 1)
+                                if (line.IndexOf("RouteTitle") < 0)
                                 {
-                                    if (line.IndexOf("*") > 0)
+                                    if (line.Substring(line.IndexOf("=")).Length > 1)
                                     {
-                                        strMapFilePath = Path.GetFullPath(dir + "\\" + line.Substring(0, line.IndexOf("*")).Substring(line.IndexOf("=") + 1).Trim());
+                                        if (line.IndexOf("*") > 0)
+                                        {
+                                            strMapFilePath = Path.GetFullPath(dir + "\\" + line.Substring(0, line.IndexOf("*")).Substring(line.IndexOf("=") + 1).Trim());
+                                        }
+                                        else if (line.IndexOf("|") > 0)
+                                        {
+                                            strMapFilePath = Path.GetFullPath(dir + "\\" + line.Substring(0, line.IndexOf("|")).Substring(line.IndexOf("=") + 1).Trim());
+                                        }
+                                        else
+                                        {
+                                            strMapFilePath = Path.GetFullPath(dir + "\\" + line.Substring(line.IndexOf("=") + 1).Trim());
+                                        }
+                                        if (File.Exists(strMapFilePath))
+                                        {
+                                            tbMapFilePath.Text = strMapFilePath;
+                                            btnMapOpen.Enabled = true;
+                                            OpenNewMapFile(strMapFilePath);
+                                        }
+                                        else
+                                        {
+                                            tbMapFilePath.Text = "Cannot Open";
+                                        }
+
                                     }
-                                    else if (line.IndexOf("|") > 0)
-                                    {
-                                        strMapFilePath = Path.GetFullPath(dir + "\\" +  line.Substring(0, line.IndexOf("|")).Substring(line.IndexOf("=") + 1).Trim());
-                                    }
+
                                     else
                                     {
-                                        strMapFilePath = Path.GetFullPath(dir + "\\" +  line.Substring(line.IndexOf("=") + 1).Trim());
+                                        tbMapFilePath.Text = "Not Found";
                                     }
-                                    if (File.Exists(strMapFilePath))
-                                    {
-                                        tbMapFilePath.Text = strMapFilePath;
-                                        btnMapOpen.Enabled = true;
-                                        OpenNewMapFile(strMapFilePath);
-                                    }
-                                    else
-                                    {
-                                        tbMapFilePath.Text = "Cannot Open";
-                                    }
-                                    
                                 }
                                 else
                                 {
-                                    tbMapFilePath.Text = "Not Found";
+                                    //文字列中に「=」があり、切り抜き後の文字列が存在するとき
+                                    if (line.Substring(line.IndexOf("=")).Length > 1)
+                                    {
+                                        lblRouteTitle.Text = line;
+                                    }
+                                }
+                            }
+                            else if (line.IndexOf("Title") == 0)
+                            {
+                                //文字列中に「=」があり、切り抜き後の文字列が存在するとき
+                                if (line.Substring(line.IndexOf("=")).Length > 1)
+                                {
+                                    lblTitle.Text = line;
+                                }
+                            }
+                            else if (line.IndexOf("Author") == 0)
+                            {
+                                //文字列中に「=」があり、切り抜き後の文字列が存在するとき
+                                if (line.Substring(line.IndexOf("=")).Length > 1)
+                                {
+                                    lblAuthor.Text = line;
+                                }
+                            }
+                            else if (line.IndexOf("Comment") == 0)
+                            {
+                                //文字列中に「=」があり、切り抜き後の文字列が存在するとき
+                                if (line.Substring(line.IndexOf("=")).Length > 1)
+                                {
+                                    lblComment.Text = line;
                                 }
                             }
                         }
-                        i++;
                     }
 
-                    //閉じる
+                    //ファイルを閉じる
                     sr.Close();
                     stream.Close();
 
                     //車両ファイルが指定されている場合の処理
-                    if ((row > 0) && !errflg)
+                    if (listPath.Count > 0 && !errflg)
                     {                         
                         strVehicleFilePath = dir + "\\" + listPath[0].Trim();
                         int index_ = 0;
@@ -185,8 +246,6 @@ namespace AtsPluginEditor
                         {
                             if (listPath.Count > 1)
                             {
-                                cbxVehicle.Visible = true;
-                                tbVehicle.Visible=false;
                                 btnBveBootChooseVehicle.Enabled = true;
                                 strDisp += "車両ファイルが複数あります、手動で設定してください。データ数：" + listPath.Count + "\n\n";
                                 index_ = 0;
@@ -197,8 +256,6 @@ namespace AtsPluginEditor
                             }
                             else
                             {
-                                tbVehicle.Visible = true;
-                                cbxVehicle.Visible = false;
                                 btnBveBootChooseVehicle.Enabled = false;
                             }
                             cbxVehicle.Text = listVehicleFilePath[0];
@@ -319,7 +376,6 @@ namespace AtsPluginEditor
                 int error = 0;
                 textBox1.AppendText("\r\n");
                 textBox1.AppendText("車両ファイル：" + strVehicleFilePath_ + "\r\n");
-                tbVehicle.Text = strVehicleFilePath_;
 
                 while ((line = sr.ReadLine()) != null)
                 {
@@ -398,7 +454,7 @@ namespace AtsPluginEditor
             {
                 strDisp += "ATSプラグインが指定されていません\n\n";
             }
-            if (strDisp != "" && cbMessage.Checked)
+            if (strDisp != "" && cbMessageDisp.Checked)
             {
                 MessageBox.Show(strDisp);
                 strDisp = "";
@@ -757,7 +813,6 @@ namespace AtsPluginEditor
             btnAts64Open.Enabled = false;
 
             tbMapFilePath.Text = "";
-            tbVehicle.Text = "";
             cbxVehicle.Items.Clear();
             listVehicleFilePath.Clear();
 
@@ -796,7 +851,7 @@ namespace AtsPluginEditor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cbMessage.Checked = BveFileExplorer.Properties.Settings.Default.cbMessage;
+            cbMessageDisp.Checked = BveFileExplorer.Properties.Settings.Default.cbMessage;
             lblAtsPluginFileName.Text = "";
             lblSeinarioFileName.Text = "";
         }
@@ -853,7 +908,7 @@ namespace AtsPluginEditor
 
         private void cbMessage_CheckedChanged(object sender, EventArgs e)
         {
-            BveFileExplorer.Properties.Settings.Default.cbMessage = cbMessage.Checked;
+            BveFileExplorer.Properties.Settings.Default.cbMessage = cbMessageDisp.Checked;
             BveFileExplorer.Properties.Settings.Default.Save();
         }
 

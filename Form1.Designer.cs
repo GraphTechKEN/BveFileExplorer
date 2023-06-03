@@ -44,26 +44,6 @@
             this.btnGenerateRelativePath = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tpLog = new System.Windows.Forms.TabPage();
-            this.tpRoute = new System.Windows.Forms.TabPage();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tbTrain = new System.Windows.Forms.TextBox();
-            this.tbSoundList = new System.Windows.Forms.TextBox();
-            this.btnTrainOpen = new System.Windows.Forms.Button();
-            this.tbStation = new System.Windows.Forms.TextBox();
-            this.btnSoundListOpen = new System.Windows.Forms.Button();
-            this.btnStationOpen = new System.Windows.Forms.Button();
-            this.tbSignal = new System.Windows.Forms.TextBox();
-            this.btnSignalOpen = new System.Windows.Forms.Button();
-            this.tbStructure = new System.Windows.Forms.TextBox();
-            this.btnStructureOpen = new System.Windows.Forms.Button();
-            this.tbMapFilePath = new System.Windows.Forms.TextBox();
-            this.btnMapOpen = new System.Windows.Forms.Button();
             this.tpVehicle = new System.Windows.Forms.TabPage();
             this.cbxVehicle = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -87,20 +67,44 @@
             this.tbParameters = new System.Windows.Forms.TextBox();
             this.btnParametersOpen = new System.Windows.Forms.Button();
             this.btnVehicleOpen = new System.Windows.Forms.Button();
-            this.tbVehicle = new System.Windows.Forms.TextBox();
             this.tbPerfoemanceCurve = new System.Windows.Forms.TextBox();
             this.btnPerfoemanceCurveOpen = new System.Windows.Forms.Button();
+            this.tpRoute = new System.Windows.Forms.TabPage();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbTrain = new System.Windows.Forms.TextBox();
+            this.tbSoundList = new System.Windows.Forms.TextBox();
+            this.btnTrainOpen = new System.Windows.Forms.Button();
+            this.tbStation = new System.Windows.Forms.TextBox();
+            this.btnSoundListOpen = new System.Windows.Forms.Button();
+            this.btnStationOpen = new System.Windows.Forms.Button();
+            this.tbSignal = new System.Windows.Forms.TextBox();
+            this.btnSignalOpen = new System.Windows.Forms.Button();
+            this.tbStructure = new System.Windows.Forms.TextBox();
+            this.btnStructureOpen = new System.Windows.Forms.Button();
+            this.tbMapFilePath = new System.Windows.Forms.TextBox();
+            this.btnMapOpen = new System.Windows.Forms.Button();
+            this.tpLog = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnBootBVE = new System.Windows.Forms.Button();
             this.lblSeinarioFileName = new System.Windows.Forms.Label();
-            this.cbMessage = new System.Windows.Forms.CheckBox();
+            this.cbMessageDisp = new System.Windows.Forms.CheckBox();
             this.btnBveBootChooseVehicle = new System.Windows.Forms.Button();
+            this.lblVehicleTitle = new System.Windows.Forms.Label();
+            this.lblRouteTitle = new System.Windows.Forms.Label();
+            this.lblAuthor = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.lblComment = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
-            this.tpLog.SuspendLayout();
-            this.tpRoute.SuspendLayout();
             this.tpVehicle.SuspendLayout();
+            this.tpRoute.SuspendLayout();
+            this.tpLog.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -128,13 +132,14 @@
             // 
             // btnOpen
             // 
+            this.btnOpen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnOpen.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.btnOpen.Location = new System.Drawing.Point(24, 72);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(101, 50);
             this.btnOpen.TabIndex = 4;
             this.btnOpen.Text = "2.シナリオファイル\r\nを指定";
-            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.UseVisualStyleBackColor = false;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // btnOpenRouteFile
@@ -236,7 +241,7 @@
             // lblAtsPluginFileName
             // 
             this.lblAtsPluginFileName.AutoSize = true;
-            this.lblAtsPluginFileName.Location = new System.Drawing.Point(22, 216);
+            this.lblAtsPluginFileName.Location = new System.Drawing.Point(22, 222);
             this.lblAtsPluginFileName.Name = "lblAtsPluginFileName";
             this.lblAtsPluginFileName.Size = new System.Drawing.Size(89, 12);
             this.lblAtsPluginFileName.TabIndex = 14;
@@ -269,214 +274,14 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tpLog);
-            this.tabControl1.Controls.Add(this.tpRoute);
             this.tabControl1.Controls.Add(this.tpVehicle);
+            this.tabControl1.Controls.Add(this.tpRoute);
+            this.tabControl1.Controls.Add(this.tpLog);
             this.tabControl1.Location = new System.Drawing.Point(12, 264);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(904, 411);
             this.tabControl1.TabIndex = 18;
-            // 
-            // tpLog
-            // 
-            this.tpLog.Controls.Add(this.textBox1);
-            this.tpLog.Location = new System.Drawing.Point(4, 22);
-            this.tpLog.Name = "tpLog";
-            this.tpLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tpLog.Size = new System.Drawing.Size(896, 385);
-            this.tpLog.TabIndex = 0;
-            this.tpLog.Text = "読込ログ";
-            this.tpLog.UseVisualStyleBackColor = true;
-            // 
-            // tpRoute
-            // 
-            this.tpRoute.Controls.Add(this.label16);
-            this.tpRoute.Controls.Add(this.label15);
-            this.tpRoute.Controls.Add(this.label13);
-            this.tpRoute.Controls.Add(this.label14);
-            this.tpRoute.Controls.Add(this.label12);
-            this.tpRoute.Controls.Add(this.label3);
-            this.tpRoute.Controls.Add(this.tbTrain);
-            this.tpRoute.Controls.Add(this.tbSoundList);
-            this.tpRoute.Controls.Add(this.btnTrainOpen);
-            this.tpRoute.Controls.Add(this.tbStation);
-            this.tpRoute.Controls.Add(this.btnSoundListOpen);
-            this.tpRoute.Controls.Add(this.btnStationOpen);
-            this.tpRoute.Controls.Add(this.tbSignal);
-            this.tpRoute.Controls.Add(this.btnSignalOpen);
-            this.tpRoute.Controls.Add(this.tbStructure);
-            this.tpRoute.Controls.Add(this.btnStructureOpen);
-            this.tpRoute.Controls.Add(this.tbMapFilePath);
-            this.tpRoute.Controls.Add(this.btnMapOpen);
-            this.tpRoute.Location = new System.Drawing.Point(4, 22);
-            this.tpRoute.Name = "tpRoute";
-            this.tpRoute.Size = new System.Drawing.Size(896, 385);
-            this.tpRoute.TabIndex = 2;
-            this.tpRoute.Text = "マップファイル関連";
-            this.tpRoute.UseVisualStyleBackColor = true;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(19, 276);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(109, 12);
-            this.label16.TabIndex = 5;
-            this.label16.Text = "他列車ファイル(Train)";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(19, 239);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(139, 12);
-            this.label15.TabIndex = 5;
-            this.label15.Text = "サウンドリストファイル(Sound)";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(19, 165);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(119, 12);
-            this.label13.TabIndex = 5;
-            this.label13.Text = "停車場ファイル(Staiton)";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(19, 202);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(104, 12);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "地上信号機(Signal)";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(19, 128);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(144, 12);
-            this.label12.TabIndex = 5;
-            this.label12.Text = "ストラクチャファイル(Structure)";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 50);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(102, 12);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "マップファイル(Route)";
-            // 
-            // tbTrain
-            // 
-            this.tbTrain.Location = new System.Drawing.Point(247, 273);
-            this.tbTrain.Name = "tbTrain";
-            this.tbTrain.Size = new System.Drawing.Size(626, 19);
-            this.tbTrain.TabIndex = 4;
-            // 
-            // tbSoundList
-            // 
-            this.tbSoundList.Location = new System.Drawing.Point(247, 236);
-            this.tbSoundList.Name = "tbSoundList";
-            this.tbSoundList.Size = new System.Drawing.Size(626, 19);
-            this.tbSoundList.TabIndex = 4;
-            // 
-            // btnTrainOpen
-            // 
-            this.btnTrainOpen.Enabled = false;
-            this.btnTrainOpen.Location = new System.Drawing.Point(187, 269);
-            this.btnTrainOpen.Name = "btnTrainOpen";
-            this.btnTrainOpen.Size = new System.Drawing.Size(54, 26);
-            this.btnTrainOpen.TabIndex = 3;
-            this.btnTrainOpen.Text = "開く";
-            this.btnTrainOpen.UseVisualStyleBackColor = true;
-            this.btnTrainOpen.Click += new System.EventHandler(this.btnTrainOpen_Click);
-            // 
-            // tbStation
-            // 
-            this.tbStation.Location = new System.Drawing.Point(247, 162);
-            this.tbStation.Name = "tbStation";
-            this.tbStation.Size = new System.Drawing.Size(626, 19);
-            this.tbStation.TabIndex = 4;
-            // 
-            // btnSoundListOpen
-            // 
-            this.btnSoundListOpen.Enabled = false;
-            this.btnSoundListOpen.Location = new System.Drawing.Point(187, 232);
-            this.btnSoundListOpen.Name = "btnSoundListOpen";
-            this.btnSoundListOpen.Size = new System.Drawing.Size(54, 26);
-            this.btnSoundListOpen.TabIndex = 3;
-            this.btnSoundListOpen.Text = "開く";
-            this.btnSoundListOpen.UseVisualStyleBackColor = true;
-            this.btnSoundListOpen.Click += new System.EventHandler(this.btnSoundListOpen_Click);
-            // 
-            // btnStationOpen
-            // 
-            this.btnStationOpen.Enabled = false;
-            this.btnStationOpen.Location = new System.Drawing.Point(187, 158);
-            this.btnStationOpen.Name = "btnStationOpen";
-            this.btnStationOpen.Size = new System.Drawing.Size(54, 26);
-            this.btnStationOpen.TabIndex = 3;
-            this.btnStationOpen.Text = "開く";
-            this.btnStationOpen.UseVisualStyleBackColor = true;
-            this.btnStationOpen.Click += new System.EventHandler(this.btnStationOpen_Click);
-            // 
-            // tbSignal
-            // 
-            this.tbSignal.Location = new System.Drawing.Point(247, 199);
-            this.tbSignal.Name = "tbSignal";
-            this.tbSignal.Size = new System.Drawing.Size(626, 19);
-            this.tbSignal.TabIndex = 4;
-            // 
-            // btnSignalOpen
-            // 
-            this.btnSignalOpen.Enabled = false;
-            this.btnSignalOpen.Location = new System.Drawing.Point(187, 195);
-            this.btnSignalOpen.Name = "btnSignalOpen";
-            this.btnSignalOpen.Size = new System.Drawing.Size(54, 26);
-            this.btnSignalOpen.TabIndex = 3;
-            this.btnSignalOpen.Text = "開く";
-            this.btnSignalOpen.UseVisualStyleBackColor = true;
-            this.btnSignalOpen.Click += new System.EventHandler(this.btnSignalOpen_Click);
-            // 
-            // tbStructure
-            // 
-            this.tbStructure.Location = new System.Drawing.Point(247, 125);
-            this.tbStructure.Name = "tbStructure";
-            this.tbStructure.Size = new System.Drawing.Size(626, 19);
-            this.tbStructure.TabIndex = 4;
-            // 
-            // btnStructureOpen
-            // 
-            this.btnStructureOpen.Enabled = false;
-            this.btnStructureOpen.Location = new System.Drawing.Point(187, 121);
-            this.btnStructureOpen.Name = "btnStructureOpen";
-            this.btnStructureOpen.Size = new System.Drawing.Size(54, 26);
-            this.btnStructureOpen.TabIndex = 3;
-            this.btnStructureOpen.Text = "開く";
-            this.btnStructureOpen.UseVisualStyleBackColor = true;
-            this.btnStructureOpen.Click += new System.EventHandler(this.btnStructureOpen_Click);
-            // 
-            // tbMapFilePath
-            // 
-            this.tbMapFilePath.Location = new System.Drawing.Point(247, 47);
-            this.tbMapFilePath.Name = "tbMapFilePath";
-            this.tbMapFilePath.Size = new System.Drawing.Size(626, 19);
-            this.tbMapFilePath.TabIndex = 4;
-            // 
-            // btnMapOpen
-            // 
-            this.btnMapOpen.Enabled = false;
-            this.btnMapOpen.Location = new System.Drawing.Point(187, 43);
-            this.btnMapOpen.Name = "btnMapOpen";
-            this.btnMapOpen.Size = new System.Drawing.Size(54, 26);
-            this.btnMapOpen.TabIndex = 3;
-            this.btnMapOpen.Text = "開く";
-            this.btnMapOpen.UseVisualStyleBackColor = true;
-            this.btnMapOpen.Click += new System.EventHandler(this.btnMapOpen_Click_1);
             // 
             // tpVehicle
             // 
@@ -502,7 +307,6 @@
             this.tpVehicle.Controls.Add(this.tbParameters);
             this.tpVehicle.Controls.Add(this.btnParametersOpen);
             this.tpVehicle.Controls.Add(this.btnVehicleOpen);
-            this.tpVehicle.Controls.Add(this.tbVehicle);
             this.tpVehicle.Controls.Add(this.tbPerfoemanceCurve);
             this.tpVehicle.Controls.Add(this.btnPerfoemanceCurveOpen);
             this.tpVehicle.Location = new System.Drawing.Point(4, 22);
@@ -516,7 +320,7 @@
             // cbxVehicle
             // 
             this.cbxVehicle.FormattingEnabled = true;
-            this.cbxVehicle.Location = new System.Drawing.Point(247, 46);
+            this.cbxVehicle.Location = new System.Drawing.Point(247, 47);
             this.cbxVehicle.Name = "cbxVehicle";
             this.cbxVehicle.Size = new System.Drawing.Size(626, 20);
             this.cbxVehicle.TabIndex = 3;
@@ -715,13 +519,6 @@
             this.btnVehicleOpen.UseVisualStyleBackColor = true;
             this.btnVehicleOpen.Click += new System.EventHandler(this.btnOpenVehicleFile_Click);
             // 
-            // tbVehicle
-            // 
-            this.tbVehicle.Location = new System.Drawing.Point(247, 46);
-            this.tbVehicle.Name = "tbVehicle";
-            this.tbVehicle.Size = new System.Drawing.Size(626, 19);
-            this.tbVehicle.TabIndex = 1;
-            // 
             // tbPerfoemanceCurve
             // 
             this.tbPerfoemanceCurve.Location = new System.Drawing.Point(247, 125);
@@ -739,6 +536,206 @@
             this.btnPerfoemanceCurveOpen.Text = "開く";
             this.btnPerfoemanceCurveOpen.UseVisualStyleBackColor = true;
             this.btnPerfoemanceCurveOpen.Click += new System.EventHandler(this.btnPerfoemanceCurveOpen_Click);
+            // 
+            // tpRoute
+            // 
+            this.tpRoute.Controls.Add(this.label16);
+            this.tpRoute.Controls.Add(this.label15);
+            this.tpRoute.Controls.Add(this.label13);
+            this.tpRoute.Controls.Add(this.label14);
+            this.tpRoute.Controls.Add(this.label12);
+            this.tpRoute.Controls.Add(this.label3);
+            this.tpRoute.Controls.Add(this.tbTrain);
+            this.tpRoute.Controls.Add(this.tbSoundList);
+            this.tpRoute.Controls.Add(this.btnTrainOpen);
+            this.tpRoute.Controls.Add(this.tbStation);
+            this.tpRoute.Controls.Add(this.btnSoundListOpen);
+            this.tpRoute.Controls.Add(this.btnStationOpen);
+            this.tpRoute.Controls.Add(this.tbSignal);
+            this.tpRoute.Controls.Add(this.btnSignalOpen);
+            this.tpRoute.Controls.Add(this.tbStructure);
+            this.tpRoute.Controls.Add(this.btnStructureOpen);
+            this.tpRoute.Controls.Add(this.tbMapFilePath);
+            this.tpRoute.Controls.Add(this.btnMapOpen);
+            this.tpRoute.Location = new System.Drawing.Point(4, 22);
+            this.tpRoute.Name = "tpRoute";
+            this.tpRoute.Size = new System.Drawing.Size(896, 385);
+            this.tpRoute.TabIndex = 2;
+            this.tpRoute.Text = "マップファイル関連";
+            this.tpRoute.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(19, 276);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(109, 12);
+            this.label16.TabIndex = 5;
+            this.label16.Text = "他列車ファイル(Train)";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(19, 239);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(139, 12);
+            this.label15.TabIndex = 5;
+            this.label15.Text = "サウンドリストファイル(Sound)";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(19, 165);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(119, 12);
+            this.label13.TabIndex = 5;
+            this.label13.Text = "停車場ファイル(Staiton)";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(19, 202);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(104, 12);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "地上信号機(Signal)";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(19, 128);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(144, 12);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "ストラクチャファイル(Structure)";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(19, 50);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(102, 12);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "マップファイル(Route)";
+            // 
+            // tbTrain
+            // 
+            this.tbTrain.Location = new System.Drawing.Point(247, 273);
+            this.tbTrain.Name = "tbTrain";
+            this.tbTrain.Size = new System.Drawing.Size(626, 19);
+            this.tbTrain.TabIndex = 4;
+            // 
+            // tbSoundList
+            // 
+            this.tbSoundList.Location = new System.Drawing.Point(247, 236);
+            this.tbSoundList.Name = "tbSoundList";
+            this.tbSoundList.Size = new System.Drawing.Size(626, 19);
+            this.tbSoundList.TabIndex = 4;
+            // 
+            // btnTrainOpen
+            // 
+            this.btnTrainOpen.Enabled = false;
+            this.btnTrainOpen.Location = new System.Drawing.Point(187, 269);
+            this.btnTrainOpen.Name = "btnTrainOpen";
+            this.btnTrainOpen.Size = new System.Drawing.Size(54, 26);
+            this.btnTrainOpen.TabIndex = 3;
+            this.btnTrainOpen.Text = "開く";
+            this.btnTrainOpen.UseVisualStyleBackColor = true;
+            this.btnTrainOpen.Click += new System.EventHandler(this.btnTrainOpen_Click);
+            // 
+            // tbStation
+            // 
+            this.tbStation.Location = new System.Drawing.Point(247, 162);
+            this.tbStation.Name = "tbStation";
+            this.tbStation.Size = new System.Drawing.Size(626, 19);
+            this.tbStation.TabIndex = 4;
+            // 
+            // btnSoundListOpen
+            // 
+            this.btnSoundListOpen.Enabled = false;
+            this.btnSoundListOpen.Location = new System.Drawing.Point(187, 232);
+            this.btnSoundListOpen.Name = "btnSoundListOpen";
+            this.btnSoundListOpen.Size = new System.Drawing.Size(54, 26);
+            this.btnSoundListOpen.TabIndex = 3;
+            this.btnSoundListOpen.Text = "開く";
+            this.btnSoundListOpen.UseVisualStyleBackColor = true;
+            this.btnSoundListOpen.Click += new System.EventHandler(this.btnSoundListOpen_Click);
+            // 
+            // btnStationOpen
+            // 
+            this.btnStationOpen.Enabled = false;
+            this.btnStationOpen.Location = new System.Drawing.Point(187, 158);
+            this.btnStationOpen.Name = "btnStationOpen";
+            this.btnStationOpen.Size = new System.Drawing.Size(54, 26);
+            this.btnStationOpen.TabIndex = 3;
+            this.btnStationOpen.Text = "開く";
+            this.btnStationOpen.UseVisualStyleBackColor = true;
+            this.btnStationOpen.Click += new System.EventHandler(this.btnStationOpen_Click);
+            // 
+            // tbSignal
+            // 
+            this.tbSignal.Location = new System.Drawing.Point(247, 199);
+            this.tbSignal.Name = "tbSignal";
+            this.tbSignal.Size = new System.Drawing.Size(626, 19);
+            this.tbSignal.TabIndex = 4;
+            // 
+            // btnSignalOpen
+            // 
+            this.btnSignalOpen.Enabled = false;
+            this.btnSignalOpen.Location = new System.Drawing.Point(187, 195);
+            this.btnSignalOpen.Name = "btnSignalOpen";
+            this.btnSignalOpen.Size = new System.Drawing.Size(54, 26);
+            this.btnSignalOpen.TabIndex = 3;
+            this.btnSignalOpen.Text = "開く";
+            this.btnSignalOpen.UseVisualStyleBackColor = true;
+            this.btnSignalOpen.Click += new System.EventHandler(this.btnSignalOpen_Click);
+            // 
+            // tbStructure
+            // 
+            this.tbStructure.Location = new System.Drawing.Point(247, 125);
+            this.tbStructure.Name = "tbStructure";
+            this.tbStructure.Size = new System.Drawing.Size(626, 19);
+            this.tbStructure.TabIndex = 4;
+            // 
+            // btnStructureOpen
+            // 
+            this.btnStructureOpen.Enabled = false;
+            this.btnStructureOpen.Location = new System.Drawing.Point(187, 121);
+            this.btnStructureOpen.Name = "btnStructureOpen";
+            this.btnStructureOpen.Size = new System.Drawing.Size(54, 26);
+            this.btnStructureOpen.TabIndex = 3;
+            this.btnStructureOpen.Text = "開く";
+            this.btnStructureOpen.UseVisualStyleBackColor = true;
+            this.btnStructureOpen.Click += new System.EventHandler(this.btnStructureOpen_Click);
+            // 
+            // tbMapFilePath
+            // 
+            this.tbMapFilePath.Location = new System.Drawing.Point(247, 47);
+            this.tbMapFilePath.Name = "tbMapFilePath";
+            this.tbMapFilePath.Size = new System.Drawing.Size(626, 19);
+            this.tbMapFilePath.TabIndex = 4;
+            // 
+            // btnMapOpen
+            // 
+            this.btnMapOpen.Enabled = false;
+            this.btnMapOpen.Location = new System.Drawing.Point(187, 43);
+            this.btnMapOpen.Name = "btnMapOpen";
+            this.btnMapOpen.Size = new System.Drawing.Size(54, 26);
+            this.btnMapOpen.TabIndex = 3;
+            this.btnMapOpen.Text = "開く";
+            this.btnMapOpen.UseVisualStyleBackColor = true;
+            this.btnMapOpen.Click += new System.EventHandler(this.btnMapOpen_Click_1);
+            // 
+            // tpLog
+            // 
+            this.tpLog.Controls.Add(this.textBox1);
+            this.tpLog.Location = new System.Drawing.Point(4, 22);
+            this.tpLog.Name = "tpLog";
+            this.tpLog.Padding = new System.Windows.Forms.Padding(3);
+            this.tpLog.Size = new System.Drawing.Size(896, 385);
+            this.tpLog.TabIndex = 0;
+            this.tpLog.Text = "読込ログ";
+            this.tpLog.UseVisualStyleBackColor = true;
             // 
             // statusStrip1
             // 
@@ -771,24 +768,24 @@
             // lblSeinarioFileName
             // 
             this.lblSeinarioFileName.AutoSize = true;
-            this.lblSeinarioFileName.Location = new System.Drawing.Point(22, 234);
+            this.lblSeinarioFileName.Location = new System.Drawing.Point(22, 240);
             this.lblSeinarioFileName.Name = "lblSeinarioFileName";
             this.lblSeinarioFileName.Size = new System.Drawing.Size(81, 12);
             this.lblSeinarioFileName.TabIndex = 14;
             this.lblSeinarioFileName.Text = "Target:Seinario";
             // 
-            // cbMessage
+            // cbMessageDisp
             // 
-            this.cbMessage.AutoSize = true;
-            this.cbMessage.Checked = true;
-            this.cbMessage.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbMessage.Location = new System.Drawing.Point(790, 127);
-            this.cbMessage.Name = "cbMessage";
-            this.cbMessage.Size = new System.Drawing.Size(93, 16);
-            this.cbMessage.TabIndex = 21;
-            this.cbMessage.Text = "メッセージ表示";
-            this.cbMessage.UseVisualStyleBackColor = true;
-            this.cbMessage.CheckedChanged += new System.EventHandler(this.cbMessage_CheckedChanged);
+            this.cbMessageDisp.AutoSize = true;
+            this.cbMessageDisp.Checked = true;
+            this.cbMessageDisp.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbMessageDisp.Location = new System.Drawing.Point(790, 127);
+            this.cbMessageDisp.Name = "cbMessageDisp";
+            this.cbMessageDisp.Size = new System.Drawing.Size(93, 16);
+            this.cbMessageDisp.TabIndex = 21;
+            this.cbMessageDisp.Text = "メッセージ表示";
+            this.cbMessageDisp.UseVisualStyleBackColor = true;
+            this.cbMessageDisp.CheckedChanged += new System.EventHandler(this.cbMessage_CheckedChanged);
             // 
             // btnBveBootChooseVehicle
             // 
@@ -801,12 +798,62 @@
             this.btnBveBootChooseVehicle.UseVisualStyleBackColor = true;
             this.btnBveBootChooseVehicle.Click += new System.EventHandler(this.btnBveBootChooseVehicle_Click);
             // 
+            // lblVehicleTitle
+            // 
+            this.lblVehicleTitle.AutoSize = true;
+            this.lblVehicleTitle.Location = new System.Drawing.Point(32, 181);
+            this.lblVehicleTitle.Name = "lblVehicleTitle";
+            this.lblVehicleTitle.Size = new System.Drawing.Size(66, 12);
+            this.lblVehicleTitle.TabIndex = 22;
+            this.lblVehicleTitle.Text = "VehicleTitle";
+            // 
+            // lblRouteTitle
+            // 
+            this.lblRouteTitle.AutoSize = true;
+            this.lblRouteTitle.Location = new System.Drawing.Point(32, 154);
+            this.lblRouteTitle.Name = "lblRouteTitle";
+            this.lblRouteTitle.Size = new System.Drawing.Size(62, 12);
+            this.lblRouteTitle.TabIndex = 23;
+            this.lblRouteTitle.Text = "Route Title";
+            // 
+            // lblAuthor
+            // 
+            this.lblAuthor.AutoSize = true;
+            this.lblAuthor.Location = new System.Drawing.Point(32, 168);
+            this.lblAuthor.Name = "lblAuthor";
+            this.lblAuthor.Size = new System.Drawing.Size(39, 12);
+            this.lblAuthor.TabIndex = 23;
+            this.lblAuthor.Text = "Author";
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(32, 140);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(28, 12);
+            this.lblTitle.TabIndex = 23;
+            this.lblTitle.Text = "Title";
+            // 
+            // lblComment
+            // 
+            this.lblComment.AutoSize = true;
+            this.lblComment.Location = new System.Drawing.Point(32, 195);
+            this.lblComment.Name = "lblComment";
+            this.lblComment.Size = new System.Drawing.Size(53, 12);
+            this.lblComment.TabIndex = 22;
+            this.lblComment.Text = "Comment";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(920, 698);
-            this.Controls.Add(this.cbMessage);
+            this.Controls.Add(this.lblAuthor);
+            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.lblRouteTitle);
+            this.Controls.Add(this.lblComment);
+            this.Controls.Add(this.lblVehicleTitle);
+            this.Controls.Add(this.cbMessageDisp);
             this.Controls.Add(this.btnBveBootChooseVehicle);
             this.Controls.Add(this.btnBootBVE);
             this.Controls.Add(this.statusStrip1);
@@ -827,17 +874,17 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "BVE File Explorer ( Beta ver 0.9.3 )";
+            this.Text = "BVE File Explorer ( Beta ver 0.9.4.1 )";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.tpLog.ResumeLayout(false);
-            this.tpLog.PerformLayout();
-            this.tpRoute.ResumeLayout(false);
-            this.tpRoute.PerformLayout();
             this.tpVehicle.ResumeLayout(false);
             this.tpVehicle.PerformLayout();
+            this.tpRoute.ResumeLayout(false);
+            this.tpRoute.PerformLayout();
+            this.tpLog.ResumeLayout(false);
+            this.tpLog.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -912,9 +959,13 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Button btnBootBVE;
         private System.Windows.Forms.Label lblSeinarioFileName;
-        private System.Windows.Forms.CheckBox cbMessage;
-        private System.Windows.Forms.TextBox tbVehicle;
+        private System.Windows.Forms.CheckBox cbMessageDisp;
         private System.Windows.Forms.Button btnBveBootChooseVehicle;
+        private System.Windows.Forms.Label lblVehicleTitle;
+        private System.Windows.Forms.Label lblRouteTitle;
+        private System.Windows.Forms.Label lblAuthor;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Label lblComment;
     }
 }
 
