@@ -801,7 +801,7 @@
             // lblVehicleTitle
             // 
             this.lblVehicleTitle.AutoSize = true;
-            this.lblVehicleTitle.Location = new System.Drawing.Point(32, 181);
+            this.lblVehicleTitle.Location = new System.Drawing.Point(32, 168);
             this.lblVehicleTitle.Name = "lblVehicleTitle";
             this.lblVehicleTitle.Size = new System.Drawing.Size(66, 12);
             this.lblVehicleTitle.TabIndex = 22;
@@ -819,7 +819,7 @@
             // lblAuthor
             // 
             this.lblAuthor.AutoSize = true;
-            this.lblAuthor.Location = new System.Drawing.Point(32, 168);
+            this.lblAuthor.Location = new System.Drawing.Point(32, 182);
             this.lblAuthor.Name = "lblAuthor";
             this.lblAuthor.Size = new System.Drawing.Size(39, 12);
             this.lblAuthor.TabIndex = 23;
@@ -837,7 +837,7 @@
             // lblComment
             // 
             this.lblComment.AutoSize = true;
-            this.lblComment.Location = new System.Drawing.Point(32, 195);
+            this.lblComment.Location = new System.Drawing.Point(33, 196);
             this.lblComment.Name = "lblComment";
             this.lblComment.Size = new System.Drawing.Size(53, 12);
             this.lblComment.TabIndex = 22;
