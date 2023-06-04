@@ -58,5 +58,17 @@ namespace BveFileExplorer.Properties {
                 this["cbMessage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string strBvePath {
+            get {
+                return ((string)(this["strBvePath"]));
+            }
+            set {
+                this["strBvePath"] = value;
+            }
+        }
     }
 }
