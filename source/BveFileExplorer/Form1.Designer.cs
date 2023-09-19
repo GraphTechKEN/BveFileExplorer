@@ -31,10 +31,10 @@
             this.btnOpenSenario = new System.Windows.Forms.Button();
             this.btnOpenSenarioFile = new System.Windows.Forms.Button();
             this.btnOpenVehicleFile = new System.Windows.Forms.Button();
-            this.btnOpenAts32Directory = new System.Windows.Forms.Button();
+            this.btnAts32OpenDirectory = new System.Windows.Forms.Button();
             this.btnOpenVehicleDirectory = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txbLog = new System.Windows.Forms.TextBox();
             this.btnAtsPluginDirectory = new System.Windows.Forms.Button();
             this.lblAtsPluginFile = new System.Windows.Forms.Label();
             this.btnGenerateRelativePath = new System.Windows.Forms.Button();
@@ -57,7 +57,7 @@
             this.tbMotorNoise = new System.Windows.Forms.TextBox();
             this.tbSound = new System.Windows.Forms.TextBox();
             this.tbPanel = new System.Windows.Forms.TextBox();
-            this.btnAts64OpenFile = new System.Windows.Forms.Button();
+            this.btnAts64Open = new System.Windows.Forms.Button();
             this.btnAts64Check = new System.Windows.Forms.Button();
             this.btnAts32Check = new System.Windows.Forms.Button();
             this.btnAts32Open = new System.Windows.Forms.Button();
@@ -87,6 +87,18 @@
             this.tbStructure = new System.Windows.Forms.TextBox();
             this.btnStructureOpen = new System.Windows.Forms.Button();
             this.btnMapOpen = new System.Windows.Forms.Button();
+            this.tpAts32 = new System.Windows.Forms.TabPage();
+            this.dgvAts32 = new System.Windows.Forms.DataGridView();
+            this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Build = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelativePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FullPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tpAts64 = new System.Windows.Forms.TabPage();
+            this.dgvAts64 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tpLog = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -116,22 +128,41 @@
             this.btnAts32Add = new System.Windows.Forms.Button();
             this.btnAts64Add = new System.Windows.Forms.Button();
             this.btnAts32RelatePathGen = new System.Windows.Forms.Button();
-            this.btnAts64RPathGen = new System.Windows.Forms.Button();
+            this.btnAts64RelatePathGen = new System.Windows.Forms.Button();
+            this.gbxSenario = new System.Windows.Forms.GroupBox();
+            this.btnPerfoemanceCurveDirectory = new System.Windows.Forms.Button();
+            this.btnParametersDirectory = new System.Windows.Forms.Button();
+            this.btnPanelDirectory = new System.Windows.Forms.Button();
+            this.btnSoundDirectory = new System.Windows.Forms.Button();
+            this.btnMotorNoiseDirectory = new System.Windows.Forms.Button();
+            this.btnMapDirectory = new System.Windows.Forms.Button();
+            this.btnStructureDirectory = new System.Windows.Forms.Button();
+            this.btnStationDirectory = new System.Windows.Forms.Button();
+            this.btnSignalDirectory = new System.Windows.Forms.Button();
+            this.btnSoundListDirectory = new System.Windows.Forms.Button();
+            this.btnTrainDirectory = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tpVehicle.SuspendLayout();
             this.tpRoute.SuspendLayout();
+            this.tpAts32.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAts32)).BeginInit();
+            this.tpAts64.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAts64)).BeginInit();
             this.tpLog.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.gbxBve5.SuspendLayout();
             this.gbxBve6.SuspendLayout();
+            this.gbxSenario.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOpenSenario
             // 
             this.btnOpenSenario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnOpenSenario.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnOpenSenario.Location = new System.Drawing.Point(38, 55);
+            this.btnOpenSenario.Location = new System.Drawing.Point(26, 48);
             this.btnOpenSenario.Name = "btnOpenSenario";
             this.btnOpenSenario.Size = new System.Drawing.Size(219, 50);
             this.btnOpenSenario.TabIndex = 4;
@@ -142,7 +173,7 @@
             // btnOpenSenarioFile
             // 
             this.btnOpenSenarioFile.Enabled = false;
-            this.btnOpenSenarioFile.Location = new System.Drawing.Point(203, 244);
+            this.btnOpenSenarioFile.Location = new System.Drawing.Point(203, 242);
             this.btnOpenSenarioFile.Name = "btnOpenSenarioFile";
             this.btnOpenSenarioFile.Size = new System.Drawing.Size(54, 24);
             this.btnOpenSenarioFile.TabIndex = 5;
@@ -161,16 +192,16 @@
             this.btnOpenVehicleFile.UseVisualStyleBackColor = true;
             this.btnOpenVehicleFile.Click += new System.EventHandler(this.btnOpenVehicleFile_Click);
             // 
-            // btnOpenAts32Directory
+            // btnAts32OpenDirectory
             // 
-            this.btnOpenAts32Directory.Enabled = false;
-            this.btnOpenAts32Directory.Location = new System.Drawing.Point(247, 306);
-            this.btnOpenAts32Directory.Name = "btnOpenAts32Directory";
-            this.btnOpenAts32Directory.Size = new System.Drawing.Size(54, 26);
-            this.btnOpenAts32Directory.TabIndex = 8;
-            this.btnOpenAts32Directory.Text = "フォルダ";
-            this.btnOpenAts32Directory.UseVisualStyleBackColor = true;
-            this.btnOpenAts32Directory.Click += new System.EventHandler(this.btnOpenAts32Directory_Click);
+            this.btnAts32OpenDirectory.Enabled = false;
+            this.btnAts32OpenDirectory.Location = new System.Drawing.Point(247, 306);
+            this.btnAts32OpenDirectory.Name = "btnAts32OpenDirectory";
+            this.btnAts32OpenDirectory.Size = new System.Drawing.Size(54, 26);
+            this.btnAts32OpenDirectory.TabIndex = 8;
+            this.btnAts32OpenDirectory.Text = "フォルダ";
+            this.btnAts32OpenDirectory.UseVisualStyleBackColor = true;
+            this.btnAts32OpenDirectory.Click += new System.EventHandler(this.btnOpenAts32Directory_Click);
             // 
             // btnOpenVehicleDirectory
             // 
@@ -185,30 +216,30 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(281, 13);
+            this.pictureBox1.Location = new System.Drawing.Point(280, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(160, 160);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 10;
             this.pictureBox1.TabStop = false;
             // 
-            // textBox1
+            // txbLog
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.txbLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(8, 6);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(1017, 405);
-            this.textBox1.TabIndex = 11;
+            this.txbLog.Location = new System.Drawing.Point(8, 6);
+            this.txbLog.Multiline = true;
+            this.txbLog.Name = "txbLog";
+            this.txbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txbLog.Size = new System.Drawing.Size(1017, 431);
+            this.txbLog.TabIndex = 11;
             // 
             // btnAtsPluginDirectory
             // 
             this.btnAtsPluginDirectory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnAtsPluginDirectory.Enabled = false;
-            this.btnAtsPluginDirectory.Location = new System.Drawing.Point(38, 277);
+            this.btnAtsPluginDirectory.Location = new System.Drawing.Point(21, 18);
             this.btnAtsPluginDirectory.Name = "btnAtsPluginDirectory";
             this.btnAtsPluginDirectory.Size = new System.Drawing.Size(219, 25);
             this.btnAtsPluginDirectory.TabIndex = 13;
@@ -219,7 +250,7 @@
             // lblAtsPluginFile
             // 
             this.lblAtsPluginFile.AutoSize = true;
-            this.lblAtsPluginFile.Location = new System.Drawing.Point(36, 311);
+            this.lblAtsPluginFile.Location = new System.Drawing.Point(19, 51);
             this.lblAtsPluginFile.Name = "lblAtsPluginFile";
             this.lblAtsPluginFile.Size = new System.Drawing.Size(71, 12);
             this.lblAtsPluginFile.TabIndex = 14;
@@ -229,11 +260,11 @@
             // 
             this.btnGenerateRelativePath.BackColor = System.Drawing.SystemColors.Control;
             this.btnGenerateRelativePath.Enabled = false;
-            this.btnGenerateRelativePath.Location = new System.Drawing.Point(890, 121);
+            this.btnGenerateRelativePath.Location = new System.Drawing.Point(307, 18);
             this.btnGenerateRelativePath.Name = "btnGenerateRelativePath";
-            this.btnGenerateRelativePath.Size = new System.Drawing.Size(110, 49);
+            this.btnGenerateRelativePath.Size = new System.Drawing.Size(225, 24);
             this.btnGenerateRelativePath.TabIndex = 15;
-            this.btnGenerateRelativePath.Text = "ATSプラグインパスを\r\n読込ログに生成";
+            this.btnGenerateRelativePath.Text = "ATSプラグインパスを読込ログに生成";
             this.btnGenerateRelativePath.UseVisualStyleBackColor = false;
             this.btnGenerateRelativePath.Visible = false;
             this.btnGenerateRelativePath.Click += new System.EventHandler(this.btnGenerateRelativePath_Click);
@@ -255,17 +286,20 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tpVehicle);
             this.tabControl1.Controls.Add(this.tpRoute);
+            this.tabControl1.Controls.Add(this.tpAts32);
+            this.tabControl1.Controls.Add(this.tpAts64);
             this.tabControl1.Controls.Add(this.tpLog);
-            this.tabControl1.Location = new System.Drawing.Point(12, 387);
+            this.tabControl1.Location = new System.Drawing.Point(12, 402);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1039, 443);
+            this.tabControl1.Size = new System.Drawing.Size(1039, 469);
             this.tabControl1.TabIndex = 18;
+            this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
             // tpVehicle
             // 
             this.tpVehicle.Controls.Add(this.lblVehicleVer);
-            this.tpVehicle.Controls.Add(this.btnOpenAts32Directory);
+            this.tpVehicle.Controls.Add(this.btnAts32OpenDirectory);
             this.tpVehicle.Controls.Add(this.btnAts64OpenDirectory);
             this.tpVehicle.Controls.Add(this.cbxVehicle);
             this.tpVehicle.Controls.Add(this.lblAts64);
@@ -279,11 +313,16 @@
             this.tpVehicle.Controls.Add(this.tbAts64);
             this.tpVehicle.Controls.Add(this.tbAts32);
             this.tpVehicle.Controls.Add(this.tbMotorNoise);
+            this.tpVehicle.Controls.Add(this.btnMotorNoiseDirectory);
+            this.tpVehicle.Controls.Add(this.btnSoundDirectory);
+            this.tpVehicle.Controls.Add(this.btnPanelDirectory);
+            this.tpVehicle.Controls.Add(this.btnParametersDirectory);
+            this.tpVehicle.Controls.Add(this.btnPerfoemanceCurveDirectory);
             this.tpVehicle.Controls.Add(this.btnOpenVehicleDirectory);
             this.tpVehicle.Controls.Add(this.tbSound);
             this.tpVehicle.Controls.Add(this.btnOpenVehicleFile);
             this.tpVehicle.Controls.Add(this.tbPanel);
-            this.tpVehicle.Controls.Add(this.btnAts64OpenFile);
+            this.tpVehicle.Controls.Add(this.btnAts64Open);
             this.tpVehicle.Controls.Add(this.btnAts64Check);
             this.tpVehicle.Controls.Add(this.btnAts32Check);
             this.tpVehicle.Controls.Add(this.btnAts32Open);
@@ -297,7 +336,7 @@
             this.tpVehicle.Location = new System.Drawing.Point(4, 22);
             this.tpVehicle.Name = "tpVehicle";
             this.tpVehicle.Padding = new System.Windows.Forms.Padding(3);
-            this.tpVehicle.Size = new System.Drawing.Size(1031, 417);
+            this.tpVehicle.Size = new System.Drawing.Size(1031, 443);
             this.tpVehicle.TabIndex = 1;
             this.tpVehicle.Text = "車両ファイル関連";
             this.tpVehicle.UseVisualStyleBackColor = true;
@@ -454,17 +493,17 @@
             this.tbPanel.Size = new System.Drawing.Size(706, 19);
             this.tbPanel.TabIndex = 1;
             // 
-            // btnAts64OpenFile
+            // btnAts64Open
             // 
-            this.btnAts64OpenFile.Enabled = false;
-            this.btnAts64OpenFile.Location = new System.Drawing.Point(187, 343);
-            this.btnAts64OpenFile.Name = "btnAts64OpenFile";
-            this.btnAts64OpenFile.Size = new System.Drawing.Size(54, 26);
-            this.btnAts64OpenFile.TabIndex = 0;
-            this.btnAts64OpenFile.Text = "開く";
-            this.btnAts64OpenFile.UseVisualStyleBackColor = true;
-            this.btnAts64OpenFile.Visible = false;
-            this.btnAts64OpenFile.Click += new System.EventHandler(this.btnAts64Open_Click);
+            this.btnAts64Open.Enabled = false;
+            this.btnAts64Open.Location = new System.Drawing.Point(187, 343);
+            this.btnAts64Open.Name = "btnAts64Open";
+            this.btnAts64Open.Size = new System.Drawing.Size(54, 26);
+            this.btnAts64Open.TabIndex = 0;
+            this.btnAts64Open.Text = "開く";
+            this.btnAts64Open.UseVisualStyleBackColor = true;
+            this.btnAts64Open.Visible = false;
+            this.btnAts64Open.Click += new System.EventHandler(this.btnAts64Open_Click);
             // 
             // btnAts64Check
             // 
@@ -473,7 +512,7 @@
             this.btnAts64Check.Name = "btnAts64Check";
             this.btnAts64Check.Size = new System.Drawing.Size(54, 26);
             this.btnAts64Check.TabIndex = 0;
-            this.btnAts64Check.Text = "Check";
+            this.btnAts64Check.Text = "チェック";
             this.btnAts64Check.UseVisualStyleBackColor = true;
             this.btnAts64Check.Visible = false;
             this.btnAts64Check.Click += new System.EventHandler(this.btnAts64Check_Click);
@@ -485,7 +524,7 @@
             this.btnAts32Check.Name = "btnAts32Check";
             this.btnAts32Check.Size = new System.Drawing.Size(54, 26);
             this.btnAts32Check.TabIndex = 0;
-            this.btnAts32Check.Text = "Check";
+            this.btnAts32Check.Text = "チェック";
             this.btnAts32Check.UseVisualStyleBackColor = true;
             this.btnAts32Check.Click += new System.EventHandler(this.btnAts32Check_Click);
             // 
@@ -592,10 +631,16 @@
             this.tpRoute.Controls.Add(this.btnSignalOpen);
             this.tpRoute.Controls.Add(this.tbStructure);
             this.tpRoute.Controls.Add(this.btnStructureOpen);
+            this.tpRoute.Controls.Add(this.btnTrainDirectory);
+            this.tpRoute.Controls.Add(this.btnSoundListDirectory);
+            this.tpRoute.Controls.Add(this.btnSignalDirectory);
+            this.tpRoute.Controls.Add(this.btnStationDirectory);
+            this.tpRoute.Controls.Add(this.btnStructureDirectory);
+            this.tpRoute.Controls.Add(this.btnMapDirectory);
             this.tpRoute.Controls.Add(this.btnMapOpen);
             this.tpRoute.Location = new System.Drawing.Point(4, 22);
             this.tpRoute.Name = "tpRoute";
-            this.tpRoute.Size = new System.Drawing.Size(1031, 417);
+            this.tpRoute.Size = new System.Drawing.Size(1031, 443);
             this.tpRoute.TabIndex = 2;
             this.tpRoute.Text = "マップファイル関連";
             this.tpRoute.UseVisualStyleBackColor = true;
@@ -763,7 +808,7 @@
             this.btnStructureOpen.TabIndex = 3;
             this.btnStructureOpen.Text = "開く";
             this.btnStructureOpen.UseVisualStyleBackColor = true;
-            this.btnStructureOpen.Click += new System.EventHandler(this.btnStructureOpen_Click);
+            this.btnStructureOpen.Click += new System.EventHandler(this.btnStructureOpen_Click_1);
             // 
             // btnMapOpen
             // 
@@ -776,13 +821,128 @@
             this.btnMapOpen.UseVisualStyleBackColor = true;
             this.btnMapOpen.Click += new System.EventHandler(this.btnMapOpen_Click_1);
             // 
+            // tpAts32
+            // 
+            this.tpAts32.Controls.Add(this.dgvAts32);
+            this.tpAts32.Location = new System.Drawing.Point(4, 22);
+            this.tpAts32.Name = "tpAts32";
+            this.tpAts32.Size = new System.Drawing.Size(1031, 443);
+            this.tpAts32.TabIndex = 3;
+            this.tpAts32.Text = "BVE5 DetailModules";
+            this.tpAts32.UseVisualStyleBackColor = true;
+            // 
+            // dgvAts32
+            // 
+            this.dgvAts32.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvAts32.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAts32.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FileName,
+            this.Build,
+            this.RelativePath,
+            this.FullPath});
+            this.dgvAts32.Location = new System.Drawing.Point(3, 3);
+            this.dgvAts32.Name = "dgvAts32";
+            this.dgvAts32.RowTemplate.Height = 21;
+            this.dgvAts32.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAts32.Size = new System.Drawing.Size(906, 437);
+            this.dgvAts32.TabIndex = 11;
+            this.dgvAts32.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvAts32_RowsAdded);
+            // 
+            // FileName
+            // 
+            this.FileName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.FileName.HeaderText = "ファイル名";
+            this.FileName.Name = "FileName";
+            this.FileName.Width = 76;
+            // 
+            // Build
+            // 
+            this.Build.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Build.HeaderText = "ビット判定";
+            this.Build.Name = "Build";
+            this.Build.ReadOnly = true;
+            this.Build.Width = 77;
+            // 
+            // RelativePath
+            // 
+            this.RelativePath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.RelativePath.HeaderText = "相対パス";
+            this.RelativePath.Name = "RelativePath";
+            this.RelativePath.Width = 73;
+            // 
+            // FullPath
+            // 
+            this.FullPath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.FullPath.HeaderText = "絶対パス";
+            this.FullPath.Name = "FullPath";
+            this.FullPath.Width = 73;
+            // 
+            // tpAts64
+            // 
+            this.tpAts64.Controls.Add(this.dgvAts64);
+            this.tpAts64.Location = new System.Drawing.Point(4, 22);
+            this.tpAts64.Name = "tpAts64";
+            this.tpAts64.Size = new System.Drawing.Size(1031, 443);
+            this.tpAts64.TabIndex = 4;
+            this.tpAts64.Text = "BVE6 DetailModules";
+            this.tpAts64.UseVisualStyleBackColor = true;
+            // 
+            // dgvAts64
+            // 
+            this.dgvAts64.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvAts64.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAts64.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            this.dgvAts64.Location = new System.Drawing.Point(3, 3);
+            this.dgvAts64.Name = "dgvAts64";
+            this.dgvAts64.RowTemplate.Height = 21;
+            this.dgvAts64.Size = new System.Drawing.Size(906, 437);
+            this.dgvAts64.TabIndex = 12;
+            this.dgvAts64.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvAts64_RowsAdded);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn1.HeaderText = "ファイル名";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 76;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn2.HeaderText = "ビット判定";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 77;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn3.HeaderText = "相対パス";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 73;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn4.HeaderText = "絶対パス";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 73;
+            // 
             // tpLog
             // 
-            this.tpLog.Controls.Add(this.textBox1);
+            this.tpLog.Controls.Add(this.txbLog);
             this.tpLog.Location = new System.Drawing.Point(4, 22);
             this.tpLog.Name = "tpLog";
             this.tpLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tpLog.Size = new System.Drawing.Size(1031, 417);
+            this.tpLog.Size = new System.Drawing.Size(1031, 443);
             this.tpLog.TabIndex = 0;
             this.tpLog.Text = "読込ログ";
             this.tpLog.UseVisualStyleBackColor = true;
@@ -791,7 +951,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 844);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 887);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1055, 22);
             this.statusStrip1.TabIndex = 19;
@@ -842,7 +1002,7 @@
             // lblVehicleTitle
             // 
             this.lblVehicleTitle.AutoSize = true;
-            this.lblVehicleTitle.Location = new System.Drawing.Point(25, 156);
+            this.lblVehicleTitle.Location = new System.Drawing.Point(11, 144);
             this.lblVehicleTitle.Name = "lblVehicleTitle";
             this.lblVehicleTitle.Size = new System.Drawing.Size(66, 12);
             this.lblVehicleTitle.TabIndex = 22;
@@ -851,7 +1011,7 @@
             // lblRouteTitle
             // 
             this.lblRouteTitle.AutoSize = true;
-            this.lblRouteTitle.Location = new System.Drawing.Point(25, 142);
+            this.lblRouteTitle.Location = new System.Drawing.Point(11, 130);
             this.lblRouteTitle.Name = "lblRouteTitle";
             this.lblRouteTitle.Size = new System.Drawing.Size(62, 12);
             this.lblRouteTitle.TabIndex = 23;
@@ -860,7 +1020,7 @@
             // lblAuthor
             // 
             this.lblAuthor.AutoSize = true;
-            this.lblAuthor.Location = new System.Drawing.Point(25, 170);
+            this.lblAuthor.Location = new System.Drawing.Point(11, 158);
             this.lblAuthor.Name = "lblAuthor";
             this.lblAuthor.Size = new System.Drawing.Size(39, 12);
             this.lblAuthor.TabIndex = 23;
@@ -869,7 +1029,7 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(26, 128);
+            this.lblTitle.Location = new System.Drawing.Point(11, 114);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(28, 12);
             this.lblTitle.TabIndex = 23;
@@ -888,10 +1048,10 @@
             // 
             // tbComment
             // 
-            this.tbComment.Location = new System.Drawing.Point(24, 185);
+            this.tbComment.Location = new System.Drawing.Point(6, 179);
             this.tbComment.Multiline = true;
             this.tbComment.Name = "tbComment";
-            this.tbComment.Size = new System.Drawing.Size(417, 42);
+            this.tbComment.Size = new System.Drawing.Size(434, 42);
             this.tbComment.TabIndex = 24;
             this.tbComment.Text = "Comment";
             // 
@@ -911,9 +1071,9 @@
             this.gbxBve5.Controls.Add(this.btnBveBootChooseVehicle);
             this.gbxBve5.Controls.Add(this.btnBveBootChooseMap);
             this.gbxBve5.Controls.Add(this.btnBootBVE5);
-            this.gbxBve5.Location = new System.Drawing.Point(527, 13);
+            this.gbxBve5.Location = new System.Drawing.Point(508, 6);
             this.gbxBve5.Name = "gbxBve5";
-            this.gbxBve5.Size = new System.Drawing.Size(140, 203);
+            this.gbxBve5.Size = new System.Drawing.Size(140, 232);
             this.gbxBve5.TabIndex = 27;
             this.gbxBve5.TabStop = false;
             this.gbxBve5.Text = "BVE5 (32bit)";
@@ -924,9 +1084,9 @@
             this.gbxBve6.Controls.Add(this.button7);
             this.gbxBve6.Controls.Add(this.button4);
             this.gbxBve6.Controls.Add(this.btnBootBVE6);
-            this.gbxBve6.Location = new System.Drawing.Point(673, 13);
+            this.gbxBve6.Location = new System.Drawing.Point(673, 6);
             this.gbxBve6.Name = "gbxBve6";
-            this.gbxBve6.Size = new System.Drawing.Size(140, 203);
+            this.gbxBve6.Size = new System.Drawing.Size(140, 232);
             this.gbxBve6.TabIndex = 27;
             this.gbxBve6.TabStop = false;
             this.gbxBve6.Text = "BVE6 (64bit)";
@@ -979,15 +1139,16 @@
             // 
             this.tbSeinarioFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbSeinarioFileName.Location = new System.Drawing.Point(323, 247);
+            this.tbSeinarioFileName.Enabled = false;
+            this.tbSeinarioFileName.Location = new System.Drawing.Point(323, 245);
             this.tbSeinarioFileName.Name = "tbSeinarioFileName";
-            this.tbSeinarioFileName.Size = new System.Drawing.Size(706, 19);
+            this.tbSeinarioFileName.Size = new System.Drawing.Size(701, 19);
             this.tbSeinarioFileName.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 250);
+            this.label2.Location = new System.Drawing.Point(36, 248);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 12);
             this.label2.TabIndex = 2;
@@ -998,9 +1159,9 @@
             this.tbAtsPluginFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAtsPluginFile.Enabled = false;
-            this.tbAtsPluginFile.Location = new System.Drawing.Point(323, 308);
+            this.tbAtsPluginFile.Location = new System.Drawing.Point(307, 48);
             this.tbAtsPluginFile.Name = "tbAtsPluginFile";
-            this.tbAtsPluginFile.Size = new System.Drawing.Size(706, 19);
+            this.tbAtsPluginFile.Size = new System.Drawing.Size(701, 19);
             this.tbAtsPluginFile.TabIndex = 1;
             // 
             // tbAts32RelatePath
@@ -1008,9 +1169,9 @@
             this.tbAts32RelatePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAts32RelatePath.Enabled = false;
-            this.tbAts32RelatePath.Location = new System.Drawing.Point(323, 333);
+            this.tbAts32RelatePath.Location = new System.Drawing.Point(307, 73);
             this.tbAts32RelatePath.Name = "tbAts32RelatePath";
-            this.tbAts32RelatePath.Size = new System.Drawing.Size(706, 19);
+            this.tbAts32RelatePath.Size = new System.Drawing.Size(701, 19);
             this.tbAts32RelatePath.TabIndex = 1;
             // 
             // tbAts64RelatePath
@@ -1018,36 +1179,36 @@
             this.tbAts64RelatePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAts64RelatePath.Enabled = false;
-            this.tbAts64RelatePath.Location = new System.Drawing.Point(323, 358);
+            this.tbAts64RelatePath.Location = new System.Drawing.Point(307, 98);
             this.tbAts64RelatePath.Name = "tbAts64RelatePath";
-            this.tbAts64RelatePath.Size = new System.Drawing.Size(706, 19);
+            this.tbAts64RelatePath.Size = new System.Drawing.Size(701, 19);
             this.tbAts64RelatePath.TabIndex = 1;
             this.tbAts64RelatePath.Visible = false;
             // 
             // lblDetailModule32AddPath
             // 
             this.lblDetailModule32AddPath.AutoSize = true;
-            this.lblDetailModule32AddPath.Location = new System.Drawing.Point(36, 336);
+            this.lblDetailModule32AddPath.Location = new System.Drawing.Point(19, 76);
             this.lblDetailModule32AddPath.Name = "lblDetailModule32AddPath";
-            this.lblDetailModule32AddPath.Size = new System.Drawing.Size(98, 12);
+            this.lblDetailModule32AddPath.Size = new System.Drawing.Size(93, 12);
             this.lblDetailModule32AddPath.TabIndex = 14;
-            this.lblDetailModule32AddPath.Text = "BVE5(32bit)用パス";
+            this.lblDetailModule32AddPath.Text = "BVE5用 相対パス";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(36, 361);
+            this.label9.Location = new System.Drawing.Point(19, 101);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(98, 12);
+            this.label9.Size = new System.Drawing.Size(93, 12);
             this.label9.TabIndex = 14;
-            this.label9.Text = "BVE6(64bit)用パス";
+            this.label9.Text = "BVE6用 相対パス";
             this.label9.Visible = false;
             // 
             // btnAts32Add
             // 
             this.btnAts32Add.BackColor = System.Drawing.SystemColors.Control;
             this.btnAts32Add.Enabled = false;
-            this.btnAts32Add.Location = new System.Drawing.Point(203, 330);
+            this.btnAts32Add.Location = new System.Drawing.Point(191, 70);
             this.btnAts32Add.Name = "btnAts32Add";
             this.btnAts32Add.Size = new System.Drawing.Size(54, 24);
             this.btnAts32Add.TabIndex = 5;
@@ -1059,7 +1220,7 @@
             // 
             this.btnAts64Add.BackColor = System.Drawing.SystemColors.Control;
             this.btnAts64Add.Enabled = false;
-            this.btnAts64Add.Location = new System.Drawing.Point(203, 355);
+            this.btnAts64Add.Location = new System.Drawing.Point(191, 95);
             this.btnAts64Add.Name = "btnAts64Add";
             this.btnAts64Add.Size = new System.Drawing.Size(54, 24);
             this.btnAts64Add.TabIndex = 5;
@@ -1072,7 +1233,7 @@
             // 
             this.btnAts32RelatePathGen.BackColor = System.Drawing.SystemColors.Control;
             this.btnAts32RelatePathGen.Enabled = false;
-            this.btnAts32RelatePathGen.Location = new System.Drawing.Point(143, 330);
+            this.btnAts32RelatePathGen.Location = new System.Drawing.Point(131, 70);
             this.btnAts32RelatePathGen.Name = "btnAts32RelatePathGen";
             this.btnAts32RelatePathGen.Size = new System.Drawing.Size(54, 24);
             this.btnAts32RelatePathGen.TabIndex = 5;
@@ -1080,54 +1241,195 @@
             this.btnAts32RelatePathGen.UseVisualStyleBackColor = false;
             this.btnAts32RelatePathGen.Click += new System.EventHandler(this.btnAts32RPathGen_Click);
             // 
-            // btnAts64RPathGen
+            // btnAts64RelatePathGen
             // 
-            this.btnAts64RPathGen.BackColor = System.Drawing.SystemColors.Control;
-            this.btnAts64RPathGen.Enabled = false;
-            this.btnAts64RPathGen.Location = new System.Drawing.Point(143, 355);
-            this.btnAts64RPathGen.Name = "btnAts64RPathGen";
-            this.btnAts64RPathGen.Size = new System.Drawing.Size(54, 24);
-            this.btnAts64RPathGen.TabIndex = 5;
-            this.btnAts64RPathGen.Text = "生成";
-            this.btnAts64RPathGen.UseVisualStyleBackColor = false;
-            this.btnAts64RPathGen.Visible = false;
-            this.btnAts64RPathGen.Click += new System.EventHandler(this.btnAts64RPathGen_Click);
+            this.btnAts64RelatePathGen.BackColor = System.Drawing.SystemColors.Control;
+            this.btnAts64RelatePathGen.Enabled = false;
+            this.btnAts64RelatePathGen.Location = new System.Drawing.Point(131, 95);
+            this.btnAts64RelatePathGen.Name = "btnAts64RelatePathGen";
+            this.btnAts64RelatePathGen.Size = new System.Drawing.Size(54, 24);
+            this.btnAts64RelatePathGen.TabIndex = 5;
+            this.btnAts64RelatePathGen.Text = "生成";
+            this.btnAts64RelatePathGen.UseVisualStyleBackColor = false;
+            this.btnAts64RelatePathGen.Visible = false;
+            this.btnAts64RelatePathGen.Click += new System.EventHandler(this.btnAts64RPathGen_Click);
+            // 
+            // gbxSenario
+            // 
+            this.gbxSenario.Controls.Add(this.tbComment);
+            this.gbxSenario.Controls.Add(this.lblAuthor);
+            this.gbxSenario.Controls.Add(this.lblTitle);
+            this.gbxSenario.Controls.Add(this.lblRouteTitle);
+            this.gbxSenario.Controls.Add(this.lblVehicleTitle);
+            this.gbxSenario.Controls.Add(this.pictureBox1);
+            this.gbxSenario.Controls.Add(this.btnOpenSenario);
+            this.gbxSenario.Location = new System.Drawing.Point(16, 6);
+            this.gbxSenario.Name = "gbxSenario";
+            this.gbxSenario.Size = new System.Drawing.Size(461, 232);
+            this.gbxSenario.TabIndex = 28;
+            this.gbxSenario.TabStop = false;
+            this.gbxSenario.Text = "Senario";
+            // 
+            // btnPerfoemanceCurveDirectory
+            // 
+            this.btnPerfoemanceCurveDirectory.Enabled = false;
+            this.btnPerfoemanceCurveDirectory.Location = new System.Drawing.Point(247, 121);
+            this.btnPerfoemanceCurveDirectory.Name = "btnPerfoemanceCurveDirectory";
+            this.btnPerfoemanceCurveDirectory.Size = new System.Drawing.Size(54, 27);
+            this.btnPerfoemanceCurveDirectory.TabIndex = 9;
+            this.btnPerfoemanceCurveDirectory.Text = "フォルダ";
+            this.btnPerfoemanceCurveDirectory.UseVisualStyleBackColor = true;
+            this.btnPerfoemanceCurveDirectory.Click += new System.EventHandler(this.btnPerfoemanceCurveDirectory_Click);
+            // 
+            // btnParametersDirectory
+            // 
+            this.btnParametersDirectory.Enabled = false;
+            this.btnParametersDirectory.Location = new System.Drawing.Point(247, 158);
+            this.btnParametersDirectory.Name = "btnParametersDirectory";
+            this.btnParametersDirectory.Size = new System.Drawing.Size(54, 27);
+            this.btnParametersDirectory.TabIndex = 9;
+            this.btnParametersDirectory.Text = "フォルダ";
+            this.btnParametersDirectory.UseVisualStyleBackColor = true;
+            this.btnParametersDirectory.Click += new System.EventHandler(this.btnParametersDirectory_Click);
+            // 
+            // btnPanelDirectory
+            // 
+            this.btnPanelDirectory.Enabled = false;
+            this.btnPanelDirectory.Location = new System.Drawing.Point(247, 194);
+            this.btnPanelDirectory.Name = "btnPanelDirectory";
+            this.btnPanelDirectory.Size = new System.Drawing.Size(54, 27);
+            this.btnPanelDirectory.TabIndex = 9;
+            this.btnPanelDirectory.Text = "フォルダ";
+            this.btnPanelDirectory.UseVisualStyleBackColor = true;
+            this.btnPanelDirectory.Click += new System.EventHandler(this.btnPanelDirectory_Click);
+            // 
+            // btnSoundDirectory
+            // 
+            this.btnSoundDirectory.Enabled = false;
+            this.btnSoundDirectory.Location = new System.Drawing.Point(247, 232);
+            this.btnSoundDirectory.Name = "btnSoundDirectory";
+            this.btnSoundDirectory.Size = new System.Drawing.Size(54, 27);
+            this.btnSoundDirectory.TabIndex = 9;
+            this.btnSoundDirectory.Text = "フォルダ";
+            this.btnSoundDirectory.UseVisualStyleBackColor = true;
+            this.btnSoundDirectory.Click += new System.EventHandler(this.btnSoundDirectory_Click);
+            // 
+            // btnMotorNoiseDirectory
+            // 
+            this.btnMotorNoiseDirectory.Enabled = false;
+            this.btnMotorNoiseDirectory.Location = new System.Drawing.Point(247, 269);
+            this.btnMotorNoiseDirectory.Name = "btnMotorNoiseDirectory";
+            this.btnMotorNoiseDirectory.Size = new System.Drawing.Size(54, 27);
+            this.btnMotorNoiseDirectory.TabIndex = 9;
+            this.btnMotorNoiseDirectory.Text = "フォルダ";
+            this.btnMotorNoiseDirectory.UseVisualStyleBackColor = true;
+            this.btnMotorNoiseDirectory.Click += new System.EventHandler(this.btnMotorNoiseDirectory_Click);
+            // 
+            // btnMapDirectory
+            // 
+            this.btnMapDirectory.Enabled = false;
+            this.btnMapDirectory.Location = new System.Drawing.Point(247, 43);
+            this.btnMapDirectory.Name = "btnMapDirectory";
+            this.btnMapDirectory.Size = new System.Drawing.Size(54, 26);
+            this.btnMapDirectory.TabIndex = 3;
+            this.btnMapDirectory.Text = "フォルダ";
+            this.btnMapDirectory.UseVisualStyleBackColor = true;
+            this.btnMapDirectory.Click += new System.EventHandler(this.btnMapDirectory_Click);
+            // 
+            // btnStructureDirectory
+            // 
+            this.btnStructureDirectory.Enabled = false;
+            this.btnStructureDirectory.Location = new System.Drawing.Point(247, 121);
+            this.btnStructureDirectory.Name = "btnStructureDirectory";
+            this.btnStructureDirectory.Size = new System.Drawing.Size(54, 26);
+            this.btnStructureDirectory.TabIndex = 3;
+            this.btnStructureDirectory.Text = "フォルダ";
+            this.btnStructureDirectory.UseVisualStyleBackColor = true;
+            this.btnStructureDirectory.Click += new System.EventHandler(this.btnStructureDirectory_Click);
+            // 
+            // btnStationDirectory
+            // 
+            this.btnStationDirectory.Enabled = false;
+            this.btnStationDirectory.Location = new System.Drawing.Point(247, 158);
+            this.btnStationDirectory.Name = "btnStationDirectory";
+            this.btnStationDirectory.Size = new System.Drawing.Size(54, 26);
+            this.btnStationDirectory.TabIndex = 3;
+            this.btnStationDirectory.Text = "フォルダ";
+            this.btnStationDirectory.UseVisualStyleBackColor = true;
+            this.btnStationDirectory.Click += new System.EventHandler(this.btnStationDirectory_Click);
+            // 
+            // btnSignalDirectory
+            // 
+            this.btnSignalDirectory.Enabled = false;
+            this.btnSignalDirectory.Location = new System.Drawing.Point(247, 195);
+            this.btnSignalDirectory.Name = "btnSignalDirectory";
+            this.btnSignalDirectory.Size = new System.Drawing.Size(54, 26);
+            this.btnSignalDirectory.TabIndex = 3;
+            this.btnSignalDirectory.Text = "フォルダ";
+            this.btnSignalDirectory.UseVisualStyleBackColor = true;
+            this.btnSignalDirectory.Click += new System.EventHandler(this.btnSignalDirectory_Click);
+            // 
+            // btnSoundListDirectory
+            // 
+            this.btnSoundListDirectory.Enabled = false;
+            this.btnSoundListDirectory.Location = new System.Drawing.Point(247, 232);
+            this.btnSoundListDirectory.Name = "btnSoundListDirectory";
+            this.btnSoundListDirectory.Size = new System.Drawing.Size(54, 26);
+            this.btnSoundListDirectory.TabIndex = 3;
+            this.btnSoundListDirectory.Text = "フォルダ";
+            this.btnSoundListDirectory.UseVisualStyleBackColor = true;
+            this.btnSoundListDirectory.Click += new System.EventHandler(this.btnSoundListDirectory_Click);
+            // 
+            // btnTrainDirectory
+            // 
+            this.btnTrainDirectory.Enabled = false;
+            this.btnTrainDirectory.Location = new System.Drawing.Point(247, 269);
+            this.btnTrainDirectory.Name = "btnTrainDirectory";
+            this.btnTrainDirectory.Size = new System.Drawing.Size(54, 26);
+            this.btnTrainDirectory.TabIndex = 3;
+            this.btnTrainDirectory.Text = "フォルダ";
+            this.btnTrainDirectory.UseVisualStyleBackColor = true;
+            this.btnTrainDirectory.Click += new System.EventHandler(this.btnTrainDirectory_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnAtsPluginDirectory);
+            this.groupBox1.Controls.Add(this.lblAtsPluginFile);
+            this.groupBox1.Controls.Add(this.tbAts32RelatePath);
+            this.groupBox1.Controls.Add(this.tbAtsPluginFile);
+            this.groupBox1.Controls.Add(this.tbAts64RelatePath);
+            this.groupBox1.Controls.Add(this.btnGenerateRelativePath);
+            this.groupBox1.Controls.Add(this.btnAts32Add);
+            this.groupBox1.Controls.Add(this.btnAts32RelatePathGen);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.btnAts64Add);
+            this.groupBox1.Controls.Add(this.lblDetailModule32AddPath);
+            this.groupBox1.Controls.Add(this.btnAts64RelatePathGen);
+            this.groupBox1.Location = new System.Drawing.Point(16, 274);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1031, 124);
+            this.groupBox1.TabIndex = 29;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "ATSプラグイン情報 && detailmodules.txt追記";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1055, 866);
-            this.Controls.Add(this.tbComment);
-            this.Controls.Add(this.lblAuthor);
-            this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.lblRouteTitle);
-            this.Controls.Add(this.lblVehicleTitle);
+            this.ClientSize = new System.Drawing.Size(1055, 909);
+            this.Controls.Add(this.gbxSenario);
             this.Controls.Add(this.cbMessageDisp);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnHelp);
-            this.Controls.Add(this.btnGenerateRelativePath);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.lblDetailModule32AddPath);
-            this.Controls.Add(this.lblAtsPluginFile);
-            this.Controls.Add(this.btnAtsPluginDirectory);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.btnAts64RPathGen);
-            this.Controls.Add(this.btnAts64Add);
-            this.Controls.Add(this.btnAts32RelatePathGen);
-            this.Controls.Add(this.btnAts32Add);
             this.Controls.Add(this.btnOpenSenarioFile);
-            this.Controls.Add(this.btnOpenSenario);
             this.Controls.Add(this.gbxBve6);
             this.Controls.Add(this.gbxBve5);
-            this.Controls.Add(this.tbAts64RelatePath);
-            this.Controls.Add(this.tbAtsPluginFile);
-            this.Controls.Add(this.tbAts32RelatePath);
             this.Controls.Add(this.tbSeinarioFileName);
+            this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
-            this.Text = "BVE File Explorer ( Beta ver 0.9.5.1 )";
+            this.Text = "BVE File Explorer ( Beta ver 0.9.5.2 )";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -1136,12 +1438,20 @@
             this.tpVehicle.PerformLayout();
             this.tpRoute.ResumeLayout(false);
             this.tpRoute.PerformLayout();
+            this.tpAts32.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAts32)).EndInit();
+            this.tpAts64.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAts64)).EndInit();
             this.tpLog.ResumeLayout(false);
             this.tpLog.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.gbxBve5.ResumeLayout(false);
             this.gbxBve6.ResumeLayout(false);
+            this.gbxSenario.ResumeLayout(false);
+            this.gbxSenario.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1151,10 +1461,10 @@
         private System.Windows.Forms.Button btnOpenSenario;
         private System.Windows.Forms.Button btnOpenSenarioFile;
         private System.Windows.Forms.Button btnOpenVehicleFile;
-        private System.Windows.Forms.Button btnOpenAts32Directory;
+        private System.Windows.Forms.Button btnAts32OpenDirectory;
         private System.Windows.Forms.Button btnOpenVehicleDirectory;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txbLog;
         private System.Windows.Forms.Button btnAtsPluginDirectory;
         private System.Windows.Forms.Label lblAtsPluginFile;
         private System.Windows.Forms.Button btnGenerateRelativePath;
@@ -1174,7 +1484,7 @@
         private System.Windows.Forms.TextBox tbMotorNoise;
         private System.Windows.Forms.TextBox tbSound;
         private System.Windows.Forms.TextBox tbPanel;
-        private System.Windows.Forms.Button btnAts64OpenFile;
+        private System.Windows.Forms.Button btnAts64Open;
         private System.Windows.Forms.Button btnAts32Open;
         private System.Windows.Forms.Button btnMotorNoiseOpen;
         private System.Windows.Forms.Button btnSoundOpen;
@@ -1236,7 +1546,32 @@
         private System.Windows.Forms.Button btnAts32Add;
         private System.Windows.Forms.Button btnAts64Add;
         private System.Windows.Forms.Button btnAts32RelatePathGen;
-        private System.Windows.Forms.Button btnAts64RPathGen;
+        private System.Windows.Forms.Button btnAts64RelatePathGen;
+        private System.Windows.Forms.TabPage tpAts32;
+        private System.Windows.Forms.DataGridView dgvAts32;
+        private System.Windows.Forms.TabPage tpAts64;
+        private System.Windows.Forms.DataGridView dgvAts64;
+        private System.Windows.Forms.GroupBox gbxSenario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FileName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Build;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RelativePath;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FullPath;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.Button btnPanelDirectory;
+        private System.Windows.Forms.Button btnParametersDirectory;
+        private System.Windows.Forms.Button btnPerfoemanceCurveDirectory;
+        private System.Windows.Forms.Button btnMotorNoiseDirectory;
+        private System.Windows.Forms.Button btnSoundDirectory;
+        private System.Windows.Forms.Button btnMapDirectory;
+        private System.Windows.Forms.Button btnStructureDirectory;
+        private System.Windows.Forms.Button btnTrainDirectory;
+        private System.Windows.Forms.Button btnSoundListDirectory;
+        private System.Windows.Forms.Button btnSignalDirectory;
+        private System.Windows.Forms.Button btnStationDirectory;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 
