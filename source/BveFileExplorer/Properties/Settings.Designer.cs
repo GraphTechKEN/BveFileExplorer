@@ -82,5 +82,17 @@ namespace BveFileExplorer.Properties {
                 this["strBve6Path"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DetailManager64Path {
+            get {
+                return ((string)(this["DetailManager64Path"]));
+            }
+            set {
+                this["DetailManager64Path"] = value;
+            }
+        }
     }
 }

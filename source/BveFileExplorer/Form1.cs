@@ -32,8 +32,9 @@ namespace AtsPluginEditor
 
         private string strRouteFilePath = "";
         private string strVehicleFilePath = "";
-        private List<string> listVehicleFilePath = new List<string>() ;
+        private List<string> listVehicleFilePath = new List<string>();
         private List<string> listMapFilePath = new List<string>();
+        private List<string> listVehicle = new List<string>();
         private string strAts32DetailManagerFilePath = "";
         private string strAts32SettingTextFilePath = "";
         private string strAtsPluginFilePath = "";
@@ -85,7 +86,7 @@ namespace AtsPluginEditor
                 btnBootBVE5.Enabled = true;
                 tbSeinarioFileName.Enabled = true;
 
-                tbSeinarioFileName.Text =ofd.FileName;
+                tbSeinarioFileName.Text = ofd.FileName;
 
                 //内容を読み込み、表示する
                 StreamReader sr_temp = new StreamReader(stream);
@@ -117,8 +118,10 @@ namespace AtsPluginEditor
                         txbLog.AppendText(line + "\r\n");
                         //余計な文字列をトリム
                         line = line.Trim();
+
                         //先頭文字が「;」と「#」でないとき
-                        if ((!line.StartsWith(";") || !line.StartsWith("#")) && line.Contains("=")) {
+                        if ((!line.StartsWith(";") || !line.StartsWith("#")) && line.Contains("="))
+                        {
                             string item = line.Substring(0, line.IndexOf("=")).Trim();
                             //MessageBox.Show(item);
                             switch (item)
@@ -294,7 +297,7 @@ namespace AtsPluginEditor
                         }
                         if (IsFileExists)
                         {
-                            if ( _listVehicleFilePath.Count > 1)
+                            if (_listVehicleFilePath.Count > 1)
                             {
                                 btnBveBootChooseVehicle.Enabled = btnBootBVE5.Enabled;
                                 strDisp += "車両ファイルが複数あります。データ数：" + _listVehicleFilePath.Count + "\n\n";
@@ -341,7 +344,7 @@ namespace AtsPluginEditor
                     if (_listMapFilePath.Count > 0 && !flgErrMap)
                     {
                         strMapFilePath = dir + @"\" + _listMapFilePath[0].Trim();
-                        
+
                         for (int i = 0; i < _listMapFilePath.Count; i++)
                         {
                             this.listMapFilePath.Add(dir + @"\" + _listMapFilePath[i].Trim());
@@ -370,7 +373,7 @@ namespace AtsPluginEditor
                             //cbxMapFilePath.Text = this.listMapFilePath[0];
                             cbxMapFilePath.BackColor = SystemColors.Window;
                             OpenNewMapFile(this.listMapFilePath[0]);
-                            
+
                         }
 
                         //マップファイルが見つからない場合の処理
@@ -421,35 +424,37 @@ namespace AtsPluginEditor
                 {
                     if (line.IndexOf("Structure.Load") >= 0)
                     {
-                        if (PathControl_Map(ref tbStructure, ref btnStructureOpen, ref btnStructureDirectory,line, strMapFilePath_, out strStructureFilePath) <= 0)
+                        if (PathControl_Map(ref tbStructure, ref btnStructureOpen, ref btnStructureDirectory, line, strMapFilePath_, out strStructureFilePath) <= 0)
                         {
                             error++;
                         }
-                          
+
                     }
                     else if (line.IndexOf("Station.Load") >= 0)
                     {
-                        if (PathControl_Map(ref tbStation, ref btnStationOpen, ref btnStationDirectory, line, strMapFilePath_, out strStationFilePath) <= 0) {
+                        if (PathControl_Map(ref tbStation, ref btnStationOpen, ref btnStationDirectory, line, strMapFilePath_, out strStationFilePath) <= 0)
+                        {
                             error++;
                         }
                     }
                     else if (line.IndexOf("Signal.Load") >= 0)
                     {
-                        if (PathControl_Map(ref tbSignal, ref btnSignalOpen,ref btnSignalDirectory, line, strMapFilePath_, out strSignalFilePath) <= 0) {
+                        if (PathControl_Map(ref tbSignal, ref btnSignalOpen, ref btnSignalDirectory, line, strMapFilePath_, out strSignalFilePath) <= 0)
+                        {
                             error++;
                         }
 
                     }
                     else if (line.IndexOf("Sound.Load") >= 0)
                     {
-                        if (PathControl_Map(ref tbSoundList, ref btnSoundListOpen,ref btnSoundListDirectory, line, strMapFilePath_, out strSoundListFilePath) <= 0)
+                        if (PathControl_Map(ref tbSoundList, ref btnSoundListOpen, ref btnSoundListDirectory, line, strMapFilePath_, out strSoundListFilePath) <= 0)
                         {
                             error++;
                         }
                     }
                     else if (line.IndexOf("Train.Add") >= 0)
                     {
-                        
+
                         if (line.Substring(line.IndexOf("(")).Length > 1)
                         {
                             line = line.Substring(line.IndexOf(","));
@@ -511,12 +516,13 @@ namespace AtsPluginEditor
                 int error = 0;
                 txbLog.AppendText("\r\n");
                 txbLog.AppendText("車両ファイル：" + _strVehicleFilePath + "\r\n");
-                
+
+                strVehicleFilePath = _strVehicleFilePath;
 
                 while ((line = sr.ReadLine()) != null)
                 {
                     //テキストボックスに追記
-                    txbLog.AppendText(line+"\r\n");
+                    txbLog.AppendText(line + "\r\n");
                     if (line.IndexOf("Bvets Vehicle", StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         int index_colon = line.IndexOf(":");
@@ -528,26 +534,55 @@ namespace AtsPluginEditor
                         {
                             f_ver = float.Parse(line.Substring(line.IndexOf("Bvets Vehicle", StringComparison.OrdinalIgnoreCase) + 13, index_colon - 13).Trim());
                         }
-                        
-                        if(f_ver < 2.00)
+
+                        if (f_ver < 2.00)
                         {
                             lblVehicleVer.Text = "Vehicle File Ver : " + f_ver.ToString("0.00") + " BVE5 専用車両ファイル";
                             lblAts32.Text = "Ats";
                             btnAts64Check.Visible = false;
                             btnAts64Open.Visible = false;
                             btnAts64OpenDirectory.Visible = false;
-                            tbAts64.Visible=false;
+                            tbAts64.Visible = false;
                             gbxBve6.Visible = false;
                             lblAts64.Visible = false;
                             label9.Visible = false;
                             btnAts64RelatePathGen.Visible = false;
                             btnAts64Add.Visible = false;
                             tbAts64RelatePath.Visible = false;
+
+                            //BVE6コンバータ
+                            lblDetailModuleStore.Visible = true;
+                            lblDetailModuleStoreDetail.Visible = true;
+                            btnDetailModuleSelect.Visible = true;
+                            lblDetailManager.Visible = true;
+                            lblDetailManagerDetail.Visible = true;
+                            btnDetailManagerBve6Select.Visible = true;
+                            btnBve6Convert.Visible = true;
+                            if (strAts64SettingTextFilePath=="") {
+                                btnBve6Convert.Enabled = false;
+                            }
+                            btnBve5Recovery.Visible = false;
+
+
                         }
                         else
                         {
                             lblVehicleVer.Text = "Vehicle File Ver : " + f_ver.ToString("0.00") + " BVE6 対応車両ファイル";
                             lblAts32.Text = "Ats32";
+                            //BVE6コンバータ
+                            lblDetailModuleStore.Visible = false;
+                            lblDetailModuleStoreDetail.Visible = false;
+                            btnDetailModuleSelect.Visible = false;
+                            lblDetailManager.Visible = false;
+                            lblDetailManagerDetail.Visible = false;
+                            btnDetailManagerBve6Select.Visible = false;
+                            btnBve6Convert.Visible = false;
+                            if (File.Exists(strVehicleFilePath + @".bak"))
+                            {
+                                btnBve5Recovery.Visible = true;
+                                btnBve5Recovery.Enabled = true;
+                            }
+
                         }
                     }
                     if ((line.IndexOf("ATS", StringComparison.OrdinalIgnoreCase) >= 0 || line.IndexOf("Ats32", StringComparison.OrdinalIgnoreCase) >= 0) && line.IndexOf("Ats64", StringComparison.OrdinalIgnoreCase) < 0)
@@ -568,7 +603,7 @@ namespace AtsPluginEditor
                             IsDetailmanager32 = false;
                             btnAts32Open.Enabled = false;
                         }
-                        if(iRet <= 0)
+                        if (iRet <= 0)
                         {
                             error++;
                             btnAts32Check.Enabled = false;
@@ -580,39 +615,40 @@ namespace AtsPluginEditor
                     }
                     else if (line.IndexOf("PerformanceCurve", StringComparison.OrdinalIgnoreCase) >= 0)
                     {
-                        if(PathControl_Vehicle(ref tbPerfoemanceCurve, ref btnPerfoemanceCurveOpen, ref btnPerfoemanceCurveDirectory, line, _strVehicleFilePath, out strPerfoemanceCurveFilePath) <= 0){
+                        if (PathControl_Vehicle(ref tbPerfoemanceCurve, ref btnPerfoemanceCurveOpen, ref btnPerfoemanceCurveDirectory, line, _strVehicleFilePath, out strPerfoemanceCurveFilePath) <= 0)
+                        {
                             error++;
                         }
                     }
                     else if (line.IndexOf("Parameters", StringComparison.OrdinalIgnoreCase) >= 0)
                     {
-                        if(PathControl_Vehicle(ref tbParameters, ref btnParametersOpen, ref btnParametersDirectory, line, _strVehicleFilePath, out strParametersFilePath) <= 0)
+                        if (PathControl_Vehicle(ref tbParameters, ref btnParametersOpen, ref btnParametersDirectory, line, _strVehicleFilePath, out strParametersFilePath) <= 0)
                         {
                             error++;
                         }
                     }
                     else if (line.IndexOf("Panel", StringComparison.OrdinalIgnoreCase) >= 0)
                     {
-                        if(PathControl_Vehicle(ref tbPanel, ref btnPanelOpen, ref btnPanelDirectory, line, _strVehicleFilePath, out strPanelFilePath) <= 0)
+                        if (PathControl_Vehicle(ref tbPanel, ref btnPanelOpen, ref btnPanelDirectory, line, _strVehicleFilePath, out strPanelFilePath) <= 0)
                         {
                             error++;
                         }
                     }
-                    else if (line.IndexOf("Sound", StringComparison.OrdinalIgnoreCase) >= 0 && ( line.IndexOf("Sound") < line.IndexOf("=")))
+                    else if (line.IndexOf("Sound", StringComparison.OrdinalIgnoreCase) >= 0 && (line.IndexOf("Sound") < line.IndexOf("=")))
                     {
-                        if(PathControl_Vehicle(ref tbSound, ref btnSoundOpen, ref btnSoundDirectory, line, _strVehicleFilePath, out strSoundFilePath) <= 0)
+                        if (PathControl_Vehicle(ref tbSound, ref btnSoundOpen, ref btnSoundDirectory, line, _strVehicleFilePath, out strSoundFilePath) <= 0)
                         {
                             error++;
                         }
                     }
                     else if (line.IndexOf("MotorNoise", StringComparison.OrdinalIgnoreCase) >= 0)
                     {
-                        if(PathControl_Vehicle(ref tbMotorNoise, ref btnMotorNoiseOpen, ref btnMotorNoiseDirectory, line, _strVehicleFilePath, out strMotorNoiseFilePath) <= 0)
+                        if (PathControl_Vehicle(ref tbMotorNoise, ref btnMotorNoiseOpen, ref btnMotorNoiseDirectory, line, _strVehicleFilePath, out strMotorNoiseFilePath) <= 0)
                         {
                             error++;
                         }
                     }
-                    else if (line.IndexOf("Ats64",StringComparison.OrdinalIgnoreCase) >= 0)//Ats64が見つかった場合
+                    else if (line.IndexOf("Ats64", StringComparison.OrdinalIgnoreCase) >= 0)//Ats64が見つかった場合
                     {
                         //ファイルチェック
                         int ret = PathControl_Vehicle(ref tbAts64, ref btnAts64Open, ref btnAts64Open, line, _strVehicleFilePath, out strAts64DetailManagerFilePath);
@@ -631,7 +667,7 @@ namespace AtsPluginEditor
                             gbxBve6.Visible = false;
                             lblAts64.Visible = false;
                         }
-                        else if(ret >= 1)
+                        else if (ret >= 1)
                         {
                             btnBootBVE6.Enabled = true;
                             //btnAts64OpenFile.Enabled = true;
@@ -718,7 +754,7 @@ namespace AtsPluginEditor
                         line = line.Trim();
                         if (line.StartsWith("ATS32", StringComparison.OrdinalIgnoreCase))
                         {
-                            line = line.Substring(line.IndexOf("=", StringComparison.OrdinalIgnoreCase)+1).Trim();
+                            line = line.Substring(line.IndexOf("=", StringComparison.OrdinalIgnoreCase) + 1).Trim();
                         }
                         txbLog.AppendText(line + "\r\n");
                         _listAtsPlugins.Add(line);
@@ -773,8 +809,9 @@ namespace AtsPluginEditor
                     while ((line = sr.ReadLine()) != null)
                     {
                         line = line.Trim();
-                        if (line.StartsWith("ATS64", StringComparison.OrdinalIgnoreCase)){
-                            line = line.Substring(line.IndexOf("=", StringComparison.OrdinalIgnoreCase)+1).Trim();
+                        if (line.StartsWith("ATS64", StringComparison.OrdinalIgnoreCase))
+                        {
+                            line = line.Substring(line.IndexOf("=", StringComparison.OrdinalIgnoreCase) + 1).Trim();
                         }
                         txbLog.AppendText(line + "\r\n");
                         _listAtsPlugins.Add(line);
@@ -790,7 +827,7 @@ namespace AtsPluginEditor
                             FullPath = marge_line;
                         }
                         BVE_Version Ret = AtsPluginChecker(FullPath, 300, false);
-                        dgvAts64.Rows.Add(Path.GetFileName(line), Ret.ToString(), line,FullPath);
+                        dgvAts64.Rows.Add(Path.GetFileName(line), Ret.ToString(), line, FullPath);
                         //dgvAts64.Rows.Add(Path.GetFileName(line), Path.GetFullPath(Path.GetDirectoryName(strAtsPluginFilePath) + @"\" + line), line);
 
                         if (Ret == BVE_Version.NotFound)
@@ -842,39 +879,39 @@ namespace AtsPluginEditor
 
         private void btnOpenRouteFile_Click(object sender, EventArgs e)
         {
-            ProcessStart(strRouteFilePath,false);
+            ProcessStart(strRouteFilePath, false);
         }
 
         private void btnOpenVehicleFile_Click(object sender, EventArgs e)
         {
-            if(listVehicleFilePath.Count > 1)
+            if (listVehicleFilePath.Count > 1)
             {
-                ProcessStart(listVehicleFilePath[cbxVehicleIndex],false);
+                ProcessStart(listVehicleFilePath[cbxVehicleIndex], false);
             }
             else
             {
-                ProcessStart(strVehicleFilePath,false);
+                ProcessStart(strVehicleFilePath, false);
             }
         }
 
         private void btnOpenAts32_Click(object sender, EventArgs e)
         {
-            ProcessStart(strAts32SettingTextFilePath,false);
+            ProcessStart(strAts32SettingTextFilePath, false);
         }
 
         private void btnOpenAts32Directory_Click(object sender, EventArgs e)
         {
-            ProcessStart(strAts32DetailManagerFilePath,true);
+            ProcessStart(strAts32DetailManagerFilePath, true);
         }
 
         private void btnOpenAts64Directory_Click(object sender, EventArgs e)
         {
-            ProcessStart(strAts64DetailManagerFilePath,true);
+            ProcessStart(strAts64DetailManagerFilePath, true);
         }
 
         private void btnOpenVehicleDirectory_Click(object sender, EventArgs e)
         {
-            ProcessStart(strVehicleFilePath,true);
+            ProcessStart(strVehicleFilePath, true);
         }
 
         private void btnAtsPluginDirectory_Click(object sender, EventArgs e)
@@ -917,7 +954,7 @@ namespace AtsPluginEditor
                 btnAts64RelatePathGen.Enabled = false;
                 btnAts32Add.Enabled = false;
 
-                if (tbSeinarioFileName.Text != "" && strAts32SettingTextFilePath != "" )
+                if (tbSeinarioFileName.Text != "" && strAts32SettingTextFilePath != "")
                 {
                     btnAts32RelatePathGen.Enabled = true;
                     tbAts32.Enabled = true;
@@ -925,7 +962,7 @@ namespace AtsPluginEditor
 
 
             }
-            else if(iRet == BVE_Version.Ver6)
+            else if (iRet == BVE_Version.Ver6)
             {
                 lblAtsPluginFile.Text = "ATSプラグイン BVE6用 (64bit)ビルド";
                 btnAts32Add.Enabled = false;
@@ -952,7 +989,7 @@ namespace AtsPluginEditor
         private string GanarateRelativePath(string OriginalFilePath, string TargetPath)
         {
             string relativePath = "";
-            if ((OriginalFilePath != "" || TargetPath != "" ) && ( File.Exists(OriginalFilePath) && File.Exists(TargetPath)))
+            if ((OriginalFilePath != "" || TargetPath != "") && (File.Exists(OriginalFilePath) && File.Exists(TargetPath)))
             {
                 Uri u1 = new Uri(OriginalFilePath);
                 Uri u2 = new Uri(TargetPath);
@@ -975,7 +1012,7 @@ namespace AtsPluginEditor
             {
                 relativePath = GanarateRelativePath(strAts32SettingTextFilePath, strAtsPluginFilePath);
             }
-            else if(iRet == BVE_Version.Ver6)
+            else if (iRet == BVE_Version.Ver6)
             {
                 relativePath = GanarateRelativePath(strAts64SettingTextFilePath, strAtsPluginFilePath);
             }
@@ -1022,7 +1059,7 @@ namespace AtsPluginEditor
             }
         }
 
-       private void ProcessStart(string FilePath, bool IsDirectory)
+        private void ProcessStart(string FilePath, bool IsDirectory)
         {
             if (!IsDirectory)
             {
@@ -1056,78 +1093,78 @@ namespace AtsPluginEditor
 
         private void btnMapOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(strMapFilePath,false);
+            ProcessStart(strMapFilePath, false);
         }
 
         private void btnPerfoemanceCurveOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(strPerfoemanceCurveFilePath,false);
+            ProcessStart(strPerfoemanceCurveFilePath, false);
         }
 
 
         private void btnPerfoemanceCurveDirectory_Click(object sender, EventArgs e)
         {
-            ProcessStart(strPerfoemanceCurveFilePath,true);
+            ProcessStart(strPerfoemanceCurveFilePath, true);
         }
 
         private void btnParametersOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(strParametersFilePath,false);
+            ProcessStart(strParametersFilePath, false);
         }
 
         private void btnParametersDirectory_Click(object sender, EventArgs e)
         {
-            ProcessStart(strParametersFilePath,true);
+            ProcessStart(strParametersFilePath, true);
         }
 
         private void btnPanelOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(strPanelFilePath,false);
+            ProcessStart(strPanelFilePath, false);
         }
 
 
         private void btnPanelDirectory_Click(object sender, EventArgs e)
         {
-            ProcessStart(strPanelFilePath,true);
+            ProcessStart(strPanelFilePath, true);
         }
 
         private void btnSoundOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(strSoundFilePath,false);
+            ProcessStart(strSoundFilePath, false);
         }
         private void btnSoundDirectory_Click(object sender, EventArgs e)
         {
-            ProcessStart(strSoundFilePath,true);
+            ProcessStart(strSoundFilePath, true);
         }
 
         private void btnMotorNoiseOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(strMotorNoiseFilePath,false);
+            ProcessStart(strMotorNoiseFilePath, false);
         }
 
         private void btnMotorNoiseDirectory_Click(object sender, EventArgs e)
         {
-            ProcessStart(strMotorNoiseFilePath,true);
+            ProcessStart(strMotorNoiseFilePath, true);
         }
 
         private void btnAts64Open_Click(object sender, EventArgs e)
         {
-            ProcessStart(strAts64SettingTextFilePath,false);
+            ProcessStart(strAts64SettingTextFilePath, false);
         }
 
         private void btnMapOpen_Click_1(object sender, EventArgs e)
         {
-            ProcessStart(strMapFilePath,false);
+            ProcessStart(strMapFilePath, false);
         }
 
         private void btnMapDirectory_Click(object sender, EventArgs e)
         {
-            ProcessStart(strMapFilePath,true);
+            ProcessStart(strMapFilePath, true);
         }
 
         private void btnStructureOpen_Click_1(object sender, EventArgs e)
         {
-            ProcessStart(strStructureFilePath,false);
+            ProcessStart(strStructureFilePath, false);
         }
 
         private void btnStructureDirectory_Click(object sender, EventArgs e)
@@ -1137,7 +1174,7 @@ namespace AtsPluginEditor
 
         private void btnStationOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(strStationFilePath,false);
+            ProcessStart(strStationFilePath, false);
         }
         private void btnStationDirectory_Click(object sender, EventArgs e)
         {
@@ -1154,7 +1191,7 @@ namespace AtsPluginEditor
 
         private void btnSoundListOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(strSoundListFilePath,false);
+            ProcessStart(strSoundListFilePath, false);
         }
         private void btnSoundListDirectory_Click(object sender, EventArgs e)
         {
@@ -1163,23 +1200,24 @@ namespace AtsPluginEditor
 
         private void btnTrainOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(strTrainFilePath,false);
+            ProcessStart(strTrainFilePath, false);
         }
 
         private void btnTrainDirectory_Click(object sender, EventArgs e)
         {
-            ProcessStart(strTrainFilePath,true);
+            ProcessStart(strTrainFilePath, true);
         }
 
         //マップファイルのファイルパスを生成する
-        private string PathGenerator_Map (string _line , string _dirPath)
+        private string PathGenerator_Map(string _line, string _dirPath)
         {
             string s = "";
             if (_line.IndexOf("'") > 0)
             {
                 int index = _line.IndexOf("'");
                 s = Path.GetFullPath(Path.GetDirectoryName(_dirPath) + "\\" + (_line.Substring(index + 1, _line.IndexOf("'", index + 1) - index - 1)).Trim());
-            }else if((_line.IndexOf("(") > 0))
+            }
+            else if ((_line.IndexOf("(") > 0))
             {
                 s = Path.GetFullPath(Path.GetDirectoryName(_dirPath) + "\\" + (_line.Substring(_line.IndexOf("(") + 1, _line.IndexOf(")", _line.IndexOf("(") + 1) - _line.IndexOf("(") - 1)).Trim());
             }
@@ -1199,7 +1237,7 @@ namespace AtsPluginEditor
         }
 
         //マップの存在を確認する
-        private int PathControl_Map(ref TextBox tb, ref Button btnFile, ref Button btnDirectory ,string line_, string mapPath_, out string strFilePath_)
+        private int PathControl_Map(ref TextBox tb, ref Button btnFile, ref Button btnDirectory, string line_, string mapPath_, out string strFilePath_)
         {
             if (line_.Substring(line_.IndexOf("(")).Length > 1)
             {
@@ -1215,7 +1253,7 @@ namespace AtsPluginEditor
                 else
                 {
                     tb.Text = "Not Found or Supported : " + strFilePath_;
-                    tb.BackColor= Color.LightYellow;
+                    tb.BackColor = Color.LightYellow;
                     return -1;
                 }
             }
@@ -1365,11 +1403,14 @@ namespace AtsPluginEditor
             IsDetailmanager32 = false;
             IsDetailmanager64 = false;
 
-    }
+            btnBve6Convert.Enabled = false;
+
+        }
 
         private void btnBootBVE5_Click(object sender, EventArgs e)
         {
-            if(File.Exists(strBve5Path)){
+            if (File.Exists(strBve5Path))
+            {
                 Process.Start(strBve5Path, "\"" + strRouteFilePath + "\"");
             }
             else
@@ -1393,7 +1434,7 @@ namespace AtsPluginEditor
         private void Form1_Load(object sender, EventArgs e)
         {
             cbMessageDisp.Checked = Settings.Default.cbMessage;
-            if(Settings.Default.strBve5Path != "")
+            if (Settings.Default.strBve5Path != "")
             {
                 strBve5Path = Settings.Default.strBve5Path;
             }
@@ -1421,7 +1462,8 @@ namespace AtsPluginEditor
 
             for (int i = 0; i < lines.Length; i++)
             {
-                if (lines[i].IndexOf(";") != 0 && lines[i].IndexOf("#") != 0) {
+                if (lines[i].IndexOf(";") != 0 && lines[i].IndexOf("#") != 0)
+                {
                     if (lines[i].Contains("Vehicle =") || lines[i].Contains("Vehicle="))
                     {
                         // 引用 https://dobon.net/vb/dotnet/file/getabsolutepath.html#uriencode
@@ -1493,6 +1535,56 @@ namespace AtsPluginEditor
                         relativePath = relativePath.Replace('/', '\\');
                         lines[i] = "Route = " + relativePath;
                     }
+                }
+            }
+            //内容を書き込む
+            //ファイルが存在しているときは、上書きする
+            File.WriteAllLines(newFileName_, lines, enc);
+        }
+
+        private void Make_NewDetailModulesFile(string oldFileName_, string newFileName_)
+        {
+            if (!File.Exists(newFileName_))
+            {
+                File.WriteAllText(newFileName_, "");
+            }
+
+            //読み込むテキストファイル
+            string textFile = oldFileName_;
+            //文字コード(ここでは、Shift JIS)
+            Encoding enc = Encoding.GetEncoding("utf-8");
+
+            string[] lines = File.ReadAllLines(textFile);
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string strAts32Path = Path.GetFullPath(Path.GetDirectoryName(strAts32SettingTextFilePath) + @"\"+lines[i]);
+                if (lines[i].IndexOf(@"\GeneralAtsPlugin\Rock_On", StringComparison.OrdinalIgnoreCase) > 0)
+                {
+                    string[] keyword = { "Rock_On" };
+                    string[] arr = strAts32Path.Split(keyword, StringSplitOptions.None);
+                    string strAts64Path = arr[0] + keyword[0] + @"\x64" + arr[1];
+                    if(File.Exists(strAts64Path) && (AtsPluginChecker(strAts64Path,300,false) == BVE_Version.Ver6))
+                    {
+                        lines[i] = GanarateRelativePath(strAts64SettingTextFilePath, strAts64Path);
+                    }
+                    else
+                    {
+                        Uri u1 = new Uri(strAts64SettingTextFilePath);
+                        Uri u2 = new Uri(strAts64Path);
+
+                        Uri relativeUri = u1.MakeRelativeUri(u2);
+
+                        string relativePath = relativeUri.ToString();
+
+                        relativePath = relativePath.Replace('/', '\\');
+
+                        lines[i] = "#" + relativePath;
+                    }
+                }
+                else
+                {
+                    lines[i] = "#" + GanarateRelativePath(strAts64SettingTextFilePath, strAts32Path);
                 }
             }
             //内容を書き込む
@@ -1613,7 +1705,7 @@ namespace AtsPluginEditor
             //コンボボックスのインデックスを取得
             cbxVehicleIndex = cbxVehicle.SelectedIndex;
             //コンボボックスのインデックス番号のファイルパスで車両ファイルを開く
-           OpenNewVehicleFile(listVehicleFilePath[cbxVehicleIndex]);
+            OpenNewVehicleFile(listVehicleFilePath[cbxVehicleIndex]);
         }
 
         private void btnAts32Check_Click(object sender, EventArgs e)
@@ -1686,13 +1778,14 @@ namespace AtsPluginEditor
                                 {
                                     MessageBox.Show("判定できませんでした");
                                 }
+                                iRet = BVE_Version.Null;
                                 ret = false;
                             }
                         }
                     }
                 }
             }
-            else 
+            else
             {
                 iRet = BVE_Version.Null;
             }
@@ -1804,5 +1897,160 @@ namespace AtsPluginEditor
             }
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //[引用]https://www.sejuku.net/blog/49295#index_id1
+
+            FolderBrowserDialog fbDialog = new FolderBrowserDialog();
+
+            // ダイアログの説明文を指定する
+            fbDialog.Description = "ダイアログの説明文";
+
+            // デフォルトのフォルダを指定する
+            fbDialog.SelectedPath = Path.GetDirectoryName(strAts32DetailManagerFilePath);
+
+            // 「新しいフォルダーを作成する」ボタンを表示する
+            fbDialog.ShowNewFolderButton = true;
+
+            //フォルダを選択するダイアログを表示する
+            if (fbDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (fbDialog.SelectedPath + @"\detailmodules.txt" == strAts32SettingTextFilePath)
+                {
+                    MessageBox.Show("BVE5用(32bit)のフォルダと同一には出来ません。別のフォルダを選択するか作成してください。");
+                }
+                else
+                {
+                    strAts64DetailManagerFilePath = fbDialog.SelectedPath + @"\DetailManager.dll";
+                    strAts64SettingTextFilePath = fbDialog.SelectedPath + @"\detailmodules.txt";
+                    tbAts64.Text = strAts64DetailManagerFilePath;
+                    if (!File.Exists(strAts64DetailManagerFilePath))
+                    {
+                        File.Copy(strAts64DetailManagerOrgFilePath, strAts64DetailManagerFilePath);
+                        if (!File.Exists(strAts64SettingTextFilePath))
+                        {
+                            File.WriteAllText(strAts64SettingTextFilePath, "");
+                        }
+                    }
+
+                    if ((File.Exists(strAts64DetailManagerFilePath) && AtsPluginChecker(strAts64DetailManagerFilePath, 300, false) == BVE_Version.Ver6))
+                    {
+                        if (!File.Exists(strAts64SettingTextFilePath))
+                        {
+                            File.WriteAllText(strAts64SettingTextFilePath, "");
+                        }
+                        tbAts64.Visible = true;
+                        tbAts64.Enabled = true;
+                        btnBve6Convert.Enabled = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("既に指定した場所にDetailManager.dllがありますがBVE6用(64bit)ではありません。場所をよく確認した後、手動で削除し、再度選択してください。");
+                    }                    
+                }
+            }
+
+            // オブジェクトを破棄する
+            fbDialog.Dispose();
+
+        }
+
+
+        private string strAts64DetailManagerOrgFilePath = "";
+        private void button5_Click(object sender, EventArgs e)
+        {
+            //OpenFileDialogクラスのインスタンスを作成
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "BVE6 DetailManager(DetailManager.dll)|DetailManager.dll";
+            //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
+            ofd.InitialDirectory = Settings.Default.DetailManager64Path;
+            //ofd.RestoreDirectory = true;
+
+            //ダイアログを表示する
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                if (AtsPluginChecker(ofd.FileName, 300, false) == BVE_Version.Ver6)
+                {
+                    strAts64DetailManagerOrgFilePath = ofd.FileName;
+                    Settings.Default.DetailManager64Path = Path.GetDirectoryName(ofd.FileName);
+                }
+                else
+                {
+                    MessageBox.Show("BVE6用(64bit)のDetailManager.dllではありません。選択し直してください。");
+                }
+            }
+            ofd.Dispose();
+        }
+
+        private void btnBve6Convert_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists(strVehicleFilePath + @".bak"))
+            {
+                File.Move(strVehicleFilePath, strVehicleFilePath + @".bak");
+            }
+            StreamReader sr_temp = new StreamReader(strVehicleFilePath + @".bak");
+            StreamReader sr;
+            Encoding enc;
+            if (sr_temp.ReadLine().IndexOf("shift_jis", StringComparison.OrdinalIgnoreCase) > 0)
+            {
+                sr = new StreamReader(strVehicleFilePath + @".bak", Encoding.GetEncoding("shift_jis"));
+                //文字コード(ここでは、Shift JIS)
+                enc = Encoding.GetEncoding("shift_jis");
+            }
+            else
+            {
+                sr = new StreamReader(strVehicleFilePath + @".bak");
+                enc = Encoding.GetEncoding("utf-8");
+            }
+            sr_temp.Close();
+            string line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                line = line.Trim();
+                if (line.IndexOf("Bvets Vehicle", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    File.WriteAllText(strVehicleFilePath, "Bvets Vehicle 2.00", enc);
+                }
+                else if (enc == Encoding.GetEncoding("shift_jis"))
+                {
+                    File.AppendAllText(strVehicleFilePath, ":shift_jis", enc);
+                }
+                else if ((line.IndexOf("ATS", StringComparison.OrdinalIgnoreCase) >= 0 && line.IndexOf("Ats32", StringComparison.OrdinalIgnoreCase) < 0) && line.IndexOf("Ats64", StringComparison.OrdinalIgnoreCase) < 0)
+                {
+                    File.AppendAllText(strVehicleFilePath, Environment.NewLine + "Ats32 = "+ GanarateRelativePath(strVehicleFilePath, strAts32DetailManagerFilePath) + Environment.NewLine + "Ats64 = " + GanarateRelativePath(strVehicleFilePath, strAts64DetailManagerFilePath), enc);
+                }
+                else if (line.IndexOf("Ats64", StringComparison.OrdinalIgnoreCase) >= 0)//Ats64が見つかった場合
+                {
+
+                }
+                else
+                {
+                    File.AppendAllText(strVehicleFilePath, Environment.NewLine + line, enc);
+                }
+            }
+            //閉じる
+            sr.Close();
+            
+            Make_NewDetailModulesFile(strAts32SettingTextFilePath, strAts64SettingTextFilePath);
+            OpenNewVehicleFile(strVehicleFilePath);
+
+        }
+
+        private void btnBve5Recovery_Click(object sender, EventArgs e)
+        {
+            bool exist = false;
+            if (File.Exists(strVehicleFilePath + @".bak"))
+            {
+                File.Copy(strVehicleFilePath + @".bak", strVehicleFilePath, true);
+                exist = true;
+            }
+            if (exist)
+            {
+                File.Delete(strVehicleFilePath + @".bak");
+                btnBve5Recovery.Visible = false;
+                OpenNewVehicleFile(strVehicleFilePath);
+            
+            }
+        }
     }
 }
