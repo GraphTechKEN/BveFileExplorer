@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Authentication.ExtendedProtection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 
@@ -25,6 +27,14 @@ namespace BveFileExplorer
         public Form1()
         {
             InitializeComponent();
+            lvFiles.View = View.Details;
+            lvFiles.Columns.Add("ファイル名", 250);
+            lvFiles.Columns.Add("パス",800);
+
+            cbxVehicle.DrawItem += new DrawItemEventHandler(cbxVehicle_DrawItem);
+            //tabControl1.TabPages.Remove(tpAtsPlugin);
+            gbxBve6Converter.Visible = false;
+
         }
 
         private string strVehicleFilePath = "";
@@ -43,11 +53,16 @@ namespace BveFileExplorer
 
         private string strDisp = "";
         private Senario senario;
+        private Map map;
+
+        private AtsPlugin ats32Plugin;
+        private AtsPlugin ats64Plugin;
 
         private void btnOpenSenario_Click(object sender, EventArgs e)
         {
             //OpenFileDialogクラスのインスタンスを作成
-            using(OpenFileDialog ofd = new OpenFileDialog()){
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
                 ofd.Filter = "路線ファイル(*.txt)|*.txt";
                 //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
                 ofd.InitialDirectory = Settings.Default.RouteFileDirectory;
@@ -59,143 +74,179 @@ namespace BveFileExplorer
                     Reset();
 
                     Settings.Default.RouteFileDirectory = Path.GetDirectoryName(ofd.FileName);
+
+
                     //OKボタンがクリックされたとき、選択されたファイルを読み取り専用で開く
                     senario = new Senario(ofd.FileName);
-
-                    btnOpenSenarioFile.Enabled = true;
-                    btnAtsPluginSelect.Enabled = true;
-                    btnBootBVE5.Enabled = true;
-                    tbSeinarioFileName.Enabled = true;
-                    tbSeinarioFileName.Text = senario.FilePath;
-                    btnSenarioClear.Visible = true;
-
-
-                    //内容を読み込み、表示する
-                    List<string> listMapFilePath;
-                    bool flgErrVehicle = false;
-                    bool flgErrMap = false;
-                    string dir = Path.GetDirectoryName(senario.FilePath);
-
-                    lblVehicleTitle.Text = senario.VehicleTitle;
-                    pictureBox1.ImageLocation = senario.ImagePath;
-                    lblRouteTitle.Text = senario.RouteTitle;
-                    listMapFilePath = senario.MapFiles;
-                    lblTitle.Text = senario.Title;
-                    lblAuthor.Text = senario.Author;
-                    tbComment.Text = senario.Comment;
-
-                    
-
-                    //車両ファイルが指定されている場合の処理
-                    if (senario.VehicleFilesCount > 0 && !flgErrVehicle)
-                    {
-                        cbxVehicle.BackColor = SystemColors.Window;
-                        cbxVehicle.Text = senario.VehicleFilesAbs[0];
-                        OpenNewVehicleFile(senario.VehicleFilesAbs[0]);
-                        cbxVehicle.Items.AddRange(senario.VehicleFilesAbs.ToArray());
-
-                        if (senario.VehicleFilesCount > 1)
-                        {
-                            btnBve5BootChooseVehicle.Enabled = btnBootBVE5.Enabled;
-                            btnBve6BootChooseVehicle.Enabled = btnBootBVE6.Enabled;
-                            strDisp += "車両ファイルが複数あります。データ数：" + senario.VehicleFilesCount + "\n\n";
-                            cbxVehicle.SelectedIndex = 0;
-                        }
-                        else
-                        {
-                            btnBve5BootChooseVehicle.Enabled = false;
-                            btnBve6BootChooseVehicle.Enabled = false;
-                        }
-
-                        if (tbAtsPluginFile.Text != "" && File.Exists(tbAtsPluginFile.Text))
-                        {
-                            AddAtsPlugin(tbAtsPluginFile.Text);
-                        }
-
-                    }
-                    //車両ファイルが空欄のとき
-                    else
-                    {
-                        btnBootBVE5.Enabled = false;
-                        btnBootBVE6.Enabled = false;
-                        btnBve5BootChooseVehicle.Enabled = false;
-                        btnBve6BootChooseVehicle.Enabled = false;
-                        cbxVehicle.Text = "Not defined";
-                        cbxVehicle.BackColor = Color.LightYellow;
-                        strDisp += "車両ファイルが指定されていません。\n\n";
-                    }
-
-                    //マップファイルが指定されている場合の処理
-                    if (senario.MapFilesCount > 0 && !flgErrMap)
-                    {
-                        strMapFilePath = dir + @"\" + listMapFilePath[0].Trim();
-
-                        for (int i = 0; i < senario.MapFilesCount; i++)
-                        {
-                            this.listMapFilePath.Add(dir + @"\" + listMapFilePath[i].Trim());
-                        }
-
-                        bool IsFileExists = false;
-                        for (int i = 0; i < senario.MapFilesCount; i++)
-                        {
-                            IsFileExists |= File.Exists(this.listMapFilePath[i]);
-                        }
-                        if (IsFileExists)
-                        {
-                            if (senario.MapFilesCount > 1)
-                            {
-                                btnBve5BootChooseMap.Enabled = btnBootBVE5.Enabled;
-                                btnBve6BootChooseMap.Enabled = btnBootBVE6.Enabled;
-                                strDisp += "マップファイルが複数あります。データ数：" + senario.MapFilesCount + "\n\n";
-                                //cbxMapFilePath.SelectedIndex = 0;
-                            }
-                            else
-                            {
-                                btnBve5BootChooseMap.Enabled = false;
-                                btnBve6BootChooseMap.Enabled = false;
-                            }
-                            for (int i = 0; i < this.listMapFilePath.Count; i++)
-                            {
-                                cbxMapFilePath.Items.Add(this.listMapFilePath[i]);
-                            }
-                            cbxMapFilePath.BackColor = SystemColors.Window;
-                            
-                            OpenNewMapFile(this.listMapFilePath[0]);
-
-                        }
-
-                        //マップファイルが見つからない場合の処理
-                        else
-                        {
-                            btnBootBVE5.Enabled = false;
-                            btnBootBVE6.Enabled = false;
-                            btnBve5BootChooseMap.Enabled = false;
-                            btnBve6BootChooseMap.Enabled = false;
-                            for (int i = 0; i < senario.MapFilesCount; i++)
-                            {
-                                this.listMapFilePath.Add("Not found or supported : " + dir + @"\" + listMapFilePath[i].Trim());
-                            }
-                            cbxMapFilePath.Text = "Not found or supported : " + dir + @"\" + listMapFilePath[0].Trim();
-                            cbxMapFilePath.BackColor = Color.LightYellow;
-                            strDisp += "マップファイルが見つかりません。\n\n";
-                        }
-                    }
-                    //マップファイルが空欄のとき
-                    else
-                    {
-                        btnBootBVE5.Enabled = false;
-                        btnBootBVE6.Enabled = false;
-                        btnBve5BootChooseMap.Enabled = false;
-                        btnBve6BootChooseMap.Enabled = false;
-                        cbxMapFilePath.Text = "Not defined";
-                        cbxMapFilePath.BackColor = Color.LightYellow;
-                        strDisp += "マップファイルが指定されていません。\n\n";
-                    }
+                    OpenSenario();
                 }
             }
         }
 
-        Map map;
+        private void cbxVehicle_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            // 背景の描画（選択されているか否かで色を変えることも可能）
+            e.DrawBackground();
+
+            // アイテムの背景色を個別に設定する場合の例
+            Brush backBrush = Brushes.White;
+            if (senario.VehicleFilesCount > 0) {
+                for (int i = 0; i < senario.VehicleFilesCount; i++) {
+                    if (e.Index ==i && !senario.VehicleFilesExists[i]) backBrush = Brushes.Yellow; // 1番目のアイテム
+                }
+            }
+            e.Graphics.FillRectangle(backBrush, e.Bounds);
+
+            // 文字の描画
+            string text = cbxVehicle.Items[e.Index].ToString();
+            e.Graphics.DrawString(text, e.Font, Brushes.Black, e.Bounds);
+
+            // フォーカスを描画
+            e.DrawFocusRectangle();
+        }
+
+        private void OpenSenario()
+        {
+            btnOpenSenarioFile.Enabled = true;
+            btnSenarioReload.Visible = true;
+            btnAtsPluginSelect.Enabled = true;
+            btnBootBVE5.Enabled = true;
+            tbSeinarioFileName.Enabled = true;
+            tbSeinarioFileName.Text = senario.FilePath;
+            btnSenarioClear.Visible = true;
+
+
+            //内容を読み込み、表示する
+            List<string> listMapFilePath;
+            bool flgErrVehicle = false;
+            bool flgErrMap = false;
+            string dir = Path.GetDirectoryName(senario.FilePath);
+
+            lblVehicleTitle.Text = senario.VehicleTitle;
+            pictureBox1.ImageLocation = senario.ImagePath;
+            lblRouteTitle.Text = senario.RouteTitle;
+            listMapFilePath = senario.MapFiles;
+            lblTitle.Text = senario.Title;
+            lblAuthor.Text = senario.Author;
+            tbComment.Text = senario.Comment;
+
+
+
+            //車両ファイルが指定されている場合の処理
+            if (senario.VehicleFilesCount > 0 && !flgErrVehicle)
+            {
+                cbxVehicle.BackColor = SystemColors.Window;
+                cbxVehicle.Text = senario.VehicleFilesAbs[0];
+                OpenNewVehicleFile(senario.VehicleFilesAbs[0]);
+                cbxVehicle.Items.AddRange(senario.VehicleFilesAbs.ToArray());
+
+                if (senario.VehicleFilesCount > 1)
+                {
+                    btnBve5BootChooseVehicle.Enabled = btnBootBVE5.Enabled;
+                    btnBve6BootChooseVehicle.Enabled = btnBootBVE6.Enabled;
+                    strDisp += "車両ファイルが複数あります。データ数：" + senario.VehicleFilesCount + "\n";
+                    cbxVehicle.SelectedIndex = 0;
+                    if (senario.VehicleFilesNotExistsCount > 0)
+                    {
+                        lblVehicleFile.BackColor = Color.Yellow;
+                        strDisp += "車両ファイルのリンク切れがあります。データ数：" + senario.VehicleFilesNotExistsCount + "\n";
+                    }
+                }
+                else
+                {
+                    btnBve5BootChooseVehicle.Enabled = false;
+                    btnBve6BootChooseVehicle.Enabled = false;
+                }
+
+                if (tbAtsPluginFile.Text != "" && File.Exists(tbAtsPluginFile.Text))
+                {
+                    AddAtsPlugin(tbAtsPluginFile.Text);
+                }
+
+            }
+            //車両ファイルが空欄のとき
+            else
+            {
+                btnBootBVE5.Enabled = false;
+                btnBootBVE6.Enabled = false;
+                btnBve5BootChooseVehicle.Enabled = false;
+                btnBve6BootChooseVehicle.Enabled = false;
+                cbxVehicle.Text = "Not defined";
+                cbxVehicle.BackColor = Color.LightYellow;
+                lblVehicleFile.BackColor = Color.LightYellow;
+                strDisp += "車両ファイルが指定されていません。\n";
+            }
+
+            //マップファイルが指定されている場合の処理
+            if (senario.MapFilesCount > 0 && !flgErrMap)
+            {
+                strMapFilePath = dir + @"\" + listMapFilePath[0].Trim();
+
+                for (int i = 0; i < senario.MapFilesCount; i++)
+                {
+                    this.listMapFilePath.Add(dir + @"\" + listMapFilePath[i].Trim());
+                }
+
+                bool IsFileExists = false;
+                for (int i = 0; i < senario.MapFilesCount; i++)
+                {
+                    IsFileExists |= File.Exists(this.listMapFilePath[i]);
+                }
+                if (IsFileExists)
+                {
+                    if (senario.MapFilesCount > 1)
+                    {
+                        btnBve5BootChooseMap.Enabled = btnBootBVE5.Enabled;
+                        btnBve6BootChooseMap.Enabled = btnBootBVE6.Enabled;
+                        strDisp += "マップファイルが複数あります。データ数：" + senario.MapFilesCount + "\n";
+                        //cbxMapFilePath.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        btnBve5BootChooseMap.Enabled = false;
+                        btnBve6BootChooseMap.Enabled = false;
+                    }
+                    for (int i = 0; i < this.listMapFilePath.Count; i++)
+                    {
+                        cbxMapFilePath.Items.Add(this.listMapFilePath[i]);
+                    }
+                    cbxMapFilePath.BackColor = SystemColors.Window;
+
+                    OpenNewMapFile(this.listMapFilePath[0]);
+
+                }
+
+                //マップファイルが見つからない場合の処理
+                else
+                {
+                    btnBootBVE5.Enabled = false;
+                    btnBootBVE6.Enabled = false;
+                    btnBve5BootChooseMap.Enabled = false;
+                    btnBve6BootChooseMap.Enabled = false;
+                    for (int i = 0; i < senario.MapFilesCount; i++)
+                    {
+                        this.listMapFilePath.Add("Not found or supported : " + dir + @"\" + listMapFilePath[i].Trim());
+                    }
+                    cbxMapFilePath.Text = "Not found or supported : " + dir + @"\" + listMapFilePath[0].Trim();
+                    cbxMapFilePath.BackColor = Color.LightYellow;
+                    strDisp += "マップファイルが見つかりません。\n";
+                }
+            }
+            //マップファイルが空欄のとき
+            else
+            {
+                btnBootBVE5.Enabled = false;
+                btnBootBVE6.Enabled = false;
+                btnBve5BootChooseMap.Enabled = false;
+                btnBve6BootChooseMap.Enabled = false;
+                cbxMapFilePath.Text = "Not defined";
+                cbxMapFilePath.BackColor = Color.LightYellow;
+                strDisp += "マップファイルが指定されていません。\n";
+            }
+        }
+
         private void OpenNewMapFile(string strMapFilePath_)
         {
             if (File.Exists(strMapFilePath_))
@@ -236,13 +287,18 @@ namespace BveFileExplorer
             }
             else
             {
-                strDisp += "マップファイルが指定されていません\n\n";
+                strDisp += "マップファイルが指定されていません\n";
             }
-            if (strDisp != "" && cbMessageDisp.Checked)
+            if (strDisp != "")
             {
-                MessageBox.Show(strDisp);
+                if (cbMessageDisp.Checked)
+                {
+                    MessageBox.Show(strDisp);
+                }
+                tsslDisp.Text = strDisp.Replace("\n", " ").Trim();
                 strDisp = "";
             }
+
         }
 
         private bool IsDetailmanager32 = false;
@@ -274,7 +330,7 @@ namespace BveFileExplorer
                     btnAts64Reset.Visible = false;
                     btnAts64OpenDirectory.Visible = false;
                     tbAts64.Visible = false;
-                    gbxBve6.Visible = false;
+                    //gbxBve6.Visible = false;
                     lblAts64.Visible = false;
                     label9.Visible = false;
                     btnAts64RelatePathGen.Visible = false;
@@ -326,27 +382,30 @@ namespace BveFileExplorer
 
                 int iRet = PathControl_Vehicle(ref tbAts32, ref btnAts32Open, ref btnAts32Open, vehicle.Ats32, out strAts32DetailManagerFilePath);
                 btnAts32Open2.Enabled = btnAts32Open.Enabled;
-                if (vehicle.Ats32.FilePath.IndexOf("DetailManager", StringComparison.OrdinalIgnoreCase) > 0)
+                if (vehicle.Ats32 != null)
                 {
-                    strDisp += "BVE5用(32bit)ATSプラグイン(DetailManager)が見つかりました\n\n";
-                    strAts32SettingTextFilePath = Path.GetFullPath(Path.GetDirectoryName(vehicle.Ats32.FilePath) + @"\detailmodules.txt");
+                    if (vehicle.Ats32.FilePath.IndexOf("DetailManager", StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        //strDisp += "BVE5用(32bit)ATSプラグイン(DetailManager)が見つかりました\n";
+                        strAts32SettingTextFilePath = Path.GetFullPath(Path.GetDirectoryName(vehicle.Ats32.FilePath) + @"\detailmodules.txt");
 
-                    tbAts32DetailModules.Text = strAts32SettingTextFilePath;
+                        tbAts32DetailModules.Text = strAts32SettingTextFilePath;
 
-                    OpenNewAtsPluginFile(strAts32SettingTextFilePath, BVE_Version.BVE5);
+                        OpenNewAtsPluginFile(strAts32SettingTextFilePath, BVE_Version.BVE5);
 
 
-                    
-                    IsDetailmanager32 = true;
-                    btnAts32Open.Enabled = true;
-                    btnAts32Open2.Enabled = true;
-                }
-                else
-                {
-                    strDisp += "BVE5用(32bit)ATSプラグインが見つからないか、対応していません(DetailManager以外)\n\n";
-                    IsDetailmanager32 = false;
-                    btnAts32Open.Enabled = false;
-                    btnAts32Open2.Enabled = false;
+
+                        IsDetailmanager32 = true;
+                        btnAts32Open.Enabled = true;
+                        btnAts32Open2.Enabled = true;
+                    }
+                    else
+                    {
+                        strDisp += "BVE5用(32bit)ATSプラグインが見つからないか、対応していません(DetailManager以外)\n";
+                        IsDetailmanager32 = false;
+                        btnAts32Open.Enabled = false;
+                        btnAts32Open2.Enabled = false;
+                    }
                 }
                 if (iRet <= 0)
                 {
@@ -397,7 +456,7 @@ namespace BveFileExplorer
                     tbAts64DetailModules.Visible = false;
                     btnAts64OpenDirectory.Visible = false;
                     tbAts64.Visible = false;
-                    gbxBve6.Visible = false;
+                    //gbxBve6.Visible = false;
                     lblAts64.Visible = false;
                 }
                 else if (ret >= 1)
@@ -412,7 +471,7 @@ namespace BveFileExplorer
                     btnAts64OpenDirectory.Visible = true;
                     btnAts64OpenDirectory.Enabled = true;
                     tbAts64.Visible = true;
-                    gbxBve6.Visible = true;
+                    //gbxBve6.Visible = true;
                     lblAts64.Visible = true;
                     label9.Visible = true;
                     btnAts64RelatePathGen.Visible = true;
@@ -421,7 +480,7 @@ namespace BveFileExplorer
 
                     if (vehicle.FileVersion >= 2.0 && strAts64DetailManagerFilePath.IndexOf("DetailManager", StringComparison.OrdinalIgnoreCase) > 0)
                     {
-                        strDisp += "BVE6用(64bit)ATSプラグイン(DetailManager)が見つかりました\n\n";
+                        //strDisp += "BVE6用(64bit)ATSプラグイン(DetailManager)が見つかりました\n";
                         strAts64SettingTextFilePath = Path.GetFullPath(Path.GetDirectoryName(strAts64DetailManagerFilePath) + @"\detailmodules.txt");
                         tbAts64DetailModules.Text = strAts64SettingTextFilePath;
                         OpenNewAtsPluginFile(strAts64SettingTextFilePath, BVE_Version.BVE6);
@@ -432,7 +491,7 @@ namespace BveFileExplorer
                     }
                     else
                     {
-                        strDisp += "BVE6用(64bit)ATSプラグインが見つからないか、対応していません(DetailManager以外)\n\n";
+                        strDisp += "BVE6用(64bit)ATSプラグインが見つからないか、対応していません(DetailManager以外)\n";
                         IsDetailmanager64 = false;
                         btnAts64Open.Enabled = false;
                         btnAts64Open2.Enabled = true;
@@ -443,34 +502,38 @@ namespace BveFileExplorer
 
                 if (error > 0)
                 {
-                    strDisp += "いくつかのファイルにエラーがあるか、読込未対応ファイル形式ですm(_ _)m\n\n";
+                    strDisp += "いくつかのファイルにエラーがあるか、読込未対応ファイル形式ですm(_ _)m\n";
                 }
 
             }
             else
             {
+                lblVehicleFile.BackColor = Color.Yellow;
                 btnOpenVehicleFile.Enabled = false;
                 btnOpenVehicleDirectory.Enabled = false;
                 btnOpenVehicleFile.Enabled = false;
-                strDisp += "車両が指定されていません\n\n";
+                strDisp += "車両ファイルがないか指定されていません\n";
             }
-            if (strDisp != "" && cbMessageDisp.Checked)
+            if (strDisp != "")
             {
-                MessageBox.Show(strDisp);
+                if (cbMessageDisp.Checked)
+                {
+                    MessageBox.Show(strDisp);
+                }                
+                tsslDisp.Text = strDisp.Replace("\n", " ").Trim();
                 strDisp = "";
             }
 
         }
 
-        AtsPlugin ats32Plugin;
-        AtsPlugin ats64Plugin;
+
 
         private void OpenNewAtsPluginFile(string strAtsPluginFilePath, BVE_Version bve_ver)
         {
             if (File.Exists(strAtsPluginFilePath))
             {
-                if(bve_ver == BVE_Version.BVE5)
-                { 
+                if (bve_ver == BVE_Version.BVE5)
+                {
                     btnAts32OpenDirectory.Enabled = true;
                     btnAts32Check.Enabled = true;
                     dgvAts32.Rows.Clear();
@@ -497,7 +560,7 @@ namespace BveFileExplorer
                     {
 
                         dgvAts64.Rows.Add(ats64Plugin.AtsList[i].FileName, ats64Plugin.AtsList[i].Version.ToString(), ats64Plugin.AtsList[i].RerativePath, ats64Plugin.AtsList[i].AbsolutePath);
-                        
+
                     }
                     ColoringDataGridView(dgvAts64, BVE_Version.BVE6);
                     if (File.Exists(strAts64SettingTextFilePath + ".bak"))
@@ -508,7 +571,7 @@ namespace BveFileExplorer
             }
             else
             {
-                strDisp += "ATSプラグインが見つかりません:" + strAtsPluginFilePath + "\n\n";
+                strDisp += "ATSプラグインが見つかりません:" + strAtsPluginFilePath + "\n";
             }
         }
 
@@ -516,11 +579,12 @@ namespace BveFileExplorer
         {
             for (int i = 0; i < dataGridView.RowCount; i++)
             {
-                if (dataGridView[1,i].Value.ToString() == BVE_Version.NotFound.ToString())
+                if (dataGridView[1, i].Value.ToString() == BVE_Version.NotFound.ToString())
                 {
                     dataGridView[1, i].Style.BackColor = Color.Red;
                 }
-                if (version == BVE_Version.BVE5) {
+                if (version == BVE_Version.BVE5)
+                {
                     if (dataGridView[1, i].Value.ToString() == BVE_Version.BVE6.ToString())
                     {
                         dataGridView[1, i].Style.BackColor = Color.Yellow;
@@ -687,7 +751,7 @@ namespace BveFileExplorer
                 "Rock_On様作製のATSプラグイン(DetailManager)専用です\r\n" +
                 "detailmodules.txtを書き換えたいときに使えるかと思います\r\n" +
                 "\r\n" +
-                
+
                 "【つかいかた(車両ファイル確認)】\r\n" +
                 "1.シナリオファイルを選択\r\n" +
                 "2.車両ファイル関係タブを選択し、リンクを確認する\r\n" +
@@ -708,7 +772,7 @@ namespace BveFileExplorer
                 "2.include形式ファイル、パス内変数形式\r\n" +
                 "\r\n" +
                 "【注意事項】\r\n※動作保証なし、自己責任かつ個人使用でお願いします！また、本ツールで「改造」したデータのアップロードは禁止です※\r\n" +
-                "\r\n" , "使い方");
+                "\r\n", "使い方");
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -732,6 +796,11 @@ namespace BveFileExplorer
             }
         }
 
+        /// <summary>
+        /// プロセス開始メソッド
+        /// </summary>
+        /// <param name="FilePath">ファイルパス</param>
+        /// <param name="IsDirectory">ディレクトリ指定か？</param>
         private void ProcessStart(string FilePath, bool IsDirectory)
         {
             if (!IsDirectory)
@@ -947,11 +1016,11 @@ namespace BveFileExplorer
                 }
                 if (c.Count > 0)
                 {
-                        cb.Text = c[0].FilePath;
-                        btnFile.Enabled = true;
-                        btnDirectory.Enabled = true;
-                        cb.BackColor = SystemColors.Window;
-                        return c[0].Ret;
+                    cb.Text = c[0].FilePath;
+                    btnFile.Enabled = true;
+                    btnDirectory.Enabled = true;
+                    cb.BackColor = SystemColors.Window;
+                    return c[0].Ret;
                 }
                 else
                 {
@@ -1021,7 +1090,7 @@ namespace BveFileExplorer
             btnBve6BootChooseMap.Enabled = false;
             btnBootBVE6.Enabled = false;
 
-            gbxBve6.Visible = false;
+            //gbxBve6.Visible = false;
 
             strMapFilePath = "";
             strAts32DetailManagerFilePath = "";
@@ -1063,10 +1132,6 @@ namespace BveFileExplorer
             btnAts64Add.Enabled = false;
 
             cbxVehicle.Items.Clear();
-            cbxMapFilePath.Items.Clear();
-            cbxTrain.Items.Clear();
-
-            listMapFilePath.Clear();
 
             tbSeinarioFileName.Text = "";
             tbPerfoemanceCurve.Text = "";
@@ -1106,7 +1171,11 @@ namespace BveFileExplorer
             tbSignal.Text = "";
             tbSoundList.Text = "";
             tbSound3DList.Text = "";
+            cbxMapFilePath.Items.Clear();
+            listMapFilePath.Clear();
+            cbxTrain.Items.Clear();
             cbxTrain.Text = "";
+            cbxTrain.BackColor = SystemColors.Control;
 
             pictureBox1.Image = null;
             lblTitle.Text = "Title";
@@ -1126,6 +1195,16 @@ namespace BveFileExplorer
             btnDetailModuleStoreClear.Visible = false;
 
             btnBve5Recovery.Visible = false;
+
+            lblVehicleFile.BackColor = SystemColors.Control;
+
+            // 名前（"tpAtsPlugin"）でコントロールを探す
+            var controls = tabControl1.Controls.Find("tpVehicle", false); // trueで子コントロールも検索
+
+            if (controls.Length > 0)
+            {
+                tabControl1.SelectTab(tabControl1.TabPages["tpVehicle"]);
+            }
 
         }
 
@@ -1156,6 +1235,7 @@ namespace BveFileExplorer
         private void Form1_Load(object sender, EventArgs e)
         {
             cbMessageDisp.Checked = Settings.Default.cbMessage;
+            tsslDisp.Text = "";
             if (Settings.Default.strBve5Path != "")
             {
                 strBve5Path = Settings.Default.strBve5Path;
@@ -1165,13 +1245,31 @@ namespace BveFileExplorer
                 strBve6Path = Settings.Default.strBve6Path;
             }
             if (File.Exists(Settings.Default.DetailManager64Path + @"\DetailManager.dll"))
-            {                
+            {
                 tbDetailManagerDetail.Text = Settings.Default.DetailManager64Path + @"\DetailManager.dll";
                 strAts64DetailManagerOrgFilePath = Settings.Default.DetailManager64Path + @"\DetailManager.dll";
-                
+
                 strAtsPluginFilePath = Settings.Default.AtsPluginFilePath;
                 tbAtsPluginFile.Text = Settings.Default.AtsPluginFilePath;
             }
+            if(Settings.Default.RouteFileDirectory != null && Settings.Default.RouteFileDirectory != "" && Directory.Exists(Settings.Default.RouteFileDirectory))
+            {
+                tbSenarioDirectory.Text = Settings.Default.RouteFileDirectory;
+                OpenSenaroDirectory(Settings.Default.RouteFileDirectory);
+            }
+            if(Settings.Default.RouteFileDirectory == null || Settings.Default.RouteFileDirectory == "" || Directory.Exists(Settings.Default.RouteFileDirectory))
+            {
+                string tempDir = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\BveTs\Scenarios";
+                if (Directory.Exists(tempDir))
+                {
+                    tbSenarioDirectory.Text = tempDir;
+                    OpenSenaroDirectory(tempDir);
+                    Settings.Default.RouteFileDirectory = tempDir;
+                    Settings.Default.Save();
+
+                }
+            }
+            MessageBox.Show("※動作保証なし、データの破損等いかなる責任も負いかねます※\r\n\r\n※車両や路線データの改造に該当すると考えられますので、自己責任かつ個人使用の範囲内でお願いします※");
         }
 
         private void btnBackUp_Click(object sender, EventArgs e)
@@ -1358,7 +1456,8 @@ namespace BveFileExplorer
         private void btnBve5PathSetting_Click(object sender, EventArgs e)
         {
             //OpenFileDialogクラスのインスタンスを作成
-            using (OpenFileDialog ofd = new OpenFileDialog()){
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
 
                 //はじめのファイル名を指定する
                 //はじめに「ファイル名」で表示される文字列を指定する
@@ -1383,7 +1482,7 @@ namespace BveFileExplorer
                 {
                     strBve5Path = ofd.FileName;
                     AtsPlugin checker = new AtsPlugin();
-                    if(checker.Checker(ofd.FileName, 300, false) == BVE_Version.BVE5)
+                    if (checker.Checker(ofd.FileName, 300, false) == BVE_Version.BVE5)
                     {
                         Settings.Default.strBve5Path = strBve5Path;
                     }
@@ -1459,8 +1558,18 @@ namespace BveFileExplorer
             AtsPluginChecker(vehicle.Ats32.FilePath, 300, true);
             if (IsDetailmanager32)
             {
-                tabControl1.SelectTab(tabControl1.TabPages["tpAtsPlugin"]);
-                tabControl2.SelectTab(tabControl2.TabPages["tpAts32"]);
+                if (MessageBox.Show("DetailModulesの内容を確認しますか？", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    // 名前（"tpAtsPlugin"）でコントロールを探す
+                    var controls = tabControl1.Controls.Find("tpAtsPlugin", false); // trueで子コントロールも検索
+
+                    if (controls.Length > 0)
+                    {
+                        tabControl1.SelectTab(tabControl1.TabPages["tpAtsPlugin"]);
+                        tabControl2.SelectTab(tabControl2.TabPages["tpAts32"]);
+                    }
+                }
+
             }
         }
 
@@ -1469,13 +1578,23 @@ namespace BveFileExplorer
             AtsPluginChecker(vehicle.Ats64.FilePath, 300, true);
             if (IsDetailmanager64)
             {
-                tabControl1.SelectTab(tabControl1.TabPages["tpAtsPlugin"]);
-                tabControl2.SelectTab(tabControl2.TabPages["tpAts64"]);
+                if (MessageBox.Show("DetailModulesの内容を確認しますか？", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    // 名前（"tpAtsPlugin"）でコントロールを探す
+                    var controls = tabControl1.Controls.Find("tpAtsPlugin", false); // trueで子コントロールも検索
+
+                    if (controls.Length > 0)
+                    {
+                        tabControl1.SelectTab(tabControl1.TabPages["tpAtsPlugin"]);
+                        tabControl2.SelectTab(tabControl2.TabPages["tpAts64"]);
+                    }
+                }
             }
         }
 
         private BVE_Version AtsPluginChecker(string _FilePath, int _BufferSize, bool IsDisplayChecked)
         {
+            //MessageBox.Show($"hit"+" AtsPluginChecker\r\n"+_FilePath);
             AtsPlugin atsPlugin = new AtsPlugin();
             return atsPlugin.Checker(_FilePath, _BufferSize, IsDisplayChecked);
         }
@@ -1505,7 +1624,7 @@ namespace BveFileExplorer
             bool hit = false;
             for (int i = 0; i < dgvAts32.RowCount; i++)
             {
-                if (dgvAts32[2,i].Value.ToString() == tbAts32RelatePath.Text)
+                if (dgvAts32[2, i].Value.ToString() == tbAts32RelatePath.Text)
                 {
                     hit = true;
                     break;
@@ -1515,7 +1634,7 @@ namespace BveFileExplorer
             if (!hit)
             {
                 AtsList atsList = new AtsList(tbAts32RelatePath.Text, strAts32SettingTextFilePath);
-                dgvAts32.Rows.Add(atsList.FileName,atsList.Version,atsList.RerativePath,atsList.AbsolutePath);
+                dgvAts32.Rows.Add(atsList.FileName, atsList.Version, atsList.RerativePath, atsList.AbsolutePath);
                 btnAts32Reset.Visible = true;
                 btnAts32Save.Visible = true;
             }
@@ -1548,14 +1667,14 @@ namespace BveFileExplorer
             {
                 MessageBox.Show("既に適用されています");
             }
-            
+
         }
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
             if (cbxVehicle.Items.Count > 0)
             {
-                if(cbxVehicle.SelectedIndex == -1)
+                if (cbxVehicle.SelectedIndex == -1)
                 {
                     cbxVehicle.SelectedIndex = 0;
                 }
@@ -1907,7 +2026,7 @@ namespace BveFileExplorer
                 //データグリッドビューをテーブルに取得
                 Dt = retDtgrdvwValue(dgvAts64, Dt);
 
-                if (rowIndexFromMouseDown64 < ( dgvAts64.RowCount - 1 ))
+                if (rowIndexFromMouseDown64 < (dgvAts64.RowCount - 1))
                 {
                     Object[] rowArray = Dt.Rows[rowIndexFromMouseDown64].ItemArray;
                     //DataRow row = Dt.NewRow();
@@ -1977,8 +2096,8 @@ namespace BveFileExplorer
                 btnAts32Reset.Visible = false;
                 btnAts32Save.Visible = false;
                 string str = "";
-　　　　　　　　
-                for(int i = 0; i < dgvAts32.RowCount; i++)
+
+                for (int i = 0; i < dgvAts32.RowCount; i++)
                 {
                     str += dgvAts32[2, i].Value + Environment.NewLine;
                 }
@@ -2065,7 +2184,119 @@ namespace BveFileExplorer
             btnAts32Reset.Visible = true;
             btnAts32Save.Visible = true;
         }
-    }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // FolderBrowserDialogのインスタンスを作成
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+
+            // ダイアログの説明文を設定
+            folderBrowserDialog.SelectedPath = Settings.Default.RouteFileDirectory;
+
+            // ユーザーが新しいフォルダを作成できるようにする (必要に応じて)
+            folderBrowserDialog.ShowNewFolderButton = true;
+
+            // 初期ディレクトリを設定 (必要に応じて)
+            // folderBrowserDialog.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            // ダイアログを表示
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+
+            {
+                // 選択されたフォルダのパスを取得
+                string selectedFolderPath = folderBrowserDialog.SelectedPath;
+                OpenSenaroDirectory(selectedFolderPath);
+            }
+        }
+
+        private void OpenSenaroDirectory(string selectedFolderPath)
+        {
+            if (Directory.Exists(selectedFolderPath))
+            {
+                btnOpenSenarioDirectory.Enabled = true;
+                // リストビューをクリア
+                lvFiles.Items.Clear();
+
+                try
+                {
+                    // フォルダ内のファイルパスを取得
+                    string[] files = System.IO.Directory.GetFiles(selectedFolderPath);
+                    tbSenarioDirectory.Text = selectedFolderPath;
+                    Settings.Default.RouteFileDirectory = selectedFolderPath;
+                    Settings.Default.Save();
+
+
+                    // ファイル名をリストビューに列挙
+                    foreach (string file in files)
+                    {
+
+                        // ファイル名のみ取得
+                        string fileName = Path.GetFileName(file);
+                        // ファイルのフルパスを取得
+                        string fullPath = file;
+
+                        // ListViewItemを作成し、サブアイテム（パス）を追加
+                        ListViewItem item = new ListViewItem(fileName);
+                        item.SubItems.Add(fullPath);
+
+                        lvFiles.Items.Add(item); // listViewFiles を lvFiles に変更
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("ファイルの取得中にエラーが発生しました: " + ex.Message);
+                    btnOpenSenarioDirectory.Enabled = false;
+                }
+            }
+            else
+            {
+                btnOpenSenarioDirectory.Enabled = false;
+            }
+        }
+
+        private void lvFiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // 選択されているアイテムがあるか確認
+            if (lvFiles.SelectedItems.Count > 0)
+            {
+                Reset();
+                // 最初に選択されたアイテムを取得
+                ListViewItem selectedItem = lvFiles.SelectedItems[0];
+
+                // SubItems[1] がファイルパスです（SubItems[0]はファイル名）。
+                string fullPath = selectedItem.SubItems[1].Text;
+
+                senario = new Senario(fullPath);
+                // メッセージボックスでフルパスを表示
+                OpenSenario();
+            }
+        }
+
+        private void btnOpenSenarioDirectory_Click(object sender, EventArgs e)
+        {
+            ProcessStart(tbSenarioDirectory.Text, true);
+        }
+
+        private void btnSenarioReload_Click(object sender, EventArgs e)
+        {
+            Reset();
+            OpenSenario();
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            // 3. Ctrl + T が押されたか判定
+            if (e.Control && e.KeyCode == Keys.T)
+            {
+
+                // イベントを処理済みにして、他のコントロールに伝播させない
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+
+                gbxBve6Converter.Visible = true;
+            }
+        }
+    }
  
 }    

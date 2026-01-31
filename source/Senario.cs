@@ -18,14 +18,20 @@ namespace BveFileExplorer
         public string Comment { get; private set; }
         public List<string> VehicleFilesRel { get; private set; }
         public List<string> VehicleFilesAbs { get; private set; }
+
+        public List<bool> VehicleFilesExists { get; private set; }
         public List<string> MapFiles { get; private set; }
 
         public int VehicleFilesCount { get; private set; }
         public int MapFilesCount { get; private set; }
 
+        public int VehicleFilesNotExistsCount { get; private set; }
+
         public Senario(string senarioFilePath)
         {
             FilePath = senarioFilePath;
+            VehicleFilesAbs = new List<string>();
+            VehicleFilesExists = new List<bool>();
 
             //内容を読み込み、表示する
             //string dir = Path.GetDirectoryName(senarioFilePath);
@@ -58,55 +64,75 @@ namespace BveFileExplorer
                         //先頭文字が「;」と「#」でないときで「=」を含むとき
                         if ((!line.StartsWith(";") || !line.StartsWith("#")) && line.Contains("="))
                         {
-                            string item = line.Substring(0, line.IndexOf("=")).Trim();
+                            //"="より前の項目
+                            string item = line.Substring(0, line.IndexOf("=")).Trim().ToLower();
+                            //"="より後の内容
                             string contents = line.Substring(line.IndexOf("=") + 1).Trim();
                             switch (item)
                             {
-                                case "VehicleTitle"://車両タイトル
-                                    VehicleTitle = LineAnalysis(contents)[0];
+                                case "vehicletitle"://車両タイトル
+                                    VehicleTitle = StringLineAnalysis(contents)[0];
                                     break;
 
-                                case "Vehicle"://車両ファイル
-                                    VehicleFilesRel = LineAnalysis(contents);
-                                    VehicleFilesAbs = new List<string>();
+                                case "vehicle"://車両ファイル
+                                    VehicleFilesRel = StringLineAnalysis(contents);
                                     for (int i = 0; i < VehicleFilesRel.Count; i++)
                                     {
-                                        VehicleFilesAbs.Add(Path.GetFullPath(Path.GetDirectoryName(FilePath)) + @"\" + VehicleFilesRel[i]);
+                                        string vehicleAbsPath = Path.GetFullPath(Path.GetDirectoryName(FilePath)) + @"\" + VehicleFilesRel[i];
+                                        VehicleFilesAbs.Add(vehicleAbsPath);
+                                        VehicleFilesExists.Add(File.Exists(vehicleAbsPath));
+                                        VehicleFilesNotExistsCount += !File.Exists(vehicleAbsPath)? 1:0;
                                     }
                             
                                     break;
-                                case "Image"://Imageファイル抽出
-                                    ImagePath = Path.GetDirectoryName(senarioFilePath) + @"\" + LineAnalysis(contents)[0];
+                                case "image"://Imageファイル抽出
+                                    ImagePath = Path.GetDirectoryName(senarioFilePath) + @"\" + StringLineAnalysis(contents)[0];
                                     break;
 
-                                case "RouteTitle"://マップタイトル
-                                    RouteTitle = LineAnalysis(contents)[0];
+                                case "routetitle"://マップタイトル
+                                    RouteTitle = StringLineAnalysis(contents)[0];
                                     break;
 
-                                case "Route":
-                                    MapFiles = LineAnalysis(contents);
+                                case "route":
+                                    MapFiles = StringLineAnalysis(contents);
                                     break;
 
-                                case "Title":
-                                    Title = LineAnalysis(contents)[0];
+                                case "title":
+                                    Title = StringLineAnalysis(contents)[0];
                                     break;
 
-                                case "Author":
-                                    Author = LineAnalysis(contents)[0];
+                                case "author":
+                                    Author = StringLineAnalysis(contents)[0];
                                     break;
 
-                                case "Comment":
-                                    Comment = LineAnalysis(contents)[0];
+                                case "comment":
+                                    Comment = StringLineAnalysis(contents)[0];
                                     break;
                             }
                         }
                     }
                 }
-                VehicleFilesCount = VehicleFilesRel.Count;
-                MapFilesCount = MapFiles.Count;
+                if (VehicleFilesRel != null)
+                {
+                    VehicleFilesCount = VehicleFilesRel.Count;
+                }
+                else
+                {
+                    VehicleFilesCount = 0;
+                }
+                if (MapFiles != null)
+                {
+                    MapFilesCount = MapFiles.Count;
+                }
+                else
+                {
+                    MapFilesCount = 0;
+                }
             }
         }
-        private List<string> LineAnalysis(string contents)
+        
+
+        private List<string> StringLineAnalysis(string contents)
         {
             List<string> listStr = new List<string>();
             //文字列中に「=」以降文字列が存在するとき

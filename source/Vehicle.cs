@@ -89,7 +89,7 @@ namespace BveFileExplorer
 
                     if (error > 0)
                     {
-                        Log += "いくつかのファイルにエラーがあるか、読込未対応ファイル形式です。\n\n";
+                        Log += "いくつかのファイルにエラーがあるか、読込未対応ファイル形式です。\n";
                     }
                 }
 
@@ -172,15 +172,16 @@ namespace BveFileExplorer
                 FilePath = filePath;
                 if (filePath.IndexOf("DetailManager", StringComparison.OrdinalIgnoreCase) > 0)
                 {
-                    Message += "ATSプラグイン(DetailManager)が見つかりました\n\n";
+                    //Message += "ATSプラグイン(DetailManager)が見つかりました\n";
                     DetailManagerFilePath = filePath;
                     DetailManagerSettingFilePath = Path.GetFullPath(Path.GetDirectoryName(DetailManagerFilePath) + @"\detailmodules.txt");
+                    //MessageBox.Show($"hit" + " AtsPlugin\r\n" + DetailManagerFilePath);
                     OpenNewAtsPluginFile(DetailManagerSettingFilePath, Checker(DetailManagerFilePath, 300, false));
                     IsDetailManager = true;
                 }
                 else
                 {
-                    Message += "ATSプラグインが対応していません(DetailManager以外)\n\n";
+                    Message += "ATSプラグインが対応していません(DetailManager以外)\n";
                     IsDetailManager = false;
                 }
             }
@@ -237,7 +238,8 @@ namespace BveFileExplorer
                             {
                                 FullPath = marge_line;
                             }
-                            Checker(FullPath, 300, false);
+                            //とりあえず
+                            //Checker(FullPath, 300, false);
                         }
                     }
                     else if (bve_ver == BVE_Version.BVE6)
@@ -269,18 +271,28 @@ namespace BveFileExplorer
                             {
                                 FullPath = marge_line;
                             }
-                            Checker(FullPath, 300, false);
+                            //とりあえず
+                            //Checker(FullPath, 300, false);
                         }
                     }
                 }
             }
             else
             {
-                Message += "ATSプラグインが見つかりません:" + strAtsPluginFilePath + "\n\n";
+                Message += "ATSプラグインが見つかりません:" + strAtsPluginFilePath + "\n";
             }
         }
-        public BVE_Version Checker(string _FilePath, int _BufferSize, bool IsDisplayChecked)
+
+        /// <summary>
+        /// バイナリファイル(プラグイン等)のアーキテクチャ(32bit or 64bit)をチェックします
+        /// </summary>
+        /// <param name="_FilePath">ファイルパス</param>
+        /// <param name="_BufferSize">読込サイズ(300)</param>
+        /// <param name="IsDisplayChecked">結果表示(True)</param>
+        /// <returns>アーキテクチャおよび結果(Enum BVE_Version)</returns>
+        public BVE_Version Checker(string _FilePath, int _BufferSize = 300, bool IsDisplayChecked = true)
         {
+            //MessageBox.Show($"hit" + " Checker\r\n" + _FilePath);
             BVE_Version iRet = BVE_Version.NotFound;
             byte[] bufr = new byte[_BufferSize];
             if (Path.GetFileName(_FilePath).StartsWith("#") || Path.GetFileName(_FilePath).StartsWith(";"))
@@ -367,6 +379,7 @@ namespace BveFileExplorer
             }
             FileName = Path.GetFileName(line);
             Version = checker.Checker(AbsolutePath, 300, false);
+            //MessageBox.Show($"hit"+" AtsList" + AbsolutePath);
         }
     }
 }
