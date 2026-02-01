@@ -2411,7 +2411,7 @@ namespace BveFileExplorer
                             parser.ReadLine();
                         }
 
-                        string[] strs = { "SoundKey", "FilePath" };
+                        string[] strs = { "SoundKey", "FilePath","BufferSize" };
                         foreach (string field in strs)
                         {
                             dt.Columns.Add(field);
@@ -2421,7 +2421,16 @@ namespace BveFileExplorer
                         while (!parser.EndOfData)
                         {
                             string[] fields = parser.ReadFields();
-                            dt.Rows.Add(fields);
+                            string[] subset = new string[3];
+                            if (fields.Length <= 3)
+                            {
+                                dt.Rows.Add(fields);
+                            }
+                            else
+                            {
+                                Array.Copy(fields, 0, subset, 0, 3);
+                                dt.Rows.Add(subset);
+                            }
                             bools.Add(fields[0].Contains("#") || fields[0].Contains(";") || fields[0].Contains("//"));
                         }
                     }
@@ -2431,7 +2440,9 @@ namespace BveFileExplorer
                     //ソート禁止
                     foreach (DataGridViewColumn c in dgvSoundList.Columns)
                         c.SortMode = DataGridViewColumnSortMode.NotSortable;
-                    dgvSoundList.Columns[1].HeaderCell.ToolTipText = "サウンドファイルパス(クリックで開きます)";
+                    dgvSoundList.Columns[0].HeaderCell.ToolTipText = "任意の文字列。このサウンド名は、マップファイル、停車場リストファイル、他列車ファイルで使用します。";
+                    dgvSoundList.Columns[1].HeaderCell.ToolTipText = "wavファイルの相対パス(クリックで開きます)";
+                    dgvSoundList.Columns[2].HeaderCell.ToolTipText = "その音を同時に再生できる数。省略した場合は 1 になります。";
 
                     for (int i = 0; i < dgvSoundList.Rows.Count - 1; i++)
                     {

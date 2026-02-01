@@ -74,10 +74,14 @@
             this.btnPerfoemanceCurveOpen = new System.Windows.Forms.Button();
             this.tpRoute = new System.Windows.Forms.TabPage();
             this.tabControlMaps = new System.Windows.Forms.TabControl();
+            this.tpStructure = new System.Windows.Forms.TabPage();
+            this.dgvStructure = new System.Windows.Forms.DataGridView();
             this.tpStation = new System.Windows.Forms.TabPage();
             this.dgvStation = new System.Windows.Forms.DataGridView();
             this.tpSound = new System.Windows.Forms.TabPage();
             this.dgvSoundList = new System.Windows.Forms.DataGridView();
+            this.SoundKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FilePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbxTrain = new System.Windows.Forms.ComboBox();
             this.cbxMapFilePath = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -186,15 +190,14 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnSenarioReload = new System.Windows.Forms.Button();
             this.btnOpenSenarioDirectory = new System.Windows.Forms.Button();
-            this.SoundKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FilePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tpStructure = new System.Windows.Forms.TabPage();
-            this.dgvStructure = new System.Windows.Forms.DataGridView();
+            this.SoundBufferSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tpVehicle.SuspendLayout();
             this.tpRoute.SuspendLayout();
             this.tabControlMaps.SuspendLayout();
+            this.tpStructure.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStructure)).BeginInit();
             this.tpStation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStation)).BeginInit();
             this.tpSound.SuspendLayout();
@@ -217,8 +220,6 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tpStructure.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStructure)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOpenSenario
@@ -758,6 +759,30 @@
             this.tabControlMaps.TabIndex = 11;
             this.tabControlMaps.SelectedIndexChanged += new System.EventHandler(this.tabControlMaps_SelectedIndexChanged);
             // 
+            // tpStructure
+            // 
+            this.tpStructure.Controls.Add(this.dgvStructure);
+            this.tpStructure.Location = new System.Drawing.Point(4, 22);
+            this.tpStructure.Name = "tpStructure";
+            this.tpStructure.Size = new System.Drawing.Size(1011, 268);
+            this.tpStructure.TabIndex = 2;
+            this.tpStructure.Text = "ストラクチャファイル";
+            this.tpStructure.UseVisualStyleBackColor = true;
+            // 
+            // dgvStructure
+            // 
+            this.dgvStructure.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvStructure.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvStructure.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStructure.Location = new System.Drawing.Point(7, 5);
+            this.dgvStructure.Name = "dgvStructure";
+            this.dgvStructure.RowTemplate.Height = 21;
+            this.dgvStructure.Size = new System.Drawing.Size(996, 260);
+            this.dgvStructure.TabIndex = 1;
+            this.dgvStructure.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStructure_CellClick);
+            // 
             // tpStation
             // 
             this.tpStation.Controls.Add(this.dgvStation);
@@ -800,7 +825,8 @@
             this.dgvSoundList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSoundList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SoundKey,
-            this.FilePath});
+            this.FilePath,
+            this.SoundBufferSize});
             this.dgvSoundList.Cursor = System.Windows.Forms.Cursors.Default;
             this.dgvSoundList.Location = new System.Drawing.Point(7, 5);
             this.dgvSoundList.Name = "dgvSoundList";
@@ -808,6 +834,24 @@
             this.dgvSoundList.Size = new System.Drawing.Size(996, 260);
             this.dgvSoundList.TabIndex = 1;
             this.dgvSoundList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSoundList_CellClick);
+            // 
+            // SoundKey
+            // 
+            this.SoundKey.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.SoundKey.Frozen = true;
+            this.SoundKey.HeaderText = "SoundKey";
+            this.SoundKey.Name = "SoundKey";
+            this.SoundKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SoundKey.Width = 61;
+            // 
+            // FilePath
+            // 
+            this.FilePath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.FilePath.Frozen = true;
+            this.FilePath.HeaderText = "FilePath";
+            this.FilePath.Name = "FilePath";
+            this.FilePath.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.FilePath.Width = 53;
             // 
             // cbxTrain
             // 
@@ -2023,47 +2067,11 @@
             this.btnOpenSenarioDirectory.UseVisualStyleBackColor = true;
             this.btnOpenSenarioDirectory.Click += new System.EventHandler(this.btnOpenSenarioDirectory_Click);
             // 
-            // SoundKey
+            // SoundBufferSize
             // 
-            this.SoundKey.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.SoundKey.Frozen = true;
-            this.SoundKey.HeaderText = "SoundKey";
-            this.SoundKey.Name = "SoundKey";
-            this.SoundKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SoundKey.Width = 61;
-            // 
-            // FilePath
-            // 
-            this.FilePath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.FilePath.Frozen = true;
-            this.FilePath.HeaderText = "FilePath";
-            this.FilePath.Name = "FilePath";
-            this.FilePath.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.FilePath.Width = 53;
-            // 
-            // tpStructure
-            // 
-            this.tpStructure.Controls.Add(this.dgvStructure);
-            this.tpStructure.Location = new System.Drawing.Point(4, 22);
-            this.tpStructure.Name = "tpStructure";
-            this.tpStructure.Size = new System.Drawing.Size(1011, 268);
-            this.tpStructure.TabIndex = 2;
-            this.tpStructure.Text = "ストラクチャファイル";
-            this.tpStructure.UseVisualStyleBackColor = true;
-            // 
-            // dgvStructure
-            // 
-            this.dgvStructure.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvStructure.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvStructure.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvStructure.Location = new System.Drawing.Point(7, 5);
-            this.dgvStructure.Name = "dgvStructure";
-            this.dgvStructure.RowTemplate.Height = 21;
-            this.dgvStructure.Size = new System.Drawing.Size(996, 260);
-            this.dgvStructure.TabIndex = 1;
-            this.dgvStructure.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStructure_CellClick);
+            this.SoundBufferSize.HeaderText = "BufferSize";
+            this.SoundBufferSize.Name = "SoundBufferSize";
+            this.SoundBufferSize.Width = 83;
             // 
             // Form1
             // 
@@ -2090,6 +2098,8 @@
             this.tpRoute.ResumeLayout(false);
             this.tpRoute.PerformLayout();
             this.tabControlMaps.ResumeLayout(false);
+            this.tpStructure.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStructure)).EndInit();
             this.tpStation.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStation)).EndInit();
             this.tpSound.ResumeLayout(false);
@@ -2120,8 +2130,6 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.tpStructure.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStructure)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2289,6 +2297,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FilePath;
         private System.Windows.Forms.TabPage tpStructure;
         private System.Windows.Forms.DataGridView dgvStructure;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SoundBufferSize;
     }
 }
 
