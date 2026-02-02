@@ -12,6 +12,11 @@ namespace BveFileExplorer
     {
         public string Log { get; private set; } = "";
         public string FilePath { get; private set; }
+
+
+        /// <summary>
+        /// Vehicle File Version 0.03 or 2.00
+        /// </summary>
         public float FileVersion { get; private set; }
         public Contents_Vehicle Ats32 { get; private set; }
         public Contents_Vehicle PerformanceCurve { get; private set; }

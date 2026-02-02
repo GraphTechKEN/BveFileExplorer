@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace BveFileExplorer
 {
@@ -25,6 +26,7 @@ namespace BveFileExplorer
         public int VehicleFilesCount { get; private set; }
         public int MapFilesCount { get; private set; }
 
+        public int VehicleFilesExistsCount { get; private set; }
         public int VehicleFilesNotExistsCount { get; private set; }
 
         public Senario(string senarioFilePath)
@@ -38,12 +40,9 @@ namespace BveFileExplorer
             using (StreamReader sr_temp = new StreamReader(senarioFilePath))
             {
 
-                Encoding enc;
-                if (sr_temp.ReadLine().IndexOf("shift_jis", StringComparison.OrdinalIgnoreCase) > 0)
-                {
-                    enc = Encoding.GetEncoding("shift_jis");
-                }
-                else
+                Encoding enc = Encoding.GetEncoding("shift_jis");
+                string tmp_str = sr_temp.ReadLine();
+                if (tmp_str.IndexOf("shift_jis", StringComparison.OrdinalIgnoreCase) <= 0 && tmp_str.IndexOf("shift-jis", StringComparison.OrdinalIgnoreCase) <= 0)
                 {
                     enc = Encoding.GetEncoding("utf-8");
                 }
@@ -76,12 +75,26 @@ namespace BveFileExplorer
 
                                 case "vehicle"://車両ファイル
                                     VehicleFilesRel = StringLineAnalysis(contents);
+                                    
                                     for (int i = 0; i < VehicleFilesRel.Count; i++)
                                     {
                                         string vehicleAbsPath = Path.GetFullPath(Path.GetDirectoryName(FilePath)) + @"\" + VehicleFilesRel[i];
+                                        if (VehicleFilesRel[i] == "" || VehicleFilesRel[i] == null)
+                                        {
+                                            vehicleAbsPath = "";
+                                        }
                                         VehicleFilesAbs.Add(vehicleAbsPath);
-                                        VehicleFilesExists.Add(File.Exists(vehicleAbsPath));
-                                        VehicleFilesNotExistsCount += !File.Exists(vehicleAbsPath)? 1:0;
+                                        if (VehicleFilesRel[i] != "" && VehicleFilesRel[i] != null)
+                                        {
+                                            VehicleFilesExists.Add(File.Exists(vehicleAbsPath));
+                                            VehicleFilesNotExistsCount += !File.Exists(vehicleAbsPath) ? 1 : 0;
+                                        }
+                                        else
+                                        {
+                                            VehicleFilesExists.Add(false);
+                                            VehicleFilesNotExistsCount += 1;
+                                        }
+                                        
                                     }
                             
                                     break;
@@ -115,11 +128,14 @@ namespace BveFileExplorer
                 if (VehicleFilesRel != null)
                 {
                     VehicleFilesCount = VehicleFilesRel.Count;
+                    VehicleFilesExistsCount = VehicleFilesRel.Count - VehicleFilesNotExistsCount;
                 }
                 else
                 {
                     VehicleFilesCount = 0;
+                    VehicleFilesExistsCount = 0;
                 }
+                
                 if (MapFiles != null)
                 {
                     MapFilesCount = MapFiles.Count;
