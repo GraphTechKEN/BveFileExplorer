@@ -36,68 +36,75 @@ namespace BveFileExplorer
             int i = 0;
             Log += "車両ファイル：" + vehicleFilePath + "\r\n";
 
-            using (StreamReader sr = new StreamReader(vehicleFilePath))
-
-                //最後まで読込
-                while ((line = sr.ReadLine()) != null)
+            if (File.Exists(vehicleFilePath))
+            {
+                using (StreamReader sr = new StreamReader(vehicleFilePath))
                 {
-                    //余計な文字列をトリム
-                    line = line.Trim();
-                    //読込ログに追記
-                    Log += line + "\r\n";
-
-                    //先頭文字が「;」と「#」でないときで「=」を含むとき
-                    if (!line.StartsWith(";") || !line.StartsWith("#"))
+                    //最後まで読込
+                    while ((line = sr.ReadLine()) != null)
                     {
-                        if (line.IndexOf("Bvets Vehicle", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            int index_colon = line.IndexOf(":");
-                            if (index_colon < 0)
-                            {
-                                FileVersion = float.Parse(line.Substring(line.IndexOf("Bvets Vehicle", StringComparison.OrdinalIgnoreCase) + 13).Trim());
-                            }
-                            else
-                            {
-                                FileVersion = float.Parse(line.Substring(line.IndexOf("Bvets Vehicle", StringComparison.OrdinalIgnoreCase) + 13, index_colon - 13).Trim());
-                            }
-                        }
-                        if ((line.IndexOf("ATS", StringComparison.OrdinalIgnoreCase) >= 0 || line.IndexOf("Ats32", StringComparison.OrdinalIgnoreCase) >= 0) && line.IndexOf("Ats64", StringComparison.OrdinalIgnoreCase) < 0)
-                        {
-                            Ats32 = new Contents_Vehicle(line, FilePath);
-                        }
-                        else if (line.IndexOf("PerformanceCurve", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            PerformanceCurve = new Contents_Vehicle(line, FilePath);
-                        }
-                        else if (line.IndexOf("Parameters", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            Parameters = new Contents_Vehicle(line, FilePath);
-                        }
-                        else if (line.IndexOf("Panel", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            Panel = new Contents_Vehicle(line, FilePath);
-                        }
-                        else if (line.IndexOf("Sound", StringComparison.OrdinalIgnoreCase) >= 0 && (line.IndexOf("Sound") < line.IndexOf("=")))
-                        {
-                            Sound = new Contents_Vehicle(line, FilePath);
-                        }
-                        else if (line.IndexOf("MotorNoise", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            MotorNoise = new Contents_Vehicle(line, FilePath);
-                        }
-                        else if (line.IndexOf("Ats64", StringComparison.OrdinalIgnoreCase) >= 0)//Ats64が見つかった場合
-                        {
-                            Ats64 = new Contents_Vehicle(line, FilePath);
-                        }
-                        i++;
-                    }
+                        //余計な文字列をトリム
+                        line = line.Trim();
+                        //読込ログに追記
+                        Log += line + "\r\n";
 
-                    if (error > 0)
-                    {
-                        Log += "いくつかのファイルにエラーがあるか、読込未対応ファイル形式です。\n";
+                        //先頭文字が「;」と「#」でないときで「=」を含むとき
+                        if (!line.StartsWith(";") || !line.StartsWith("#"))
+                        {
+                            if (line.IndexOf("Bvets Vehicle", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                int index_colon = line.IndexOf(":");
+                                if (index_colon < 0)
+                                {
+                                    FileVersion = float.Parse(line.Substring(line.IndexOf("Bvets Vehicle", StringComparison.OrdinalIgnoreCase) + 13).Trim());
+                                }
+                                else
+                                {
+                                    FileVersion = float.Parse(line.Substring(line.IndexOf("Bvets Vehicle", StringComparison.OrdinalIgnoreCase) + 13, index_colon - 13).Trim());
+                                }
+                            }
+                            if ((line.IndexOf("ATS", StringComparison.OrdinalIgnoreCase) >= 0 || line.IndexOf("Ats32", StringComparison.OrdinalIgnoreCase) >= 0) && line.IndexOf("Ats64", StringComparison.OrdinalIgnoreCase) < 0)
+                            {
+                                Ats32 = new Contents_Vehicle(line, FilePath);
+                            }
+                            else if (line.IndexOf("PerformanceCurve", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                PerformanceCurve = new Contents_Vehicle(line, FilePath);
+                            }
+                            else if (line.IndexOf("Parameters", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                Parameters = new Contents_Vehicle(line, FilePath);
+                            }
+                            else if (line.IndexOf("Panel", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                Panel = new Contents_Vehicle(line, FilePath);
+                            }
+                            else if (line.IndexOf("Sound", StringComparison.OrdinalIgnoreCase) >= 0 && (line.IndexOf("Sound") < line.IndexOf("=")))
+                            {
+                                Sound = new Contents_Vehicle(line, FilePath);
+                            }
+                            else if (line.IndexOf("MotorNoise", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                MotorNoise = new Contents_Vehicle(line, FilePath);
+                            }
+                            else if (line.IndexOf("Ats64", StringComparison.OrdinalIgnoreCase) >= 0)//Ats64が見つかった場合
+                            {
+                                Ats64 = new Contents_Vehicle(line, FilePath);
+                            }
+                            i++;
+                        }
+
+                        if (error > 0)
+                        {
+                            Log += "いくつかのファイルにエラーがあるか、読込未対応ファイル形式です。\n";
+                        }
                     }
                 }
-
+            }
+            else
+            {
+                Log = "車両ファイル：" + vehicleFilePath + "が見つかりません";
+            }
         }
 
     }

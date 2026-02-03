@@ -41,6 +41,8 @@
             this.tabControlSenario = new System.Windows.Forms.TabControl();
             this.tpVehicle = new System.Windows.Forms.TabPage();
             this.tabControlVehicle = new System.Windows.Forms.TabControl();
+            this.tpVehicleFile = new System.Windows.Forms.TabPage();
+            this.dgvVehicle = new System.Windows.Forms.DataGridView();
             this.tpPerformanceCurve = new System.Windows.Forms.TabPage();
             this.dgvPerformanceCurve = new System.Windows.Forms.DataGridView();
             this.tbPerfoemanceCurve = new System.Windows.Forms.TextBox();
@@ -51,26 +53,58 @@
             this.tbParameters = new System.Windows.Forms.TextBox();
             this.btnParametersOpen = new System.Windows.Forms.Button();
             this.btnParametersDirectory = new System.Windows.Forms.Button();
-            this.lblVehicleVer = new System.Windows.Forms.Label();
-            this.btnAts64OpenDirectory = new System.Windows.Forms.Button();
-            this.cbxVehicle = new System.Windows.Forms.ComboBox();
-            this.lblAts64 = new System.Windows.Forms.Label();
-            this.lblAts32 = new System.Windows.Forms.Label();
-            this.tbAts64 = new System.Windows.Forms.TextBox();
-            this.tbAts32 = new System.Windows.Forms.TextBox();
-            this.tbMotorNoise = new System.Windows.Forms.TextBox();
-            this.btnMotorNoiseDirectory = new System.Windows.Forms.Button();
-            this.btnSoundDirectory = new System.Windows.Forms.Button();
-            this.btnPanelDirectory = new System.Windows.Forms.Button();
-            this.tbSound = new System.Windows.Forms.TextBox();
+            this.tpPanel = new System.Windows.Forms.TabPage();
+            this.dgvPanel = new System.Windows.Forms.DataGridView();
             this.tbPanel = new System.Windows.Forms.TextBox();
-            this.btnAts64Open = new System.Windows.Forms.Button();
-            this.btnAts64Check = new System.Windows.Forms.Button();
-            this.btnAts32Check = new System.Windows.Forms.Button();
-            this.btnAts32Open = new System.Windows.Forms.Button();
-            this.btnMotorNoiseOpen = new System.Windows.Forms.Button();
-            this.btnSoundOpen = new System.Windows.Forms.Button();
             this.btnPanelOpen = new System.Windows.Forms.Button();
+            this.btnPanelDirectory = new System.Windows.Forms.Button();
+            this.tpSound = new System.Windows.Forms.TabPage();
+            this.dgvSound = new System.Windows.Forms.DataGridView();
+            this.tbSound = new System.Windows.Forms.TextBox();
+            this.btnSoundOpen = new System.Windows.Forms.Button();
+            this.btnSoundDirectory = new System.Windows.Forms.Button();
+            this.tpMorotNoise = new System.Windows.Forms.TabPage();
+            this.dgvMotorNoise = new System.Windows.Forms.DataGridView();
+            this.tbMotorNoise = new System.Windows.Forms.TextBox();
+            this.btnMotorNoiseOpen = new System.Windows.Forms.Button();
+            this.btnMotorNoiseDirectory = new System.Windows.Forms.Button();
+            this.tpAts = new System.Windows.Forms.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tpAts32 = new System.Windows.Forms.TabPage();
+            this.btnAts32Recovery = new System.Windows.Forms.Button();
+            this.btnAts32Save = new System.Windows.Forms.Button();
+            this.btnAts32Reset = new System.Windows.Forms.Button();
+            this.tbAts32DetailModules = new System.Windows.Forms.TextBox();
+            this.btnAts32Open2 = new System.Windows.Forms.Button();
+            this.dgvAts32 = new System.Windows.Forms.DataGridView();
+            this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Build = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelativePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FullPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmsDelete = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmi32Delete = new System.Windows.Forms.ToolStripMenuItem();
+            this.tpAts64 = new System.Windows.Forms.TabPage();
+            this.tbAts64DetailModules = new System.Windows.Forms.TextBox();
+            this.btnAts64Recovery = new System.Windows.Forms.Button();
+            this.btnAts64Save = new System.Windows.Forms.Button();
+            this.btnAts64Reset = new System.Windows.Forms.Button();
+            this.btnAts64Open2 = new System.Windows.Forms.Button();
+            this.dgvAts64 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbAts64 = new System.Windows.Forms.TextBox();
+            this.btnAts32Open = new System.Windows.Forms.Button();
+            this.btnAts32Check = new System.Windows.Forms.Button();
+            this.btnAts64OpenDirectory = new System.Windows.Forms.Button();
+            this.btnAts64Check = new System.Windows.Forms.Button();
+            this.btnAts64Open = new System.Windows.Forms.Button();
+            this.lblAts64 = new System.Windows.Forms.Label();
+            this.tbAts32 = new System.Windows.Forms.TextBox();
+            this.lblAts32 = new System.Windows.Forms.Label();
+            this.lblVehicleVer = new System.Windows.Forms.Label();
+            this.cbxVehicle = new System.Windows.Forms.ComboBox();
             this.tpRoute = new System.Windows.Forms.TabPage();
             this.tabControlMaps = new System.Windows.Forms.TabControl();
             this.tpStructure = new System.Windows.Forms.TabPage();
@@ -99,16 +133,16 @@
             this.btnSound3DListDirectory = new System.Windows.Forms.Button();
             this.btnSound3DListOpen = new System.Windows.Forms.Button();
             this.tpTrain = new System.Windows.Forms.TabPage();
+            this.dgvTrain = new System.Windows.Forms.DataGridView();
             this.cbxTrain = new System.Windows.Forms.ComboBox();
             this.btnTrainDirectory = new System.Windows.Forms.Button();
             this.btnTrainOpen = new System.Windows.Forms.Button();
+            this.tpInclude = new System.Windows.Forms.TabPage();
             this.cbxMapFilePath = new System.Windows.Forms.ComboBox();
             this.btnMapDirectory = new System.Windows.Forms.Button();
             this.btnMapOpen = new System.Windows.Forms.Button();
             this.tpAtsPlugin = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
-            this.cmsDelete = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmi32Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.gbxBve6Converter = new System.Windows.Forms.GroupBox();
             this.lblDetailManager = new System.Windows.Forms.Label();
             this.btnBve5Recovery = new System.Windows.Forms.Button();
@@ -160,54 +194,37 @@
             this.btnSenarioDirectoryOpen = new System.Windows.Forms.Button();
             this.tbSenarioDirectory = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.lblNotVehicle = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.btnListOther = new System.Windows.Forms.Button();
+            this.btnListNoMap = new System.Windows.Forms.Button();
+            this.btnListNoVehicle = new System.Windows.Forms.Button();
+            this.btnListBVE6 = new System.Windows.Forms.Button();
+            this.btnListBVE5 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
-            this.lblBVE5 = new System.Windows.Forms.Label();
             this.btnSenarioReload = new System.Windows.Forms.Button();
             this.btnOpenSenarioDirectory = new System.Windows.Forms.Button();
-            this.tpPanel = new System.Windows.Forms.TabPage();
-            this.dgvPanel = new System.Windows.Forms.DataGridView();
-            this.tpSound = new System.Windows.Forms.TabPage();
-            this.tpMorotNoise = new System.Windows.Forms.TabPage();
-            this.dgvSound = new System.Windows.Forms.DataGridView();
-            this.dgvMotorNoise = new System.Windows.Forms.DataGridView();
-            this.dgvTrain = new System.Windows.Forms.DataGridView();
-            this.tpAts = new System.Windows.Forms.TabPage();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tpAts32 = new System.Windows.Forms.TabPage();
-            this.btnAts32Recovery = new System.Windows.Forms.Button();
-            this.btnAts32Save = new System.Windows.Forms.Button();
-            this.btnAts32Reset = new System.Windows.Forms.Button();
-            this.tbAts32DetailModules = new System.Windows.Forms.TextBox();
-            this.btnAts32Open2 = new System.Windows.Forms.Button();
-            this.dgvAts32 = new System.Windows.Forms.DataGridView();
-            this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Build = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RelativePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FullPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tpAts64 = new System.Windows.Forms.TabPage();
-            this.tbAts64DetailModules = new System.Windows.Forms.TextBox();
-            this.btnAts64Recovery = new System.Windows.Forms.Button();
-            this.btnAts64Save = new System.Windows.Forms.Button();
-            this.btnAts64Reset = new System.Windows.Forms.Button();
-            this.btnAts64Open2 = new System.Windows.Forms.Button();
-            this.dgvAts64 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tpInclude = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControlSenario.SuspendLayout();
             this.tpVehicle.SuspendLayout();
             this.tabControlVehicle.SuspendLayout();
+            this.tpVehicleFile.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVehicle)).BeginInit();
             this.tpPerformanceCurve.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPerformanceCurve)).BeginInit();
             this.tpParameters.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvParameters)).BeginInit();
+            this.tpPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPanel)).BeginInit();
+            this.tpSound.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSound)).BeginInit();
+            this.tpMorotNoise.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMotorNoise)).BeginInit();
+            this.tpAts.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tpAts32.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAts32)).BeginInit();
+            this.cmsDelete.SuspendLayout();
+            this.tpAts64.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAts64)).BeginInit();
             this.tpRoute.SuspendLayout();
             this.tabControlMaps.SuspendLayout();
             this.tpStructure.SuspendLayout();
@@ -221,8 +238,8 @@
             this.tpSound3D.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSound3DList)).BeginInit();
             this.tpTrain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTrain)).BeginInit();
             this.tpAtsPlugin.SuspendLayout();
-            this.cmsDelete.SuspendLayout();
             this.gbxBve6Converter.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -234,19 +251,6 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tpPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPanel)).BeginInit();
-            this.tpSound.SuspendLayout();
-            this.tpMorotNoise.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSound)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMotorNoise)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTrain)).BeginInit();
-            this.tpAts.SuspendLayout();
-            this.tabControl2.SuspendLayout();
-            this.tpAts32.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAts32)).BeginInit();
-            this.tpAts64.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAts64)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOpenSenario
@@ -275,7 +279,7 @@
             // btnOpenVehicleFile
             // 
             this.btnOpenVehicleFile.Enabled = false;
-            this.btnOpenVehicleFile.Location = new System.Drawing.Point(22, 28);
+            this.btnOpenVehicleFile.Location = new System.Drawing.Point(276, 5);
             this.btnOpenVehicleFile.Name = "btnOpenVehicleFile";
             this.btnOpenVehicleFile.Size = new System.Drawing.Size(54, 26);
             this.btnOpenVehicleFile.TabIndex = 6;
@@ -297,7 +301,7 @@
             // btnOpenVehicleDirectory
             // 
             this.btnOpenVehicleDirectory.Enabled = false;
-            this.btnOpenVehicleDirectory.Location = new System.Drawing.Point(82, 28);
+            this.btnOpenVehicleDirectory.Location = new System.Drawing.Point(336, 5);
             this.btnOpenVehicleDirectory.Name = "btnOpenVehicleDirectory";
             this.btnOpenVehicleDirectory.Size = new System.Drawing.Size(54, 27);
             this.btnOpenVehicleDirectory.TabIndex = 9;
@@ -381,18 +385,44 @@
             this.tabControlVehicle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlVehicle.Controls.Add(this.tpVehicleFile);
             this.tabControlVehicle.Controls.Add(this.tpPerformanceCurve);
             this.tabControlVehicle.Controls.Add(this.tpParameters);
             this.tabControlVehicle.Controls.Add(this.tpPanel);
             this.tabControlVehicle.Controls.Add(this.tpSound);
             this.tabControlVehicle.Controls.Add(this.tpMorotNoise);
             this.tabControlVehicle.Controls.Add(this.tpAts);
-            this.tabControlVehicle.Location = new System.Drawing.Point(3, 58);
+            this.tabControlVehicle.Location = new System.Drawing.Point(3, 37);
             this.tabControlVehicle.Name = "tabControlVehicle";
             this.tabControlVehicle.SelectedIndex = 0;
-            this.tabControlVehicle.Size = new System.Drawing.Size(1019, 575);
+            this.tabControlVehicle.Size = new System.Drawing.Size(1019, 596);
             this.tabControlVehicle.TabIndex = 10;
             this.tabControlVehicle.SelectedIndexChanged += new System.EventHandler(this.tabControlVehicle_SelectedIndexChanged);
+            // 
+            // tpVehicleFile
+            // 
+            this.tpVehicleFile.Controls.Add(this.dgvVehicle);
+            this.tpVehicleFile.Location = new System.Drawing.Point(4, 22);
+            this.tpVehicleFile.Name = "tpVehicleFile";
+            this.tpVehicleFile.Size = new System.Drawing.Size(1011, 570);
+            this.tpVehicleFile.TabIndex = 6;
+            this.tpVehicleFile.Text = "車両ファイル(Vehicle)";
+            this.tpVehicleFile.UseVisualStyleBackColor = true;
+            // 
+            // dgvVehicle
+            // 
+            this.dgvVehicle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvVehicle.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvVehicle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVehicle.Location = new System.Drawing.Point(3, 33);
+            this.dgvVehicle.Name = "dgvVehicle";
+            this.dgvVehicle.RowTemplate.Height = 21;
+            this.dgvVehicle.Size = new System.Drawing.Size(1006, 534);
+            this.dgvVehicle.TabIndex = 11;
+            this.dgvVehicle.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicle_CellClick);
+            this.dgvVehicle.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicle_CellContentDoubleClick);
             // 
             // tpPerformanceCurve
             // 
@@ -420,7 +450,7 @@
             this.dgvPerformanceCurve.RowTemplate.Height = 21;
             this.dgvPerformanceCurve.Size = new System.Drawing.Size(1006, 513);
             this.dgvPerformanceCurve.TabIndex = 10;
-            this.dgvPerformanceCurve.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPerformanceCurve_CellClick);
+            this.dgvPerformanceCurve.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPerformanceCurve_CellClick);
             // 
             // tbPerfoemanceCurve
             // 
@@ -462,7 +492,7 @@
             this.tpParameters.Location = new System.Drawing.Point(4, 22);
             this.tpParameters.Name = "tpParameters";
             this.tpParameters.Padding = new System.Windows.Forms.Padding(3);
-            this.tpParameters.Size = new System.Drawing.Size(1011, 492);
+            this.tpParameters.Size = new System.Drawing.Size(1011, 549);
             this.tpParameters.TabIndex = 1;
             this.tpParameters.Text = "パラメータ(Parameters)";
             this.tpParameters.UseVisualStyleBackColor = true;
@@ -477,7 +507,7 @@
             this.dgvParameters.Location = new System.Drawing.Point(3, 33);
             this.dgvParameters.Name = "dgvParameters";
             this.dgvParameters.RowTemplate.Height = 21;
-            this.dgvParameters.Size = new System.Drawing.Size(1006, 456);
+            this.dgvParameters.Size = new System.Drawing.Size(1006, 513);
             this.dgvParameters.TabIndex = 11;
             // 
             // tbParameters
@@ -511,14 +541,487 @@
             this.btnParametersDirectory.UseVisualStyleBackColor = true;
             this.btnParametersDirectory.Click += new System.EventHandler(this.btnParametersDirectory_Click);
             // 
-            // lblVehicleVer
+            // tpPanel
             // 
-            this.lblVehicleVer.AutoSize = true;
-            this.lblVehicleVer.Location = new System.Drawing.Point(20, 10);
-            this.lblVehicleVer.Name = "lblVehicleVer";
-            this.lblVehicleVer.Size = new System.Drawing.Size(98, 12);
-            this.lblVehicleVer.TabIndex = 4;
-            this.lblVehicleVer.Text = "Vehicle File Ver : ";
+            this.tpPanel.Controls.Add(this.dgvPanel);
+            this.tpPanel.Controls.Add(this.tbPanel);
+            this.tpPanel.Controls.Add(this.btnPanelOpen);
+            this.tpPanel.Controls.Add(this.btnPanelDirectory);
+            this.tpPanel.Location = new System.Drawing.Point(4, 22);
+            this.tpPanel.Name = "tpPanel";
+            this.tpPanel.Size = new System.Drawing.Size(1011, 549);
+            this.tpPanel.TabIndex = 2;
+            this.tpPanel.Text = "パネル(Panel)";
+            this.tpPanel.UseVisualStyleBackColor = true;
+            // 
+            // dgvPanel
+            // 
+            this.dgvPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvPanel.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvPanel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPanel.Location = new System.Drawing.Point(3, 33);
+            this.dgvPanel.Name = "dgvPanel";
+            this.dgvPanel.RowTemplate.Height = 21;
+            this.dgvPanel.Size = new System.Drawing.Size(1006, 513);
+            this.dgvPanel.TabIndex = 12;
+            this.dgvPanel.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPanel_CellClick);
+            // 
+            // tbPanel
+            // 
+            this.tbPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbPanel.Location = new System.Drawing.Point(134, 8);
+            this.tbPanel.Name = "tbPanel";
+            this.tbPanel.Size = new System.Drawing.Size(870, 19);
+            this.tbPanel.TabIndex = 1;
+            // 
+            // btnPanelOpen
+            // 
+            this.btnPanelOpen.Enabled = false;
+            this.btnPanelOpen.Location = new System.Drawing.Point(14, 4);
+            this.btnPanelOpen.Name = "btnPanelOpen";
+            this.btnPanelOpen.Size = new System.Drawing.Size(54, 26);
+            this.btnPanelOpen.TabIndex = 0;
+            this.btnPanelOpen.Text = "開く";
+            this.btnPanelOpen.UseVisualStyleBackColor = true;
+            this.btnPanelOpen.Click += new System.EventHandler(this.btnPanelOpen_Click);
+            // 
+            // btnPanelDirectory
+            // 
+            this.btnPanelDirectory.Enabled = false;
+            this.btnPanelDirectory.Location = new System.Drawing.Point(74, 4);
+            this.btnPanelDirectory.Name = "btnPanelDirectory";
+            this.btnPanelDirectory.Size = new System.Drawing.Size(54, 27);
+            this.btnPanelDirectory.TabIndex = 9;
+            this.btnPanelDirectory.Text = "フォルダ";
+            this.btnPanelDirectory.UseVisualStyleBackColor = true;
+            this.btnPanelDirectory.Click += new System.EventHandler(this.btnPanelDirectory_Click);
+            // 
+            // tpSound
+            // 
+            this.tpSound.Controls.Add(this.dgvSound);
+            this.tpSound.Controls.Add(this.tbSound);
+            this.tpSound.Controls.Add(this.btnSoundOpen);
+            this.tpSound.Controls.Add(this.btnSoundDirectory);
+            this.tpSound.Location = new System.Drawing.Point(4, 22);
+            this.tpSound.Name = "tpSound";
+            this.tpSound.Size = new System.Drawing.Size(1011, 549);
+            this.tpSound.TabIndex = 3;
+            this.tpSound.Text = "サウンド(Sound)";
+            this.tpSound.UseVisualStyleBackColor = true;
+            // 
+            // dgvSound
+            // 
+            this.dgvSound.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvSound.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvSound.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSound.Location = new System.Drawing.Point(3, 33);
+            this.dgvSound.Name = "dgvSound";
+            this.dgvSound.RowTemplate.Height = 21;
+            this.dgvSound.Size = new System.Drawing.Size(1006, 513);
+            this.dgvSound.TabIndex = 13;
+            this.dgvSound.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSound_CellClick);
+            // 
+            // tbSound
+            // 
+            this.tbSound.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbSound.Location = new System.Drawing.Point(134, 8);
+            this.tbSound.Name = "tbSound";
+            this.tbSound.Size = new System.Drawing.Size(869, 19);
+            this.tbSound.TabIndex = 1;
+            // 
+            // btnSoundOpen
+            // 
+            this.btnSoundOpen.Enabled = false;
+            this.btnSoundOpen.Location = new System.Drawing.Point(14, 4);
+            this.btnSoundOpen.Name = "btnSoundOpen";
+            this.btnSoundOpen.Size = new System.Drawing.Size(54, 26);
+            this.btnSoundOpen.TabIndex = 0;
+            this.btnSoundOpen.Text = "開く";
+            this.btnSoundOpen.UseVisualStyleBackColor = true;
+            this.btnSoundOpen.Click += new System.EventHandler(this.btnSoundOpen_Click);
+            // 
+            // btnSoundDirectory
+            // 
+            this.btnSoundDirectory.Enabled = false;
+            this.btnSoundDirectory.Location = new System.Drawing.Point(74, 4);
+            this.btnSoundDirectory.Name = "btnSoundDirectory";
+            this.btnSoundDirectory.Size = new System.Drawing.Size(54, 27);
+            this.btnSoundDirectory.TabIndex = 9;
+            this.btnSoundDirectory.Text = "フォルダ";
+            this.btnSoundDirectory.UseVisualStyleBackColor = true;
+            this.btnSoundDirectory.Click += new System.EventHandler(this.btnSoundDirectory_Click);
+            // 
+            // tpMorotNoise
+            // 
+            this.tpMorotNoise.Controls.Add(this.dgvMotorNoise);
+            this.tpMorotNoise.Controls.Add(this.tbMotorNoise);
+            this.tpMorotNoise.Controls.Add(this.btnMotorNoiseOpen);
+            this.tpMorotNoise.Controls.Add(this.btnMotorNoiseDirectory);
+            this.tpMorotNoise.Location = new System.Drawing.Point(4, 22);
+            this.tpMorotNoise.Name = "tpMorotNoise";
+            this.tpMorotNoise.Size = new System.Drawing.Size(1011, 549);
+            this.tpMorotNoise.TabIndex = 4;
+            this.tpMorotNoise.Text = "モーター音(MotorNoise)";
+            this.tpMorotNoise.UseVisualStyleBackColor = true;
+            // 
+            // dgvMotorNoise
+            // 
+            this.dgvMotorNoise.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvMotorNoise.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvMotorNoise.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMotorNoise.Location = new System.Drawing.Point(3, 33);
+            this.dgvMotorNoise.Name = "dgvMotorNoise";
+            this.dgvMotorNoise.RowTemplate.Height = 21;
+            this.dgvMotorNoise.Size = new System.Drawing.Size(1006, 513);
+            this.dgvMotorNoise.TabIndex = 14;
+            this.dgvMotorNoise.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMotorNoise_CellClick);
+            // 
+            // tbMotorNoise
+            // 
+            this.tbMotorNoise.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbMotorNoise.Location = new System.Drawing.Point(134, 8);
+            this.tbMotorNoise.Name = "tbMotorNoise";
+            this.tbMotorNoise.Size = new System.Drawing.Size(703, 19);
+            this.tbMotorNoise.TabIndex = 1;
+            // 
+            // btnMotorNoiseOpen
+            // 
+            this.btnMotorNoiseOpen.Enabled = false;
+            this.btnMotorNoiseOpen.Location = new System.Drawing.Point(14, 4);
+            this.btnMotorNoiseOpen.Name = "btnMotorNoiseOpen";
+            this.btnMotorNoiseOpen.Size = new System.Drawing.Size(54, 26);
+            this.btnMotorNoiseOpen.TabIndex = 0;
+            this.btnMotorNoiseOpen.Text = "開く";
+            this.btnMotorNoiseOpen.UseVisualStyleBackColor = true;
+            this.btnMotorNoiseOpen.Click += new System.EventHandler(this.btnMotorNoiseOpen_Click);
+            // 
+            // btnMotorNoiseDirectory
+            // 
+            this.btnMotorNoiseDirectory.Enabled = false;
+            this.btnMotorNoiseDirectory.Location = new System.Drawing.Point(74, 4);
+            this.btnMotorNoiseDirectory.Name = "btnMotorNoiseDirectory";
+            this.btnMotorNoiseDirectory.Size = new System.Drawing.Size(54, 27);
+            this.btnMotorNoiseDirectory.TabIndex = 9;
+            this.btnMotorNoiseDirectory.Text = "フォルダ";
+            this.btnMotorNoiseDirectory.UseVisualStyleBackColor = true;
+            this.btnMotorNoiseDirectory.Click += new System.EventHandler(this.btnMotorNoiseDirectory_Click);
+            // 
+            // tpAts
+            // 
+            this.tpAts.Controls.Add(this.tabControl2);
+            this.tpAts.Controls.Add(this.tbAts64);
+            this.tpAts.Controls.Add(this.btnAts32Open);
+            this.tpAts.Controls.Add(this.btnAts32OpenDirectory);
+            this.tpAts.Controls.Add(this.btnAts32Check);
+            this.tpAts.Controls.Add(this.btnAts64OpenDirectory);
+            this.tpAts.Controls.Add(this.btnAts64Check);
+            this.tpAts.Controls.Add(this.btnAts64Open);
+            this.tpAts.Controls.Add(this.lblAts64);
+            this.tpAts.Controls.Add(this.tbAts32);
+            this.tpAts.Controls.Add(this.lblAts32);
+            this.tpAts.Location = new System.Drawing.Point(4, 22);
+            this.tpAts.Name = "tpAts";
+            this.tpAts.Size = new System.Drawing.Size(1011, 549);
+            this.tpAts.TabIndex = 5;
+            this.tpAts.Text = "ATSプラグイン(Ats)";
+            this.tpAts.UseVisualStyleBackColor = true;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl2.Controls.Add(this.tpAts32);
+            this.tabControl2.Controls.Add(this.tpAts64);
+            this.tabControl2.Location = new System.Drawing.Point(3, 64);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(1005, 482);
+            this.tabControl2.TabIndex = 32;
+            // 
+            // tpAts32
+            // 
+            this.tpAts32.Controls.Add(this.btnAts32Recovery);
+            this.tpAts32.Controls.Add(this.btnAts32Save);
+            this.tpAts32.Controls.Add(this.btnAts32Reset);
+            this.tpAts32.Controls.Add(this.tbAts32DetailModules);
+            this.tpAts32.Controls.Add(this.btnAts32Open2);
+            this.tpAts32.Controls.Add(this.dgvAts32);
+            this.tpAts32.Location = new System.Drawing.Point(4, 22);
+            this.tpAts32.Name = "tpAts32";
+            this.tpAts32.Padding = new System.Windows.Forms.Padding(3);
+            this.tpAts32.Size = new System.Drawing.Size(997, 456);
+            this.tpAts32.TabIndex = 0;
+            this.tpAts32.Text = "BVE5 (detailmodules.txt)";
+            this.tpAts32.UseVisualStyleBackColor = true;
+            // 
+            // btnAts32Recovery
+            // 
+            this.btnAts32Recovery.Location = new System.Drawing.Point(237, 4);
+            this.btnAts32Recovery.Name = "btnAts32Recovery";
+            this.btnAts32Recovery.Size = new System.Drawing.Size(54, 26);
+            this.btnAts32Recovery.TabIndex = 15;
+            this.btnAts32Recovery.Text = "復元";
+            this.btnAts32Recovery.UseVisualStyleBackColor = true;
+            this.btnAts32Recovery.Visible = false;
+            // 
+            // btnAts32Save
+            // 
+            this.btnAts32Save.Location = new System.Drawing.Point(177, 4);
+            this.btnAts32Save.Name = "btnAts32Save";
+            this.btnAts32Save.Size = new System.Drawing.Size(54, 26);
+            this.btnAts32Save.TabIndex = 15;
+            this.btnAts32Save.Text = "保存";
+            this.btnAts32Save.UseVisualStyleBackColor = true;
+            this.btnAts32Save.Visible = false;
+            // 
+            // btnAts32Reset
+            // 
+            this.btnAts32Reset.Location = new System.Drawing.Point(118, 4);
+            this.btnAts32Reset.Name = "btnAts32Reset";
+            this.btnAts32Reset.Size = new System.Drawing.Size(54, 26);
+            this.btnAts32Reset.TabIndex = 15;
+            this.btnAts32Reset.Text = "リセット";
+            this.btnAts32Reset.UseVisualStyleBackColor = true;
+            this.btnAts32Reset.Visible = false;
+            // 
+            // tbAts32DetailModules
+            // 
+            this.tbAts32DetailModules.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbAts32DetailModules.Location = new System.Drawing.Point(297, 8);
+            this.tbAts32DetailModules.Name = "tbAts32DetailModules";
+            this.tbAts32DetailModules.Size = new System.Drawing.Size(690, 19);
+            this.tbAts32DetailModules.TabIndex = 13;
+            // 
+            // btnAts32Open2
+            // 
+            this.btnAts32Open2.Enabled = false;
+            this.btnAts32Open2.Location = new System.Drawing.Point(58, 4);
+            this.btnAts32Open2.Name = "btnAts32Open2";
+            this.btnAts32Open2.Size = new System.Drawing.Size(54, 26);
+            this.btnAts32Open2.TabIndex = 12;
+            this.btnAts32Open2.Text = "開く";
+            this.btnAts32Open2.UseVisualStyleBackColor = true;
+            // 
+            // dgvAts32
+            // 
+            this.dgvAts32.AllowDrop = true;
+            this.dgvAts32.AllowUserToAddRows = false;
+            this.dgvAts32.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvAts32.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAts32.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FileName,
+            this.Build,
+            this.RelativePath,
+            this.FullPath});
+            this.dgvAts32.ContextMenuStrip = this.cmsDelete;
+            this.dgvAts32.Location = new System.Drawing.Point(3, 33);
+            this.dgvAts32.Name = "dgvAts32";
+            this.dgvAts32.RowTemplate.Height = 21;
+            this.dgvAts32.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAts32.Size = new System.Drawing.Size(991, 417);
+            this.dgvAts32.TabIndex = 11;
+            // 
+            // FileName
+            // 
+            this.FileName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.FileName.HeaderText = "ファイル名";
+            this.FileName.Name = "FileName";
+            this.FileName.Width = 76;
+            // 
+            // Build
+            // 
+            this.Build.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Build.HeaderText = "ビット判定";
+            this.Build.Name = "Build";
+            this.Build.ReadOnly = true;
+            this.Build.Width = 77;
+            // 
+            // RelativePath
+            // 
+            this.RelativePath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.RelativePath.HeaderText = "相対パス";
+            this.RelativePath.Name = "RelativePath";
+            this.RelativePath.Width = 73;
+            // 
+            // FullPath
+            // 
+            this.FullPath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.FullPath.HeaderText = "絶対パス";
+            this.FullPath.Name = "FullPath";
+            this.FullPath.Width = 73;
+            // 
+            // cmsDelete
+            // 
+            this.cmsDelete.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmi32Delete});
+            this.cmsDelete.Name = "cms32";
+            this.cmsDelete.Size = new System.Drawing.Size(99, 26);
+            // 
+            // tsmi32Delete
+            // 
+            this.tsmi32Delete.Name = "tsmi32Delete";
+            this.tsmi32Delete.Size = new System.Drawing.Size(98, 22);
+            this.tsmi32Delete.Text = "削除";
+            this.tsmi32Delete.Click += new System.EventHandler(this.tsmi32Delete_Click);
+            // 
+            // tpAts64
+            // 
+            this.tpAts64.Controls.Add(this.tbAts64DetailModules);
+            this.tpAts64.Controls.Add(this.btnAts64Recovery);
+            this.tpAts64.Controls.Add(this.btnAts64Save);
+            this.tpAts64.Controls.Add(this.btnAts64Reset);
+            this.tpAts64.Controls.Add(this.btnAts64Open2);
+            this.tpAts64.Controls.Add(this.dgvAts64);
+            this.tpAts64.Location = new System.Drawing.Point(4, 22);
+            this.tpAts64.Name = "tpAts64";
+            this.tpAts64.Padding = new System.Windows.Forms.Padding(3);
+            this.tpAts64.Size = new System.Drawing.Size(997, 456);
+            this.tpAts64.TabIndex = 1;
+            this.tpAts64.Text = "BVE6 (detailmodules.txt)";
+            this.tpAts64.UseVisualStyleBackColor = true;
+            // 
+            // tbAts64DetailModules
+            // 
+            this.tbAts64DetailModules.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbAts64DetailModules.Location = new System.Drawing.Point(297, 8);
+            this.tbAts64DetailModules.Name = "tbAts64DetailModules";
+            this.tbAts64DetailModules.Size = new System.Drawing.Size(690, 19);
+            this.tbAts64DetailModules.TabIndex = 15;
+            // 
+            // btnAts64Recovery
+            // 
+            this.btnAts64Recovery.Location = new System.Drawing.Point(237, 4);
+            this.btnAts64Recovery.Name = "btnAts64Recovery";
+            this.btnAts64Recovery.Size = new System.Drawing.Size(54, 26);
+            this.btnAts64Recovery.TabIndex = 14;
+            this.btnAts64Recovery.Text = "復元";
+            this.btnAts64Recovery.UseVisualStyleBackColor = true;
+            this.btnAts64Recovery.Visible = false;
+            // 
+            // btnAts64Save
+            // 
+            this.btnAts64Save.Location = new System.Drawing.Point(177, 4);
+            this.btnAts64Save.Name = "btnAts64Save";
+            this.btnAts64Save.Size = new System.Drawing.Size(54, 26);
+            this.btnAts64Save.TabIndex = 14;
+            this.btnAts64Save.Text = "保存";
+            this.btnAts64Save.UseVisualStyleBackColor = true;
+            this.btnAts64Save.Visible = false;
+            // 
+            // btnAts64Reset
+            // 
+            this.btnAts64Reset.Location = new System.Drawing.Point(118, 4);
+            this.btnAts64Reset.Name = "btnAts64Reset";
+            this.btnAts64Reset.Size = new System.Drawing.Size(54, 26);
+            this.btnAts64Reset.TabIndex = 14;
+            this.btnAts64Reset.Text = "リセット";
+            this.btnAts64Reset.UseVisualStyleBackColor = true;
+            this.btnAts64Reset.Visible = false;
+            // 
+            // btnAts64Open2
+            // 
+            this.btnAts64Open2.Enabled = false;
+            this.btnAts64Open2.Location = new System.Drawing.Point(58, 4);
+            this.btnAts64Open2.Name = "btnAts64Open2";
+            this.btnAts64Open2.Size = new System.Drawing.Size(54, 26);
+            this.btnAts64Open2.TabIndex = 14;
+            this.btnAts64Open2.Text = "開く";
+            this.btnAts64Open2.UseVisualStyleBackColor = true;
+            // 
+            // dgvAts64
+            // 
+            this.dgvAts64.AllowDrop = true;
+            this.dgvAts64.AllowUserToAddRows = false;
+            this.dgvAts64.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvAts64.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAts64.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            this.dgvAts64.ContextMenuStrip = this.cmsDelete;
+            this.dgvAts64.Location = new System.Drawing.Point(3, 33);
+            this.dgvAts64.Name = "dgvAts64";
+            this.dgvAts64.RowTemplate.Height = 21;
+            this.dgvAts64.Size = new System.Drawing.Size(991, 420);
+            this.dgvAts64.TabIndex = 12;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn1.HeaderText = "ファイル名";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 76;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn2.HeaderText = "ビット判定";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 77;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn3.HeaderText = "相対パス";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 73;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn4.HeaderText = "絶対パス";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 73;
+            // 
+            // tbAts64
+            // 
+            this.tbAts64.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbAts64.Location = new System.Drawing.Point(298, 36);
+            this.tbAts64.Name = "tbAts64";
+            this.tbAts64.Size = new System.Drawing.Size(703, 19);
+            this.tbAts64.TabIndex = 1;
+            this.tbAts64.Visible = false;
+            // 
+            // btnAts32Open
+            // 
+            this.btnAts32Open.Enabled = false;
+            this.btnAts32Open.Location = new System.Drawing.Point(178, 5);
+            this.btnAts32Open.Name = "btnAts32Open";
+            this.btnAts32Open.Size = new System.Drawing.Size(54, 26);
+            this.btnAts32Open.TabIndex = 0;
+            this.btnAts32Open.Text = "開く";
+            this.btnAts32Open.UseVisualStyleBackColor = true;
+            this.btnAts32Open.Click += new System.EventHandler(this.btnOpenAts32_Click);
+            // 
+            // btnAts32Check
+            // 
+            this.btnAts32Check.Enabled = false;
+            this.btnAts32Check.Location = new System.Drawing.Point(118, 5);
+            this.btnAts32Check.Name = "btnAts32Check";
+            this.btnAts32Check.Size = new System.Drawing.Size(54, 26);
+            this.btnAts32Check.TabIndex = 0;
+            this.btnAts32Check.Text = "チェック";
+            this.btnAts32Check.UseVisualStyleBackColor = true;
+            this.btnAts32Check.Click += new System.EventHandler(this.btnAts32Check_Click);
             // 
             // btnAts64OpenDirectory
             // 
@@ -532,116 +1035,17 @@
             this.btnAts64OpenDirectory.Visible = false;
             this.btnAts64OpenDirectory.Click += new System.EventHandler(this.btnOpenAts64Directory_Click);
             // 
-            // cbxVehicle
+            // btnAts64Check
             // 
-            this.cbxVehicle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbxVehicle.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbxVehicle.FormattingEnabled = true;
-            this.cbxVehicle.Location = new System.Drawing.Point(142, 32);
-            this.cbxVehicle.Name = "cbxVehicle";
-            this.cbxVehicle.Size = new System.Drawing.Size(868, 20);
-            this.cbxVehicle.TabIndex = 3;
-            this.cbxVehicle.TabStop = false;
-            this.cbxVehicle.SelectedIndexChanged += new System.EventHandler(this.cbxVehicle_SelectedIndexChanged);
-            // 
-            // lblAts64
-            // 
-            this.lblAts64.AutoSize = true;
-            this.lblAts64.Location = new System.Drawing.Point(10, 39);
-            this.lblAts64.Name = "lblAts64";
-            this.lblAts64.Size = new System.Drawing.Size(35, 12);
-            this.lblAts64.TabIndex = 2;
-            this.lblAts64.Text = "Ats64";
-            this.lblAts64.Visible = false;
-            // 
-            // lblAts32
-            // 
-            this.lblAts32.AutoSize = true;
-            this.lblAts32.Location = new System.Drawing.Point(10, 12);
-            this.lblAts32.Name = "lblAts32";
-            this.lblAts32.Size = new System.Drawing.Size(23, 12);
-            this.lblAts32.TabIndex = 2;
-            this.lblAts32.Text = "Ats";
-            // 
-            // tbAts64
-            // 
-            this.tbAts64.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAts64.Location = new System.Drawing.Point(298, 36);
-            this.tbAts64.Name = "tbAts64";
-            this.tbAts64.Size = new System.Drawing.Size(703, 19);
-            this.tbAts64.TabIndex = 1;
-            this.tbAts64.Visible = false;
-            // 
-            // tbAts32
-            // 
-            this.tbAts32.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAts32.Location = new System.Drawing.Point(298, 9);
-            this.tbAts32.Name = "tbAts32";
-            this.tbAts32.Size = new System.Drawing.Size(703, 19);
-            this.tbAts32.TabIndex = 1;
-            // 
-            // tbMotorNoise
-            // 
-            this.tbMotorNoise.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbMotorNoise.Location = new System.Drawing.Point(134, 8);
-            this.tbMotorNoise.Name = "tbMotorNoise";
-            this.tbMotorNoise.Size = new System.Drawing.Size(703, 19);
-            this.tbMotorNoise.TabIndex = 1;
-            // 
-            // btnMotorNoiseDirectory
-            // 
-            this.btnMotorNoiseDirectory.Enabled = false;
-            this.btnMotorNoiseDirectory.Location = new System.Drawing.Point(74, 4);
-            this.btnMotorNoiseDirectory.Name = "btnMotorNoiseDirectory";
-            this.btnMotorNoiseDirectory.Size = new System.Drawing.Size(54, 27);
-            this.btnMotorNoiseDirectory.TabIndex = 9;
-            this.btnMotorNoiseDirectory.Text = "フォルダ";
-            this.btnMotorNoiseDirectory.UseVisualStyleBackColor = true;
-            this.btnMotorNoiseDirectory.Click += new System.EventHandler(this.btnMotorNoiseDirectory_Click);
-            // 
-            // btnSoundDirectory
-            // 
-            this.btnSoundDirectory.Enabled = false;
-            this.btnSoundDirectory.Location = new System.Drawing.Point(74, 4);
-            this.btnSoundDirectory.Name = "btnSoundDirectory";
-            this.btnSoundDirectory.Size = new System.Drawing.Size(54, 27);
-            this.btnSoundDirectory.TabIndex = 9;
-            this.btnSoundDirectory.Text = "フォルダ";
-            this.btnSoundDirectory.UseVisualStyleBackColor = true;
-            this.btnSoundDirectory.Click += new System.EventHandler(this.btnSoundDirectory_Click);
-            // 
-            // btnPanelDirectory
-            // 
-            this.btnPanelDirectory.Enabled = false;
-            this.btnPanelDirectory.Location = new System.Drawing.Point(74, 4);
-            this.btnPanelDirectory.Name = "btnPanelDirectory";
-            this.btnPanelDirectory.Size = new System.Drawing.Size(54, 27);
-            this.btnPanelDirectory.TabIndex = 9;
-            this.btnPanelDirectory.Text = "フォルダ";
-            this.btnPanelDirectory.UseVisualStyleBackColor = true;
-            this.btnPanelDirectory.Click += new System.EventHandler(this.btnPanelDirectory_Click);
-            // 
-            // tbSound
-            // 
-            this.tbSound.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbSound.Location = new System.Drawing.Point(134, 8);
-            this.tbSound.Name = "tbSound";
-            this.tbSound.Size = new System.Drawing.Size(869, 19);
-            this.tbSound.TabIndex = 1;
-            // 
-            // tbPanel
-            // 
-            this.tbPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPanel.Location = new System.Drawing.Point(134, 8);
-            this.tbPanel.Name = "tbPanel";
-            this.tbPanel.Size = new System.Drawing.Size(870, 19);
-            this.tbPanel.TabIndex = 1;
+            this.btnAts64Check.Enabled = false;
+            this.btnAts64Check.Location = new System.Drawing.Point(118, 32);
+            this.btnAts64Check.Name = "btnAts64Check";
+            this.btnAts64Check.Size = new System.Drawing.Size(54, 26);
+            this.btnAts64Check.TabIndex = 0;
+            this.btnAts64Check.Text = "チェック";
+            this.btnAts64Check.UseVisualStyleBackColor = true;
+            this.btnAts64Check.Visible = false;
+            this.btnAts64Check.Click += new System.EventHandler(this.btnAts64Check_Click);
             // 
             // btnAts64Open
             // 
@@ -655,72 +1059,56 @@
             this.btnAts64Open.Visible = false;
             this.btnAts64Open.Click += new System.EventHandler(this.btnAts64Open_Click);
             // 
-            // btnAts64Check
+            // lblAts64
             // 
-            this.btnAts64Check.Enabled = false;
-            this.btnAts64Check.Location = new System.Drawing.Point(118, 32);
-            this.btnAts64Check.Name = "btnAts64Check";
-            this.btnAts64Check.Size = new System.Drawing.Size(54, 26);
-            this.btnAts64Check.TabIndex = 0;
-            this.btnAts64Check.Text = "チェック";
-            this.btnAts64Check.UseVisualStyleBackColor = true;
-            this.btnAts64Check.Visible = false;
-            this.btnAts64Check.Click += new System.EventHandler(this.btnAts64Check_Click);
+            this.lblAts64.AutoSize = true;
+            this.lblAts64.Location = new System.Drawing.Point(10, 39);
+            this.lblAts64.Name = "lblAts64";
+            this.lblAts64.Size = new System.Drawing.Size(35, 12);
+            this.lblAts64.TabIndex = 2;
+            this.lblAts64.Text = "Ats64";
+            this.lblAts64.Visible = false;
             // 
-            // btnAts32Check
+            // tbAts32
             // 
-            this.btnAts32Check.Enabled = false;
-            this.btnAts32Check.Location = new System.Drawing.Point(118, 5);
-            this.btnAts32Check.Name = "btnAts32Check";
-            this.btnAts32Check.Size = new System.Drawing.Size(54, 26);
-            this.btnAts32Check.TabIndex = 0;
-            this.btnAts32Check.Text = "チェック";
-            this.btnAts32Check.UseVisualStyleBackColor = true;
-            this.btnAts32Check.Click += new System.EventHandler(this.btnAts32Check_Click);
+            this.tbAts32.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbAts32.Location = new System.Drawing.Point(298, 9);
+            this.tbAts32.Name = "tbAts32";
+            this.tbAts32.Size = new System.Drawing.Size(703, 19);
+            this.tbAts32.TabIndex = 1;
             // 
-            // btnAts32Open
+            // lblAts32
             // 
-            this.btnAts32Open.Enabled = false;
-            this.btnAts32Open.Location = new System.Drawing.Point(178, 5);
-            this.btnAts32Open.Name = "btnAts32Open";
-            this.btnAts32Open.Size = new System.Drawing.Size(54, 26);
-            this.btnAts32Open.TabIndex = 0;
-            this.btnAts32Open.Text = "開く";
-            this.btnAts32Open.UseVisualStyleBackColor = true;
-            this.btnAts32Open.Click += new System.EventHandler(this.btnOpenAts32_Click);
+            this.lblAts32.AutoSize = true;
+            this.lblAts32.Location = new System.Drawing.Point(10, 12);
+            this.lblAts32.Name = "lblAts32";
+            this.lblAts32.Size = new System.Drawing.Size(23, 12);
+            this.lblAts32.TabIndex = 2;
+            this.lblAts32.Text = "Ats";
             // 
-            // btnMotorNoiseOpen
+            // lblVehicleVer
             // 
-            this.btnMotorNoiseOpen.Enabled = false;
-            this.btnMotorNoiseOpen.Location = new System.Drawing.Point(14, 4);
-            this.btnMotorNoiseOpen.Name = "btnMotorNoiseOpen";
-            this.btnMotorNoiseOpen.Size = new System.Drawing.Size(54, 26);
-            this.btnMotorNoiseOpen.TabIndex = 0;
-            this.btnMotorNoiseOpen.Text = "開く";
-            this.btnMotorNoiseOpen.UseVisualStyleBackColor = true;
-            this.btnMotorNoiseOpen.Click += new System.EventHandler(this.btnMotorNoiseOpen_Click);
+            this.lblVehicleVer.AutoSize = true;
+            this.lblVehicleVer.Location = new System.Drawing.Point(20, 12);
+            this.lblVehicleVer.Name = "lblVehicleVer";
+            this.lblVehicleVer.Size = new System.Drawing.Size(98, 12);
+            this.lblVehicleVer.TabIndex = 4;
+            this.lblVehicleVer.Text = "Vehicle File Ver : ";
             // 
-            // btnSoundOpen
+            // cbxVehicle
             // 
-            this.btnSoundOpen.Enabled = false;
-            this.btnSoundOpen.Location = new System.Drawing.Point(14, 4);
-            this.btnSoundOpen.Name = "btnSoundOpen";
-            this.btnSoundOpen.Size = new System.Drawing.Size(54, 26);
-            this.btnSoundOpen.TabIndex = 0;
-            this.btnSoundOpen.Text = "開く";
-            this.btnSoundOpen.UseVisualStyleBackColor = true;
-            this.btnSoundOpen.Click += new System.EventHandler(this.btnSoundOpen_Click);
-            // 
-            // btnPanelOpen
-            // 
-            this.btnPanelOpen.Enabled = false;
-            this.btnPanelOpen.Location = new System.Drawing.Point(14, 4);
-            this.btnPanelOpen.Name = "btnPanelOpen";
-            this.btnPanelOpen.Size = new System.Drawing.Size(54, 26);
-            this.btnPanelOpen.TabIndex = 0;
-            this.btnPanelOpen.Text = "開く";
-            this.btnPanelOpen.UseVisualStyleBackColor = true;
-            this.btnPanelOpen.Click += new System.EventHandler(this.btnPanelOpen_Click);
+            this.cbxVehicle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxVehicle.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbxVehicle.FormattingEnabled = true;
+            this.cbxVehicle.Location = new System.Drawing.Point(397, 9);
+            this.cbxVehicle.Name = "cbxVehicle";
+            this.cbxVehicle.Size = new System.Drawing.Size(613, 20);
+            this.cbxVehicle.TabIndex = 3;
+            this.cbxVehicle.TabStop = false;
+            this.cbxVehicle.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cbxVehicle_DrawItem);
+            this.cbxVehicle.SelectedIndexChanged += new System.EventHandler(this.cbxVehicle_SelectedIndexChanged);
             // 
             // tpRoute
             // 
@@ -747,10 +1135,10 @@
             this.tabControlMaps.Controls.Add(this.tpSound3D);
             this.tabControlMaps.Controls.Add(this.tpTrain);
             this.tabControlMaps.Controls.Add(this.tpInclude);
-            this.tabControlMaps.Location = new System.Drawing.Point(3, 42);
+            this.tabControlMaps.Location = new System.Drawing.Point(3, 37);
             this.tabControlMaps.Name = "tabControlMaps";
             this.tabControlMaps.SelectedIndex = 0;
-            this.tabControlMaps.Size = new System.Drawing.Size(1020, 591);
+            this.tabControlMaps.Size = new System.Drawing.Size(1020, 596);
             this.tabControlMaps.TabIndex = 11;
             this.tabControlMaps.SelectedIndexChanged += new System.EventHandler(this.tabControlMaps_SelectedIndexChanged);
             // 
@@ -763,7 +1151,7 @@
             this.tpStructure.Controls.Add(this.btnStructureOpen);
             this.tpStructure.Location = new System.Drawing.Point(4, 22);
             this.tpStructure.Name = "tpStructure";
-            this.tpStructure.Size = new System.Drawing.Size(1012, 565);
+            this.tpStructure.Size = new System.Drawing.Size(1012, 570);
             this.tpStructure.TabIndex = 2;
             this.tpStructure.Text = "ストラクチャファイル(Structure)";
             // 
@@ -777,9 +1165,9 @@
             this.dgvStructure.Location = new System.Drawing.Point(3, 33);
             this.dgvStructure.Name = "dgvStructure";
             this.dgvStructure.RowTemplate.Height = 21;
-            this.dgvStructure.Size = new System.Drawing.Size(1006, 529);
+            this.dgvStructure.Size = new System.Drawing.Size(1006, 534);
             this.dgvStructure.TabIndex = 1;
-            this.dgvStructure.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStructure_CellClick);
+            this.dgvStructure.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStructure_CellClick);
             // 
             // tbStructure
             // 
@@ -953,7 +1341,7 @@
             this.dgvSoundList.RowTemplate.Height = 21;
             this.dgvSoundList.Size = new System.Drawing.Size(1006, 529);
             this.dgvSoundList.TabIndex = 1;
-            this.dgvSoundList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSoundList_CellClick);
+            this.dgvSoundList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSoundList_CellClick);
             // 
             // tbSoundList
             // 
@@ -1057,6 +1445,19 @@
             this.tpTrain.Text = "他列車ファイル(Train)";
             this.tpTrain.UseVisualStyleBackColor = true;
             // 
+            // dgvTrain
+            // 
+            this.dgvTrain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvTrain.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvTrain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTrain.Location = new System.Drawing.Point(3, 33);
+            this.dgvTrain.Name = "dgvTrain";
+            this.dgvTrain.RowTemplate.Height = 21;
+            this.dgvTrain.Size = new System.Drawing.Size(1006, 456);
+            this.dgvTrain.TabIndex = 15;
+            // 
             // cbxTrain
             // 
             this.cbxTrain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1089,12 +1490,21 @@
             this.btnTrainOpen.UseVisualStyleBackColor = true;
             this.btnTrainOpen.Click += new System.EventHandler(this.btnTrainOpen_Click);
             // 
+            // tpInclude
+            // 
+            this.tpInclude.Location = new System.Drawing.Point(4, 22);
+            this.tpInclude.Name = "tpInclude";
+            this.tpInclude.Size = new System.Drawing.Size(1012, 565);
+            this.tpInclude.TabIndex = 6;
+            this.tpInclude.Text = "その他ファイル(Include)";
+            this.tpInclude.UseVisualStyleBackColor = true;
+            // 
             // cbxMapFilePath
             // 
             this.cbxMapFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxMapFilePath.FormattingEnabled = true;
-            this.cbxMapFilePath.Location = new System.Drawing.Point(142, 14);
+            this.cbxMapFilePath.Location = new System.Drawing.Point(142, 9);
             this.cbxMapFilePath.Name = "cbxMapFilePath";
             this.cbxMapFilePath.Size = new System.Drawing.Size(871, 20);
             this.cbxMapFilePath.TabIndex = 6;
@@ -1103,7 +1513,7 @@
             // btnMapDirectory
             // 
             this.btnMapDirectory.Enabled = false;
-            this.btnMapDirectory.Location = new System.Drawing.Point(82, 10);
+            this.btnMapDirectory.Location = new System.Drawing.Point(82, 5);
             this.btnMapDirectory.Name = "btnMapDirectory";
             this.btnMapDirectory.Size = new System.Drawing.Size(54, 26);
             this.btnMapDirectory.TabIndex = 3;
@@ -1114,7 +1524,7 @@
             // btnMapOpen
             // 
             this.btnMapOpen.Enabled = false;
-            this.btnMapOpen.Location = new System.Drawing.Point(22, 10);
+            this.btnMapOpen.Location = new System.Drawing.Point(22, 5);
             this.btnMapOpen.Name = "btnMapOpen";
             this.btnMapOpen.Size = new System.Drawing.Size(54, 26);
             this.btnMapOpen.TabIndex = 3;
@@ -1142,20 +1552,6 @@
             this.label10.Size = new System.Drawing.Size(475, 12);
             this.label10.TabIndex = 12;
             this.label10.Text = "※プレイ前に変更は保存してください。Drag && Dropで順序を入れ替えられます。Delで削除できます。";
-            // 
-            // cmsDelete
-            // 
-            this.cmsDelete.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmi32Delete});
-            this.cmsDelete.Name = "cms32";
-            this.cmsDelete.Size = new System.Drawing.Size(99, 26);
-            // 
-            // tsmi32Delete
-            // 
-            this.tsmi32Delete.Name = "tsmi32Delete";
-            this.tsmi32Delete.Size = new System.Drawing.Size(98, 22);
-            this.tsmi32Delete.Text = "削除";
-            this.tsmi32Delete.Click += new System.EventHandler(this.tsmi32Delete_Click);
             // 
             // gbxBve6Converter
             // 
@@ -1716,6 +2112,7 @@
             this.lvFiles.UseCompatibleStateImageBehavior = false;
             this.lvFiles.View = System.Windows.Forms.View.Details;
             this.lvFiles.SelectedIndexChanged += new System.EventHandler(this.lvFiles_SelectedIndexChanged);
+            this.lvFiles.DoubleClick += new System.EventHandler(this.lvFiles_DoubleClick);
             // 
             // btnSenarioDirectoryOpen
             // 
@@ -1749,12 +2146,12 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.splitContainer1.Panel1.Controls.Add(this.label17);
-            this.splitContainer1.Panel1.Controls.Add(this.label11);
-            this.splitContainer1.Panel1.Controls.Add(this.lblNotVehicle);
-            this.splitContainer1.Panel1.Controls.Add(this.label2);
+            this.splitContainer1.Panel1.Controls.Add(this.btnListOther);
+            this.splitContainer1.Panel1.Controls.Add(this.btnListNoMap);
+            this.splitContainer1.Panel1.Controls.Add(this.btnListNoVehicle);
+            this.splitContainer1.Panel1.Controls.Add(this.btnListBVE6);
+            this.splitContainer1.Panel1.Controls.Add(this.btnListBVE5);
             this.splitContainer1.Panel1.Controls.Add(this.label12);
-            this.splitContainer1.Panel1.Controls.Add(this.lblBVE5);
             this.splitContainer1.Panel1.Controls.Add(this.lvFiles);
             // 
             // splitContainer1.Panel2
@@ -1776,65 +2173,70 @@
             this.splitContainer1.SplitterDistance = 383;
             this.splitContainer1.TabIndex = 32;
             // 
-            // label17
+            // btnListOther
             // 
-            this.label17.AutoSize = true;
-            this.label17.BackColor = System.Drawing.Color.Gray;
-            this.label17.Location = new System.Drawing.Point(263, 13);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(36, 12);
-            this.label17.TabIndex = 32;
-            this.label17.Text = "その他";
+            this.btnListOther.BackColor = System.Drawing.Color.Gray;
+            this.btnListOther.ForeColor = System.Drawing.Color.White;
+            this.btnListOther.Location = new System.Drawing.Point(285, 6);
+            this.btnListOther.Name = "btnListOther";
+            this.btnListOther.Size = new System.Drawing.Size(58, 26);
+            this.btnListOther.TabIndex = 34;
+            this.btnListOther.Text = "その他";
+            this.btnListOther.UseVisualStyleBackColor = false;
             // 
-            // label11
+            // btnListNoMap
             // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.LightGray;
-            this.label11.Location = new System.Drawing.Point(208, 13);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(49, 12);
-            this.label11.TabIndex = 32;
-            this.label11.Text = "マップなし";
+            this.btnListNoMap.BackColor = System.Drawing.Color.LightGray;
+            this.btnListNoMap.Location = new System.Drawing.Point(221, 6);
+            this.btnListNoMap.Name = "btnListNoMap";
+            this.btnListNoMap.Size = new System.Drawing.Size(58, 26);
+            this.btnListNoMap.TabIndex = 33;
+            this.btnListNoMap.Text = "マップなし";
+            this.btnListNoMap.UseVisualStyleBackColor = false;
+            this.btnListNoMap.Click += new System.EventHandler(this.btnListNoMap_Click);
             // 
-            // lblNotVehicle
+            // btnListNoVehicle
             // 
-            this.lblNotVehicle.AutoSize = true;
-            this.lblNotVehicle.BackColor = System.Drawing.Color.LightYellow;
-            this.lblNotVehicle.Location = new System.Drawing.Point(154, 13);
-            this.lblNotVehicle.Name = "lblNotVehicle";
-            this.lblNotVehicle.Size = new System.Drawing.Size(48, 12);
-            this.lblNotVehicle.TabIndex = 32;
-            this.lblNotVehicle.Text = "車両なし";
+            this.btnListNoVehicle.BackColor = System.Drawing.Color.LightYellow;
+            this.btnListNoVehicle.Location = new System.Drawing.Point(157, 6);
+            this.btnListNoVehicle.Name = "btnListNoVehicle";
+            this.btnListNoVehicle.Size = new System.Drawing.Size(58, 26);
+            this.btnListNoVehicle.TabIndex = 11;
+            this.btnListNoVehicle.Text = "車両なし";
+            this.btnListNoVehicle.UseVisualStyleBackColor = false;
+            this.btnListNoVehicle.Click += new System.EventHandler(this.btnListNoVehicle_Click);
             // 
-            // label2
+            // btnListBVE6
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Thistle;
-            this.label2.Location = new System.Drawing.Point(94, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 12);
-            this.label2.TabIndex = 32;
-            this.label2.Text = "BVE(5)/6";
+            this.btnListBVE6.BackColor = System.Drawing.Color.Thistle;
+            this.btnListBVE6.Location = new System.Drawing.Point(107, 6);
+            this.btnListBVE6.Name = "btnListBVE6";
+            this.btnListBVE6.Size = new System.Drawing.Size(44, 26);
+            this.btnListBVE6.TabIndex = 11;
+            this.btnListBVE6.Text = "BVE6";
+            this.btnListBVE6.UseVisualStyleBackColor = false;
+            this.btnListBVE6.Click += new System.EventHandler(this.btnListBVE6_Click);
+            // 
+            // btnListBVE5
+            // 
+            this.btnListBVE5.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnListBVE5.Location = new System.Drawing.Point(57, 6);
+            this.btnListBVE5.Name = "btnListBVE5";
+            this.btnListBVE5.Size = new System.Drawing.Size(44, 26);
+            this.btnListBVE5.TabIndex = 11;
+            this.btnListBVE5.Text = "BVE5";
+            this.btnListBVE5.UseVisualStyleBackColor = false;
+            this.btnListBVE5.Click += new System.EventHandler(this.btnListBVE5_Click);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.SystemColors.Control;
-            this.label12.Location = new System.Drawing.Point(14, 13);
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.Location = new System.Drawing.Point(18, 13);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(29, 12);
             this.label12.TabIndex = 31;
             this.label12.Text = "凡例";
-            // 
-            // lblBVE5
-            // 
-            this.lblBVE5.AutoSize = true;
-            this.lblBVE5.BackColor = System.Drawing.Color.PaleGreen;
-            this.lblBVE5.Location = new System.Drawing.Point(54, 13);
-            this.lblBVE5.Name = "lblBVE5";
-            this.lblBVE5.Size = new System.Drawing.Size(34, 12);
-            this.lblBVE5.TabIndex = 31;
-            this.lblBVE5.Text = "BVE5";
             // 
             // btnSenarioReload
             // 
@@ -1857,371 +2259,6 @@
             this.btnOpenSenarioDirectory.Text = "開く";
             this.btnOpenSenarioDirectory.UseVisualStyleBackColor = true;
             this.btnOpenSenarioDirectory.Click += new System.EventHandler(this.btnOpenSenarioDirectory_Click);
-            // 
-            // tpPanel
-            // 
-            this.tpPanel.Controls.Add(this.dgvPanel);
-            this.tpPanel.Controls.Add(this.tbPanel);
-            this.tpPanel.Controls.Add(this.btnPanelOpen);
-            this.tpPanel.Controls.Add(this.btnPanelDirectory);
-            this.tpPanel.Location = new System.Drawing.Point(4, 22);
-            this.tpPanel.Name = "tpPanel";
-            this.tpPanel.Size = new System.Drawing.Size(1011, 492);
-            this.tpPanel.TabIndex = 2;
-            this.tpPanel.Text = "パネル(Panel)";
-            this.tpPanel.UseVisualStyleBackColor = true;
-            // 
-            // dgvPanel
-            // 
-            this.dgvPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvPanel.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvPanel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPanel.Location = new System.Drawing.Point(3, 33);
-            this.dgvPanel.Name = "dgvPanel";
-            this.dgvPanel.RowTemplate.Height = 21;
-            this.dgvPanel.Size = new System.Drawing.Size(1006, 456);
-            this.dgvPanel.TabIndex = 12;
-            this.dgvPanel.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPanel_CellClick);
-            // 
-            // tpSound
-            // 
-            this.tpSound.Controls.Add(this.dgvSound);
-            this.tpSound.Controls.Add(this.tbSound);
-            this.tpSound.Controls.Add(this.btnSoundOpen);
-            this.tpSound.Controls.Add(this.btnSoundDirectory);
-            this.tpSound.Location = new System.Drawing.Point(4, 22);
-            this.tpSound.Name = "tpSound";
-            this.tpSound.Size = new System.Drawing.Size(1011, 492);
-            this.tpSound.TabIndex = 3;
-            this.tpSound.Text = "サウンド(Sound)";
-            this.tpSound.UseVisualStyleBackColor = true;
-            // 
-            // tpMorotNoise
-            // 
-            this.tpMorotNoise.Controls.Add(this.dgvMotorNoise);
-            this.tpMorotNoise.Controls.Add(this.tbMotorNoise);
-            this.tpMorotNoise.Controls.Add(this.btnMotorNoiseOpen);
-            this.tpMorotNoise.Controls.Add(this.btnMotorNoiseDirectory);
-            this.tpMorotNoise.Location = new System.Drawing.Point(4, 22);
-            this.tpMorotNoise.Name = "tpMorotNoise";
-            this.tpMorotNoise.Size = new System.Drawing.Size(1011, 492);
-            this.tpMorotNoise.TabIndex = 4;
-            this.tpMorotNoise.Text = "モーター音(MotorNoise)";
-            this.tpMorotNoise.UseVisualStyleBackColor = true;
-            // 
-            // dgvSound
-            // 
-            this.dgvSound.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvSound.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvSound.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSound.Location = new System.Drawing.Point(3, 33);
-            this.dgvSound.Name = "dgvSound";
-            this.dgvSound.RowTemplate.Height = 21;
-            this.dgvSound.Size = new System.Drawing.Size(1006, 456);
-            this.dgvSound.TabIndex = 13;
-            this.dgvSound.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSound_CellClick);
-            // 
-            // dgvMotorNoise
-            // 
-            this.dgvMotorNoise.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvMotorNoise.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvMotorNoise.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMotorNoise.Location = new System.Drawing.Point(3, 33);
-            this.dgvMotorNoise.Name = "dgvMotorNoise";
-            this.dgvMotorNoise.RowTemplate.Height = 21;
-            this.dgvMotorNoise.Size = new System.Drawing.Size(1006, 456);
-            this.dgvMotorNoise.TabIndex = 14;
-            this.dgvMotorNoise.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMotorNoise_CellClick);
-            // 
-            // dgvTrain
-            // 
-            this.dgvTrain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvTrain.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvTrain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTrain.Location = new System.Drawing.Point(3, 33);
-            this.dgvTrain.Name = "dgvTrain";
-            this.dgvTrain.RowTemplate.Height = 21;
-            this.dgvTrain.Size = new System.Drawing.Size(1006, 456);
-            this.dgvTrain.TabIndex = 15;
-            // 
-            // tpAts
-            // 
-            this.tpAts.Controls.Add(this.tabControl2);
-            this.tpAts.Controls.Add(this.tbAts64);
-            this.tpAts.Controls.Add(this.btnAts32Open);
-            this.tpAts.Controls.Add(this.btnAts32OpenDirectory);
-            this.tpAts.Controls.Add(this.btnAts32Check);
-            this.tpAts.Controls.Add(this.btnAts64OpenDirectory);
-            this.tpAts.Controls.Add(this.btnAts64Check);
-            this.tpAts.Controls.Add(this.btnAts64Open);
-            this.tpAts.Controls.Add(this.lblAts64);
-            this.tpAts.Controls.Add(this.tbAts32);
-            this.tpAts.Controls.Add(this.lblAts32);
-            this.tpAts.Location = new System.Drawing.Point(4, 22);
-            this.tpAts.Name = "tpAts";
-            this.tpAts.Size = new System.Drawing.Size(1011, 549);
-            this.tpAts.TabIndex = 5;
-            this.tpAts.Text = "ATSプラグイン(Ats)";
-            this.tpAts.UseVisualStyleBackColor = true;
-            // 
-            // tabControl2
-            // 
-            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl2.Controls.Add(this.tpAts32);
-            this.tabControl2.Controls.Add(this.tpAts64);
-            this.tabControl2.Location = new System.Drawing.Point(3, 64);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1005, 482);
-            this.tabControl2.TabIndex = 32;
-            // 
-            // tpAts32
-            // 
-            this.tpAts32.Controls.Add(this.btnAts32Recovery);
-            this.tpAts32.Controls.Add(this.btnAts32Save);
-            this.tpAts32.Controls.Add(this.btnAts32Reset);
-            this.tpAts32.Controls.Add(this.tbAts32DetailModules);
-            this.tpAts32.Controls.Add(this.btnAts32Open2);
-            this.tpAts32.Controls.Add(this.dgvAts32);
-            this.tpAts32.Location = new System.Drawing.Point(4, 22);
-            this.tpAts32.Name = "tpAts32";
-            this.tpAts32.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAts32.Size = new System.Drawing.Size(997, 456);
-            this.tpAts32.TabIndex = 0;
-            this.tpAts32.Text = "BVE5 (detailmodules.txt)";
-            this.tpAts32.UseVisualStyleBackColor = true;
-            // 
-            // btnAts32Recovery
-            // 
-            this.btnAts32Recovery.Location = new System.Drawing.Point(237, 4);
-            this.btnAts32Recovery.Name = "btnAts32Recovery";
-            this.btnAts32Recovery.Size = new System.Drawing.Size(54, 26);
-            this.btnAts32Recovery.TabIndex = 15;
-            this.btnAts32Recovery.Text = "復元";
-            this.btnAts32Recovery.UseVisualStyleBackColor = true;
-            this.btnAts32Recovery.Visible = false;
-            // 
-            // btnAts32Save
-            // 
-            this.btnAts32Save.Location = new System.Drawing.Point(177, 4);
-            this.btnAts32Save.Name = "btnAts32Save";
-            this.btnAts32Save.Size = new System.Drawing.Size(54, 26);
-            this.btnAts32Save.TabIndex = 15;
-            this.btnAts32Save.Text = "保存";
-            this.btnAts32Save.UseVisualStyleBackColor = true;
-            this.btnAts32Save.Visible = false;
-            // 
-            // btnAts32Reset
-            // 
-            this.btnAts32Reset.Location = new System.Drawing.Point(118, 4);
-            this.btnAts32Reset.Name = "btnAts32Reset";
-            this.btnAts32Reset.Size = new System.Drawing.Size(54, 26);
-            this.btnAts32Reset.TabIndex = 15;
-            this.btnAts32Reset.Text = "リセット";
-            this.btnAts32Reset.UseVisualStyleBackColor = true;
-            this.btnAts32Reset.Visible = false;
-            // 
-            // tbAts32DetailModules
-            // 
-            this.tbAts32DetailModules.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAts32DetailModules.Location = new System.Drawing.Point(297, 8);
-            this.tbAts32DetailModules.Name = "tbAts32DetailModules";
-            this.tbAts32DetailModules.Size = new System.Drawing.Size(690, 19);
-            this.tbAts32DetailModules.TabIndex = 13;
-            // 
-            // btnAts32Open2
-            // 
-            this.btnAts32Open2.Enabled = false;
-            this.btnAts32Open2.Location = new System.Drawing.Point(58, 4);
-            this.btnAts32Open2.Name = "btnAts32Open2";
-            this.btnAts32Open2.Size = new System.Drawing.Size(54, 26);
-            this.btnAts32Open2.TabIndex = 12;
-            this.btnAts32Open2.Text = "開く";
-            this.btnAts32Open2.UseVisualStyleBackColor = true;
-            // 
-            // dgvAts32
-            // 
-            this.dgvAts32.AllowDrop = true;
-            this.dgvAts32.AllowUserToAddRows = false;
-            this.dgvAts32.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvAts32.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAts32.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.FileName,
-            this.Build,
-            this.RelativePath,
-            this.FullPath});
-            this.dgvAts32.ContextMenuStrip = this.cmsDelete;
-            this.dgvAts32.Location = new System.Drawing.Point(3, 33);
-            this.dgvAts32.Name = "dgvAts32";
-            this.dgvAts32.RowTemplate.Height = 21;
-            this.dgvAts32.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAts32.Size = new System.Drawing.Size(991, 417);
-            this.dgvAts32.TabIndex = 11;
-            // 
-            // FileName
-            // 
-            this.FileName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.FileName.HeaderText = "ファイル名";
-            this.FileName.Name = "FileName";
-            this.FileName.Width = 76;
-            // 
-            // Build
-            // 
-            this.Build.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Build.HeaderText = "ビット判定";
-            this.Build.Name = "Build";
-            this.Build.ReadOnly = true;
-            this.Build.Width = 77;
-            // 
-            // RelativePath
-            // 
-            this.RelativePath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.RelativePath.HeaderText = "相対パス";
-            this.RelativePath.Name = "RelativePath";
-            this.RelativePath.Width = 73;
-            // 
-            // FullPath
-            // 
-            this.FullPath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.FullPath.HeaderText = "絶対パス";
-            this.FullPath.Name = "FullPath";
-            this.FullPath.Width = 73;
-            // 
-            // tpAts64
-            // 
-            this.tpAts64.Controls.Add(this.tbAts64DetailModules);
-            this.tpAts64.Controls.Add(this.btnAts64Recovery);
-            this.tpAts64.Controls.Add(this.btnAts64Save);
-            this.tpAts64.Controls.Add(this.btnAts64Reset);
-            this.tpAts64.Controls.Add(this.btnAts64Open2);
-            this.tpAts64.Controls.Add(this.dgvAts64);
-            this.tpAts64.Location = new System.Drawing.Point(4, 22);
-            this.tpAts64.Name = "tpAts64";
-            this.tpAts64.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAts64.Size = new System.Drawing.Size(997, 399);
-            this.tpAts64.TabIndex = 1;
-            this.tpAts64.Text = "BVE6 (detailmodules.txt)";
-            this.tpAts64.UseVisualStyleBackColor = true;
-            // 
-            // tbAts64DetailModules
-            // 
-            this.tbAts64DetailModules.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAts64DetailModules.Location = new System.Drawing.Point(297, 8);
-            this.tbAts64DetailModules.Name = "tbAts64DetailModules";
-            this.tbAts64DetailModules.Size = new System.Drawing.Size(690, 19);
-            this.tbAts64DetailModules.TabIndex = 15;
-            // 
-            // btnAts64Recovery
-            // 
-            this.btnAts64Recovery.Location = new System.Drawing.Point(237, 4);
-            this.btnAts64Recovery.Name = "btnAts64Recovery";
-            this.btnAts64Recovery.Size = new System.Drawing.Size(54, 26);
-            this.btnAts64Recovery.TabIndex = 14;
-            this.btnAts64Recovery.Text = "復元";
-            this.btnAts64Recovery.UseVisualStyleBackColor = true;
-            this.btnAts64Recovery.Visible = false;
-            // 
-            // btnAts64Save
-            // 
-            this.btnAts64Save.Location = new System.Drawing.Point(177, 4);
-            this.btnAts64Save.Name = "btnAts64Save";
-            this.btnAts64Save.Size = new System.Drawing.Size(54, 26);
-            this.btnAts64Save.TabIndex = 14;
-            this.btnAts64Save.Text = "保存";
-            this.btnAts64Save.UseVisualStyleBackColor = true;
-            this.btnAts64Save.Visible = false;
-            // 
-            // btnAts64Reset
-            // 
-            this.btnAts64Reset.Location = new System.Drawing.Point(118, 4);
-            this.btnAts64Reset.Name = "btnAts64Reset";
-            this.btnAts64Reset.Size = new System.Drawing.Size(54, 26);
-            this.btnAts64Reset.TabIndex = 14;
-            this.btnAts64Reset.Text = "リセット";
-            this.btnAts64Reset.UseVisualStyleBackColor = true;
-            this.btnAts64Reset.Visible = false;
-            // 
-            // btnAts64Open2
-            // 
-            this.btnAts64Open2.Enabled = false;
-            this.btnAts64Open2.Location = new System.Drawing.Point(58, 4);
-            this.btnAts64Open2.Name = "btnAts64Open2";
-            this.btnAts64Open2.Size = new System.Drawing.Size(54, 26);
-            this.btnAts64Open2.TabIndex = 14;
-            this.btnAts64Open2.Text = "開く";
-            this.btnAts64Open2.UseVisualStyleBackColor = true;
-            // 
-            // dgvAts64
-            // 
-            this.dgvAts64.AllowDrop = true;
-            this.dgvAts64.AllowUserToAddRows = false;
-            this.dgvAts64.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvAts64.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAts64.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4});
-            this.dgvAts64.ContextMenuStrip = this.cmsDelete;
-            this.dgvAts64.Location = new System.Drawing.Point(3, 33);
-            this.dgvAts64.Name = "dgvAts64";
-            this.dgvAts64.RowTemplate.Height = 21;
-            this.dgvAts64.Size = new System.Drawing.Size(991, 363);
-            this.dgvAts64.TabIndex = 12;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn1.HeaderText = "ファイル名";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 76;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn2.HeaderText = "ビット判定";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 77;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn3.HeaderText = "相対パス";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 73;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn4.HeaderText = "絶対パス";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 73;
-            // 
-            // tpInclude
-            // 
-            this.tpInclude.Location = new System.Drawing.Point(4, 22);
-            this.tpInclude.Name = "tpInclude";
-            this.tpInclude.Size = new System.Drawing.Size(1012, 565);
-            this.tpInclude.TabIndex = 6;
-            this.tpInclude.Text = "その他ファイル(Include)";
-            this.tpInclude.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -2246,12 +2283,33 @@
             this.tpVehicle.ResumeLayout(false);
             this.tpVehicle.PerformLayout();
             this.tabControlVehicle.ResumeLayout(false);
+            this.tpVehicleFile.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVehicle)).EndInit();
             this.tpPerformanceCurve.ResumeLayout(false);
             this.tpPerformanceCurve.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPerformanceCurve)).EndInit();
             this.tpParameters.ResumeLayout(false);
             this.tpParameters.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvParameters)).EndInit();
+            this.tpPanel.ResumeLayout(false);
+            this.tpPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPanel)).EndInit();
+            this.tpSound.ResumeLayout(false);
+            this.tpSound.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSound)).EndInit();
+            this.tpMorotNoise.ResumeLayout(false);
+            this.tpMorotNoise.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMotorNoise)).EndInit();
+            this.tpAts.ResumeLayout(false);
+            this.tpAts.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
+            this.tpAts32.ResumeLayout(false);
+            this.tpAts32.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAts32)).EndInit();
+            this.cmsDelete.ResumeLayout(false);
+            this.tpAts64.ResumeLayout(false);
+            this.tpAts64.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAts64)).EndInit();
             this.tpRoute.ResumeLayout(false);
             this.tabControlMaps.ResumeLayout(false);
             this.tpStructure.ResumeLayout(false);
@@ -2270,9 +2328,9 @@
             this.tpSound3D.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSound3DList)).EndInit();
             this.tpTrain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTrain)).EndInit();
             this.tpAtsPlugin.ResumeLayout(false);
             this.tpAtsPlugin.PerformLayout();
-            this.cmsDelete.ResumeLayout(false);
             this.gbxBve6Converter.ResumeLayout(false);
             this.gbxBve6Converter.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -2290,25 +2348,6 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.tpPanel.ResumeLayout(false);
-            this.tpPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPanel)).EndInit();
-            this.tpSound.ResumeLayout(false);
-            this.tpSound.PerformLayout();
-            this.tpMorotNoise.ResumeLayout(false);
-            this.tpMorotNoise.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSound)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMotorNoise)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTrain)).EndInit();
-            this.tpAts.ResumeLayout(false);
-            this.tpAts.PerformLayout();
-            this.tabControl2.ResumeLayout(false);
-            this.tpAts32.ResumeLayout(false);
-            this.tpAts32.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAts32)).EndInit();
-            this.tpAts64.ResumeLayout(false);
-            this.tpAts64.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAts64)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2438,11 +2477,6 @@
         private System.Windows.Forms.DataGridView dgvSoundList;
         private System.Windows.Forms.TabPage tpStructure;
         private System.Windows.Forms.DataGridView dgvStructure;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label lblNotVehicle;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lblBVE5;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TabPage tpSound3D;
         private System.Windows.Forms.DataGridView dgvSound3DList;
@@ -2486,6 +2520,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.TabPage tpInclude;
+        private System.Windows.Forms.Button btnListBVE5;
+        private System.Windows.Forms.Button btnListBVE6;
+        private System.Windows.Forms.Button btnListNoVehicle;
+        private System.Windows.Forms.Button btnListNoMap;
+        private System.Windows.Forms.Button btnListOther;
+        private System.Windows.Forms.TabPage tpVehicleFile;
+        private System.Windows.Forms.DataGridView dgvVehicle;
     }
 }
 
