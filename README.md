@@ -12,4 +12,4 @@ detailmodules.txtを書き換えたいときに使えるかと思います。
 ※自己責任かつ車両や路線データの改造に該当すると考えられますので、個人使用でお願いします※
   
 【作製環境】  
-Windows 10 .net Framework 4.0 C# Visual Studio 2022
+Windows 11 .net Framework 4.7.2 C# Visual Studio 2022
