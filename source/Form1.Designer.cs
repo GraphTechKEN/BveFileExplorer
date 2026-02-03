@@ -433,7 +433,7 @@
             this.tpPerformanceCurve.Location = new System.Drawing.Point(4, 22);
             this.tpPerformanceCurve.Name = "tpPerformanceCurve";
             this.tpPerformanceCurve.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPerformanceCurve.Size = new System.Drawing.Size(1011, 549);
+            this.tpPerformanceCurve.Size = new System.Drawing.Size(1011, 570);
             this.tpPerformanceCurve.TabIndex = 0;
             this.tpPerformanceCurve.Text = "性能曲線(PerformanceCurve)";
             this.tpPerformanceCurve.UseVisualStyleBackColor = true;
@@ -448,7 +448,7 @@
             this.dgvPerformanceCurve.Location = new System.Drawing.Point(3, 33);
             this.dgvPerformanceCurve.Name = "dgvPerformanceCurve";
             this.dgvPerformanceCurve.RowTemplate.Height = 21;
-            this.dgvPerformanceCurve.Size = new System.Drawing.Size(1006, 513);
+            this.dgvPerformanceCurve.Size = new System.Drawing.Size(1006, 534);
             this.dgvPerformanceCurve.TabIndex = 10;
             this.dgvPerformanceCurve.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPerformanceCurve_CellClick);
             // 
@@ -492,7 +492,7 @@
             this.tpParameters.Location = new System.Drawing.Point(4, 22);
             this.tpParameters.Name = "tpParameters";
             this.tpParameters.Padding = new System.Windows.Forms.Padding(3);
-            this.tpParameters.Size = new System.Drawing.Size(1011, 549);
+            this.tpParameters.Size = new System.Drawing.Size(1011, 570);
             this.tpParameters.TabIndex = 1;
             this.tpParameters.Text = "パラメータ(Parameters)";
             this.tpParameters.UseVisualStyleBackColor = true;
@@ -507,7 +507,7 @@
             this.dgvParameters.Location = new System.Drawing.Point(3, 33);
             this.dgvParameters.Name = "dgvParameters";
             this.dgvParameters.RowTemplate.Height = 21;
-            this.dgvParameters.Size = new System.Drawing.Size(1006, 513);
+            this.dgvParameters.Size = new System.Drawing.Size(1006, 534);
             this.dgvParameters.TabIndex = 11;
             // 
             // tbParameters
@@ -549,7 +549,7 @@
             this.tpPanel.Controls.Add(this.btnPanelDirectory);
             this.tpPanel.Location = new System.Drawing.Point(4, 22);
             this.tpPanel.Name = "tpPanel";
-            this.tpPanel.Size = new System.Drawing.Size(1011, 549);
+            this.tpPanel.Size = new System.Drawing.Size(1011, 570);
             this.tpPanel.TabIndex = 2;
             this.tpPanel.Text = "パネル(Panel)";
             this.tpPanel.UseVisualStyleBackColor = true;
@@ -564,7 +564,7 @@
             this.dgvPanel.Location = new System.Drawing.Point(3, 33);
             this.dgvPanel.Name = "dgvPanel";
             this.dgvPanel.RowTemplate.Height = 21;
-            this.dgvPanel.Size = new System.Drawing.Size(1006, 513);
+            this.dgvPanel.Size = new System.Drawing.Size(1006, 534);
             this.dgvPanel.TabIndex = 12;
             this.dgvPanel.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPanel_CellClick);
             // 
@@ -607,7 +607,7 @@
             this.tpSound.Controls.Add(this.btnSoundDirectory);
             this.tpSound.Location = new System.Drawing.Point(4, 22);
             this.tpSound.Name = "tpSound";
-            this.tpSound.Size = new System.Drawing.Size(1011, 549);
+            this.tpSound.Size = new System.Drawing.Size(1011, 570);
             this.tpSound.TabIndex = 3;
             this.tpSound.Text = "サウンド(Sound)";
             this.tpSound.UseVisualStyleBackColor = true;
@@ -622,7 +622,7 @@
             this.dgvSound.Location = new System.Drawing.Point(3, 33);
             this.dgvSound.Name = "dgvSound";
             this.dgvSound.RowTemplate.Height = 21;
-            this.dgvSound.Size = new System.Drawing.Size(1006, 513);
+            this.dgvSound.Size = new System.Drawing.Size(1006, 534);
             this.dgvSound.TabIndex = 13;
             this.dgvSound.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSound_CellClick);
             // 
@@ -665,7 +665,7 @@
             this.tpMorotNoise.Controls.Add(this.btnMotorNoiseDirectory);
             this.tpMorotNoise.Location = new System.Drawing.Point(4, 22);
             this.tpMorotNoise.Name = "tpMorotNoise";
-            this.tpMorotNoise.Size = new System.Drawing.Size(1011, 549);
+            this.tpMorotNoise.Size = new System.Drawing.Size(1011, 570);
             this.tpMorotNoise.TabIndex = 4;
             this.tpMorotNoise.Text = "モーター音(MotorNoise)";
             this.tpMorotNoise.UseVisualStyleBackColor = true;
@@ -680,7 +680,7 @@
             this.dgvMotorNoise.Location = new System.Drawing.Point(3, 33);
             this.dgvMotorNoise.Name = "dgvMotorNoise";
             this.dgvMotorNoise.RowTemplate.Height = 21;
-            this.dgvMotorNoise.Size = new System.Drawing.Size(1006, 513);
+            this.dgvMotorNoise.Size = new System.Drawing.Size(1006, 534);
             this.dgvMotorNoise.TabIndex = 14;
             this.dgvMotorNoise.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMotorNoise_CellClick);
             // 
@@ -730,7 +730,7 @@
             this.tpAts.Controls.Add(this.lblAts32);
             this.tpAts.Location = new System.Drawing.Point(4, 22);
             this.tpAts.Name = "tpAts";
-            this.tpAts.Size = new System.Drawing.Size(1011, 549);
+            this.tpAts.Size = new System.Drawing.Size(1011, 570);
             this.tpAts.TabIndex = 5;
             this.tpAts.Text = "ATSプラグイン(Ats)";
             this.tpAts.UseVisualStyleBackColor = true;
@@ -745,7 +745,7 @@
             this.tabControl2.Location = new System.Drawing.Point(3, 64);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1005, 482);
+            this.tabControl2.Size = new System.Drawing.Size(1005, 503);
             this.tabControl2.TabIndex = 32;
             // 
             // tpAts32
@@ -759,7 +759,7 @@
             this.tpAts32.Location = new System.Drawing.Point(4, 22);
             this.tpAts32.Name = "tpAts32";
             this.tpAts32.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAts32.Size = new System.Drawing.Size(997, 456);
+            this.tpAts32.Size = new System.Drawing.Size(997, 477);
             this.tpAts32.TabIndex = 0;
             this.tpAts32.Text = "BVE5 (detailmodules.txt)";
             this.tpAts32.UseVisualStyleBackColor = true;
@@ -812,6 +812,7 @@
             this.btnAts32Open2.TabIndex = 12;
             this.btnAts32Open2.Text = "開く";
             this.btnAts32Open2.UseVisualStyleBackColor = true;
+            this.btnAts32Open2.Click += new System.EventHandler(this.btnAts32Open2_Click);
             // 
             // dgvAts32
             // 
@@ -831,7 +832,7 @@
             this.dgvAts32.Name = "dgvAts32";
             this.dgvAts32.RowTemplate.Height = 21;
             this.dgvAts32.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAts32.Size = new System.Drawing.Size(991, 417);
+            this.dgvAts32.Size = new System.Drawing.Size(991, 438);
             this.dgvAts32.TabIndex = 11;
             // 
             // FileName
@@ -888,7 +889,7 @@
             this.tpAts64.Location = new System.Drawing.Point(4, 22);
             this.tpAts64.Name = "tpAts64";
             this.tpAts64.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAts64.Size = new System.Drawing.Size(997, 456);
+            this.tpAts64.Size = new System.Drawing.Size(997, 477);
             this.tpAts64.TabIndex = 1;
             this.tpAts64.Text = "BVE6 (detailmodules.txt)";
             this.tpAts64.UseVisualStyleBackColor = true;
@@ -941,6 +942,7 @@
             this.btnAts64Open2.TabIndex = 14;
             this.btnAts64Open2.Text = "開く";
             this.btnAts64Open2.UseVisualStyleBackColor = true;
+            this.btnAts64Open2.Click += new System.EventHandler(this.btnAts64Open2_Click);
             // 
             // dgvAts64
             // 
@@ -1209,7 +1211,7 @@
             this.tpSignal.Controls.Add(this.btnSignalOpen);
             this.tpSignal.Location = new System.Drawing.Point(4, 22);
             this.tpSignal.Name = "tpSignal";
-            this.tpSignal.Size = new System.Drawing.Size(1012, 565);
+            this.tpSignal.Size = new System.Drawing.Size(1012, 570);
             this.tpSignal.TabIndex = 4;
             this.tpSignal.Text = "地上信号機(Signal)";
             // 
@@ -1223,7 +1225,7 @@
             this.dgvSignal.Location = new System.Drawing.Point(3, 33);
             this.dgvSignal.Name = "dgvSignal";
             this.dgvSignal.RowTemplate.Height = 21;
-            this.dgvSignal.Size = new System.Drawing.Size(1006, 529);
+            this.dgvSignal.Size = new System.Drawing.Size(1006, 534);
             this.dgvSignal.TabIndex = 5;
             // 
             // tbSignal
@@ -1267,7 +1269,7 @@
             this.tpStation.Location = new System.Drawing.Point(4, 22);
             this.tpStation.Name = "tpStation";
             this.tpStation.Padding = new System.Windows.Forms.Padding(3);
-            this.tpStation.Size = new System.Drawing.Size(1012, 565);
+            this.tpStation.Size = new System.Drawing.Size(1012, 570);
             this.tpStation.TabIndex = 0;
             this.tpStation.Text = "停車場ファイル(Station)";
             // 
@@ -1281,7 +1283,7 @@
             this.dgvStation.Location = new System.Drawing.Point(3, 33);
             this.dgvStation.Name = "dgvStation";
             this.dgvStation.RowTemplate.Height = 21;
-            this.dgvStation.Size = new System.Drawing.Size(1006, 529);
+            this.dgvStation.Size = new System.Drawing.Size(1006, 534);
             this.dgvStation.TabIndex = 0;
             // 
             // tbStation
@@ -1324,7 +1326,7 @@
             this.tpSoundList.Controls.Add(this.btnSoundListOpen);
             this.tpSoundList.Location = new System.Drawing.Point(4, 22);
             this.tpSoundList.Name = "tpSoundList";
-            this.tpSoundList.Size = new System.Drawing.Size(1012, 565);
+            this.tpSoundList.Size = new System.Drawing.Size(1012, 570);
             this.tpSoundList.TabIndex = 1;
             this.tpSoundList.Text = "音ファイル(Sound)";
             // 
@@ -1339,7 +1341,7 @@
             this.dgvSoundList.Location = new System.Drawing.Point(3, 33);
             this.dgvSoundList.Name = "dgvSoundList";
             this.dgvSoundList.RowTemplate.Height = 21;
-            this.dgvSoundList.Size = new System.Drawing.Size(1006, 529);
+            this.dgvSoundList.Size = new System.Drawing.Size(1006, 534);
             this.dgvSoundList.TabIndex = 1;
             this.dgvSoundList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSoundList_CellClick);
             // 
@@ -1383,7 +1385,7 @@
             this.tpSound3D.Controls.Add(this.btnSound3DListOpen);
             this.tpSound3D.Location = new System.Drawing.Point(4, 22);
             this.tpSound3D.Name = "tpSound3D";
-            this.tpSound3D.Size = new System.Drawing.Size(1012, 565);
+            this.tpSound3D.Size = new System.Drawing.Size(1012, 570);
             this.tpSound3D.TabIndex = 3;
             this.tpSound3D.Text = "固定音源ファイル(Sound3D)";
             // 
@@ -1398,7 +1400,7 @@
             this.dgvSound3DList.Location = new System.Drawing.Point(3, 33);
             this.dgvSound3DList.Name = "dgvSound3DList";
             this.dgvSound3DList.RowTemplate.Height = 21;
-            this.dgvSound3DList.Size = new System.Drawing.Size(1006, 529);
+            this.dgvSound3DList.Size = new System.Drawing.Size(1006, 534);
             this.dgvSound3DList.TabIndex = 5;
             // 
             // tbSound3DList
@@ -1440,7 +1442,7 @@
             this.tpTrain.Controls.Add(this.btnTrainOpen);
             this.tpTrain.Location = new System.Drawing.Point(4, 22);
             this.tpTrain.Name = "tpTrain";
-            this.tpTrain.Size = new System.Drawing.Size(1012, 565);
+            this.tpTrain.Size = new System.Drawing.Size(1012, 570);
             this.tpTrain.TabIndex = 5;
             this.tpTrain.Text = "他列車ファイル(Train)";
             this.tpTrain.UseVisualStyleBackColor = true;
@@ -1455,7 +1457,7 @@
             this.dgvTrain.Location = new System.Drawing.Point(3, 33);
             this.dgvTrain.Name = "dgvTrain";
             this.dgvTrain.RowTemplate.Height = 21;
-            this.dgvTrain.Size = new System.Drawing.Size(1006, 456);
+            this.dgvTrain.Size = new System.Drawing.Size(1006, 461);
             this.dgvTrain.TabIndex = 15;
             // 
             // cbxTrain
@@ -1494,7 +1496,7 @@
             // 
             this.tpInclude.Location = new System.Drawing.Point(4, 22);
             this.tpInclude.Name = "tpInclude";
-            this.tpInclude.Size = new System.Drawing.Size(1012, 565);
+            this.tpInclude.Size = new System.Drawing.Size(1012, 570);
             this.tpInclude.TabIndex = 6;
             this.tpInclude.Text = "その他ファイル(Include)";
             this.tpInclude.UseVisualStyleBackColor = true;

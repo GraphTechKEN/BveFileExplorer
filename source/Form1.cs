@@ -131,7 +131,16 @@ namespace BveFileExplorer
             string dir = Path.GetDirectoryName(senario.FilePath);
 
             lblVehicleTitle.Text = senario.VehicleTitle;
-            pictureBox1.ImageLocation = senario.ImagePath;
+            if (senario.ImagePath != null && senario.ImagePath != "")
+            {
+                
+                pictureBox1.Visible = true;
+                pictureBox1.ImageLocation = senario.ImagePath;
+            }
+            else
+            {
+                pictureBox1.Visible = false;
+            }
             lblRouteTitle.Text = senario.RouteTitle;
             listMapFilePath = senario.MapFiles;
             lblTitle.Text = senario.Title;
@@ -598,8 +607,8 @@ namespace BveFileExplorer
                         strDisp += "BVE6用(64bit)ATSプラグインが見つからないか、対応していません(DetailManager以外)\n";
                         IsDetailmanager64 = false;
                         btnAts64Open.Enabled = false;
-                        btnAts64Open2.Enabled = true;
-                        tbAts64DetailModules.Enabled = true;
+                        btnAts64Open2.Enabled = false;
+                        tbAts64DetailModules.Enabled = false;
                     }
 
                 }
@@ -3602,6 +3611,16 @@ namespace BveFileExplorer
             string fullPath = tbSenarioDirectory.Text + @"\" + selectedItem.SubItems[0].Text;
 
             ProcessStart(fullPath, false);
+        }
+
+        private void btnAts32Open2_Click(object sender, EventArgs e)
+        {
+            ProcessStart(tbAts32DetailModules.Text,false);
+        }
+
+        private void btnAts64Open2_Click(object sender, EventArgs e)
+        {
+            ProcessStart(tbAts64DetailModules.Text, false);
         }
     }
  
