@@ -1,4 +1,4 @@
-# BVEFileExplorer
+# BveFileExplorer
 【説明】  
 BVEのシナリオファイルから網羅的にファイルプレビューできることを目指しています。
 【使用方法】  
