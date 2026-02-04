@@ -69,82 +69,66 @@ namespace BveFileExplorer
                                 //先頭文字が「;」と「#」でないときで「=」を含むとき
                                 if ((!line.StartsWith(";") || !line.StartsWith("#")) && line.Contains("="))
                                 {
+                                    string[] str = line.Split('=');
                                     //"="より前の項目
-                                    string item = line.Substring(0, line.IndexOf("=")).Trim().ToLower();
+                                    string item = str[0].Trim().ToLower();
                                     //"="より後の内容
-                                    string contents = line.Substring(line.IndexOf("=") + 1).Trim();
-                                    switch (item)
+                                    string contents = str[1].Trim();
+                                    if (!string.IsNullOrEmpty(contents))
                                     {
-                                        case "vehicletitle"://車両タイトル
-                                            List<(string FileName, double Ratio)> VehicleTitleList = new List<(string, double)>();
-                                            VehicleTitleList = StringLineAnalysis(contents);
-                                            VehicleTitle = VehicleTitleList.Select(x => x.FileName).ToList()[0];
+                                        switch (item)
+                                        {
+                                            case "vehicletitle"://車両タイトル
+                                                VehicleTitle = StringLineAnalysis(contents).Select(x => x.Item1).ToList()[0];
+                                                break;
 
-                                            break;
+                                            case "vehicle"://車両ファイル
+                                                VehicleFilesRelList = StringLineAnalysis(contents);
+                                                VehicleFilesRel = VehicleFilesRelList.Select(x => x.FileName).ToList();
 
-                                        case "vehicle"://車両ファイル
-                                            VehicleFilesRelList = new List<(string, double)>();
-                                            VehicleFilesRelList = StringLineAnalysis(contents);
-                                            VehicleFilesRel = VehicleFilesRelList.Select(x => x.FileName).ToList();
+                                                for (int i = 0; i < VehicleFilesRel.Count; i++)
+                                                {
+                                                    string vehicleAbsPath = Path.GetFullPath(Path.GetDirectoryName(FilePath)) + @"\" + VehicleFilesRel[i];
+                                                    if (string.IsNullOrEmpty(VehicleFilesRel[i]))
+                                                    {
+                                                        vehicleAbsPath = "";
+                                                        VehicleFilesExists.Add(false);
+                                                        VehicleFilesNotExistsCount += 1;
+                                                    }
+                                                    else
+                                                    {
+                                                        VehicleFilesExists.Add(File.Exists(vehicleAbsPath));
+                                                        VehicleFilesNotExistsCount += !File.Exists(vehicleAbsPath) ? 1 : 0;
+                                                    }
+                                                    VehicleFilesAbs.Add(vehicleAbsPath);
 
-                                            for (int i = 0; i < VehicleFilesRel.Count; i++)
-                                            {
-                                                string vehicleAbsPath = Path.GetFullPath(Path.GetDirectoryName(FilePath)) + @"\" + VehicleFilesRel[i];
-                                                if (VehicleFilesRel[i] == "" || VehicleFilesRel[i] == null)
-                                                {
-                                                    vehicleAbsPath = "";
-                                                }
-                                                VehicleFilesAbs.Add(vehicleAbsPath);
-                                                if (VehicleFilesRel[i] != "" && VehicleFilesRel[i] != null)
-                                                {
-                                                    VehicleFilesExists.Add(File.Exists(vehicleAbsPath));
-                                                    VehicleFilesNotExistsCount += !File.Exists(vehicleAbsPath) ? 1 : 0;
-                                                }
-                                                else
-                                                {
-                                                    VehicleFilesExists.Add(false);
-                                                    VehicleFilesNotExistsCount += 1;
                                                 }
 
-                                            }
-
-                                            break;
-                                        case "image"://Imageファイル抽出
-                                            if (contents != null && contents != "")
-                                            {
+                                                break;
+                                            case "image"://Imageファイル抽出
                                                 ImagePath = Path.GetDirectoryName(senarioFilePath) + @"\" + StringLineAnalysis(contents).Select(x => x.Item1).ToList()[0];
-                                            }
-                                            break;
+                                                break;
 
-                                        case "routetitle"://マップタイトル
-                                            List<(string FileName, double Ratio)> RouteTitleTitleList = new List<(string, double)>();
-                                            RouteTitleTitleList = StringLineAnalysis(contents);
-                                            RouteTitle = RouteTitleTitleList.Select(x => x.FileName).ToList()[0];
-                                            break;
+                                            case "routetitle"://マップタイトル
+                                                RouteTitle = StringLineAnalysis(contents).Select(x => x.Item1).ToList()[0];
+                                                break;
 
-                                        case "route":
-                                            List<(string FileName, double Ratio)> RouteMapFileList = new List<(string, double)>();
-                                            RouteMapFileList = StringLineAnalysis(contents);
-                                            MapFiles = RouteMapFileList.Select(x => x.FileName).ToList();
-                                            break;
+                                            case "route":
+                                                MapFiles = StringLineAnalysis(contents).Select(x => x.Item1).ToList();
+                                                break;
 
-                                        case "title":
-                                            List<(string FileName, double Ratio)> TitleList = new List<(string, double)>();
-                                            TitleList = StringLineAnalysis(contents);
-                                            Title = TitleList.Select(x => x.FileName).ToList()[0];
-                                            break;
+                                            case "title":
+                                                Title = StringLineAnalysis(contents).Select(x => x.Item1).ToList()[0];
+                                                break;
 
-                                        case "author":
-                                            List<(string FileName, double Ratio)> AuthorList = new List<(string, double)>();
-                                            AuthorList = StringLineAnalysis(contents);
-                                            Author = AuthorList.Select(x => x.FileName).ToList()[0];
-                                            break;
+                                            case "author":
+                                                Author = StringLineAnalysis(contents).Select(x => x.Item1).ToList()[0];
+                                                break;
 
-                                        case "comment":
-                                            List<(string FileName, double Ratio)> CommentList = new List<(string, double)>();
-                                            CommentList = StringLineAnalysis(contents);
-                                            Comment = CommentList.Select(x => x.FileName).ToList()[0];
-                                            break;
+                                            case "comment":
+                                                Comment = StringLineAnalysis(contents).Select(x => x.Item1).ToList()[0];
+                                                break;
+                                        }
                                     }
                                 }
                             }

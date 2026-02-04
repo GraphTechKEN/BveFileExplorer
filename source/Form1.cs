@@ -1372,7 +1372,7 @@ namespace BveFileExplorer
                 strAtsPluginFilePath = Settings.Default.AtsPluginFilePath;
                 tbAtsPluginFile.Text = Settings.Default.AtsPluginFilePath;
             }
-            if(Settings.Default.RouteFileDirectory != null && Settings.Default.RouteFileDirectory != "" && Directory.Exists(Settings.Default.RouteFileDirectory))
+            if(!string.IsNullOrEmpty(Settings.Default.RouteFileDirectory) && Directory.Exists(Settings.Default.RouteFileDirectory))
             {
                 lvFiles.View = View.Details;
                 lvFiles.Columns.Add("ファイル名", 220);
@@ -1385,7 +1385,7 @@ namespace BveFileExplorer
                 
                 OpenSenaroDirectory(Settings.Default.RouteFileDirectory);
             }
-            else if(Settings.Default.RouteFileDirectory == null || Settings.Default.RouteFileDirectory == "" || Directory.Exists(Settings.Default.RouteFileDirectory))
+            else
             {
                 string tempDir = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\BveTs\Scenarios";
                 if (Directory.Exists(tempDir))
