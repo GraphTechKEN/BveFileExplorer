@@ -22,73 +22,74 @@ namespace BveFileExplorer
 
         public Map(string mapFilePath)
         {
+            if (File.Exists(mapFilePath))
+            {
+                FilePath = mapFilePath;
 
-            FilePath = mapFilePath;
+                string line = "";
+                int error = 0;
+                int i = 0;
+                Train = new List<Contents_Map>();
+                Log += "車両ファイル：" + mapFilePath + "\r\n";
 
-            string line = "";
-            int error = 0;
-            int i = 0;
-            Train = new List<Contents_Map>();
-            Log += "車両ファイル：" + mapFilePath + "\r\n";
+                using (StreamReader sr = new StreamReader(mapFilePath))
 
-            using (StreamReader sr = new StreamReader(mapFilePath))
-
-                //最後まで読込
-                while ((line = sr.ReadLine()) != null)
-                {
-                    //余計な文字列をトリム
-                    line = line.Trim();
-                    //読込ログに追記
-                    Log += line + "\r\n";
-
-                    //先頭文字が「;」と「#」でないときで「=」を含むとき
-                    if (!line.StartsWith(";") || !line.StartsWith("#"))
+                    //最後まで読込
+                    while ((line = sr.ReadLine()) != null)
                     {
-                        if (line.IndexOf("Bvets Map", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            int index_colon = line.IndexOf(":");
-                            if (index_colon < 0)
-                            {
-                                FileVersion = float.Parse(line.Substring(line.IndexOf("Bvets Map", StringComparison.OrdinalIgnoreCase) + 9).Trim());
-                            }
-                            else
-                            {
-                                FileVersion = float.Parse(line.Substring(line.IndexOf("Bvets Map", StringComparison.OrdinalIgnoreCase) + 9, index_colon - 9).Trim());
-                            }
-                        }
-                        if (line.IndexOf("Structure.Load", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            Structure = new Contents_Map(line, FilePath);
-                        }
-                        else if (line.IndexOf("Station.Load", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            Station = new Contents_Map(line, FilePath);
-                        }
-                        else if (line.IndexOf("Signal.Load", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            Signal = new Contents_Map(line, FilePath);
-                        }
-                        else if (line.IndexOf("Sound.Load", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            SoundList = new Contents_Map(line, FilePath);
-                        }
-                        else if (line.IndexOf("Sound3D.Load", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            Sound3DList = new Contents_Map(line, FilePath);
-                        }
-                        else if (line.IndexOf("Train.Add", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            Train.Add(new Contents_Map(line, FilePath));
-                        }
-                        i++;
-                    }
+                        //余計な文字列をトリム
+                        line = line.Trim();
+                        //読込ログに追記
+                        Log += line + "\r\n";
 
-                    if (error > 0)
-                    {
-                        Log += "いくつかのファイルにエラーがあるか、読込未対応ファイル形式です。\n";
-                    }
-                }
+                        //先頭文字が「;」と「#」でないときで「=」を含むとき
+                        if (!line.StartsWith(";") || !line.StartsWith("#"))
+                        {
+                            if (line.IndexOf("Bvets Map", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                int index_colon = line.IndexOf(":");
+                                if (index_colon < 0)
+                                {
+                                    FileVersion = float.Parse(line.Substring(line.IndexOf("Bvets Map", StringComparison.OrdinalIgnoreCase) + 9).Trim());
+                                }
+                                else
+                                {
+                                    FileVersion = float.Parse(line.Substring(line.IndexOf("Bvets Map", StringComparison.OrdinalIgnoreCase) + 9, index_colon - 9).Trim());
+                                }
+                            }
+                            if (line.IndexOf("Structure.Load", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                Structure = new Contents_Map(line, FilePath);
+                            }
+                            else if (line.IndexOf("Station.Load", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                Station = new Contents_Map(line, FilePath);
+                            }
+                            else if (line.IndexOf("Signal.Load", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                Signal = new Contents_Map(line, FilePath);
+                            }
+                            else if (line.IndexOf("Sound.Load", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                SoundList = new Contents_Map(line, FilePath);
+                            }
+                            else if (line.IndexOf("Sound3D.Load", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                Sound3DList = new Contents_Map(line, FilePath);
+                            }
+                            else if (line.IndexOf("Train.Add", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                Train.Add(new Contents_Map(line, FilePath));
+                            }
+                            i++;
+                        }
 
+                        if (error > 0)
+                        {
+                            Log += "いくつかのファイルにエラーがあるか、読込未対応ファイル形式です。\n";
+                        }
+                    }
+            }
         }
 
     }

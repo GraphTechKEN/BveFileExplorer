@@ -190,7 +190,6 @@
             this.gbxSenario = new System.Windows.Forms.GroupBox();
             this.btnSenarioClear = new System.Windows.Forms.Button();
             this.gbxImage = new System.Windows.Forms.GroupBox();
-            this.lvFiles = new System.Windows.Forms.ListView();
             this.btnSenarioDirectoryOpen = new System.Windows.Forms.Button();
             this.tbSenarioDirectory = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -199,9 +198,11 @@
             this.btnListNoVehicle = new System.Windows.Forms.Button();
             this.btnListBVE6 = new System.Windows.Forms.Button();
             this.btnListBVE5 = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
+            this.lblLegend = new System.Windows.Forms.Label();
+            this.pgBarList = new System.Windows.Forms.ProgressBar();
             this.btnSenarioReload = new System.Windows.Forms.Button();
             this.btnOpenSenarioDirectory = new System.Windows.Forms.Button();
+            this.dgvFiles = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControlSenario.SuspendLayout();
             this.tpVehicle.SuspendLayout();
@@ -251,6 +252,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOpenSenario
@@ -360,7 +362,7 @@
             this.tabControlSenario.Location = new System.Drawing.Point(5, 244);
             this.tabControlSenario.Name = "tabControlSenario";
             this.tabControlSenario.SelectedIndex = 0;
-            this.tabControlSenario.Size = new System.Drawing.Size(1036, 662);
+            this.tabControlSenario.Size = new System.Drawing.Size(1077, 662);
             this.tabControlSenario.TabIndex = 18;
             this.tabControlSenario.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             this.tabControlSenario.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
@@ -376,7 +378,7 @@
             this.tpVehicle.Location = new System.Drawing.Point(4, 22);
             this.tpVehicle.Name = "tpVehicle";
             this.tpVehicle.Padding = new System.Windows.Forms.Padding(3);
-            this.tpVehicle.Size = new System.Drawing.Size(1028, 636);
+            this.tpVehicle.Size = new System.Drawing.Size(1069, 636);
             this.tpVehicle.TabIndex = 1;
             this.tpVehicle.Text = "車両ファイル";
             // 
@@ -395,7 +397,7 @@
             this.tabControlVehicle.Location = new System.Drawing.Point(3, 37);
             this.tabControlVehicle.Name = "tabControlVehicle";
             this.tabControlVehicle.SelectedIndex = 0;
-            this.tabControlVehicle.Size = new System.Drawing.Size(1019, 596);
+            this.tabControlVehicle.Size = new System.Drawing.Size(1060, 596);
             this.tabControlVehicle.TabIndex = 10;
             this.tabControlVehicle.SelectedIndexChanged += new System.EventHandler(this.tabControlVehicle_SelectedIndexChanged);
             // 
@@ -404,7 +406,7 @@
             this.tpVehicleFile.Controls.Add(this.dgvVehicle);
             this.tpVehicleFile.Location = new System.Drawing.Point(4, 22);
             this.tpVehicleFile.Name = "tpVehicleFile";
-            this.tpVehicleFile.Size = new System.Drawing.Size(1011, 570);
+            this.tpVehicleFile.Size = new System.Drawing.Size(1052, 570);
             this.tpVehicleFile.TabIndex = 6;
             this.tpVehicleFile.Text = "車両ファイル(Vehicle)";
             this.tpVehicleFile.UseVisualStyleBackColor = true;
@@ -419,7 +421,7 @@
             this.dgvVehicle.Location = new System.Drawing.Point(3, 33);
             this.dgvVehicle.Name = "dgvVehicle";
             this.dgvVehicle.RowTemplate.Height = 21;
-            this.dgvVehicle.Size = new System.Drawing.Size(1006, 534);
+            this.dgvVehicle.Size = new System.Drawing.Size(1047, 534);
             this.dgvVehicle.TabIndex = 11;
             this.dgvVehicle.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicle_CellClick);
             this.dgvVehicle.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicle_CellContentDoubleClick);
@@ -433,7 +435,7 @@
             this.tpPerformanceCurve.Location = new System.Drawing.Point(4, 22);
             this.tpPerformanceCurve.Name = "tpPerformanceCurve";
             this.tpPerformanceCurve.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPerformanceCurve.Size = new System.Drawing.Size(1011, 570);
+            this.tpPerformanceCurve.Size = new System.Drawing.Size(1052, 570);
             this.tpPerformanceCurve.TabIndex = 0;
             this.tpPerformanceCurve.Text = "性能曲線(PerformanceCurve)";
             this.tpPerformanceCurve.UseVisualStyleBackColor = true;
@@ -448,9 +450,9 @@
             this.dgvPerformanceCurve.Location = new System.Drawing.Point(3, 33);
             this.dgvPerformanceCurve.Name = "dgvPerformanceCurve";
             this.dgvPerformanceCurve.RowTemplate.Height = 21;
-            this.dgvPerformanceCurve.Size = new System.Drawing.Size(1006, 534);
+            this.dgvPerformanceCurve.Size = new System.Drawing.Size(1047, 534);
             this.dgvPerformanceCurve.TabIndex = 10;
-            this.dgvPerformanceCurve.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPerformanceCurve_CellClick);
+            this.dgvPerformanceCurve.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPerformanceCurve_CellDoubleClick);
             // 
             // tbPerfoemanceCurve
             // 
@@ -458,7 +460,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbPerfoemanceCurve.Location = new System.Drawing.Point(134, 8);
             this.tbPerfoemanceCurve.Name = "tbPerfoemanceCurve";
-            this.tbPerfoemanceCurve.Size = new System.Drawing.Size(868, 19);
+            this.tbPerfoemanceCurve.Size = new System.Drawing.Size(909, 19);
             this.tbPerfoemanceCurve.TabIndex = 1;
             // 
             // btnPerfoemanceCurveOpen
@@ -566,7 +568,7 @@
             this.dgvPanel.RowTemplate.Height = 21;
             this.dgvPanel.Size = new System.Drawing.Size(1006, 534);
             this.dgvPanel.TabIndex = 12;
-            this.dgvPanel.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPanel_CellClick);
+            this.dgvPanel.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPanel_CellDoubleClick);
             // 
             // tbPanel
             // 
@@ -624,7 +626,7 @@
             this.dgvSound.RowTemplate.Height = 21;
             this.dgvSound.Size = new System.Drawing.Size(1006, 534);
             this.dgvSound.TabIndex = 13;
-            this.dgvSound.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSound_CellClick);
+            this.dgvSound.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSound_CellDoubleClick);
             // 
             // tbSound
             // 
@@ -682,7 +684,7 @@
             this.dgvMotorNoise.RowTemplate.Height = 21;
             this.dgvMotorNoise.Size = new System.Drawing.Size(1006, 534);
             this.dgvMotorNoise.TabIndex = 14;
-            this.dgvMotorNoise.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMotorNoise_CellClick);
+            this.dgvMotorNoise.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMotorNoise_CellDoubleClick);
             // 
             // tbMotorNoise
             // 
@@ -1106,7 +1108,7 @@
             this.cbxVehicle.FormattingEnabled = true;
             this.cbxVehicle.Location = new System.Drawing.Point(397, 9);
             this.cbxVehicle.Name = "cbxVehicle";
-            this.cbxVehicle.Size = new System.Drawing.Size(613, 20);
+            this.cbxVehicle.Size = new System.Drawing.Size(654, 20);
             this.cbxVehicle.TabIndex = 3;
             this.cbxVehicle.TabStop = false;
             this.cbxVehicle.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cbxVehicle_DrawItem);
@@ -1169,7 +1171,7 @@
             this.dgvStructure.RowTemplate.Height = 21;
             this.dgvStructure.Size = new System.Drawing.Size(1006, 534);
             this.dgvStructure.TabIndex = 1;
-            this.dgvStructure.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStructure_CellClick);
+            this.dgvStructure.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStructure_CellDoubleClick);
             // 
             // tbStructure
             // 
@@ -1343,7 +1345,7 @@
             this.dgvSoundList.RowTemplate.Height = 21;
             this.dgvSoundList.Size = new System.Drawing.Size(1006, 534);
             this.dgvSoundList.TabIndex = 1;
-            this.dgvSoundList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSoundList_CellClick);
+            this.dgvSoundList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSoundList_CellDoubleClick);
             // 
             // tbSoundList
             // 
@@ -1402,6 +1404,7 @@
             this.dgvSound3DList.RowTemplate.Height = 21;
             this.dgvSound3DList.Size = new System.Drawing.Size(1006, 534);
             this.dgvSound3DList.TabIndex = 5;
+            this.dgvSound3DList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSound3DList_CellContentDoubleClick);
             // 
             // tbSound3DList
             // 
@@ -1849,7 +1852,7 @@
             this.tsslDisp});
             this.statusStrip1.Location = new System.Drawing.Point(0, 959);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1438, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1584, 22);
             this.statusStrip1.TabIndex = 19;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -2060,7 +2063,7 @@
             this.tbSeinarioFileName.Enabled = false;
             this.tbSeinarioFileName.Location = new System.Drawing.Point(314, 10);
             this.tbSeinarioFileName.Name = "tbSeinarioFileName";
-            this.tbSeinarioFileName.Size = new System.Drawing.Size(705, 19);
+            this.tbSeinarioFileName.Size = new System.Drawing.Size(746, 19);
             this.tbSeinarioFileName.TabIndex = 1;
             // 
             // gbxSenario
@@ -2100,22 +2103,6 @@
             this.gbxImage.TabStop = false;
             this.gbxImage.Text = "Image";
             // 
-            // lvFiles
-            // 
-            this.lvFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvFiles.HideSelection = false;
-            this.lvFiles.Location = new System.Drawing.Point(5, 38);
-            this.lvFiles.Name = "lvFiles";
-            this.lvFiles.ShowItemToolTips = true;
-            this.lvFiles.Size = new System.Drawing.Size(375, 864);
-            this.lvFiles.TabIndex = 30;
-            this.lvFiles.UseCompatibleStateImageBehavior = false;
-            this.lvFiles.View = System.Windows.Forms.View.Details;
-            this.lvFiles.SelectedIndexChanged += new System.EventHandler(this.lvFiles_SelectedIndexChanged);
-            this.lvFiles.DoubleClick += new System.EventHandler(this.lvFiles_DoubleClick);
-            // 
             // btnSenarioDirectoryOpen
             // 
             this.btnSenarioDirectoryOpen.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -2134,7 +2121,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSenarioDirectory.Location = new System.Drawing.Point(212, 17);
             this.tbSenarioDirectory.Name = "tbSenarioDirectory";
-            this.tbSenarioDirectory.Size = new System.Drawing.Size(1202, 19);
+            this.tbSenarioDirectory.Size = new System.Drawing.Size(1348, 19);
             this.tbSenarioDirectory.TabIndex = 31;
             // 
             // splitContainer1
@@ -2148,13 +2135,14 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.splitContainer1.Panel1.Controls.Add(this.dgvFiles);
             this.splitContainer1.Panel1.Controls.Add(this.btnListOther);
             this.splitContainer1.Panel1.Controls.Add(this.btnListNoMap);
             this.splitContainer1.Panel1.Controls.Add(this.btnListNoVehicle);
             this.splitContainer1.Panel1.Controls.Add(this.btnListBVE6);
             this.splitContainer1.Panel1.Controls.Add(this.btnListBVE5);
-            this.splitContainer1.Panel1.Controls.Add(this.label12);
-            this.splitContainer1.Panel1.Controls.Add(this.lvFiles);
+            this.splitContainer1.Panel1.Controls.Add(this.lblLegend);
+            this.splitContainer1.Panel1.Controls.Add(this.pgBarList);
             // 
             // splitContainer1.Panel2
             // 
@@ -2171,8 +2159,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.gbxBve5);
             this.splitContainer1.Panel2.Controls.Add(this.gbxBve6);
             this.splitContainer1.Panel2.Controls.Add(this.btnHelp);
-            this.splitContainer1.Size = new System.Drawing.Size(1431, 909);
-            this.splitContainer1.SplitterDistance = 383;
+            this.splitContainer1.Size = new System.Drawing.Size(1577, 909);
+            this.splitContainer1.SplitterDistance = 488;
             this.splitContainer1.TabIndex = 32;
             // 
             // btnListOther
@@ -2230,15 +2218,25 @@
             this.btnListBVE5.UseVisualStyleBackColor = false;
             this.btnListBVE5.Click += new System.EventHandler(this.btnListBVE5_Click);
             // 
-            // label12
+            // lblLegend
             // 
-            this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.Color.Transparent;
-            this.label12.Location = new System.Drawing.Point(18, 13);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(29, 12);
-            this.label12.TabIndex = 31;
-            this.label12.Text = "凡例";
+            this.lblLegend.AutoSize = true;
+            this.lblLegend.BackColor = System.Drawing.Color.Transparent;
+            this.lblLegend.Location = new System.Drawing.Point(16, 13);
+            this.lblLegend.Name = "lblLegend";
+            this.lblLegend.Size = new System.Drawing.Size(29, 12);
+            this.lblLegend.TabIndex = 31;
+            this.lblLegend.Text = "凡例";
+            // 
+            // pgBarList
+            // 
+            this.pgBarList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pgBarList.Location = new System.Drawing.Point(57, 8);
+            this.pgBarList.Name = "pgBarList";
+            this.pgBarList.Size = new System.Drawing.Size(428, 23);
+            this.pgBarList.TabIndex = 35;
+            this.pgBarList.Visible = false;
             // 
             // btnSenarioReload
             // 
@@ -2262,13 +2260,30 @@
             this.btnOpenSenarioDirectory.UseVisualStyleBackColor = true;
             this.btnOpenSenarioDirectory.Click += new System.EventHandler(this.btnOpenSenarioDirectory_Click);
             // 
+            // dgvFiles
+            // 
+            this.dgvFiles.AllowUserToAddRows = false;
+            this.dgvFiles.AllowUserToOrderColumns = true;
+            this.dgvFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFiles.Location = new System.Drawing.Point(3, 38);
+            this.dgvFiles.Name = "dgvFiles";
+            this.dgvFiles.RowTemplate.Height = 21;
+            this.dgvFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvFiles.Size = new System.Drawing.Size(482, 868);
+            this.dgvFiles.TabIndex = 36;
+            this.dgvFiles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFiles_CellClick);
+            this.dgvFiles.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFiles_CellDoubleClick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1438, 981);
+            this.ClientSize = new System.Drawing.Size(1584, 981);
             this.Controls.Add(this.tbSenarioDirectory);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnSenarioDirectoryOpen);
@@ -2276,9 +2291,10 @@
             this.Controls.Add(this.btnOpenSenarioDirectory);
             this.KeyPreview = true;
             this.Name = "Form1";
-            this.Text = "BVE File Explorer ( Beta ver 0.9.6.2 )";
+            this.Text = "BVE File Explorer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControlSenario.ResumeLayout(false);
@@ -2350,6 +2366,7 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2464,7 +2481,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmi32Delete;
         private System.Windows.Forms.Button btnSenarioClear;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ListView lvFiles;
         private System.Windows.Forms.Button btnSenarioDirectoryOpen;
         private System.Windows.Forms.TextBox tbSenarioDirectory;
         private System.Windows.Forms.ToolStripStatusLabel tsslDisp;
@@ -2479,7 +2495,7 @@
         private System.Windows.Forms.DataGridView dgvSoundList;
         private System.Windows.Forms.TabPage tpStructure;
         private System.Windows.Forms.DataGridView dgvStructure;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblLegend;
         private System.Windows.Forms.TabPage tpSound3D;
         private System.Windows.Forms.DataGridView dgvSound3DList;
         private System.Windows.Forms.TabPage tpSignal;
@@ -2529,6 +2545,8 @@
         private System.Windows.Forms.Button btnListOther;
         private System.Windows.Forms.TabPage tpVehicleFile;
         private System.Windows.Forms.DataGridView dgvVehicle;
+        private System.Windows.Forms.ProgressBar pgBarList;
+        private System.Windows.Forms.DataGridView dgvFiles;
     }
 }
 
