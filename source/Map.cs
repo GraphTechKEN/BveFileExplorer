@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace BveFileExplorer
@@ -20,7 +22,7 @@ namespace BveFileExplorer
         public Contents_Map Sound3DList { get; private set; }
         public List<Contents_Map> Train { get; private set; } 
 
-        public Map(string mapFilePath)
+        public Map(string mapFilePath, bool IsReadIndexOnly = false)
         {
             if (File.Exists(mapFilePath))
             {
@@ -31,7 +33,7 @@ namespace BveFileExplorer
                 int i = 0;
                 Train = new List<Contents_Map>();
                 Log += "車両ファイル：" + mapFilePath + "\r\n";
-
+;
                 using (StreamReader sr = new StreamReader(mapFilePath))
 
                     //最後まで読込
@@ -47,15 +49,28 @@ namespace BveFileExplorer
                         {
                             if (line.IndexOf("Bvets Map", StringComparison.OrdinalIgnoreCase) >= 0)
                             {
-                                int index_colon = line.IndexOf(":");
-                                if (index_colon < 0)
+                                //BveTs map 2.02:utf-8;//基本形
+                                // 正規表現パターン: "BveTs Map " の後ろにある数字とドットの組み合わせをグループ化
+                                // [0-9.]+ は、数字またはドットが1回以上続くことを意味します
+                                string pattern = @"BveTs Map\s+([0-9.]+)";
+
+                                Match match = Regex.Match(line, pattern, RegexOptions.IgnoreCase);
+
+                                if (match.Success)
                                 {
-                                    FileVersion = float.Parse(line.Substring(line.IndexOf("Bvets Map", StringComparison.OrdinalIgnoreCase) + 9).Trim());
+                                    string versionStr = match.Groups[1].Value;
+
+                                    // float型に変換 (カルチャの影響を避けるため InvariantCulture を推奨)
+                                    if (float.TryParse(versionStr, NumberStyles.Any, CultureInfo.InvariantCulture, out float version))
+                                    {
+                                        FileVersion = version;
+                                    }
                                 }
-                                else
+                                if (IsReadIndexOnly)
                                 {
-                                    FileVersion = float.Parse(line.Substring(line.IndexOf("Bvets Map", StringComparison.OrdinalIgnoreCase) + 9, index_colon - 9).Trim());
+                                    break;
                                 }
+
                             }
                             if (line.IndexOf("Structure.Load", StringComparison.OrdinalIgnoreCase) >= 0)
                             {
@@ -88,6 +103,7 @@ namespace BveFileExplorer
                         {
                             Log += "いくつかのファイルにエラーがあるか、読込未対応ファイル形式です。\n";
                         }
+
                     }
             }
         }

@@ -26,7 +26,7 @@ namespace BveFileExplorer
         public Contents_Vehicle MotorNoise { get; private set; }
         public Contents_Vehicle Ats64 { get; private set; }
 
-        public Vehicle(string vehicleFilePath)
+        public Vehicle(string vehicleFilePath, bool IsReadIndexOnly = false)
         {
 
             FilePath = vehicleFilePath;
@@ -62,6 +62,10 @@ namespace BveFileExplorer
                                 {
                                     FileVersion = float.Parse(line.Substring(line.IndexOf("Bvets Vehicle", StringComparison.OrdinalIgnoreCase) + 13, index_colon - 13).Trim());
                                 }
+                            }
+                            if (IsReadIndexOnly)
+                            {
+                                break;
                             }
                             if ((line.IndexOf("ATS", StringComparison.OrdinalIgnoreCase) >= 0 || line.IndexOf("Ats32", StringComparison.OrdinalIgnoreCase) >= 0) && line.IndexOf("Ats64", StringComparison.OrdinalIgnoreCase) < 0)
                             {

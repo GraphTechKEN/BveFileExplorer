@@ -24,6 +24,7 @@ namespace BveFileExplorer
 
         public List<bool> VehicleFilesExists { get; private set; }
         public List<string> MapFiles { get; private set; }
+        public List<string> MapFilesAbs { get; private set; }
 
         public int VehicleFilesCount { get; private set; }
         public int MapFilesCount { get; private set; }
@@ -38,6 +39,7 @@ namespace BveFileExplorer
                 FilePath = senarioFilePath;
                 VehicleFilesAbs = new List<string>();
                 VehicleFilesExists = new List<bool>();
+                MapFilesAbs = new List<string>();
 
                 //内容を読み込み、表示する
                 //string dir = Path.GetDirectoryName(senarioFilePath);
@@ -115,6 +117,23 @@ namespace BveFileExplorer
 
                                             case "route":
                                                 MapFiles = StringLineAnalysis(contents).Select(x => x.Item1).ToList();
+                                                for (int i = 0; i < MapFiles.Count; i++)
+                                                {
+                                                    string mapAbsPath = Path.GetFullPath(Path.GetDirectoryName(FilePath)) + @"\" + MapFiles[i];
+                                                    if (string.IsNullOrEmpty(MapFiles[i]))
+                                                    {
+                                                        mapAbsPath = "";
+                                                        //MapFilesExists.Add(false);
+                                                        //MapFilesNotExistsCount += 1;
+                                                    }
+                                                    else
+                                                    {
+                                                        //MapFilesExists.Add(File.Exists(mapAbsPath));
+                                                        //MapFilesNotExistsCount += !File.Exists(mapAbsPath) ? 1 : 0;
+                                                    }
+                                                    MapFilesAbs.Add(mapAbsPath);
+
+                                                }
                                                 break;
 
                                             case "title":

@@ -193,6 +193,7 @@
             this.btnSenarioDirectoryOpen = new System.Windows.Forms.Button();
             this.tbSenarioDirectory = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.dgvFiles = new System.Windows.Forms.DataGridView();
             this.btnListOther = new System.Windows.Forms.Button();
             this.btnListNoMap = new System.Windows.Forms.Button();
             this.btnListNoVehicle = new System.Windows.Forms.Button();
@@ -202,7 +203,7 @@
             this.pgBarList = new System.Windows.Forms.ProgressBar();
             this.btnSenarioReload = new System.Windows.Forms.Button();
             this.btnOpenSenarioDirectory = new System.Windows.Forms.Button();
-            this.dgvFiles = new System.Windows.Forms.DataGridView();
+            this.lblPgBarStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControlSenario.SuspendLayout();
             this.tpVehicle.SuspendLayout();
@@ -494,7 +495,7 @@
             this.tpParameters.Location = new System.Drawing.Point(4, 22);
             this.tpParameters.Name = "tpParameters";
             this.tpParameters.Padding = new System.Windows.Forms.Padding(3);
-            this.tpParameters.Size = new System.Drawing.Size(1011, 570);
+            this.tpParameters.Size = new System.Drawing.Size(1052, 570);
             this.tpParameters.TabIndex = 1;
             this.tpParameters.Text = "パラメータ(Parameters)";
             this.tpParameters.UseVisualStyleBackColor = true;
@@ -509,7 +510,7 @@
             this.dgvParameters.Location = new System.Drawing.Point(3, 33);
             this.dgvParameters.Name = "dgvParameters";
             this.dgvParameters.RowTemplate.Height = 21;
-            this.dgvParameters.Size = new System.Drawing.Size(1006, 534);
+            this.dgvParameters.Size = new System.Drawing.Size(1047, 534);
             this.dgvParameters.TabIndex = 11;
             // 
             // tbParameters
@@ -518,7 +519,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbParameters.Location = new System.Drawing.Point(134, 8);
             this.tbParameters.Name = "tbParameters";
-            this.tbParameters.Size = new System.Drawing.Size(868, 19);
+            this.tbParameters.Size = new System.Drawing.Size(909, 19);
             this.tbParameters.TabIndex = 1;
             // 
             // btnParametersOpen
@@ -551,7 +552,7 @@
             this.tpPanel.Controls.Add(this.btnPanelDirectory);
             this.tpPanel.Location = new System.Drawing.Point(4, 22);
             this.tpPanel.Name = "tpPanel";
-            this.tpPanel.Size = new System.Drawing.Size(1011, 570);
+            this.tpPanel.Size = new System.Drawing.Size(1052, 570);
             this.tpPanel.TabIndex = 2;
             this.tpPanel.Text = "パネル(Panel)";
             this.tpPanel.UseVisualStyleBackColor = true;
@@ -566,7 +567,7 @@
             this.dgvPanel.Location = new System.Drawing.Point(3, 33);
             this.dgvPanel.Name = "dgvPanel";
             this.dgvPanel.RowTemplate.Height = 21;
-            this.dgvPanel.Size = new System.Drawing.Size(1006, 534);
+            this.dgvPanel.Size = new System.Drawing.Size(1047, 534);
             this.dgvPanel.TabIndex = 12;
             this.dgvPanel.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPanel_CellDoubleClick);
             // 
@@ -576,7 +577,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbPanel.Location = new System.Drawing.Point(134, 8);
             this.tbPanel.Name = "tbPanel";
-            this.tbPanel.Size = new System.Drawing.Size(870, 19);
+            this.tbPanel.Size = new System.Drawing.Size(911, 19);
             this.tbPanel.TabIndex = 1;
             // 
             // btnPanelOpen
@@ -609,7 +610,7 @@
             this.tpSound.Controls.Add(this.btnSoundDirectory);
             this.tpSound.Location = new System.Drawing.Point(4, 22);
             this.tpSound.Name = "tpSound";
-            this.tpSound.Size = new System.Drawing.Size(1011, 570);
+            this.tpSound.Size = new System.Drawing.Size(1052, 570);
             this.tpSound.TabIndex = 3;
             this.tpSound.Text = "サウンド(Sound)";
             this.tpSound.UseVisualStyleBackColor = true;
@@ -624,7 +625,7 @@
             this.dgvSound.Location = new System.Drawing.Point(3, 33);
             this.dgvSound.Name = "dgvSound";
             this.dgvSound.RowTemplate.Height = 21;
-            this.dgvSound.Size = new System.Drawing.Size(1006, 534);
+            this.dgvSound.Size = new System.Drawing.Size(1047, 534);
             this.dgvSound.TabIndex = 13;
             this.dgvSound.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSound_CellDoubleClick);
             // 
@@ -634,7 +635,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSound.Location = new System.Drawing.Point(134, 8);
             this.tbSound.Name = "tbSound";
-            this.tbSound.Size = new System.Drawing.Size(869, 19);
+            this.tbSound.Size = new System.Drawing.Size(910, 19);
             this.tbSound.TabIndex = 1;
             // 
             // btnSoundOpen
@@ -667,7 +668,7 @@
             this.tpMorotNoise.Controls.Add(this.btnMotorNoiseDirectory);
             this.tpMorotNoise.Location = new System.Drawing.Point(4, 22);
             this.tpMorotNoise.Name = "tpMorotNoise";
-            this.tpMorotNoise.Size = new System.Drawing.Size(1011, 570);
+            this.tpMorotNoise.Size = new System.Drawing.Size(1052, 570);
             this.tpMorotNoise.TabIndex = 4;
             this.tpMorotNoise.Text = "モーター音(MotorNoise)";
             this.tpMorotNoise.UseVisualStyleBackColor = true;
@@ -682,7 +683,7 @@
             this.dgvMotorNoise.Location = new System.Drawing.Point(3, 33);
             this.dgvMotorNoise.Name = "dgvMotorNoise";
             this.dgvMotorNoise.RowTemplate.Height = 21;
-            this.dgvMotorNoise.Size = new System.Drawing.Size(1006, 534);
+            this.dgvMotorNoise.Size = new System.Drawing.Size(1047, 534);
             this.dgvMotorNoise.TabIndex = 14;
             this.dgvMotorNoise.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMotorNoise_CellDoubleClick);
             // 
@@ -692,7 +693,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbMotorNoise.Location = new System.Drawing.Point(134, 8);
             this.tbMotorNoise.Name = "tbMotorNoise";
-            this.tbMotorNoise.Size = new System.Drawing.Size(703, 19);
+            this.tbMotorNoise.Size = new System.Drawing.Size(744, 19);
             this.tbMotorNoise.TabIndex = 1;
             // 
             // btnMotorNoiseOpen
@@ -732,7 +733,7 @@
             this.tpAts.Controls.Add(this.lblAts32);
             this.tpAts.Location = new System.Drawing.Point(4, 22);
             this.tpAts.Name = "tpAts";
-            this.tpAts.Size = new System.Drawing.Size(1011, 570);
+            this.tpAts.Size = new System.Drawing.Size(1052, 570);
             this.tpAts.TabIndex = 5;
             this.tpAts.Text = "ATSプラグイン(Ats)";
             this.tpAts.UseVisualStyleBackColor = true;
@@ -747,7 +748,7 @@
             this.tabControl2.Location = new System.Drawing.Point(3, 64);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1005, 503);
+            this.tabControl2.Size = new System.Drawing.Size(1046, 503);
             this.tabControl2.TabIndex = 32;
             // 
             // tpAts32
@@ -761,7 +762,7 @@
             this.tpAts32.Location = new System.Drawing.Point(4, 22);
             this.tpAts32.Name = "tpAts32";
             this.tpAts32.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAts32.Size = new System.Drawing.Size(997, 477);
+            this.tpAts32.Size = new System.Drawing.Size(1038, 477);
             this.tpAts32.TabIndex = 0;
             this.tpAts32.Text = "BVE5 (detailmodules.txt)";
             this.tpAts32.UseVisualStyleBackColor = true;
@@ -802,7 +803,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAts32DetailModules.Location = new System.Drawing.Point(297, 8);
             this.tbAts32DetailModules.Name = "tbAts32DetailModules";
-            this.tbAts32DetailModules.Size = new System.Drawing.Size(690, 19);
+            this.tbAts32DetailModules.Size = new System.Drawing.Size(731, 19);
             this.tbAts32DetailModules.TabIndex = 13;
             // 
             // btnAts32Open2
@@ -834,7 +835,7 @@
             this.dgvAts32.Name = "dgvAts32";
             this.dgvAts32.RowTemplate.Height = 21;
             this.dgvAts32.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAts32.Size = new System.Drawing.Size(991, 438);
+            this.dgvAts32.Size = new System.Drawing.Size(1032, 438);
             this.dgvAts32.TabIndex = 11;
             // 
             // FileName
@@ -891,7 +892,7 @@
             this.tpAts64.Location = new System.Drawing.Point(4, 22);
             this.tpAts64.Name = "tpAts64";
             this.tpAts64.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAts64.Size = new System.Drawing.Size(997, 477);
+            this.tpAts64.Size = new System.Drawing.Size(1038, 477);
             this.tpAts64.TabIndex = 1;
             this.tpAts64.Text = "BVE6 (detailmodules.txt)";
             this.tpAts64.UseVisualStyleBackColor = true;
@@ -1001,7 +1002,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAts64.Location = new System.Drawing.Point(298, 36);
             this.tbAts64.Name = "tbAts64";
-            this.tbAts64.Size = new System.Drawing.Size(703, 19);
+            this.tbAts64.Size = new System.Drawing.Size(744, 19);
             this.tbAts64.TabIndex = 1;
             this.tbAts64.Visible = false;
             // 
@@ -1079,7 +1080,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAts32.Location = new System.Drawing.Point(298, 9);
             this.tbAts32.Name = "tbAts32";
-            this.tbAts32.Size = new System.Drawing.Size(703, 19);
+            this.tbAts32.Size = new System.Drawing.Size(744, 19);
             this.tbAts32.TabIndex = 1;
             // 
             // lblAts32
@@ -1123,7 +1124,7 @@
             this.tpRoute.Controls.Add(this.btnMapOpen);
             this.tpRoute.Location = new System.Drawing.Point(4, 22);
             this.tpRoute.Name = "tpRoute";
-            this.tpRoute.Size = new System.Drawing.Size(1028, 636);
+            this.tpRoute.Size = new System.Drawing.Size(1069, 636);
             this.tpRoute.TabIndex = 2;
             this.tpRoute.Text = "マップファイル";
             // 
@@ -1544,7 +1545,7 @@
             this.tpAtsPlugin.Controls.Add(this.groupBox1);
             this.tpAtsPlugin.Location = new System.Drawing.Point(4, 22);
             this.tpAtsPlugin.Name = "tpAtsPlugin";
-            this.tpAtsPlugin.Size = new System.Drawing.Size(1028, 636);
+            this.tpAtsPlugin.Size = new System.Drawing.Size(1069, 636);
             this.tpAtsPlugin.TabIndex = 3;
             this.tpAtsPlugin.Text = "車両ATSプラグイン関連";
             this.tpAtsPlugin.UseVisualStyleBackColor = true;
@@ -2135,6 +2136,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.splitContainer1.Panel1.Controls.Add(this.lblPgBarStatus);
             this.splitContainer1.Panel1.Controls.Add(this.dgvFiles);
             this.splitContainer1.Panel1.Controls.Add(this.btnListOther);
             this.splitContainer1.Panel1.Controls.Add(this.btnListNoMap);
@@ -2162,6 +2164,23 @@
             this.splitContainer1.Size = new System.Drawing.Size(1577, 909);
             this.splitContainer1.SplitterDistance = 488;
             this.splitContainer1.TabIndex = 32;
+            // 
+            // dgvFiles
+            // 
+            this.dgvFiles.AllowUserToAddRows = false;
+            this.dgvFiles.AllowUserToOrderColumns = true;
+            this.dgvFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFiles.Location = new System.Drawing.Point(3, 38);
+            this.dgvFiles.Name = "dgvFiles";
+            this.dgvFiles.RowTemplate.Height = 21;
+            this.dgvFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvFiles.Size = new System.Drawing.Size(482, 868);
+            this.dgvFiles.TabIndex = 36;
+            this.dgvFiles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFiles_CellClick);
+            this.dgvFiles.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFiles_CellDoubleClick);
             // 
             // btnListOther
             // 
@@ -2222,7 +2241,7 @@
             // 
             this.lblLegend.AutoSize = true;
             this.lblLegend.BackColor = System.Drawing.Color.Transparent;
-            this.lblLegend.Location = new System.Drawing.Point(16, 13);
+            this.lblLegend.Location = new System.Drawing.Point(11, 13);
             this.lblLegend.Name = "lblLegend";
             this.lblLegend.Size = new System.Drawing.Size(29, 12);
             this.lblLegend.TabIndex = 31;
@@ -2232,9 +2251,9 @@
             // 
             this.pgBarList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pgBarList.Location = new System.Drawing.Point(57, 8);
+            this.pgBarList.Location = new System.Drawing.Point(107, 8);
             this.pgBarList.Name = "pgBarList";
-            this.pgBarList.Size = new System.Drawing.Size(428, 23);
+            this.pgBarList.Size = new System.Drawing.Size(378, 23);
             this.pgBarList.TabIndex = 35;
             this.pgBarList.Visible = false;
             // 
@@ -2260,22 +2279,16 @@
             this.btnOpenSenarioDirectory.UseVisualStyleBackColor = true;
             this.btnOpenSenarioDirectory.Click += new System.EventHandler(this.btnOpenSenarioDirectory_Click);
             // 
-            // dgvFiles
+            // lblPgBarStatus
             // 
-            this.dgvFiles.AllowUserToAddRows = false;
-            this.dgvFiles.AllowUserToOrderColumns = true;
-            this.dgvFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvFiles.Location = new System.Drawing.Point(3, 38);
-            this.dgvFiles.Name = "dgvFiles";
-            this.dgvFiles.RowTemplate.Height = 21;
-            this.dgvFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvFiles.Size = new System.Drawing.Size(482, 868);
-            this.dgvFiles.TabIndex = 36;
-            this.dgvFiles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFiles_CellClick);
-            this.dgvFiles.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFiles_CellDoubleClick);
+            this.lblPgBarStatus.AutoSize = true;
+            this.lblPgBarStatus.BackColor = System.Drawing.Color.Transparent;
+            this.lblPgBarStatus.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.lblPgBarStatus.Location = new System.Drawing.Point(62, 13);
+            this.lblPgBarStatus.Name = "lblPgBarStatus";
+            this.lblPgBarStatus.Size = new System.Drawing.Size(35, 12);
+            this.lblPgBarStatus.TabIndex = 37;
+            this.lblPgBarStatus.Text = "label1";
             // 
             // Form1
             // 
@@ -2547,6 +2560,7 @@
         private System.Windows.Forms.DataGridView dgvVehicle;
         private System.Windows.Forms.ProgressBar pgBarList;
         private System.Windows.Forms.DataGridView dgvFiles;
+        private System.Windows.Forms.Label lblPgBarStatus;
     }
 }
 

@@ -1183,6 +1183,10 @@ namespace BveFileExplorer
         //リセット
         private void Reset()
         {
+            //クラスクリア
+            map = null;
+            vehicle = null;
+
             btnOpenSenarioFile.Enabled = false;
             btnOpenVehicleFile.Enabled = false;
             btnOpenVehicleDirectory.Enabled = false;
@@ -1306,28 +1310,29 @@ namespace BveFileExplorer
             btnOpenVehicleFile.BackColor = SystemColors.Control;
 
             //車両データDataGridViewクリア
+            dgvVehicle.Columns.Clear();
+            dgvPerformanceCurve.DataSource = null;
             dgvPerformanceCurve.Columns.Clear();
             dgvParameters.Columns.Clear();
             dgvPanel.Columns.Clear();
             dgvSound.Columns.Clear();
             dgvMotorNoise.Columns.Clear();
-            tabControlVehicle.SelectedTab = tpPerformanceCurve;
+            tabControlVehicle.SelectedIndex = 0;
 
             //マップファイルDataGridViewクリア
+            dgvStructure.DataSource = null;
             dgvStructure.Columns.Clear();
+            dgvStation.DataSource = null;
             dgvStation.Columns.Clear();
+            dgvSignal.DataSource = null;
             dgvSignal.Columns.Clear();
+            dgvSound.DataSource = null;
             dgvSoundList.Columns.Clear();
+            dgvSound3DList.DataSource = null;
             dgvSound3DList.Columns.Clear();
-            tabControlMaps.SelectedTab = tpStructure;
+            tabControlMaps.SelectedIndex = 0;
 
-            // 名前（"tpAtsPlugin"）でコントロールを探す
-            var controls = tabControlSenario.Controls.Find("tpVehicle", false); // trueで子コントロールも検索
-
-            if (controls.Length > 0)
-            {
-                tabControlSenario.SelectTab(tabControlSenario.TabPages["tpVehicle"]);
-            }
+            tabControlSenario.SelectTab(0);
 
         }
 
@@ -2297,12 +2302,12 @@ namespace BveFileExplorer
             {
                 // 選択されたフォルダのパスを取得
                 string selectedFolderPath = folderBrowserDialog.SelectedPath;
-                OpenSenaroDirectory(selectedFolderPath);
+                OpenSenaroDirectory(selectedFolderPath,true);
             }
         }
 
         private int filesCount = 0;
-        private async void OpenSenaroDirectory(string selectedFolderPath)
+        private async void OpenSenaroDirectory(string selectedFolderPath, bool IsReadIndexOnly = false)
         {
             if (Directory.Exists(selectedFolderPath))
             {
@@ -2324,13 +2329,18 @@ namespace BveFileExplorer
                     tbSenarioDirectory.Text = selectedFolderPath;
                     Settings.Default.RouteFileDirectory = selectedFolderPath;
                     Settings.Default.Save();
+                    filesCount = 0;
                     pgBarList.Minimum = 0;
                     pgBarList.Maximum = files.Length;
+                    pgBarList.Value = 0;
+                    lblPgBarStatus.Visible = true;
+                    lblPgBarStatus.Text = "";
 
                     // UIスレッドで実行されるプログレスハンドラ
-                    var progress2 = new Progress<ScenarioRow>(row =>
+                    var progress = new Progress<ScenarioRow>(row =>
                     {
                         pgBarList.Value = filesCount;
+                        lblPgBarStatus.Text = filesCount.ToString() + "/" + files.Length.ToString();
                         dgvFiles.Rows.Add(
                             row.FileName,
                             row.Author,
@@ -2343,7 +2353,7 @@ namespace BveFileExplorer
                     try
                     {
                         // 非同期で実行
-                        await Task.Run(() => LoadFilesAsync(selectedFolderPath, progress2));
+                        await Task.Run(() => LoadFilesAsync(selectedFolderPath, progress, IsReadIndexOnly));
                     }
                     finally
                     {
@@ -2357,6 +2367,7 @@ namespace BveFileExplorer
                 }
                 lblLegend.Text = "凡例";
                 pgBarList.Visible = false;
+                lblPgBarStatus.Visible = false;
                 btnListBVE5.Visible = true;
                 btnListBVE6.Visible = true;
                 btnListNoVehicle.Visible = true;
@@ -2372,8 +2383,7 @@ namespace BveFileExplorer
             }
         }
 
-
-        private void LoadFilesAsync(string folderPath, IProgress<ScenarioRow> progress)
+        private void LoadFilesAsync(string folderPath, IProgress<ScenarioRow> progress, bool IsReadIndexOnly = false)
         {
             string[] files = Directory.GetFiles(folderPath, "*.txt");
             foreach (string file in files)
@@ -2389,22 +2399,24 @@ namespace BveFileExplorer
 
                 if (sn.VehicleFilesExistsCount > 0)
                 {
-                    Vehicle vehicle = new Vehicle(sn.VehicleFilesAbs[0]);
+                    Vehicle vehicle = new Vehicle(sn.VehicleFilesAbs[0], IsReadIndexOnly);
                     row.VehicleVersion = vehicle.FileVersion.ToString("0.00");
                 }
                 else
                 {
                     row.VehicleVersion = "";
                 }
+
                 if (sn.MapFilesCount > 0)
                 {
-                    Map map = new Map(sn.MapFiles[0]);
+                    Map map = new Map(sn.MapFilesAbs[0],IsReadIndexOnly);
                     row.MapVersion = map.FileVersion.ToString("0.00");
                 }
                 else
                 {
                     row.MapVersion = "";
                 }
+                filesCount++;
 
                 progress.Report(row);
             }
@@ -3643,7 +3655,7 @@ namespace BveFileExplorer
             if (!string.IsNullOrEmpty(Settings.Default.RouteFileDirectory) && Directory.Exists(Settings.Default.RouteFileDirectory))
             {
                 tbSenarioDirectory.Text = Settings.Default.RouteFileDirectory;
-                OpenSenaroDirectory(Settings.Default.RouteFileDirectory);
+                OpenSenaroDirectory(Settings.Default.RouteFileDirectory,true);
             }
             else
             {
@@ -3651,20 +3663,22 @@ namespace BveFileExplorer
                 if (Directory.Exists(tempDir))
                 {
                     tbSenarioDirectory.Text = tempDir;
-                    OpenSenaroDirectory(tempDir);
+                    OpenSenaroDirectory(tempDir,true);
                     Settings.Default.RouteFileDirectory = tempDir;
                     Settings.Default.Save();
 
                 }
             }
         }
-
+        private static int indexDgvFiles = 0;
         private void dgvFiles_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e != null && e.RowIndex >= 0 && e.ColumnIndex == 0)
+            
+            if (e != null && e.RowIndex >= 0 && e.ColumnIndex == 0 && e.RowIndex != indexDgvFiles)
             {
+                indexDgvFiles = e.RowIndex;
                 Reset();
-                string cellValue = dgvFiles.Rows[e.RowIndex].Cells[0].Value.ToString();
+                string cellValue = dgvFiles.Rows[indexDgvFiles].Cells[0].Value.ToString();
                 string fullPath = tbSenarioDirectory.Text + @"\" + cellValue;
 
                 senario = new Senario(fullPath);
