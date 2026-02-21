@@ -17,13 +17,15 @@ namespace BveFileExplorer
         public string Title { get; private set; }
         public string Author { get; private set; }
         public string Comment { get; private set; }
-        public List<string> VehicleFilesRel { get; private set; }
+        public List<string> VehicleFiles { get; private set; }
 
-        public List<(string FileName, double Ratio)> VehicleFilesRelList { get; private set; }
+        public List<(string FileName, double Ratio)> VehicleFilesList { get; private set; }
         public List<string> VehicleFilesAbs { get; private set; }
 
         public List<bool> VehicleFilesExists { get; private set; }
         public List<string> MapFiles { get; private set; }
+
+        public List<(string FileName, double Ratio)> MapFilesList { get; private set; }
         public List<string> MapFilesAbs { get; private set; }
 
         public int VehicleFilesCount { get; private set; }
@@ -85,13 +87,13 @@ namespace BveFileExplorer
                                                 break;
 
                                             case "vehicle"://車両ファイル
-                                                VehicleFilesRelList = StringLineAnalysis(contents);
-                                                VehicleFilesRel = VehicleFilesRelList.Select(x => x.FileName).ToList();
+                                                VehicleFilesList = StringLineAnalysis(contents);
+                                                VehicleFiles = VehicleFilesList.Select(x => x.FileName).ToList();
 
-                                                for (int i = 0; i < VehicleFilesRel.Count; i++)
+                                                for (int i = 0; i < VehicleFiles.Count; i++)
                                                 {
-                                                    string vehicleAbsPath = Path.GetFullPath(Path.GetDirectoryName(FilePath)) + @"\" + VehicleFilesRel[i];
-                                                    if (string.IsNullOrEmpty(VehicleFilesRel[i]))
+                                                    string vehicleAbsPath = Path.GetFullPath(Path.GetDirectoryName(FilePath)) + @"\" + VehicleFiles[i];
+                                                    if (string.IsNullOrEmpty(VehicleFiles[i]))
                                                     {
                                                         vehicleAbsPath = "";
                                                         VehicleFilesExists.Add(false);
@@ -116,6 +118,7 @@ namespace BveFileExplorer
                                                 break;
 
                                             case "route":
+                                                MapFilesList = StringLineAnalysis(contents);
                                                 MapFiles = StringLineAnalysis(contents).Select(x => x.Item1).ToList();
                                                 for (int i = 0; i < MapFiles.Count; i++)
                                                 {
@@ -152,10 +155,10 @@ namespace BveFileExplorer
                                 }
                             }
                         }
-                        if (VehicleFilesRel != null)
+                        if (VehicleFiles != null)
                         {
-                            VehicleFilesCount = VehicleFilesRel.Count;
-                            VehicleFilesExistsCount = VehicleFilesRel.Count - VehicleFilesNotExistsCount;
+                            VehicleFilesCount = VehicleFiles.Count;
+                            VehicleFilesExistsCount = VehicleFiles.Count - VehicleFilesNotExistsCount;
                         }
                         else
                         {

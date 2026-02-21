@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -112,7 +113,10 @@ namespace BveFileExplorer
     public class Contents_Map
     {
         public bool IsExist { get; private set; } = false;
+        public string FilePathAbs { get; private set; } = "";
+
         public string FilePath { get; private set; } = "";
+
         public int Ret { get; private set; } = 0;
         public string Message { get; private set; } = "";
         public Color Color { get; private set; } = SystemColors.Window;
@@ -120,15 +124,27 @@ namespace BveFileExplorer
         public Contents_Map(string line, string filePath)
         {
             PathControl(line, filePath);
-            IsExist = File.Exists(FilePath);
+            IsExist = File.Exists(FilePathAbs);
         }
 
         private void PathControl(string line, string filePath)
         {
             if (line.Substring(line.IndexOf("(")).Length > 1)
             {
-                FilePath = PathGenerator_Map(line, filePath);
-                if (File.Exists(FilePath))
+
+                line = line.Trim();
+                line = line.Substring(line.IndexOf("(") + 1).Trim();
+                line = line.Substring(0, line.IndexOf(")")).Trim();
+                line = line.Replace("'", "").Trim();
+                if (line.Contains(","))//'Train.Add'の場合
+                {
+                    var lines = line.Split(',');
+                    line = lines[1].Trim();
+
+                }
+                FilePathAbs = Path.GetFullPath(Path.GetDirectoryName(filePath) + @"\" + line);
+                FilePath = line;
+                if (File.Exists(FilePathAbs))
                 {
                     Ret = 1;
                 }
@@ -146,23 +162,6 @@ namespace BveFileExplorer
                 Color = Color.LightYellow;
                 Ret = 0;
             }
-        }
-
-        //マップファイルのファイルパスを生成する
-        private string PathGenerator_Map(string line, string dirPath)
-        {
-            line = line.Trim();
-            line = line.Substring(line.IndexOf("(")+1).Trim();
-            line = line.Substring(0, line.IndexOf(")")).Trim();
-            line = line.Replace("'", "").Trim();
-            if (line.Contains(","))//'Train.Add'の場合
-            {
-                var lines = line.Split(',');
-                line = lines[1].Trim();
-
-            }
-            string path = Path.GetFullPath(Path.GetDirectoryName(dirPath) + @"\" + line); 
-            return path;
         }
     }
 }

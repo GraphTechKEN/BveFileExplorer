@@ -106,5 +106,17 @@ namespace BveFileExplorer.Properties {
                 this["AtsPluginFilePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string strStrviewPath {
+            get {
+                return ((string)(this["strStrviewPath"]));
+            }
+            set {
+                this["strStrviewPath"] = value;
+            }
+        }
     }
 }
