@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btnOpenSenario = new System.Windows.Forms.Button();
-            this.btnOpenSenarioFile = new System.Windows.Forms.Button();
+            this.btnOpenScenario = new System.Windows.Forms.Button();
+            this.btnOpenScenarioFile = new System.Windows.Forms.Button();
             this.btnOpenVehicleFile = new System.Windows.Forms.Button();
             this.btnAts32OpenDirectory = new System.Windows.Forms.Button();
             this.btnOpenVehicleDirectory = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pbVehicleImage = new System.Windows.Forms.PictureBox();
             this.btnAtsPluginSelect = new System.Windows.Forms.Button();
             this.lblAtsPluginFile = new System.Windows.Forms.Label();
             this.btnHelp = new System.Windows.Forms.Button();
-            this.tabControlSenario = new System.Windows.Forms.TabControl();
+            this.tabControlScenario = new System.Windows.Forms.TabControl();
             this.tpVehicle = new System.Windows.Forms.TabPage();
             this.tabControlVehicle = new System.Windows.Forms.TabControl();
             this.tpVehicleFile = new System.Windows.Forms.TabPage();
@@ -177,12 +177,7 @@
             this.btnBootBVE5 = new System.Windows.Forms.Button();
             this.cbMessageDisp = new System.Windows.Forms.CheckBox();
             this.btnBve5BootChooseVehicle = new System.Windows.Forms.Button();
-            this.lblVehicleTitle = new System.Windows.Forms.Label();
-            this.lblRouteTitle = new System.Windows.Forms.Label();
-            this.lblAuthor = new System.Windows.Forms.Label();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.btnBve5BootChooseMap = new System.Windows.Forms.Button();
-            this.tbComment = new System.Windows.Forms.TextBox();
             this.btnBve5PathSetting = new System.Windows.Forms.Button();
             this.gbxBve5 = new System.Windows.Forms.GroupBox();
             this.gbxBve6 = new System.Windows.Forms.GroupBox();
@@ -192,10 +187,10 @@
             this.btnBootBVE6 = new System.Windows.Forms.Button();
             this.tbSeinarioFileName = new System.Windows.Forms.TextBox();
             this.gbxSenario = new System.Windows.Forms.GroupBox();
-            this.btnSenarioClear = new System.Windows.Forms.Button();
+            this.btnScenarioClear = new System.Windows.Forms.Button();
             this.gbxImage = new System.Windows.Forms.GroupBox();
             this.btnSenarioDirectoryOpen = new System.Windows.Forms.Button();
-            this.tbSenarioDirectory = new System.Windows.Forms.TextBox();
+            this.tbScenarioDirectory = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lblPgBarStatus = new System.Windows.Forms.Label();
             this.dgvFiles = new System.Windows.Forms.DataGridView();
@@ -208,10 +203,14 @@
             this.pgBarList = new System.Windows.Forms.ProgressBar();
             this.btnStrviewPathSetting = new System.Windows.Forms.Button();
             this.btnStrview5 = new System.Windows.Forms.Button();
-            this.btnSenarioReload = new System.Windows.Forms.Button();
-            this.btnOpenSenarioDirectory = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.tabControlSenario.SuspendLayout();
+            this.btnScenarioReload = new System.Windows.Forms.Button();
+            this.btnOpenScenarioDirectory = new System.Windows.Forms.Button();
+            this.btnPlayStop = new System.Windows.Forms.Button();
+            this.dgvScenario = new System.Windows.Forms.DataGridView();
+            this.clmKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVehicleImage)).BeginInit();
+            this.tabControlScenario.SuspendLayout();
             this.tpVehicle.SuspendLayout();
             this.tabControlVehicle.SuspendLayout();
             this.tpVehicleFile.SuspendLayout();
@@ -267,30 +266,32 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvScenario)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnOpenSenario
+            // btnOpenScenario
             // 
-            this.btnOpenSenario.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnOpenSenario.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnOpenSenario.Location = new System.Drawing.Point(7, 6);
-            this.btnOpenSenario.Name = "btnOpenSenario";
-            this.btnOpenSenario.Size = new System.Drawing.Size(128, 26);
-            this.btnOpenSenario.TabIndex = 4;
-            this.btnOpenSenario.Text = "シナリオファイルを選択";
-            this.btnOpenSenario.UseVisualStyleBackColor = false;
-            this.btnOpenSenario.Click += new System.EventHandler(this.btnOpenSenario_Click);
+            this.btnOpenScenario.BackColor = System.Drawing.SystemColors.Window;
+            this.btnOpenScenario.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btnOpenScenario.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnOpenScenario.Location = new System.Drawing.Point(7, 6);
+            this.btnOpenScenario.Name = "btnOpenScenario";
+            this.btnOpenScenario.Size = new System.Drawing.Size(128, 26);
+            this.btnOpenScenario.TabIndex = 4;
+            this.btnOpenScenario.Text = "シナリオファイルを選択";
+            this.btnOpenScenario.UseVisualStyleBackColor = false;
+            this.btnOpenScenario.Click += new System.EventHandler(this.btnOpenScenario_Click);
             // 
-            // btnOpenSenarioFile
+            // btnOpenScenarioFile
             // 
-            this.btnOpenSenarioFile.Enabled = false;
-            this.btnOpenSenarioFile.Location = new System.Drawing.Point(254, 6);
-            this.btnOpenSenarioFile.Name = "btnOpenSenarioFile";
-            this.btnOpenSenarioFile.Size = new System.Drawing.Size(54, 26);
-            this.btnOpenSenarioFile.TabIndex = 5;
-            this.btnOpenSenarioFile.Text = "開く";
-            this.btnOpenSenarioFile.UseVisualStyleBackColor = true;
-            this.btnOpenSenarioFile.Click += new System.EventHandler(this.btnOpenRouteFile_Click);
+            this.btnOpenScenarioFile.Enabled = false;
+            this.btnOpenScenarioFile.Location = new System.Drawing.Point(254, 6);
+            this.btnOpenScenarioFile.Name = "btnOpenScenarioFile";
+            this.btnOpenScenarioFile.Size = new System.Drawing.Size(54, 26);
+            this.btnOpenScenarioFile.TabIndex = 5;
+            this.btnOpenScenarioFile.Text = "開く";
+            this.btnOpenScenarioFile.UseVisualStyleBackColor = true;
+            this.btnOpenScenarioFile.Click += new System.EventHandler(this.btnOpenRouteFile_Click);
             // 
             // btnOpenVehicleFile
             // 
@@ -325,14 +326,14 @@
             this.btnOpenVehicleDirectory.UseVisualStyleBackColor = true;
             this.btnOpenVehicleDirectory.Click += new System.EventHandler(this.btnOpenVehicleDirectory_Click);
             // 
-            // pictureBox1
+            // pbVehicleImage
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(15, 18);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(184, 172);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
+            this.pbVehicleImage.Location = new System.Drawing.Point(15, 18);
+            this.pbVehicleImage.Name = "pbVehicleImage";
+            this.pbVehicleImage.Size = new System.Drawing.Size(184, 172);
+            this.pbVehicleImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbVehicleImage.TabIndex = 10;
+            this.pbVehicleImage.TabStop = false;
             // 
             // btnAtsPluginSelect
             // 
@@ -365,21 +366,21 @@
             this.btnHelp.UseVisualStyleBackColor = true;
             this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
-            // tabControlSenario
+            // tabControlScenario
             // 
-            this.tabControlSenario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tabControlScenario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlSenario.Controls.Add(this.tpVehicle);
-            this.tabControlSenario.Controls.Add(this.tpRoute);
-            this.tabControlSenario.Controls.Add(this.tpAtsPlugin);
-            this.tabControlSenario.Location = new System.Drawing.Point(5, 244);
-            this.tabControlSenario.Name = "tabControlSenario";
-            this.tabControlSenario.SelectedIndex = 0;
-            this.tabControlSenario.Size = new System.Drawing.Size(1077, 662);
-            this.tabControlSenario.TabIndex = 18;
-            this.tabControlSenario.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
-            this.tabControlSenario.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
+            this.tabControlScenario.Controls.Add(this.tpVehicle);
+            this.tabControlScenario.Controls.Add(this.tpRoute);
+            this.tabControlScenario.Controls.Add(this.tpAtsPlugin);
+            this.tabControlScenario.Location = new System.Drawing.Point(5, 244);
+            this.tabControlScenario.Name = "tabControlScenario";
+            this.tabControlScenario.SelectedIndex = 0;
+            this.tabControlScenario.Size = new System.Drawing.Size(1077, 662);
+            this.tabControlScenario.TabIndex = 18;
+            this.tabControlScenario.SelectedIndexChanged += new System.EventHandler(this.tabControlScenario_SelectedIndexChanged);
+            this.tabControlScenario.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
             // tpVehicle
             // 
@@ -427,6 +428,7 @@
             // 
             // dgvVehicle
             // 
+            this.dgvVehicle.AllowUserToAddRows = false;
             this.dgvVehicle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -456,6 +458,7 @@
             // 
             // dgvPerformanceCurve
             // 
+            this.dgvPerformanceCurve.AllowUserToAddRows = false;
             this.dgvPerformanceCurve.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -515,6 +518,7 @@
             // 
             // dgvParameters
             // 
+            this.dgvParameters.AllowUserToAddRows = false;
             this.dgvParameters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -572,6 +576,7 @@
             // 
             // dgvPanel
             // 
+            this.dgvPanel.AllowUserToAddRows = false;
             this.dgvPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -630,6 +635,7 @@
             // 
             // dgvSound
             // 
+            this.dgvSound.AllowUserToAddRows = false;
             this.dgvSound.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -689,6 +695,7 @@
             // 
             // dgvMotorNoise
             // 
+            this.dgvMotorNoise.AllowUserToAddRows = false;
             this.dgvMotorNoise.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1174,6 +1181,7 @@
             // 
             // dgvRoute
             // 
+            this.dgvRoute.AllowUserToAddRows = false;
             this.dgvRoute.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1202,6 +1210,7 @@
             // 
             // dgvStructure
             // 
+            this.dgvStructure.AllowUserToAddRows = false;
             this.dgvStructure.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1261,6 +1270,7 @@
             // 
             // dgvSignal
             // 
+            this.dgvSignal.AllowUserToAddRows = false;
             this.dgvSignal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1319,6 +1329,7 @@
             // 
             // dgvStation
             // 
+            this.dgvStation.AllowUserToAddRows = false;
             this.dgvStation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1379,6 +1390,7 @@
             // 
             // dgvSoundList
             // 
+            this.dgvSoundList.AllowUserToAddRows = false;
             this.dgvSoundList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1439,6 +1451,7 @@
             // 
             // dgvSound3DList
             // 
+            this.dgvSound3DList.AllowUserToAddRows = false;
             this.dgvSound3DList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1450,6 +1463,7 @@
             this.dgvSound3DList.RowTemplate.Height = 21;
             this.dgvSound3DList.Size = new System.Drawing.Size(1047, 534);
             this.dgvSound3DList.TabIndex = 5;
+            this.dgvSound3DList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSound3DList_CellClick);
             this.dgvSound3DList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSound3DList_CellContentDoubleClick);
             // 
             // tbSound3DList
@@ -1514,6 +1528,7 @@
             // 
             // dgvTrainFileList
             // 
+            this.dgvTrainFileList.AllowUserToAddRows = false;
             this.dgvTrainFileList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1528,6 +1543,7 @@
             // 
             // dgvTrain
             // 
+            this.dgvTrain.AllowUserToAddRows = false;
             this.dgvTrain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1797,7 +1813,7 @@
             this.btnDetailModuleSelect.Text = "選択";
             this.btnDetailModuleSelect.UseVisualStyleBackColor = true;
             this.btnDetailModuleSelect.Visible = false;
-            this.btnDetailModuleSelect.Click += new System.EventHandler(this.button2_Click);
+            this.btnDetailModuleSelect.Click += new System.EventHandler(this.btnDetailModuleSelect_Click);
             // 
             // groupBox1
             // 
@@ -1983,42 +1999,6 @@
             this.btnBve5BootChooseVehicle.UseVisualStyleBackColor = true;
             this.btnBve5BootChooseVehicle.Click += new System.EventHandler(this.btnBve5BootChooseVehicle_Click);
             // 
-            // lblVehicleTitle
-            // 
-            this.lblVehicleTitle.AutoSize = true;
-            this.lblVehicleTitle.Location = new System.Drawing.Point(10, 53);
-            this.lblVehicleTitle.Name = "lblVehicleTitle";
-            this.lblVehicleTitle.Size = new System.Drawing.Size(66, 12);
-            this.lblVehicleTitle.TabIndex = 22;
-            this.lblVehicleTitle.Text = "VehicleTitle";
-            // 
-            // lblRouteTitle
-            // 
-            this.lblRouteTitle.AutoSize = true;
-            this.lblRouteTitle.Location = new System.Drawing.Point(10, 39);
-            this.lblRouteTitle.Name = "lblRouteTitle";
-            this.lblRouteTitle.Size = new System.Drawing.Size(62, 12);
-            this.lblRouteTitle.TabIndex = 23;
-            this.lblRouteTitle.Text = "Route Title";
-            // 
-            // lblAuthor
-            // 
-            this.lblAuthor.AutoSize = true;
-            this.lblAuthor.Location = new System.Drawing.Point(10, 67);
-            this.lblAuthor.Name = "lblAuthor";
-            this.lblAuthor.Size = new System.Drawing.Size(39, 12);
-            this.lblAuthor.TabIndex = 23;
-            this.lblAuthor.Text = "Author";
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(10, 23);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(28, 12);
-            this.lblTitle.TabIndex = 23;
-            this.lblTitle.Text = "Title";
-            // 
             // btnBve5BootChooseMap
             // 
             this.btnBve5BootChooseMap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -2031,18 +2011,6 @@
             this.btnBve5BootChooseMap.Text = "選択マップで起動";
             this.btnBve5BootChooseMap.UseVisualStyleBackColor = true;
             this.btnBve5BootChooseMap.Click += new System.EventHandler(this.btnBve5BootChooseMap_Click);
-            // 
-            // tbComment
-            // 
-            this.tbComment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbComment.Location = new System.Drawing.Point(6, 82);
-            this.tbComment.Multiline = true;
-            this.tbComment.Name = "tbComment";
-            this.tbComment.Size = new System.Drawing.Size(289, 108);
-            this.tbComment.TabIndex = 24;
-            this.tbComment.Text = "Comment";
             // 
             // btnBve5PathSetting
             // 
@@ -2146,11 +2114,7 @@
             // gbxSenario
             // 
             this.gbxSenario.BackColor = System.Drawing.SystemColors.Control;
-            this.gbxSenario.Controls.Add(this.tbComment);
-            this.gbxSenario.Controls.Add(this.lblAuthor);
-            this.gbxSenario.Controls.Add(this.lblTitle);
-            this.gbxSenario.Controls.Add(this.lblRouteTitle);
-            this.gbxSenario.Controls.Add(this.lblVehicleTitle);
+            this.gbxSenario.Controls.Add(this.dgvScenario);
             this.gbxSenario.Location = new System.Drawing.Point(7, 38);
             this.gbxSenario.Name = "gbxSenario";
             this.gbxSenario.Size = new System.Drawing.Size(301, 200);
@@ -2158,21 +2122,21 @@
             this.gbxSenario.TabStop = false;
             this.gbxSenario.Text = "Senario";
             // 
-            // btnSenarioClear
+            // btnScenarioClear
             // 
-            this.btnSenarioClear.Location = new System.Drawing.Point(200, 6);
-            this.btnSenarioClear.Name = "btnSenarioClear";
-            this.btnSenarioClear.Size = new System.Drawing.Size(48, 26);
-            this.btnSenarioClear.TabIndex = 11;
-            this.btnSenarioClear.Text = "クリア";
-            this.btnSenarioClear.UseVisualStyleBackColor = true;
-            this.btnSenarioClear.Visible = false;
-            this.btnSenarioClear.Click += new System.EventHandler(this.btnSenarioClear_Click);
+            this.btnScenarioClear.Enabled = false;
+            this.btnScenarioClear.Location = new System.Drawing.Point(200, 6);
+            this.btnScenarioClear.Name = "btnScenarioClear";
+            this.btnScenarioClear.Size = new System.Drawing.Size(48, 26);
+            this.btnScenarioClear.TabIndex = 11;
+            this.btnScenarioClear.Text = "クリア";
+            this.btnScenarioClear.UseVisualStyleBackColor = true;
+            this.btnScenarioClear.Click += new System.EventHandler(this.btnScenarioClear_Click);
             // 
             // gbxImage
             // 
             this.gbxImage.BackColor = System.Drawing.SystemColors.Control;
-            this.gbxImage.Controls.Add(this.pictureBox1);
+            this.gbxImage.Controls.Add(this.pbVehicleImage);
             this.gbxImage.Location = new System.Drawing.Point(314, 38);
             this.gbxImage.Name = "gbxImage";
             this.gbxImage.Size = new System.Drawing.Size(211, 200);
@@ -2182,7 +2146,7 @@
             // 
             // btnSenarioDirectoryOpen
             // 
-            this.btnSenarioDirectoryOpen.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnSenarioDirectoryOpen.BackColor = System.Drawing.SystemColors.Window;
             this.btnSenarioDirectoryOpen.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.btnSenarioDirectoryOpen.Location = new System.Drawing.Point(7, 12);
             this.btnSenarioDirectoryOpen.Name = "btnSenarioDirectoryOpen";
@@ -2192,14 +2156,14 @@
             this.btnSenarioDirectoryOpen.UseVisualStyleBackColor = false;
             this.btnSenarioDirectoryOpen.Click += new System.EventHandler(this.button1_Click);
             // 
-            // tbSenarioDirectory
+            // tbScenarioDirectory
             // 
-            this.tbSenarioDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbScenarioDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbSenarioDirectory.Location = new System.Drawing.Point(212, 17);
-            this.tbSenarioDirectory.Name = "tbSenarioDirectory";
-            this.tbSenarioDirectory.Size = new System.Drawing.Size(1348, 19);
-            this.tbSenarioDirectory.TabIndex = 31;
+            this.tbScenarioDirectory.Location = new System.Drawing.Point(212, 17);
+            this.tbScenarioDirectory.Name = "tbScenarioDirectory";
+            this.tbScenarioDirectory.Size = new System.Drawing.Size(1348, 19);
+            this.tbScenarioDirectory.TabIndex = 31;
             // 
             // splitContainer1
             // 
@@ -2225,17 +2189,18 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.splitContainer1.Panel2.Controls.Add(this.btnPlayStop);
             this.splitContainer1.Panel2.Controls.Add(this.btnStrviewPathSetting);
-            this.splitContainer1.Panel2.Controls.Add(this.btnOpenSenario);
+            this.splitContainer1.Panel2.Controls.Add(this.btnOpenScenario);
             this.splitContainer1.Panel2.Controls.Add(this.btnStrview5);
-            this.splitContainer1.Panel2.Controls.Add(this.btnSenarioReload);
-            this.splitContainer1.Panel2.Controls.Add(this.btnSenarioClear);
+            this.splitContainer1.Panel2.Controls.Add(this.btnScenarioReload);
+            this.splitContainer1.Panel2.Controls.Add(this.btnScenarioClear);
             this.splitContainer1.Panel2.Controls.Add(this.cbMessageDisp);
             this.splitContainer1.Panel2.Controls.Add(this.gbxSenario);
-            this.splitContainer1.Panel2.Controls.Add(this.tabControlSenario);
+            this.splitContainer1.Panel2.Controls.Add(this.tabControlScenario);
             this.splitContainer1.Panel2.Controls.Add(this.gbxImage);
             this.splitContainer1.Panel2.Controls.Add(this.tbSeinarioFileName);
-            this.splitContainer1.Panel2.Controls.Add(this.btnOpenSenarioFile);
+            this.splitContainer1.Panel2.Controls.Add(this.btnOpenScenarioFile);
             this.splitContainer1.Panel2.Controls.Add(this.gbxBve5);
             this.splitContainer1.Panel2.Controls.Add(this.gbxBve6);
             this.splitContainer1.Panel2.Controls.Add(this.btnHelp);
@@ -2250,9 +2215,9 @@
             this.lblPgBarStatus.ForeColor = System.Drawing.SystemColors.WindowText;
             this.lblPgBarStatus.Location = new System.Drawing.Point(62, 13);
             this.lblPgBarStatus.Name = "lblPgBarStatus";
-            this.lblPgBarStatus.Size = new System.Drawing.Size(35, 12);
+            this.lblPgBarStatus.Size = new System.Drawing.Size(34, 12);
             this.lblPgBarStatus.TabIndex = 37;
-            this.lblPgBarStatus.Text = "label1";
+            this.lblPgBarStatus.Text = "BVE5";
             // 
             // dgvFiles
             // 
@@ -2370,27 +2335,70 @@
             this.btnStrview5.UseVisualStyleBackColor = true;
             this.btnStrview5.Click += new System.EventHandler(this.btnStrview5_Click);
             // 
-            // btnSenarioReload
+            // btnScenarioReload
             // 
-            this.btnSenarioReload.Location = new System.Drawing.Point(141, 6);
-            this.btnSenarioReload.Name = "btnSenarioReload";
-            this.btnSenarioReload.Size = new System.Drawing.Size(53, 26);
-            this.btnSenarioReload.TabIndex = 11;
-            this.btnSenarioReload.Text = "リロード";
-            this.btnSenarioReload.UseVisualStyleBackColor = true;
-            this.btnSenarioReload.Visible = false;
-            this.btnSenarioReload.Click += new System.EventHandler(this.btnSenarioReload_Click);
+            this.btnScenarioReload.Enabled = false;
+            this.btnScenarioReload.Location = new System.Drawing.Point(141, 6);
+            this.btnScenarioReload.Name = "btnScenarioReload";
+            this.btnScenarioReload.Size = new System.Drawing.Size(53, 26);
+            this.btnScenarioReload.TabIndex = 11;
+            this.btnScenarioReload.Text = "リロード";
+            this.btnScenarioReload.UseVisualStyleBackColor = true;
+            this.btnScenarioReload.Click += new System.EventHandler(this.btnScenarioReload_Click);
             // 
-            // btnOpenSenarioDirectory
+            // btnOpenScenarioDirectory
             // 
-            this.btnOpenSenarioDirectory.Enabled = false;
-            this.btnOpenSenarioDirectory.Location = new System.Drawing.Point(152, 12);
-            this.btnOpenSenarioDirectory.Name = "btnOpenSenarioDirectory";
-            this.btnOpenSenarioDirectory.Size = new System.Drawing.Size(54, 29);
-            this.btnOpenSenarioDirectory.TabIndex = 5;
-            this.btnOpenSenarioDirectory.Text = "開く";
-            this.btnOpenSenarioDirectory.UseVisualStyleBackColor = true;
-            this.btnOpenSenarioDirectory.Click += new System.EventHandler(this.btnOpenSenarioDirectory_Click);
+            this.btnOpenScenarioDirectory.Enabled = false;
+            this.btnOpenScenarioDirectory.Location = new System.Drawing.Point(152, 12);
+            this.btnOpenScenarioDirectory.Name = "btnOpenScenarioDirectory";
+            this.btnOpenScenarioDirectory.Size = new System.Drawing.Size(54, 29);
+            this.btnOpenScenarioDirectory.TabIndex = 5;
+            this.btnOpenScenarioDirectory.Text = "開く";
+            this.btnOpenScenarioDirectory.UseVisualStyleBackColor = true;
+            this.btnOpenScenarioDirectory.Click += new System.EventHandler(this.btnOpenScenarioDirectory_Click);
+            // 
+            // btnPlayStop
+            // 
+            this.btnPlayStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPlayStop.BackColor = System.Drawing.Color.Salmon;
+            this.btnPlayStop.Location = new System.Drawing.Point(1000, 297);
+            this.btnPlayStop.Name = "btnPlayStop";
+            this.btnPlayStop.Size = new System.Drawing.Size(74, 26);
+            this.btnPlayStop.TabIndex = 12;
+            this.btnPlayStop.Text = "再生停止";
+            this.btnPlayStop.UseVisualStyleBackColor = false;
+            this.btnPlayStop.Visible = false;
+            // 
+            // dgvScenario
+            // 
+            this.dgvScenario.AllowUserToAddRows = false;
+            this.dgvScenario.AllowUserToDeleteRows = false;
+            this.dgvScenario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvScenario.ColumnHeadersVisible = false;
+            this.dgvScenario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmKey,
+            this.clmValue});
+            this.dgvScenario.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvScenario.Location = new System.Drawing.Point(3, 15);
+            this.dgvScenario.Name = "dgvScenario";
+            this.dgvScenario.RowHeadersVisible = false;
+            this.dgvScenario.RowTemplate.Height = 21;
+            this.dgvScenario.Size = new System.Drawing.Size(295, 182);
+            this.dgvScenario.TabIndex = 25;
+            // 
+            // clmKey
+            // 
+            this.clmKey.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.clmKey.FillWeight = 80F;
+            this.clmKey.HeaderText = "Key";
+            this.clmKey.Name = "clmKey";
+            this.clmKey.Width = 5;
+            // 
+            // clmValue
+            // 
+            this.clmValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmValue.HeaderText = "Value";
+            this.clmValue.Name = "clmValue";
             // 
             // Form1
             // 
@@ -2399,11 +2407,11 @@
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1584, 981);
-            this.Controls.Add(this.tbSenarioDirectory);
+            this.Controls.Add(this.tbScenarioDirectory);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnSenarioDirectoryOpen);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.btnOpenSenarioDirectory);
+            this.Controls.Add(this.btnOpenScenarioDirectory);
             this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "BVE File Explorer";
@@ -2411,8 +2419,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.tabControlSenario.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbVehicleImage)).EndInit();
+            this.tabControlScenario.ResumeLayout(false);
             this.tpVehicle.ResumeLayout(false);
             this.tpVehicle.PerformLayout();
             this.tabControlVehicle.ResumeLayout(false);
@@ -2480,7 +2488,6 @@
             this.gbxBve5.ResumeLayout(false);
             this.gbxBve6.ResumeLayout(false);
             this.gbxSenario.ResumeLayout(false);
-            this.gbxSenario.PerformLayout();
             this.gbxImage.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -2489,22 +2496,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvScenario)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button btnOpenSenario;
-        private System.Windows.Forms.Button btnOpenSenarioFile;
+        private System.Windows.Forms.Button btnOpenScenario;
+        private System.Windows.Forms.Button btnOpenScenarioFile;
         private System.Windows.Forms.Button btnOpenVehicleFile;
         private System.Windows.Forms.Button btnAts32OpenDirectory;
         private System.Windows.Forms.Button btnOpenVehicleDirectory;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbVehicleImage;
         private System.Windows.Forms.Button btnAtsPluginSelect;
         private System.Windows.Forms.Label lblAtsPluginFile;
         private System.Windows.Forms.Button btnHelp;
-        private System.Windows.Forms.TabControl tabControlSenario;
+        private System.Windows.Forms.TabControl tabControlScenario;
         private System.Windows.Forms.TabPage tpVehicle;
         private System.Windows.Forms.Label lblAts64;
         private System.Windows.Forms.Label lblAts32;
@@ -2538,13 +2546,8 @@
         private System.Windows.Forms.Button btnBootBVE5;
         private System.Windows.Forms.CheckBox cbMessageDisp;
         private System.Windows.Forms.Button btnBve5BootChooseVehicle;
-        private System.Windows.Forms.Label lblVehicleTitle;
-        private System.Windows.Forms.Label lblRouteTitle;
-        private System.Windows.Forms.Label lblAuthor;
-        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.ComboBox cbxMapFilePath;
         private System.Windows.Forms.Button btnBve5BootChooseMap;
-        private System.Windows.Forms.TextBox tbComment;
         private System.Windows.Forms.Button btnBve5PathSetting;
         private System.Windows.Forms.GroupBox gbxBve5;
         private System.Windows.Forms.GroupBox gbxBve6;
@@ -2601,15 +2604,15 @@
         private System.Windows.Forms.Button btnSound3DListDirectory;
         private System.Windows.Forms.ContextMenuStrip cmsDelete;
         private System.Windows.Forms.ToolStripMenuItem tsmi32Delete;
-        private System.Windows.Forms.Button btnSenarioClear;
+        private System.Windows.Forms.Button btnScenarioClear;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnSenarioDirectoryOpen;
-        private System.Windows.Forms.TextBox tbSenarioDirectory;
+        private System.Windows.Forms.TextBox tbScenarioDirectory;
         private System.Windows.Forms.ToolStripStatusLabel tsslDisp;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button btnOpenSenarioDirectory;
-        private System.Windows.Forms.Button btnSenarioReload;
+        private System.Windows.Forms.Button btnOpenScenarioDirectory;
+        private System.Windows.Forms.Button btnScenarioReload;
         private System.Windows.Forms.TabControl tabControlMaps;
         private System.Windows.Forms.TabPage tpStation;
         private System.Windows.Forms.DataGridView dgvStation;
@@ -2676,6 +2679,10 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Button btnStrview5;
         private System.Windows.Forms.Button btnStrviewPathSetting;
+        private System.Windows.Forms.Button btnPlayStop;
+        private System.Windows.Forms.DataGridView dgvScenario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmKey;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmValue;
     }
 }
 

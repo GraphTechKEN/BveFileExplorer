@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Windows.Forms;
 
@@ -212,90 +213,60 @@ namespace BveFileExplorer
         {
         }
 
+
         private void OpenNewAtsPluginFile(string strAtsPluginFilePath, BVE_Version bve_ver)
         {
-            if (File.Exists(strAtsPluginFilePath))
+            if (!File.Exists(strAtsPluginFilePath))
             {
-                AtsList = new List<AtsList>();
-                //内容を読み込み、表示する
+                Message += $"ATSプラグインが見つかりません: {strAtsPluginFilePath}\n";
+                return;
+            }
+
+            AtsList = new List<AtsList>();
+            string strBveVer = (bve_ver == BVE_Version.BVE6) ? "BVE6用(64bit)" : "BVE5用(32bit)";
+            Log += $"ATSプラグイン {strBveVer}: {strAtsPluginFilePath}\r\n";
+
+            try
+            {
                 using (StreamReader sr = new StreamReader(strAtsPluginFilePath))
                 {
-                    string line = "";
-                    string strBveVer = "";
-                    List<string> _listAtsPlugins = new List<string>();
-
-                    if (bve_ver == BVE_Version.BVE5)
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
                     {
+                        line = line.Trim();
 
-                        strBveVer = "BVE5用(32bit)";
+                        // 空行やコメント行をスキップ
+                        if (string.IsNullOrEmpty(line) || line.StartsWith(";")) continue;
 
-                        Log += "ATSプラグイン" + strBveVer + ":" + strAtsPluginFilePath + "\r\n";
-
-                        while ((line = sr.ReadLine()) != null)
+                        // "Ats32=" または "Ats64=" で始まる場合の処理
+                        if (line.Contains("="))
                         {
-                            line = line.Trim();
-                            if (line.StartsWith("Ats32", StringComparison.OrdinalIgnoreCase))
-                            {
-                                line = line.Substring(line.IndexOf("=", StringComparison.OrdinalIgnoreCase) + 1).Trim();
-                            }
-                            Log += line + "\r\n";
-                            _listAtsPlugins.Add(line);
-                            AtsList atsList = new AtsList(line, strAtsPluginFilePath);
-                            AtsList.Add(atsList);
-
-                            string marge_line = line.Replace("#", "").Trim();
-                            marge_line = marge_line.Replace(";", "").Trim();
-                            string FullPath;
-                            try
-                            {
-                                FullPath = Path.GetFullPath(Path.GetDirectoryName(strAtsPluginFilePath) + @"\" + marge_line);
-                            }
-                            catch
-                            {
-                                FullPath = marge_line;
-                            }
-                            //とりあえず
-                            //Checker(FullPath, 300, false);
+                            line = line.Substring(line.IndexOf("=") + 1).Trim();
                         }
-                    }
-                    else if (bve_ver == BVE_Version.BVE6)
-                    {
-                        strBveVer = "BVE6用(64bit)";
 
-                        Log += "ATSプラグイン" + strBveVer + ":" + strAtsPluginFilePath + "\r\n";
+                        Log += line + "\r\n";
+                        AtsList.Add(new AtsList(line, strAtsPluginFilePath));
 
-                        while ((line = sr.ReadLine()) != null)
+                        // ファイルパスの正規化
+                        string cleanLine = line.Replace("#", "").Replace(";", "").Trim();
+                        string fullPath;
+                        try
                         {
-                            line = line.Trim();
-                            if (line.StartsWith("Ats32", StringComparison.OrdinalIgnoreCase))
-                            {
-                                line = line.Substring(line.IndexOf("=", StringComparison.OrdinalIgnoreCase) + 1).Trim();
-                            }
-                            Log += line + "\r\n";
-                            _listAtsPlugins.Add(line);
-                            AtsList atsList = new AtsList(line, strAtsPluginFilePath);
-                            AtsList.Add(atsList);
-
-                            string marge_line = line.Replace("#", "").Trim();
-                            marge_line = marge_line.Replace(";", "").Trim();
-                            string FullPath;
-                            try
-                            {
-                                FullPath = Path.GetFullPath(Path.GetDirectoryName(strAtsPluginFilePath) + @"\" + marge_line);
-                            }
-                            catch
-                            {
-                                FullPath = marge_line;
-                            }
-                            //とりあえず
-                            //Checker(FullPath, 300, false);
+                            string directory = Path.GetDirectoryName(strAtsPluginFilePath);
+                            fullPath = Path.GetFullPath(Path.Combine(directory, cleanLine));
                         }
+                        catch
+                        {
+                            fullPath = cleanLine;
+                        }
+
+                        // Checker(fullPath, 300, false); // 必要に応じて有効化
                     }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Message += "ATSプラグインが見つかりません:" + strAtsPluginFilePath + "\n";
+                Message += $"ファイル読み込みエラー: {ex.Message}\n";
             }
         }
 
@@ -328,23 +299,28 @@ namespace BveFileExplorer
                     int i = 0;
                     while (ret)
                     {
-                        if ((i < _BufferSize - 5) && bufr[i] == 0x50 && bufr[i + 1] == 0x45 && bufr[i + 2] == 0x00 && bufr[i + 3] == 0x00 && bufr[i + 4] == 0x4C && bufr[i + 5] == 0x01)
+                        if ((i < _BufferSize - 5) && bufr[i] == 0x50 && bufr[i + 1] == 0x45 && bufr[i + 2] == 0x00 && bufr[i + 3] == 0x00 && ((bufr[i + 4] == 0x4C && bufr[i + 5] == 0x01) || (bufr[i + 4] == 0x64 && bufr[i + 5] == 0x86)))
                         {
-                            if (IsDisplayChecked)
+                            if (bufr[i + 4] == 0x4C && bufr[i + 5] == 0x01)
                             {
-                                MessageBox.Show("BVE5用(32bit)にビルドされたプラグインです");
+                                if (IsDisplayChecked)
+                                {
+                                    MessageBox.Show("BVE5用(32bit)にビルドされたプラグインです");
+                                }
+                                iRet = BVE_Version.BVE5;
+                                ret = false;
+                                return iRet;
                             }
-                            iRet = BVE_Version.BVE5;
-                            ret = false;
-                        }
-                        else if ((i < _BufferSize - 5) && bufr[i] == 0x50 && bufr[i + 1] == 0x45 && bufr[i + 2] == 0x00 && bufr[i + 3] == 0x00 && bufr[i + 4] == 0x64 && bufr[i + 5] == 0x86)
-                        {
-                            if (IsDisplayChecked)
+                            else
                             {
-                                MessageBox.Show("BVE6用(64bit)にビルドされたプラグインです");
+                                if (IsDisplayChecked)
+                                {
+                                    MessageBox.Show("BVE6用(64bit)にビルドされたプラグインです");
+                                }
+                                iRet = BVE_Version.BVE6; ;
+                                ret = false;
+                                return iRet;
                             }
-                            iRet = BVE_Version.BVE6; ;
-                            ret = false;
                         }
                         else
                         {
@@ -360,14 +336,11 @@ namespace BveFileExplorer
                                 }
                                 iRet = BVE_Version.Null;
                                 ret = false;
+                                return iRet;
                             }
                         }
                     }
                 }
-            }
-            else
-            {
-                iRet = BVE_Version.Null;
             }
             return iRet;
         }
