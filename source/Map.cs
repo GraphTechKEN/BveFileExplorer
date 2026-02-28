@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -31,7 +29,6 @@ namespace BveFileExplorer
 
                 string line = "";
                 int error = 0;
-                int i = 0;
                 Train = new List<Contents_Map>();
                 Log += "車両ファイル：" + mapFilePath + "\r\n";
 ;
@@ -45,8 +42,8 @@ namespace BveFileExplorer
                         //読込ログに追記
                         Log += line + "\r\n";
 
-                        //先頭文字が「;」と「#」でないときで「=」を含むとき
-                        if (!line.StartsWith(";") || !line.StartsWith("#"))
+                        //先頭文字が「;」と「#」でないとき
+                        if (!line.StartsWith(";") && !line.StartsWith("#"))
                         {
                             if (line.IndexOf("Bvets Map", StringComparison.OrdinalIgnoreCase) >= 0)
                             {
@@ -67,37 +64,10 @@ namespace BveFileExplorer
                                         FileVersion = version;
                                     }
                                 }
-                                if (IsReadIndexOnly)
-                                {
-                                    break;
-                                }
-
+                                if (IsReadIndexOnly) break;
+                                continue;
                             }
-                            if (line.IndexOf("Structure.Load", StringComparison.OrdinalIgnoreCase) >= 0)
-                            {
-                                Structure = new Contents_Map(line, FilePath);
-                            }
-                            else if (line.IndexOf("Station.Load", StringComparison.OrdinalIgnoreCase) >= 0)
-                            {
-                                Station = new Contents_Map(line, FilePath);
-                            }
-                            else if (line.IndexOf("Signal.Load", StringComparison.OrdinalIgnoreCase) >= 0)
-                            {
-                                Signal = new Contents_Map(line, FilePath);
-                            }
-                            else if (line.IndexOf("Sound.Load", StringComparison.OrdinalIgnoreCase) >= 0)
-                            {
-                                SoundList = new Contents_Map(line, FilePath);
-                            }
-                            else if (line.IndexOf("Sound3D.Load", StringComparison.OrdinalIgnoreCase) >= 0)
-                            {
-                                Sound3DList = new Contents_Map(line, FilePath);
-                            }
-                            else if (line.IndexOf("Train.Add", StringComparison.OrdinalIgnoreCase) >= 0)
-                            {
-                                Train.Add(new Contents_Map(line, FilePath));
-                            }
-                            i++;
+                            ParseLine(line);
                         }
 
                         if (error > 0)
@@ -108,6 +78,18 @@ namespace BveFileExplorer
                     }
             }
         }
+        private void ParseLine(string line)
+        {
+            // 大文字小文字を区別せずに判定
+            if (ContainsCommand(line, "Structure.Load")) Structure = new Contents_Map(line, FilePath);
+            else if (ContainsCommand(line, "Station.Load")) Station = new Contents_Map(line, FilePath);
+            else if (ContainsCommand(line, "Signal.Load")) Signal = new Contents_Map(line, FilePath);
+            else if (ContainsCommand(line, "Sound.Load")) SoundList = new Contents_Map(line, FilePath);
+            else if (ContainsCommand(line, "Sound3D.Load")) Sound3DList = new Contents_Map(line, FilePath);
+            else if (ContainsCommand(line, "Train.Add")) Train.Add(new Contents_Map(line, FilePath));
+        }
+
+        private bool ContainsCommand(string line, string command) => line.IndexOf(command, StringComparison.OrdinalIgnoreCase) >= 0;
 
     }
     public class Contents_Map
@@ -116,6 +98,11 @@ namespace BveFileExplorer
         public string FilePathAbs { get; private set; } = "";
 
         public string FilePath { get; private set; } = "";
+
+        // タプルのリストを初期化
+        public List<(string trainKey, string filePath, string trackKey, string direction)> TrainFilesList { get; private set; }
+            = new List<(string trainKey, string filePath, string trackKey, string direction)>();
+
 
         public int Ret { get; private set; } = 0;
         public string Message { get; private set; } = "";
@@ -129,21 +116,31 @@ namespace BveFileExplorer
 
         private void PathControl(string line, string filePath)
         {
-            if (line.Substring(line.IndexOf("(")).Length > 1)
+            // カッコ内の値を取得
+            var match = Regex.Match(line, @"\((.*)\)");
+            if (match.Success)
             {
+                // クォートを除去してカンマで分割
+                string content = match.Groups[1].Value.Replace("'", "").Replace("\"", "").Trim();
+                string[] parts = content.Split(',').Select(p => p.Trim()).ToArray();
 
-                line = line.Trim();
-                line = line.Substring(line.IndexOf("(") + 1).Trim();
-                line = line.Substring(0, line.IndexOf(")")).Trim();
-                line = line.Replace("'", "").Trim();
-                if (line.Contains(","))//'Train.Add'の場合
+                if (line.Contains(","))
                 {
-                    var lines = line.Split(',');
-                    line = lines[1].Trim();
+                    // Train.Add の 4引数対応
+                    string tKey = parts.Length > 0 ? parts[0] : "";
+                    string fPath = parts.Length > 1 ? parts[1] : "";
+                    string trKey = parts.Length > 2 ? parts[2] : "";
+                    string dir = parts.Length > 3 ? parts[3] : "";
 
+                    FilePath = fPath;
+                    TrainFilesList.Add((tKey, fPath, trKey, dir));
                 }
-                FilePathAbs = Path.GetFullPath(Path.GetDirectoryName(filePath) + @"\" + line);
-                FilePath = line;
+                else
+                {
+                    // 通常の Load(path) 形式
+                    FilePath = parts.Length > 0 ? parts[0] : "";
+                }
+                FilePathAbs = PathCombineAbs(filePath, FilePath);
                 if (File.Exists(FilePathAbs))
                 {
                     Ret = 1;
@@ -162,6 +159,19 @@ namespace BveFileExplorer
                 Color = Color.LightYellow;
                 Ret = 0;
             }
+        }
+
+        private string PathCombineAbs(string directory, string path)
+        {
+            string filePath = "";
+            try
+            {
+                filePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(directory.Trim()), path.Trim()));
+            }
+            catch (Exception ex){
+                MessageBox.Show($"{ ex.Message} dir:{directory} file:{path}");
+            }
+            return filePath;
         }
     }
 }

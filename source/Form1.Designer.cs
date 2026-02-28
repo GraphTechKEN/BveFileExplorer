@@ -44,26 +44,31 @@
             this.tpVehicleFile = new System.Windows.Forms.TabPage();
             this.dgvVehicle = new System.Windows.Forms.DataGridView();
             this.tpPerformanceCurve = new System.Windows.Forms.TabPage();
+            this.cbxPerformanceCurveEnc = new System.Windows.Forms.ComboBox();
             this.dgvPerformanceCurve = new System.Windows.Forms.DataGridView();
             this.tbPerfoemanceCurve = new System.Windows.Forms.TextBox();
             this.btnPerfoemanceCurveOpen = new System.Windows.Forms.Button();
             this.btnPerfoemanceCurveDirectory = new System.Windows.Forms.Button();
             this.tpParameters = new System.Windows.Forms.TabPage();
+            this.cbxParametersEnc = new System.Windows.Forms.ComboBox();
             this.dgvParameters = new System.Windows.Forms.DataGridView();
             this.tbParameters = new System.Windows.Forms.TextBox();
             this.btnParametersOpen = new System.Windows.Forms.Button();
             this.btnParametersDirectory = new System.Windows.Forms.Button();
             this.tpPanel = new System.Windows.Forms.TabPage();
+            this.cbxPanelEnc = new System.Windows.Forms.ComboBox();
             this.dgvPanel = new System.Windows.Forms.DataGridView();
             this.tbPanel = new System.Windows.Forms.TextBox();
             this.btnPanelOpen = new System.Windows.Forms.Button();
             this.btnPanelDirectory = new System.Windows.Forms.Button();
             this.tpSound = new System.Windows.Forms.TabPage();
+            this.cbxSoundEnc = new System.Windows.Forms.ComboBox();
             this.dgvSound = new System.Windows.Forms.DataGridView();
             this.tbSound = new System.Windows.Forms.TextBox();
             this.btnSoundOpen = new System.Windows.Forms.Button();
             this.btnSoundDirectory = new System.Windows.Forms.Button();
-            this.tpMorotNoise = new System.Windows.Forms.TabPage();
+            this.tpMotorNoise = new System.Windows.Forms.TabPage();
+            this.cbxMotorNoiseEnc = new System.Windows.Forms.ComboBox();
             this.dgvMotorNoise = new System.Windows.Forms.DataGridView();
             this.tbMotorNoise = new System.Windows.Forms.TextBox();
             this.btnMotorNoiseOpen = new System.Windows.Forms.Button();
@@ -110,31 +115,37 @@
             this.tpRouteFile = new System.Windows.Forms.TabPage();
             this.dgvRoute = new System.Windows.Forms.DataGridView();
             this.tpStructure = new System.Windows.Forms.TabPage();
+            this.cbxStructureEnc = new System.Windows.Forms.ComboBox();
             this.dgvStructure = new System.Windows.Forms.DataGridView();
             this.tbStructure = new System.Windows.Forms.TextBox();
             this.btnStructureDirectory = new System.Windows.Forms.Button();
             this.btnStructureOpen = new System.Windows.Forms.Button();
             this.tpSignal = new System.Windows.Forms.TabPage();
+            this.cbxSignalEnc = new System.Windows.Forms.ComboBox();
             this.dgvSignal = new System.Windows.Forms.DataGridView();
             this.tbSignal = new System.Windows.Forms.TextBox();
             this.btnSignalDirectory = new System.Windows.Forms.Button();
             this.btnSignalOpen = new System.Windows.Forms.Button();
             this.tpStation = new System.Windows.Forms.TabPage();
+            this.cbxStationEnc = new System.Windows.Forms.ComboBox();
             this.dgvStation = new System.Windows.Forms.DataGridView();
             this.tbStation = new System.Windows.Forms.TextBox();
             this.btnStationDirectory = new System.Windows.Forms.Button();
             this.btnStationOpen = new System.Windows.Forms.Button();
             this.tpSoundList = new System.Windows.Forms.TabPage();
+            this.cbxSoundListEnc = new System.Windows.Forms.ComboBox();
             this.dgvSoundList = new System.Windows.Forms.DataGridView();
             this.tbSoundList = new System.Windows.Forms.TextBox();
             this.btnSoundListDirectory = new System.Windows.Forms.Button();
             this.btnSoundListOpen = new System.Windows.Forms.Button();
             this.tpSound3D = new System.Windows.Forms.TabPage();
+            this.cbxSound3DListEnc = new System.Windows.Forms.ComboBox();
             this.dgvSound3DList = new System.Windows.Forms.DataGridView();
             this.tbSound3DList = new System.Windows.Forms.TextBox();
             this.btnSound3DListDirectory = new System.Windows.Forms.Button();
             this.btnSound3DListOpen = new System.Windows.Forms.Button();
             this.tpTrain = new System.Windows.Forms.TabPage();
+            this.cbxTrainFileEnc = new System.Windows.Forms.ComboBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.dgvTrainFileList = new System.Windows.Forms.DataGridView();
             this.dgvTrain = new System.Windows.Forms.DataGridView();
@@ -187,6 +198,9 @@
             this.btnBootBVE6 = new System.Windows.Forms.Button();
             this.tbSeinarioFileName = new System.Windows.Forms.TextBox();
             this.gbxSenario = new System.Windows.Forms.GroupBox();
+            this.dgvScenario = new System.Windows.Forms.DataGridView();
+            this.clmKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnScenarioClear = new System.Windows.Forms.Button();
             this.gbxImage = new System.Windows.Forms.GroupBox();
             this.btnSenarioDirectoryOpen = new System.Windows.Forms.Button();
@@ -201,14 +215,12 @@
             this.btnListBVE5 = new System.Windows.Forms.Button();
             this.lblLegend = new System.Windows.Forms.Label();
             this.pgBarList = new System.Windows.Forms.ProgressBar();
+            this.cbxScenarioEnc = new System.Windows.Forms.ComboBox();
+            this.btnPlayStop = new System.Windows.Forms.Button();
             this.btnStrviewPathSetting = new System.Windows.Forms.Button();
             this.btnStrview5 = new System.Windows.Forms.Button();
             this.btnScenarioReload = new System.Windows.Forms.Button();
             this.btnOpenScenarioDirectory = new System.Windows.Forms.Button();
-            this.btnPlayStop = new System.Windows.Forms.Button();
-            this.dgvScenario = new System.Windows.Forms.DataGridView();
-            this.clmKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pbVehicleImage)).BeginInit();
             this.tabControlScenario.SuspendLayout();
             this.tpVehicle.SuspendLayout();
@@ -223,7 +235,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPanel)).BeginInit();
             this.tpSound.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSound)).BeginInit();
-            this.tpMorotNoise.SuspendLayout();
+            this.tpMotorNoise.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMotorNoise)).BeginInit();
             this.tpAts.SuspendLayout();
             this.tabControlDetailModules.SuspendLayout();
@@ -260,13 +272,13 @@
             this.gbxBve5.SuspendLayout();
             this.gbxBve6.SuspendLayout();
             this.gbxSenario.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvScenario)).BeginInit();
             this.gbxImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvScenario)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOpenScenario
@@ -407,7 +419,7 @@
             this.tabControlVehicle.Controls.Add(this.tpParameters);
             this.tabControlVehicle.Controls.Add(this.tpPanel);
             this.tabControlVehicle.Controls.Add(this.tpSound);
-            this.tabControlVehicle.Controls.Add(this.tpMorotNoise);
+            this.tabControlVehicle.Controls.Add(this.tpMotorNoise);
             this.tabControlVehicle.Controls.Add(this.tpAts);
             this.tabControlVehicle.Location = new System.Drawing.Point(3, 37);
             this.tabControlVehicle.Name = "tabControlVehicle";
@@ -444,6 +456,7 @@
             // 
             // tpPerformanceCurve
             // 
+            this.tpPerformanceCurve.Controls.Add(this.cbxPerformanceCurveEnc);
             this.tpPerformanceCurve.Controls.Add(this.dgvPerformanceCurve);
             this.tpPerformanceCurve.Controls.Add(this.tbPerfoemanceCurve);
             this.tpPerformanceCurve.Controls.Add(this.btnPerfoemanceCurveOpen);
@@ -455,6 +468,22 @@
             this.tpPerformanceCurve.TabIndex = 0;
             this.tpPerformanceCurve.Text = "性能曲線(PerformanceCurve)";
             this.tpPerformanceCurve.UseVisualStyleBackColor = true;
+            // 
+            // cbxPerformanceCurveEnc
+            // 
+            this.cbxPerformanceCurveEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxPerformanceCurveEnc.FormattingEnabled = true;
+            this.cbxPerformanceCurveEnc.Items.AddRange(new object[] {
+            "Encode",
+            "UTF-8",
+            "Shift_JIS"});
+            this.cbxPerformanceCurveEnc.Location = new System.Drawing.Point(930, 7);
+            this.cbxPerformanceCurveEnc.Name = "cbxPerformanceCurveEnc";
+            this.cbxPerformanceCurveEnc.Size = new System.Drawing.Size(114, 20);
+            this.cbxPerformanceCurveEnc.TabIndex = 12;
+            this.cbxPerformanceCurveEnc.TabStop = false;
+            this.cbxPerformanceCurveEnc.Text = "Encoding";
+            this.cbxPerformanceCurveEnc.SelectedIndexChanged += new System.EventHandler(this.cbxPerformanceCurveEnc_SelectedIndexChanged);
             // 
             // dgvPerformanceCurve
             // 
@@ -477,7 +506,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbPerfoemanceCurve.Location = new System.Drawing.Point(134, 8);
             this.tbPerfoemanceCurve.Name = "tbPerfoemanceCurve";
-            this.tbPerfoemanceCurve.Size = new System.Drawing.Size(910, 19);
+            this.tbPerfoemanceCurve.Size = new System.Drawing.Size(790, 19);
             this.tbPerfoemanceCurve.TabIndex = 1;
             // 
             // btnPerfoemanceCurveOpen
@@ -504,6 +533,7 @@
             // 
             // tpParameters
             // 
+            this.tpParameters.Controls.Add(this.cbxParametersEnc);
             this.tpParameters.Controls.Add(this.dgvParameters);
             this.tpParameters.Controls.Add(this.tbParameters);
             this.tpParameters.Controls.Add(this.btnParametersOpen);
@@ -515,6 +545,22 @@
             this.tpParameters.TabIndex = 1;
             this.tpParameters.Text = "パラメータ(Parameters)";
             this.tpParameters.UseVisualStyleBackColor = true;
+            // 
+            // cbxParametersEnc
+            // 
+            this.cbxParametersEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxParametersEnc.FormattingEnabled = true;
+            this.cbxParametersEnc.Items.AddRange(new object[] {
+            "Encode",
+            "UTF-8",
+            "Shift_JIS"});
+            this.cbxParametersEnc.Location = new System.Drawing.Point(930, 7);
+            this.cbxParametersEnc.Name = "cbxParametersEnc";
+            this.cbxParametersEnc.Size = new System.Drawing.Size(114, 20);
+            this.cbxParametersEnc.TabIndex = 11;
+            this.cbxParametersEnc.TabStop = false;
+            this.cbxParametersEnc.Text = "Encoding";
+            this.cbxParametersEnc.SelectedIndexChanged += new System.EventHandler(this.cbxParametersEnc_SelectedIndexChanged);
             // 
             // dgvParameters
             // 
@@ -536,7 +582,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbParameters.Location = new System.Drawing.Point(134, 8);
             this.tbParameters.Name = "tbParameters";
-            this.tbParameters.Size = new System.Drawing.Size(910, 19);
+            this.tbParameters.Size = new System.Drawing.Size(790, 19);
             this.tbParameters.TabIndex = 1;
             // 
             // btnParametersOpen
@@ -563,6 +609,7 @@
             // 
             // tpPanel
             // 
+            this.tpPanel.Controls.Add(this.cbxPanelEnc);
             this.tpPanel.Controls.Add(this.dgvPanel);
             this.tpPanel.Controls.Add(this.tbPanel);
             this.tpPanel.Controls.Add(this.btnPanelOpen);
@@ -573,6 +620,22 @@
             this.tpPanel.TabIndex = 2;
             this.tpPanel.Text = "パネル(Panel)";
             this.tpPanel.UseVisualStyleBackColor = true;
+            // 
+            // cbxPanelEnc
+            // 
+            this.cbxPanelEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxPanelEnc.FormattingEnabled = true;
+            this.cbxPanelEnc.Items.AddRange(new object[] {
+            "Encode",
+            "UTF-8",
+            "Shift_JIS"});
+            this.cbxPanelEnc.Location = new System.Drawing.Point(930, 7);
+            this.cbxPanelEnc.Name = "cbxPanelEnc";
+            this.cbxPanelEnc.Size = new System.Drawing.Size(114, 20);
+            this.cbxPanelEnc.TabIndex = 13;
+            this.cbxPanelEnc.TabStop = false;
+            this.cbxPanelEnc.Text = "Encoding";
+            this.cbxPanelEnc.SelectedIndexChanged += new System.EventHandler(this.cbxPanelEnc_SelectedIndexChanged);
             // 
             // dgvPanel
             // 
@@ -595,7 +658,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbPanel.Location = new System.Drawing.Point(134, 8);
             this.tbPanel.Name = "tbPanel";
-            this.tbPanel.Size = new System.Drawing.Size(910, 19);
+            this.tbPanel.Size = new System.Drawing.Size(790, 19);
             this.tbPanel.TabIndex = 1;
             // 
             // btnPanelOpen
@@ -622,6 +685,7 @@
             // 
             // tpSound
             // 
+            this.tpSound.Controls.Add(this.cbxSoundEnc);
             this.tpSound.Controls.Add(this.dgvSound);
             this.tpSound.Controls.Add(this.tbSound);
             this.tpSound.Controls.Add(this.btnSoundOpen);
@@ -632,6 +696,22 @@
             this.tpSound.TabIndex = 3;
             this.tpSound.Text = "サウンド(Sound)";
             this.tpSound.UseVisualStyleBackColor = true;
+            // 
+            // cbxSoundEnc
+            // 
+            this.cbxSoundEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxSoundEnc.FormattingEnabled = true;
+            this.cbxSoundEnc.Items.AddRange(new object[] {
+            "Encode",
+            "UTF-8",
+            "Shift_JIS"});
+            this.cbxSoundEnc.Location = new System.Drawing.Point(930, 7);
+            this.cbxSoundEnc.Name = "cbxSoundEnc";
+            this.cbxSoundEnc.Size = new System.Drawing.Size(114, 20);
+            this.cbxSoundEnc.TabIndex = 14;
+            this.cbxSoundEnc.TabStop = false;
+            this.cbxSoundEnc.Text = "Encoding";
+            this.cbxSoundEnc.SelectedIndexChanged += new System.EventHandler(this.cbxSoundEnc_SelectedIndexChanged);
             // 
             // dgvSound
             // 
@@ -655,7 +735,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSound.Location = new System.Drawing.Point(134, 8);
             this.tbSound.Name = "tbSound";
-            this.tbSound.Size = new System.Drawing.Size(910, 19);
+            this.tbSound.Size = new System.Drawing.Size(790, 19);
             this.tbSound.TabIndex = 1;
             // 
             // btnSoundOpen
@@ -680,18 +760,35 @@
             this.btnSoundDirectory.UseVisualStyleBackColor = true;
             this.btnSoundDirectory.Click += new System.EventHandler(this.btnSoundDirectory_Click);
             // 
-            // tpMorotNoise
+            // tpMotorNoise
             // 
-            this.tpMorotNoise.Controls.Add(this.dgvMotorNoise);
-            this.tpMorotNoise.Controls.Add(this.tbMotorNoise);
-            this.tpMorotNoise.Controls.Add(this.btnMotorNoiseOpen);
-            this.tpMorotNoise.Controls.Add(this.btnMotorNoiseDirectory);
-            this.tpMorotNoise.Location = new System.Drawing.Point(4, 22);
-            this.tpMorotNoise.Name = "tpMorotNoise";
-            this.tpMorotNoise.Size = new System.Drawing.Size(1053, 570);
-            this.tpMorotNoise.TabIndex = 4;
-            this.tpMorotNoise.Text = "モーター音(MotorNoise)";
-            this.tpMorotNoise.UseVisualStyleBackColor = true;
+            this.tpMotorNoise.Controls.Add(this.cbxMotorNoiseEnc);
+            this.tpMotorNoise.Controls.Add(this.dgvMotorNoise);
+            this.tpMotorNoise.Controls.Add(this.tbMotorNoise);
+            this.tpMotorNoise.Controls.Add(this.btnMotorNoiseOpen);
+            this.tpMotorNoise.Controls.Add(this.btnMotorNoiseDirectory);
+            this.tpMotorNoise.Location = new System.Drawing.Point(4, 22);
+            this.tpMotorNoise.Name = "tpMotorNoise";
+            this.tpMotorNoise.Size = new System.Drawing.Size(1053, 570);
+            this.tpMotorNoise.TabIndex = 4;
+            this.tpMotorNoise.Text = "モーター音(MotorNoise)";
+            this.tpMotorNoise.UseVisualStyleBackColor = true;
+            // 
+            // cbxMotorNoiseEnc
+            // 
+            this.cbxMotorNoiseEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxMotorNoiseEnc.FormattingEnabled = true;
+            this.cbxMotorNoiseEnc.Items.AddRange(new object[] {
+            "Encode",
+            "UTF-8",
+            "Shift_JIS"});
+            this.cbxMotorNoiseEnc.Location = new System.Drawing.Point(930, 7);
+            this.cbxMotorNoiseEnc.Name = "cbxMotorNoiseEnc";
+            this.cbxMotorNoiseEnc.Size = new System.Drawing.Size(114, 20);
+            this.cbxMotorNoiseEnc.TabIndex = 15;
+            this.cbxMotorNoiseEnc.TabStop = false;
+            this.cbxMotorNoiseEnc.Text = "Encoding";
+            this.cbxMotorNoiseEnc.SelectedIndexChanged += new System.EventHandler(this.cbxMotorNoiseEnc_SelectedIndexChanged);
             // 
             // dgvMotorNoise
             // 
@@ -714,7 +811,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbMotorNoise.Location = new System.Drawing.Point(134, 8);
             this.tbMotorNoise.Name = "tbMotorNoise";
-            this.tbMotorNoise.Size = new System.Drawing.Size(910, 19);
+            this.tbMotorNoise.Size = new System.Drawing.Size(790, 19);
             this.tbMotorNoise.TabIndex = 1;
             // 
             // btnMotorNoiseOpen
@@ -1198,6 +1295,7 @@
             // tpStructure
             // 
             this.tpStructure.BackColor = System.Drawing.Color.Transparent;
+            this.tpStructure.Controls.Add(this.cbxStructureEnc);
             this.tpStructure.Controls.Add(this.dgvStructure);
             this.tpStructure.Controls.Add(this.tbStructure);
             this.tpStructure.Controls.Add(this.btnStructureDirectory);
@@ -1207,6 +1305,22 @@
             this.tpStructure.Size = new System.Drawing.Size(1053, 570);
             this.tpStructure.TabIndex = 2;
             this.tpStructure.Text = "ストラクチャファイル(Structure)";
+            // 
+            // cbxStructureEnc
+            // 
+            this.cbxStructureEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxStructureEnc.FormattingEnabled = true;
+            this.cbxStructureEnc.Items.AddRange(new object[] {
+            "Encode",
+            "UTF-8",
+            "Shift_JIS"});
+            this.cbxStructureEnc.Location = new System.Drawing.Point(931, 7);
+            this.cbxStructureEnc.Name = "cbxStructureEnc";
+            this.cbxStructureEnc.Size = new System.Drawing.Size(114, 20);
+            this.cbxStructureEnc.TabIndex = 16;
+            this.cbxStructureEnc.TabStop = false;
+            this.cbxStructureEnc.Text = "Encoding";
+            this.cbxStructureEnc.SelectedIndexChanged += new System.EventHandler(this.cbxStructureEnc_SelectedIndexChanged);
             // 
             // dgvStructure
             // 
@@ -1230,7 +1344,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStructure.Location = new System.Drawing.Point(135, 8);
             this.tbStructure.Name = "tbStructure";
-            this.tbStructure.Size = new System.Drawing.Size(910, 19);
+            this.tbStructure.Size = new System.Drawing.Size(790, 19);
             this.tbStructure.TabIndex = 4;
             // 
             // btnStructureDirectory
@@ -1258,6 +1372,7 @@
             // tpSignal
             // 
             this.tpSignal.BackColor = System.Drawing.Color.Transparent;
+            this.tpSignal.Controls.Add(this.cbxSignalEnc);
             this.tpSignal.Controls.Add(this.dgvSignal);
             this.tpSignal.Controls.Add(this.tbSignal);
             this.tpSignal.Controls.Add(this.btnSignalDirectory);
@@ -1267,6 +1382,22 @@
             this.tpSignal.Size = new System.Drawing.Size(1053, 570);
             this.tpSignal.TabIndex = 4;
             this.tpSignal.Text = "地上信号機(Signal)";
+            // 
+            // cbxSignalEnc
+            // 
+            this.cbxSignalEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxSignalEnc.FormattingEnabled = true;
+            this.cbxSignalEnc.Items.AddRange(new object[] {
+            "Encode",
+            "UTF-8",
+            "Shift_JIS"});
+            this.cbxSignalEnc.Location = new System.Drawing.Point(931, 7);
+            this.cbxSignalEnc.Name = "cbxSignalEnc";
+            this.cbxSignalEnc.Size = new System.Drawing.Size(114, 20);
+            this.cbxSignalEnc.TabIndex = 17;
+            this.cbxSignalEnc.TabStop = false;
+            this.cbxSignalEnc.Text = "Encoding";
+            this.cbxSignalEnc.SelectedIndexChanged += new System.EventHandler(this.cbxSignalEnc_SelectedIndexChanged);
             // 
             // dgvSignal
             // 
@@ -1288,7 +1419,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSignal.Location = new System.Drawing.Point(135, 8);
             this.tbSignal.Name = "tbSignal";
-            this.tbSignal.Size = new System.Drawing.Size(910, 19);
+            this.tbSignal.Size = new System.Drawing.Size(790, 19);
             this.tbSignal.TabIndex = 4;
             // 
             // btnSignalDirectory
@@ -1316,6 +1447,7 @@
             // tpStation
             // 
             this.tpStation.BackColor = System.Drawing.Color.Transparent;
+            this.tpStation.Controls.Add(this.cbxStationEnc);
             this.tpStation.Controls.Add(this.dgvStation);
             this.tpStation.Controls.Add(this.tbStation);
             this.tpStation.Controls.Add(this.btnStationDirectory);
@@ -1326,6 +1458,22 @@
             this.tpStation.Size = new System.Drawing.Size(1053, 570);
             this.tpStation.TabIndex = 0;
             this.tpStation.Text = "停車場ファイル(Station)";
+            // 
+            // cbxStationEnc
+            // 
+            this.cbxStationEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxStationEnc.FormattingEnabled = true;
+            this.cbxStationEnc.Items.AddRange(new object[] {
+            "Encode",
+            "UTF-8",
+            "Shift_JIS"});
+            this.cbxStationEnc.Location = new System.Drawing.Point(931, 7);
+            this.cbxStationEnc.Name = "cbxStationEnc";
+            this.cbxStationEnc.Size = new System.Drawing.Size(114, 20);
+            this.cbxStationEnc.TabIndex = 18;
+            this.cbxStationEnc.TabStop = false;
+            this.cbxStationEnc.Text = "Encoding";
+            this.cbxStationEnc.SelectedIndexChanged += new System.EventHandler(this.cbxStationEnc_SelectedIndexChanged);
             // 
             // dgvStation
             // 
@@ -1350,7 +1498,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStation.Location = new System.Drawing.Point(135, 8);
             this.tbStation.Name = "tbStation";
-            this.tbStation.Size = new System.Drawing.Size(910, 19);
+            this.tbStation.Size = new System.Drawing.Size(790, 19);
             this.tbStation.TabIndex = 4;
             // 
             // btnStationDirectory
@@ -1378,6 +1526,7 @@
             // tpSoundList
             // 
             this.tpSoundList.BackColor = System.Drawing.Color.Transparent;
+            this.tpSoundList.Controls.Add(this.cbxSoundListEnc);
             this.tpSoundList.Controls.Add(this.dgvSoundList);
             this.tpSoundList.Controls.Add(this.tbSoundList);
             this.tpSoundList.Controls.Add(this.btnSoundListDirectory);
@@ -1387,6 +1536,22 @@
             this.tpSoundList.Size = new System.Drawing.Size(1053, 570);
             this.tpSoundList.TabIndex = 1;
             this.tpSoundList.Text = "音ファイル(Sound)";
+            // 
+            // cbxSoundListEnc
+            // 
+            this.cbxSoundListEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxSoundListEnc.FormattingEnabled = true;
+            this.cbxSoundListEnc.Items.AddRange(new object[] {
+            "Encode",
+            "UTF-8",
+            "Shift_JIS"});
+            this.cbxSoundListEnc.Location = new System.Drawing.Point(931, 7);
+            this.cbxSoundListEnc.Name = "cbxSoundListEnc";
+            this.cbxSoundListEnc.Size = new System.Drawing.Size(114, 20);
+            this.cbxSoundListEnc.TabIndex = 19;
+            this.cbxSoundListEnc.TabStop = false;
+            this.cbxSoundListEnc.Text = "Encoding";
+            this.cbxSoundListEnc.SelectedIndexChanged += new System.EventHandler(this.cbxSoundListEnc_SelectedIndexChanged);
             // 
             // dgvSoundList
             // 
@@ -1411,7 +1576,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSoundList.Location = new System.Drawing.Point(135, 8);
             this.tbSoundList.Name = "tbSoundList";
-            this.tbSoundList.Size = new System.Drawing.Size(910, 19);
+            this.tbSoundList.Size = new System.Drawing.Size(790, 19);
             this.tbSoundList.TabIndex = 4;
             // 
             // btnSoundListDirectory
@@ -1439,6 +1604,7 @@
             // tpSound3D
             // 
             this.tpSound3D.BackColor = System.Drawing.Color.Transparent;
+            this.tpSound3D.Controls.Add(this.cbxSound3DListEnc);
             this.tpSound3D.Controls.Add(this.dgvSound3DList);
             this.tpSound3D.Controls.Add(this.tbSound3DList);
             this.tpSound3D.Controls.Add(this.btnSound3DListDirectory);
@@ -1448,6 +1614,22 @@
             this.tpSound3D.Size = new System.Drawing.Size(1053, 570);
             this.tpSound3D.TabIndex = 3;
             this.tpSound3D.Text = "固定音源ファイル(Sound3D)";
+            // 
+            // cbxSound3DListEnc
+            // 
+            this.cbxSound3DListEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxSound3DListEnc.FormattingEnabled = true;
+            this.cbxSound3DListEnc.Items.AddRange(new object[] {
+            "Encode",
+            "UTF-8",
+            "Shift_JIS"});
+            this.cbxSound3DListEnc.Location = new System.Drawing.Point(931, 7);
+            this.cbxSound3DListEnc.Name = "cbxSound3DListEnc";
+            this.cbxSound3DListEnc.Size = new System.Drawing.Size(114, 20);
+            this.cbxSound3DListEnc.TabIndex = 19;
+            this.cbxSound3DListEnc.TabStop = false;
+            this.cbxSound3DListEnc.Text = "Encoding";
+            this.cbxSound3DListEnc.SelectedIndexChanged += new System.EventHandler(this.cbxSound3DListEnc_SelectedIndexChanged);
             // 
             // dgvSound3DList
             // 
@@ -1472,7 +1654,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSound3DList.Location = new System.Drawing.Point(135, 8);
             this.tbSound3DList.Name = "tbSound3DList";
-            this.tbSound3DList.Size = new System.Drawing.Size(910, 19);
+            this.tbSound3DList.Size = new System.Drawing.Size(790, 19);
             this.tbSound3DList.TabIndex = 4;
             // 
             // btnSound3DListDirectory
@@ -1499,6 +1681,7 @@
             // 
             // tpTrain
             // 
+            this.tpTrain.Controls.Add(this.cbxTrainFileEnc);
             this.tpTrain.Controls.Add(this.splitContainer2);
             this.tpTrain.Controls.Add(this.cbxTrain);
             this.tpTrain.Controls.Add(this.btnTrainDirectory);
@@ -1510,8 +1693,26 @@
             this.tpTrain.Text = "他列車ファイル(Train)";
             this.tpTrain.UseVisualStyleBackColor = true;
             // 
+            // cbxTrainFileEnc
+            // 
+            this.cbxTrainFileEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxTrainFileEnc.FormattingEnabled = true;
+            this.cbxTrainFileEnc.Items.AddRange(new object[] {
+            "Encode",
+            "UTF-8",
+            "Shift_JIS"});
+            this.cbxTrainFileEnc.Location = new System.Drawing.Point(931, 7);
+            this.cbxTrainFileEnc.Name = "cbxTrainFileEnc";
+            this.cbxTrainFileEnc.Size = new System.Drawing.Size(114, 20);
+            this.cbxTrainFileEnc.TabIndex = 19;
+            this.cbxTrainFileEnc.TabStop = false;
+            this.cbxTrainFileEnc.Text = "Encoding";
+            // 
             // splitContainer2
             // 
+            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer2.Location = new System.Drawing.Point(2, 32);
             this.splitContainer2.Name = "splitContainer2";
             // 
@@ -1523,7 +1724,7 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.dgvTrain);
             this.splitContainer2.Size = new System.Drawing.Size(1048, 535);
-            this.splitContainer2.SplitterDistance = 409;
+            this.splitContainer2.SplitterDistance = 715;
             this.splitContainer2.TabIndex = 17;
             // 
             // dgvTrainFileList
@@ -1537,9 +1738,10 @@
             this.dgvTrainFileList.Location = new System.Drawing.Point(3, 4);
             this.dgvTrainFileList.Name = "dgvTrainFileList";
             this.dgvTrainFileList.RowTemplate.Height = 21;
-            this.dgvTrainFileList.Size = new System.Drawing.Size(403, 528);
+            this.dgvTrainFileList.Size = new System.Drawing.Size(709, 528);
             this.dgvTrainFileList.TabIndex = 16;
             this.dgvTrainFileList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTrainFileList_CellClick);
+            this.dgvTrainFileList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTrainFileList_CellDoubleClick);
             // 
             // dgvTrain
             // 
@@ -1552,7 +1754,7 @@
             this.dgvTrain.Location = new System.Drawing.Point(3, 4);
             this.dgvTrain.Name = "dgvTrain";
             this.dgvTrain.RowTemplate.Height = 21;
-            this.dgvTrain.Size = new System.Drawing.Size(629, 528);
+            this.dgvTrain.Size = new System.Drawing.Size(323, 528);
             this.dgvTrain.TabIndex = 15;
             // 
             // cbxTrain
@@ -1561,15 +1763,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxTrain.DropDownWidth = 910;
             this.cbxTrain.FormattingEnabled = true;
-            this.cbxTrain.Location = new System.Drawing.Point(134, 8);
+            this.cbxTrain.Location = new System.Drawing.Point(135, 7);
             this.cbxTrain.Name = "cbxTrain";
-            this.cbxTrain.Size = new System.Drawing.Size(913, 20);
+            this.cbxTrain.Size = new System.Drawing.Size(790, 20);
             this.cbxTrain.TabIndex = 6;
             // 
             // btnTrainDirectory
             // 
             this.btnTrainDirectory.Enabled = false;
-            this.btnTrainDirectory.Location = new System.Drawing.Point(74, 4);
+            this.btnTrainDirectory.Location = new System.Drawing.Point(75, 4);
             this.btnTrainDirectory.Name = "btnTrainDirectory";
             this.btnTrainDirectory.Size = new System.Drawing.Size(54, 26);
             this.btnTrainDirectory.TabIndex = 3;
@@ -1580,7 +1782,7 @@
             // btnTrainOpen
             // 
             this.btnTrainOpen.Enabled = false;
-            this.btnTrainOpen.Location = new System.Drawing.Point(19, 4);
+            this.btnTrainOpen.Location = new System.Drawing.Point(15, 4);
             this.btnTrainOpen.Name = "btnTrainOpen";
             this.btnTrainOpen.Size = new System.Drawing.Size(54, 26);
             this.btnTrainOpen.TabIndex = 3;
@@ -2108,7 +2310,7 @@
             this.tbSeinarioFileName.Enabled = false;
             this.tbSeinarioFileName.Location = new System.Drawing.Point(314, 10);
             this.tbSeinarioFileName.Name = "tbSeinarioFileName";
-            this.tbSeinarioFileName.Size = new System.Drawing.Size(746, 19);
+            this.tbSeinarioFileName.Size = new System.Drawing.Size(627, 19);
             this.tbSeinarioFileName.TabIndex = 1;
             // 
             // gbxSenario
@@ -2121,6 +2323,37 @@
             this.gbxSenario.TabIndex = 28;
             this.gbxSenario.TabStop = false;
             this.gbxSenario.Text = "Senario";
+            // 
+            // dgvScenario
+            // 
+            this.dgvScenario.AllowUserToAddRows = false;
+            this.dgvScenario.AllowUserToDeleteRows = false;
+            this.dgvScenario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvScenario.ColumnHeadersVisible = false;
+            this.dgvScenario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmKey,
+            this.clmValue});
+            this.dgvScenario.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvScenario.Location = new System.Drawing.Point(3, 15);
+            this.dgvScenario.Name = "dgvScenario";
+            this.dgvScenario.RowHeadersVisible = false;
+            this.dgvScenario.RowTemplate.Height = 21;
+            this.dgvScenario.Size = new System.Drawing.Size(295, 182);
+            this.dgvScenario.TabIndex = 25;
+            // 
+            // clmKey
+            // 
+            this.clmKey.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.clmKey.FillWeight = 80F;
+            this.clmKey.HeaderText = "Key";
+            this.clmKey.Name = "clmKey";
+            this.clmKey.Width = 5;
+            // 
+            // clmValue
+            // 
+            this.clmValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmValue.HeaderText = "Value";
+            this.clmValue.Name = "clmValue";
             // 
             // btnScenarioClear
             // 
@@ -2189,6 +2422,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.splitContainer1.Panel2.Controls.Add(this.cbxScenarioEnc);
             this.splitContainer1.Panel2.Controls.Add(this.btnPlayStop);
             this.splitContainer1.Panel2.Controls.Add(this.btnStrviewPathSetting);
             this.splitContainer1.Panel2.Controls.Add(this.btnOpenScenario);
@@ -2311,6 +2545,34 @@
             this.pgBarList.TabIndex = 35;
             this.pgBarList.Visible = false;
             // 
+            // cbxScenarioEnc
+            // 
+            this.cbxScenarioEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxScenarioEnc.FormattingEnabled = true;
+            this.cbxScenarioEnc.Items.AddRange(new object[] {
+            "Encode",
+            "UTF-8",
+            "Shift_JIS"});
+            this.cbxScenarioEnc.Location = new System.Drawing.Point(947, 10);
+            this.cbxScenarioEnc.Name = "cbxScenarioEnc";
+            this.cbxScenarioEnc.Size = new System.Drawing.Size(114, 20);
+            this.cbxScenarioEnc.TabIndex = 20;
+            this.cbxScenarioEnc.TabStop = false;
+            this.cbxScenarioEnc.Text = "Encording";
+            this.cbxScenarioEnc.SelectedIndexChanged += new System.EventHandler(this.cbxScenarioEnc_SelectedIndexChanged);
+            // 
+            // btnPlayStop
+            // 
+            this.btnPlayStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPlayStop.BackColor = System.Drawing.Color.Salmon;
+            this.btnPlayStop.Location = new System.Drawing.Point(1000, 297);
+            this.btnPlayStop.Name = "btnPlayStop";
+            this.btnPlayStop.Size = new System.Drawing.Size(74, 26);
+            this.btnPlayStop.TabIndex = 12;
+            this.btnPlayStop.Text = "再生停止";
+            this.btnPlayStop.UseVisualStyleBackColor = false;
+            this.btnPlayStop.Visible = false;
+            // 
             // btnStrviewPathSetting
             // 
             this.btnStrviewPathSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -2357,49 +2619,6 @@
             this.btnOpenScenarioDirectory.UseVisualStyleBackColor = true;
             this.btnOpenScenarioDirectory.Click += new System.EventHandler(this.btnOpenScenarioDirectory_Click);
             // 
-            // btnPlayStop
-            // 
-            this.btnPlayStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPlayStop.BackColor = System.Drawing.Color.Salmon;
-            this.btnPlayStop.Location = new System.Drawing.Point(1000, 297);
-            this.btnPlayStop.Name = "btnPlayStop";
-            this.btnPlayStop.Size = new System.Drawing.Size(74, 26);
-            this.btnPlayStop.TabIndex = 12;
-            this.btnPlayStop.Text = "再生停止";
-            this.btnPlayStop.UseVisualStyleBackColor = false;
-            this.btnPlayStop.Visible = false;
-            // 
-            // dgvScenario
-            // 
-            this.dgvScenario.AllowUserToAddRows = false;
-            this.dgvScenario.AllowUserToDeleteRows = false;
-            this.dgvScenario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvScenario.ColumnHeadersVisible = false;
-            this.dgvScenario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmKey,
-            this.clmValue});
-            this.dgvScenario.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvScenario.Location = new System.Drawing.Point(3, 15);
-            this.dgvScenario.Name = "dgvScenario";
-            this.dgvScenario.RowHeadersVisible = false;
-            this.dgvScenario.RowTemplate.Height = 21;
-            this.dgvScenario.Size = new System.Drawing.Size(295, 182);
-            this.dgvScenario.TabIndex = 25;
-            // 
-            // clmKey
-            // 
-            this.clmKey.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.clmKey.FillWeight = 80F;
-            this.clmKey.HeaderText = "Key";
-            this.clmKey.Name = "clmKey";
-            this.clmKey.Width = 5;
-            // 
-            // clmValue
-            // 
-            this.clmValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmValue.HeaderText = "Value";
-            this.clmValue.Name = "clmValue";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2438,8 +2657,8 @@
             this.tpSound.ResumeLayout(false);
             this.tpSound.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSound)).EndInit();
-            this.tpMorotNoise.ResumeLayout(false);
-            this.tpMorotNoise.PerformLayout();
+            this.tpMotorNoise.ResumeLayout(false);
+            this.tpMotorNoise.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMotorNoise)).EndInit();
             this.tpAts.ResumeLayout(false);
             this.tpAts.PerformLayout();
@@ -2488,6 +2707,7 @@
             this.gbxBve5.ResumeLayout(false);
             this.gbxBve6.ResumeLayout(false);
             this.gbxSenario.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvScenario)).EndInit();
             this.gbxImage.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -2496,7 +2716,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvScenario)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2635,7 +2854,7 @@
         private System.Windows.Forms.DataGridView dgvPanel;
         private System.Windows.Forms.TabPage tpSound;
         private System.Windows.Forms.DataGridView dgvSound;
-        private System.Windows.Forms.TabPage tpMorotNoise;
+        private System.Windows.Forms.TabPage tpMotorNoise;
         private System.Windows.Forms.DataGridView dgvMotorNoise;
         private System.Windows.Forms.DataGridView dgvTrain;
         private System.Windows.Forms.TabPage tpAts;
@@ -2683,6 +2902,18 @@
         private System.Windows.Forms.DataGridView dgvScenario;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmValue;
+        private System.Windows.Forms.ComboBox cbxParametersEnc;
+        private System.Windows.Forms.ComboBox cbxPanelEnc;
+        private System.Windows.Forms.ComboBox cbxPerformanceCurveEnc;
+        private System.Windows.Forms.ComboBox cbxSoundEnc;
+        private System.Windows.Forms.ComboBox cbxMotorNoiseEnc;
+        private System.Windows.Forms.ComboBox cbxStructureEnc;
+        private System.Windows.Forms.ComboBox cbxSignalEnc;
+        private System.Windows.Forms.ComboBox cbxStationEnc;
+        private System.Windows.Forms.ComboBox cbxSoundListEnc;
+        private System.Windows.Forms.ComboBox cbxSound3DListEnc;
+        private System.Windows.Forms.ComboBox cbxTrainFileEnc;
+        private System.Windows.Forms.ComboBox cbxScenarioEnc;
     }
 }
 

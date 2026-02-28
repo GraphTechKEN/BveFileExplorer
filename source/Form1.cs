@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace BveFileExplorer
 {
     public enum BVE_Version
@@ -132,6 +133,7 @@ namespace BveFileExplorer
             tbSeinarioFileName.Text = scenario.FilePath;
             btnScenarioClear.Enabled = true;
             btnScenarioReload.Enabled = true;
+            cbxScenarioEnc.SelectedIndex = scenario.encMode;
 
             //内容を読み込み、表示する
             bool flgErrVehicle = false;
@@ -154,10 +156,6 @@ namespace BveFileExplorer
             dgvScenario.Rows.Add("コメント", scenario.Comment);
             dgvScenario[1,4].Style.WrapMode = DataGridViewTriState.True;
             dgvScenario.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
-
-
-
-
 
             //車両ファイルが指定されている場合の処理
             if (scenario.VehicleFilesExistsCount > 0 && !flgErrVehicle)
@@ -303,43 +301,25 @@ namespace BveFileExplorer
             }
         }
 
-        private void OpenNewMapFile(string strMapFilePath_)
+        private void OpenNewMapFile(string filePath)
         {
-            if (File.Exists(strMapFilePath_))
+            if (File.Exists(filePath))
             {
                 btnMapOpen.Enabled = true;
                 btnMapDirectory.Enabled = true;
                 int error = 0;
-                cbxMapFilePath.Text = strMapFilePath_;
+                cbxMapFilePath.Text = filePath;
                 cbxTrain.Items.Clear();
                 List<string> listTrain = new List<string>();
 
-                map = new Map(strMapFilePath);
+                map = new Map(filePath);
 
-                if (PathControl_Map(ref tbStructure, ref btnStructureOpen, ref btnStructureDirectory, map.Structure, out _) <= 0)
-                {
-                    error++;
-                }
-                if (PathControl_Map(ref tbStation, ref btnStationOpen, ref btnStationDirectory, map.Station, out _) <= 0)
-                {
-                    error++;
-                }
-                if (PathControl_Map(ref tbSignal, ref btnSignalOpen, ref btnSignalDirectory, map.Signal, out _) <= 0)
-                {
-                    error++;
-                }
-                if (PathControl_Map(ref tbSoundList, ref btnSoundListOpen, ref btnSoundListDirectory, map.SoundList, out _) <= 0)
-                {
-                    error++;
-                }
-                if (PathControl_Map(ref tbSound3DList, ref btnSound3DListOpen, ref btnSound3DListDirectory, map.Sound3DList, out _) <= 0)
-                {
-                    error++;
-                }
-                if (PathControl_Map(ref cbxTrain, ref btnTrainOpen, ref btnTrainDirectory, map.Train, out listTrain) <= 0)
-                {
-                    error++;
-                }
+                error += (PathControl_Map(ref tbStructure, ref btnStructureOpen, ref btnStructureDirectory, map.Structure, out _) <= 0) ? 1 : 0;
+                error += (PathControl_Map(ref tbStation, ref btnStationOpen, ref btnStationDirectory, map.Station, out _) <= 0) ? 1 : 0;
+                error += (PathControl_Map(ref tbSignal, ref btnSignalOpen, ref btnSignalDirectory, map.Signal, out _) <= 0) ? 1 : 0;
+                error += (PathControl_Map(ref tbSoundList, ref btnSoundListOpen, ref btnSoundListDirectory, map.SoundList, out _) <= 0) ? 1 : 0;
+                error += (PathControl_Map(ref tbSound3DList, ref btnSound3DListOpen, ref btnSound3DListDirectory, map.Sound3DList, out _) <= 0) ? 1 : 0;
+                error += (PathControl_Map(ref cbxTrain, ref btnTrainOpen, ref btnTrainDirectory, map.Train, out listTrain) <= 0) ? 1 : 0;
 
 
             }
@@ -359,19 +339,19 @@ namespace BveFileExplorer
 
         }
 
-        private void OpenNewVehicleFile(string _strVehicleFilePath)
+        private void OpenNewVehicleFile(string filePath)
         {
-            if (File.Exists(_strVehicleFilePath))
+            if (File.Exists(filePath))
             {
                 btnOpenVehicleFile.Enabled = true;
                 btnOpenVehicleDirectory.Enabled = true;
                 btnOpenVehicleFile.Enabled = true;
 
-                vehicle = new Vehicle(_strVehicleFilePath);
+                vehicle = new Vehicle(filePath);
 
                 int error = 0;
 
-                strVehicleFilePath = _strVehicleFilePath;
+                strVehicleFilePath = filePath;
 
                 if (vehicle.FileVersion < 2.00)
                 {
@@ -470,26 +450,12 @@ namespace BveFileExplorer
                     btnAts32OpenDirectory.Enabled = true;
                     btnAts32Check.Enabled = true;
                 }
-                if (PathControl_Vehicle(ref tbPerfoemanceCurve, ref btnPerfoemanceCurveOpen, ref btnPerfoemanceCurveDirectory, vehicle.PerformanceCurve, out _) <= 0)
-                {
-                    error++;
-                }
-                if (PathControl_Vehicle(ref tbParameters, ref btnParametersOpen, ref btnParametersDirectory, vehicle.Parameters, out _) <= 0)
-                {
-                    error++;
-                }
-                if (PathControl_Vehicle(ref tbPanel, ref btnPanelOpen, ref btnPanelDirectory, vehicle.Panel, out _) <= 0)
-                {
-                    error++;
-                }
-                if (PathControl_Vehicle(ref tbSound, ref btnSoundOpen, ref btnSoundDirectory, vehicle.Sound, out _) <= 0)
-                {
-                    error++;
-                }
-                if (PathControl_Vehicle(ref tbMotorNoise, ref btnMotorNoiseOpen, ref btnMotorNoiseDirectory, vehicle.MotorNoise, out _) <= 0)
-                {
-                    error++;
-                }
+                error += (PathControl_Vehicle(ref tbPerfoemanceCurve, ref btnPerfoemanceCurveOpen, ref btnPerfoemanceCurveDirectory, vehicle.PerformanceCurve, out _) <= 0) ? 1 : 0;
+                error += (PathControl_Vehicle(ref tbParameters, ref btnParametersOpen, ref btnParametersDirectory, vehicle.Parameters, out _) <= 0) ? 1 : 0;
+                error += (PathControl_Vehicle(ref tbPanel, ref btnPanelOpen, ref btnPanelDirectory, vehicle.Panel, out _) <= 0) ? 1 : 0;
+                error += (PathControl_Vehicle(ref tbSound, ref btnSoundOpen, ref btnSoundDirectory, vehicle.Sound, out _) <= 0) ? 1 : 0;
+                error += (PathControl_Vehicle(ref tbMotorNoise, ref btnMotorNoiseOpen, ref btnMotorNoiseDirectory, vehicle.MotorNoise, out _) <= 0) ? 1 : 0;
+
                 //ファイルチェック
                 int ret = PathControl_Vehicle(ref tbAts64, ref btnAts64Open, ref btnAts64Open, vehicle.Ats64, out strAts64DetailManagerFilePath);
                 btnAts64Open2.Enabled = btnAts64Open.Enabled;
@@ -783,8 +749,7 @@ namespace BveFileExplorer
 
         private string GenerateRelativePath(string originalFilePath, string targetPath)
         {
-            if (string.IsNullOrWhiteSpace(originalFilePath) || string.IsNullOrWhiteSpace(targetPath))
-                return "";
+            if (string.IsNullOrWhiteSpace(originalFilePath) || string.IsNullOrWhiteSpace(targetPath)) return "";
 
             try
             {
@@ -854,7 +819,7 @@ namespace BveFileExplorer
         /// </summary>
         /// <param name="FilePath">ファイルパス</param>
         /// <param name="IsDirectory">ディレクトリ指定か？</param>
-        private void ProcessStart(string FilePath, bool IsDirectory)
+        private void ProcessStart(string FilePath, bool IsDirectory = false)
         {
             if (!IsDirectory)
             {
@@ -886,14 +851,9 @@ namespace BveFileExplorer
             }
         }
 
-        private void btnMapOpen_Click(object sender, EventArgs e)
-        {
-            ProcessStart(strMapFilePath, false);
-        }
-
         private void btnPerfoemanceCurveOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(vehicle.PerformanceCurve.FilePath, false);
+            ProcessStart(vehicle.PerformanceCurve.FilePath);
         }
 
 
@@ -904,7 +864,7 @@ namespace BveFileExplorer
 
         private void btnParametersOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(vehicle.Parameters.FilePath, false);
+            ProcessStart(vehicle.Parameters.FilePath);
         }
 
         private void btnParametersDirectory_Click(object sender, EventArgs e)
@@ -914,7 +874,7 @@ namespace BveFileExplorer
 
         private void btnPanelOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(vehicle.Panel.FilePath, false);
+            ProcessStart(vehicle.Panel.FilePath);
         }
 
 
@@ -925,7 +885,7 @@ namespace BveFileExplorer
 
         private void btnSoundOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(vehicle.Sound.FilePath, false);
+            ProcessStart(vehicle.Sound.FilePath);
         }
         private void btnSoundDirectory_Click(object sender, EventArgs e)
         {
@@ -934,7 +894,7 @@ namespace BveFileExplorer
 
         private void btnMotorNoiseOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(vehicle.MotorNoise.FilePath, false);
+            ProcessStart(vehicle.MotorNoise.FilePath);
         }
 
         private void btnMotorNoiseDirectory_Click(object sender, EventArgs e)
@@ -944,12 +904,12 @@ namespace BveFileExplorer
 
         private void btnAts64Open_Click(object sender, EventArgs e)
         {
-            ProcessStart(strAts64SettingTextFilePath, false);
+            ProcessStart(strAts64SettingTextFilePath);
         }
 
         private void btnMapOpen_Click_1(object sender, EventArgs e)
         {
-            ProcessStart(strMapFilePath, false);
+            ProcessStart(strMapFilePath);
         }
 
         private void btnMapDirectory_Click(object sender, EventArgs e)
@@ -959,7 +919,7 @@ namespace BveFileExplorer
 
         private void btnStructureOpen_Click_1(object sender, EventArgs e)
         {
-            ProcessStart(map.Structure.FilePathAbs, false);
+            ProcessStart(map.Structure.FilePathAbs);
         }
 
         private void btnStructureDirectory_Click(object sender, EventArgs e)
@@ -969,7 +929,7 @@ namespace BveFileExplorer
 
         private void btnStationOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(map.Station.FilePathAbs, false);
+            ProcessStart(map.Station.FilePathAbs);
         }
         private void btnStationDirectory_Click(object sender, EventArgs e)
         {
@@ -977,7 +937,7 @@ namespace BveFileExplorer
         }
         private void btnSignalOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(map.Signal.FilePathAbs, false);
+            ProcessStart(map.Signal.FilePathAbs);
         }
         private void btnSignalDirectory_Click(object sender, EventArgs e)
         {
@@ -986,7 +946,7 @@ namespace BveFileExplorer
 
         private void btnSoundListOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(map.SoundList.FilePathAbs, false);
+            ProcessStart(map.SoundList.FilePathAbs);
         }
         private void btnSoundListDirectory_Click(object sender, EventArgs e)
         {
@@ -995,7 +955,7 @@ namespace BveFileExplorer
 
         private void btnTrainOpen_Click(object sender, EventArgs e)
         {
-            ProcessStart(cbxTrain.Text, false);
+            ProcessStart(cbxTrain.Text);
         }
 
         private void btnTrainDirectory_Click(object sender, EventArgs e)
@@ -1149,6 +1109,8 @@ namespace BveFileExplorer
             btnBve6BootChooseMap.Enabled = false;
             btnBootBVE6.Enabled = false;
 
+            cbxScenarioEnc.SelectedIndex = 0;
+
             //gbxBve6.Visible = false;
 
             strMapFilePath = "";
@@ -1264,6 +1226,11 @@ namespace BveFileExplorer
             dgvSound.Columns.Clear();
             dgvMotorNoise.Columns.Clear();
             tabControlVehicle.SelectedIndex = 0;
+            cbxParametersEnc.SelectedIndex = 0;
+            cbxPerformanceCurveEnc.SelectedIndex = 0;
+            cbxSoundEnc.SelectedIndex = 0;
+            cbxPanelEnc.SelectedIndex = 0;
+            cbxMotorNoiseEnc.SelectedIndex = 0;
 
             //マップファイルDataGridViewクリア
             dgvRoute.DataSource = null;
@@ -1283,6 +1250,13 @@ namespace BveFileExplorer
             dgvTrainFileList.DataSource = null;
             dgvTrainFileList.Columns.Clear();
             tabControlMaps.SelectedIndex = 0;
+            cbxStationEnc.SelectedIndex = 0;
+            cbxSignalEnc.SelectedIndex = 0;
+            cbxStructureEnc.SelectedIndex = 0;
+            cbxSoundEnc.SelectedIndex= 0;
+            cbxSound3DListEnc.SelectedIndex = 0;
+            cbxTrainFileEnc.SelectedIndex = 0;
+
 
             tabControlScenario.SelectTab(0);
 
@@ -2173,154 +2147,22 @@ namespace BveFileExplorer
 
         private void tabControlMaps_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (map == null)
-            {
-                return;
-            }
+            if (map == null) return;
             // 新しく選択されたTabPageを取得
             TabPage currentTab = tabControlMaps.SelectedTab;
             // タブのテキストやインデックスで処理を分岐
-            if (currentTab.Name == "tpStation")
+            if (currentTab.Name == "tpStructure")
             {
-                if (File.Exists(map.Station.FilePathAbs))
-                {
-                    // Shift_JISを指定して読み込む場合
-                    Encoding enc = GetEndcordFromFile(map.Station.FilePathAbs);
-
-                    dt = new DataTable();
-                    using (TextFieldParser parser = new TextFieldParser(map.Station.FilePathAbs, enc))
-                    {
-                        parser.TextFieldType = FieldType.Delimited;
-                        parser.SetDelimiters(","); // カンマ区切り
-
-                        //1行目読み飛ばし
-                        if (!parser.EndOfData)
-                        {
-                            parser.ReadLine();
-                        }
-
-                        string[] strs = { "stationKey", "stationName", "arrivalTime", "depertureTime", "stoppageTime", "defaultTime", "signalFlag", "alightingTime", "passengers", "arrivalSoundKey", "depertureSoundKey", "doorReopen", "stuckInDoor" };
-                        foreach (string field in strs)
-                        {
-                            dt.Columns.Add(field);
-                        }
-
-                        // データ行の読み込み
-                        while (!parser.EndOfData)
-                        {
-                            string[] fields = parser.ReadFields();
-                            string[] subset = new string[2];
-                            //if (!fields[0].Contains("#") && !fields[0].Contains(";") && !fields[0].Contains("//") && fields[0].Length > 0)
-                            //{
-                            if (fields.Length <= 13)
-                            {
-                                dt.Rows.Add(fields);
-                            }
-                            else
-                            {
-                                Array.Copy(fields, 0, subset, 0, 2);
-                                dt.Rows.Add(subset);
-                            }
-                            //}
-                        }
-                    }
-
-                    // DataGridViewにバインド
-                    dgvStation.DataSource = dt;
-                    //ソート禁止
-                    foreach (DataGridViewColumn c in dgvStation.Columns)
-                        c.SortMode = DataGridViewColumnSortMode.NotSortable;
-                    string[] tttStations = { "停車場名 (任意の文字列)", "時刻表に表示する停車場名", "到着時刻 (HH:mm:ss) (p: 通過駅)", "出発時刻または通過時刻 (HH:mm:ss) (t: 終着駅)", "標準停車時間 [s]", "駅にジャンプしたときの時刻 (HH:mm:ss)", "出発信号 (0: 最高現示 | 1: depertureTime の stoppageTime 前の時刻まで停止現示)", "降車時間 [s]", "出発時の乗車率", "ドアが開いたときに再生される音 (サウンドリストファイルで定義した soundKey)", "depertureTime の stoppageTime 前の時刻に再生される音 (サウンドリストファイルで定義した soundKey)", "ドアが再開閉される確率", "旅客がドアに挟まる時間 [s]" };
-                    for (int i = 0; i < dt.Columns.Count; i++)
-                    {
-                        dgvStation.Columns[i].HeaderCell.ToolTipText = tttStations[i];
-                    }
-                    //色付け
-                    for (int i = 0; i < dgvStation.Rows.Count - 1; i++)
-                    {
-                        string cellValue = dgvStation.Rows[i].Cells[0].Value.ToString();
-                        if (cellValue.Contains("#") || cellValue.Contains(";") || cellValue.Contains("//"))
-                        {
-                            dgvStation.Rows[i].DefaultCellStyle.BackColor = Color.LightBlue;
-                        }
-                        if (cellValue == "")
-                        {
-                            dgvStation.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
-                        }
-                    }
-                }
+                StructureFileExtract();
+            }
+            // タブのテキストやインデックスで処理を分岐
+            else if (currentTab.Name == "tpStation")
+            {
+                StationFileExtract();
             }
             else if (currentTab.Name == "tpSignal")
             {
-                if (map.Signal != null && System.IO.File.Exists(map.Signal.FilePathAbs))
-                {
-                    // Shift_JISを指定して読み込む場合
-                    Encoding enc = GetEndcordFromFile(map.Signal.FilePathAbs);
-
-                    dt = new DataTable();
-                    int colnum = 0;
-                    //一旦最大列数をカウント
-                    using (TextFieldParser parser = new TextFieldParser(map.Signal.FilePathAbs, enc))
-                    {
-                        parser.TextFieldType = FieldType.Delimited;
-                        parser.SetDelimiters(","); // カンマ区切り
-
-                        //1行目読み飛ばし
-                        if (!parser.EndOfData)
-                        {
-                            parser.ReadLine();
-                        }
-
-
-                        // 1行ずつ読み込む
-                        while (!parser.EndOfData)
-                        {
-                            string[] fields = parser.ReadFields();
-
-                            if(fields.Length > colnum)
-                            {
-                                colnum = fields.Length;
-                            }
-
-                        }
-
-                    }
-                    //データ配置
-                    using (TextFieldParser parser = new TextFieldParser(map.Signal.FilePathAbs, enc))
-                    {
-                        parser.TextFieldType = FieldType.Delimited;
-                        parser.SetDelimiters(","); // カンマ区切り
-
-                        //1行目読み飛ばし
-                        if (!parser.EndOfData)
-                        {
-                            parser.ReadLine();
-                        }
-
-                        // 1行ずつ読み込む
-                        while (!parser.EndOfData)
-                        {
-                            string[] fields = parser.ReadFields();
-
-                            // 最初の行で列数を確認してDataTableの列を追加する
-                            if (dt.Columns.Count == 0)
-                            {
-                                for (int i = 0; i < colnum; i++)
-                                {
-                                    dt.Columns.Add((i + 1).ToString()); // 仮の列名
-                                }
-                            }
-                            // 行を追加
-                            dt.Rows.Add(fields);
-                        }
-                    }
-
-                    // DataGridViewにバインド
-                    dgvSignal.DataSource = dt;
-                    //ソート禁止
-                    foreach (DataGridViewColumn c in dgvSignal.Columns)
-                        c.SortMode = DataGridViewColumnSortMode.NotSortable;
-                }
+                SignalFileExtract();
             }
             else if (currentTab.Name == "tpSoundList")
             {
@@ -2328,217 +2170,516 @@ namespace BveFileExplorer
             }
             else if (currentTab.Name == "tpSound3D")
             {
-                if (map.Sound3DList != null && File.Exists(map.Sound3DList.FilePathAbs))
-                {
-
-                    // Shift_JISを指定して読み込む場合
-                    Encoding enc = GetEndcordFromFile(map.Sound3DList.FilePathAbs);
-
-                    dt = new DataTable();
-                    using (TextFieldParser parser = new TextFieldParser(map.Sound3DList.FilePathAbs, enc))
-                    {
-                        parser.TextFieldType = FieldType.Delimited;
-                        parser.SetDelimiters(","); // カンマ区切り
-
-                        //1行目読み飛ばし
-                        if (!parser.EndOfData)
-                        {
-                            parser.ReadLine();
-                        }
-
-                        string[] strs = { "SoundKey", "FilePath", "BufferSize", "Remarks" };
-                        foreach (string field in strs)
-                        {
-                            dt.Columns.Add(field);
-                        }
-
-                        // データ行の読み込み
-                        while (!parser.EndOfData)
-                        {
-                            string[] fields = parser.ReadFields();
-                            string[] subset = new string[4];
-                            string remark = "";
-                            char[] del = { '#', ';' };
-                            List<string> temp_str;
-                            bool flgFound = false;
-                            int flgFoundIndex = 0;
-                            for (int i = 1; i < fields.Length; i++)
-                            {
-                                if (fields[i].Contains("#") || fields[i].Contains(";"))
-                                {
-                                    flgFound = true;
-                                    flgFoundIndex = i;
-                                    temp_str = fields[i].Split(del).ToList();
-                                    fields[i] = temp_str[0];
-                                    for (int j = 1; j < temp_str.Count; j++)
-                                    {
-                                        if (temp_str[j].Length > 1)
-                                        {
-                                            remark = temp_str[j];
-                                        }
-                                    }
-                                }
-                                if(flgFound && flgFoundIndex > i)
-                                {
-                                    remark += fields[i];
-                                }
-                            }
-                            //備考を追記
-                            if (remark != "")
-                            {
-                                subset[3] = remark;
-                                Array.Copy(fields, 0, subset, 0, fields.Length);
-                                fields = subset;
-                            }
-                            //field配列が4以上の場合の場合分け
-                            if (fields.Length <= 4)
-                            {
-                                dt.Rows.Add(fields);
-                            }
-                            else
-                            {
-                                Array.Copy(fields, 0, subset, 0, 3);
-                                dt.Rows.Add(subset);
-                            }
-                        }
-                    }
-
-                    // DataGridViewにバインド
-                    dgvSound3DList.DataSource = dt;
-                    //ソート禁止
-                    foreach (DataGridViewColumn c in dgvSound3DList.Columns)
-                        c.SortMode = DataGridViewColumnSortMode.NotSortable;
-                    dgvSound3DList.Columns[0].HeaderCell.ToolTipText = "任意の文字列。このサウンド名は、マップファイル、停車場リストファイル、他列車ファイルで使用します。";
-                    dgvSound3DList.Columns[1].HeaderCell.ToolTipText = "wavファイルの相対パス(ダブルクリックで開きます)";
-                    dgvSound3DList.Columns[2].HeaderCell.ToolTipText = "その音を同時に再生できる数。省略した場合は 1 になります。";
-
-                    for (int i = 0; i < dgvSound3DList.Rows.Count - 1; i++)
-                    {
-                        /*if (bools[i])
-                        {
-                            dgvSoundList.Rows[i].DefaultCellStyle.BackColor = Color.LightBlue;
-                        }
-                        else
-                        {*/
-                        string cellValue = dgvSound3DList.Rows[i].Cells[1].Value.ToString();
-                        if (!File.Exists(PathCombineAbs(map.Sound3DList.FilePathAbs,cellValue)) && cellValue != "")
-                        {
-                            dgvSound3DList.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
-                        }
-                        cellValue = dgvSound3DList.Rows[i].Cells[0].Value.ToString();
-                        if (cellValue.Contains("#") || cellValue.Contains(";") || cellValue.Contains("//"))
-                        {
-                            dgvSound3DList.Rows[i].DefaultCellStyle.BackColor = Color.LightBlue;
-                        }
-                        if (cellValue == "")
-                        {
-                            dgvSound3DList.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
-                        }
-                        //}
-                    }
-                }
+                Sound3DListExtract();
             }
             // タブのテキストやインデックスで処理を分岐
             else if (currentTab.Name == "tpTrain")
             {
-                    //他列車ファイルリスト(TrainFileList)
-                    // 1. DataTableを作成 (ヘッダー用)
-                    DataTable dtTrainFileList = new DataTable();
-                    dtTrainFileList.Columns.Add("FilePath");
-                    for (int i = 0; i < map.Train.Count; i++)
+                // 1. DataTableの作成
+                DataTable dtTrainFileList = new DataTable();
+                dtTrainFileList.Columns.Add("TrainKey");
+                dtTrainFileList.Columns.Add("FilePath");
+                dtTrainFileList.Columns.Add("TrackKey");  // 必要に応じて追加
+                dtTrainFileList.Columns.Add("Direction"); // 必要に応じて追加
+
+                // 2. データの展開
+                // map.Train は List<Contents_Map> なので、各要素(item)をループ
+                foreach (var trainContent in map.Train)
+                {
+                    // 各 Contents_Map が持っている TrainFilesList (タプルのリスト) をループ
+                    foreach (var train in trainContent.TrainFilesList)
                     {
-                        dtTrainFileList.Rows.Add(map.Train[i].FilePath);
+                        dtTrainFileList.Rows.Add(
+                            train.trainKey,
+                            train.filePath,
+                            train.trackKey,
+                            train.direction
+                        );
                     }
+                }
 
-                    dgvTrainFileList.DataSource = dtTrainFileList;
+                // 3. DataGridViewへの反映
+                dgvTrainFileList.DataSource = dtTrainFileList;
 
+                TrainFileExtract();
+            }
+        }
 
+        private void Sound3DListExtract(Encoding enc = null)
+        {
+            if (map.Sound3DList != null && File.Exists(map.Sound3DList.FilePathAbs))
+            {
 
-                    //他列車(Train)
-                    // 1. DataTableを作成 (ヘッダー用)
-                    DataTable dt = new DataTable();
-                    dt.Columns.Add("Key");
-                    dt.Columns.Add("Value");
-                    dt.Columns.Add("Remarks");
-
-                // ファイルが存在するか確認
-                if (File.Exists(cbxTrain.Text))
+                if (enc == null)
                 {
                     // Shift_JISを指定して読み込む場合
-                    Encoding enc = GetEndcordFromFile(cbxTrain.Text);
-                    // 2. ファイルを読み込む
-                    string[] lines = File.ReadAllLines(cbxTrain.Text, enc);
+                    enc = GetEndcordFromFile(map.Sound3DList.FilePathAbs, out int encMode);
+                    cbxSound3DListEnc.SelectedIndex = encMode;
+                }
+                dt = new DataTable();
+                using (TextFieldParser parser = new TextFieldParser(map.Sound3DList.FilePathAbs, enc))
+                {
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(","); // カンマ区切り
 
-                    foreach (string line in lines)
+                    //1行目読み飛ばし
+                    if (!parser.EndOfData)
                     {
-                        // 空行をスキップ
-                        if (string.IsNullOrWhiteSpace(line)) continue;
-
-                        // 3. '=' で分割する
-                        string[] parts = line.Split('=');
-
-                        if (parts.Length >= 2)
-                        {
-                            // ';' で分割する
-                            string[] parts2 = parts[1].Split(';');
-                            if (parts2.Length < 2)
-                            {
-                                // 分割されたデータ（前・後）をDataTableに追加
-                                dt.Rows.Add(parts[0].Trim(), parts[1].Trim());
-                            }
-                            else
-                            {
-                                // 分割されたデータ（前・後）をDataTableに追加
-                                dt.Rows.Add(parts[0].Trim(), parts2[0].Trim(), parts2[1].Trim());
-                            }
-                        }
-                        else if (parts.Length == 1)
-                        {
-                            // '='がない場合の処理（必要に応じて）
-                            dt.Rows.Add(parts[0].Trim(), "");
-                        }
+                        parser.ReadLine();
                     }
 
-                    // 4. DataGridViewにデータをセット
-                    /////
-                    dgvTrain.DataSource = dt;
-                    if (dgvTrain.Rows.Count > 0)
+                    string[] strs = { "SoundKey", "FilePath", "BufferSize", "Remarks" };
+                    foreach (string field in strs)
                     {
-                        // 最初の行(インデックス0)を削除
-                        dgvTrain.Rows.RemoveAt(0);
+                        dt.Columns.Add(field);
                     }
-                    //ソート禁止
-                    foreach (DataGridViewColumn c in dgvTrain.Columns)
-                        c.SortMode = DataGridViewColumnSortMode.NotSortable;
 
-                    //色付け
-                    for (int i = 0; i < dgvTrain.Rows.Count - 1; i++)
+                    // データ行の読み込み
+                    while (!parser.EndOfData)
                     {
-                        string cellValue = dgvTrain.Rows[i].Cells[0].Value.ToString();
-                        if (cellValue.Contains("#") || cellValue.Contains(";") || cellValue.Contains("//"))
+                        string[] fields = parser.ReadFields();
+                        string[] subset = new string[4];
+                        string remark = "";
+                        char[] del = { '#', ';' };
+                        List<string> temp_str;
+                        bool flgFound = false;
+                        int flgFoundIndex = 0;
+                        for (int i = 1; i < fields.Length; i++)
                         {
-                            dgvTrain.Rows[i].DefaultCellStyle.BackColor = Color.LightBlue;
+                            if (fields[i].Contains("#") || fields[i].Contains(";"))
+                            {
+                                flgFound = true;
+                                flgFoundIndex = i;
+                                temp_str = fields[i].Split(del).ToList();
+                                fields[i] = temp_str[0];
+                                for (int j = 1; j < temp_str.Count; j++)
+                                {
+                                    if (temp_str[j].Length > 1)
+                                    {
+                                        remark = temp_str[j];
+                                    }
+                                }
+                            }
+                            if (flgFound && flgFoundIndex > i)
+                            {
+                                remark += fields[i];
+                            }
                         }
-                        else if (cellValue == "")
+                        //備考を追記
+                        if (remark != "")
                         {
-                            dgvTrain.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
+                            subset[3] = remark;
+                            Array.Copy(fields, 0, subset, 0, fields.Length);
+                            fields = subset;
                         }
-                        else if (cellValue.Contains("["))
+                        //field配列が4以上の場合の場合分け
+                        if (fields.Length <= 4)
                         {
-                            dgvTrain.Rows[i].DefaultCellStyle.BackColor = Color.LightGreen;
+                            dt.Rows.Add(fields);
                         }
+                        else
+                        {
+                            Array.Copy(fields, 0, subset, 0, 3);
+                            dt.Rows.Add(subset);
+                        }
+                    }
+                }
 
+                // DataGridViewにバインド
+                dgvSound3DList.DataSource = dt;
+                //ソート禁止
+                foreach (DataGridViewColumn c in dgvSound3DList.Columns)
+                    c.SortMode = DataGridViewColumnSortMode.NotSortable;
+                dgvSound3DList.Columns[0].HeaderCell.ToolTipText = "任意の文字列。このサウンド名は、マップファイル、停車場リストファイル、他列車ファイルで使用します。";
+                dgvSound3DList.Columns[1].HeaderCell.ToolTipText = "wavファイルの相対パス(ダブルクリックで開きます)";
+                dgvSound3DList.Columns[2].HeaderCell.ToolTipText = "その音を同時に再生できる数。省略した場合は 1 になります。";
+
+                for (int i = 0; i < dgvSound3DList.Rows.Count - 1; i++)
+                {
+                    /*if (bools[i])
+                    {
+                        dgvSoundList.Rows[i].DefaultCellStyle.BackColor = Color.LightBlue;
+                    }
+                    else
+                    {*/
+                    string cellValue = dgvSound3DList.Rows[i].Cells[1].Value.ToString();
+                    if (!File.Exists(PathCombineAbs(map.Sound3DList.FilePathAbs, cellValue)) && cellValue != "")
+                    {
+                        dgvSound3DList.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                    }
+                    cellValue = dgvSound3DList.Rows[i].Cells[0].Value.ToString();
+                    if (cellValue.Contains("#") || cellValue.Contains(";") || cellValue.Contains("//"))
+                    {
+                        dgvSound3DList.Rows[i].DefaultCellStyle.BackColor = Color.LightBlue;
+                    }
+                    if (cellValue == "")
+                    {
+                        dgvSound3DList.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
+                    }
+                    //}
+                }
+            }
+        }
+
+        private void StationFileExtract(Encoding enc = null)
+        {
+            if (File.Exists(map.Station.FilePathAbs))
+            {
+                if (enc == null)
+                {
+                    // Shift_JISを指定して読み込む場合
+                    enc = GetEndcordFromFile(map.Station.FilePathAbs, out int encMode);
+                    cbxStationEnc.SelectedIndex = encMode;
+                }
+
+                dt = new DataTable();
+                string[] strs = { "stationKey", "stationName", "arrivalTime", "depertureTime", "stoppageTime", "defaultTime", "signalFlag", "alightingTime", "passengers", "arrivalSoundKey", "depertureSoundKey", "doorReopen", "stuckInDoor" };
+                foreach (string field in strs)
+                {
+                    dt.Columns.Add(field);
+                }
+                using (TextFieldParser parser = new TextFieldParser(map.Station.FilePathAbs, enc))
+                {
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(","); // カンマ区切り
+
+                    //1行目読み飛ばし
+                    if (!parser.EndOfData)
+                    {
+                        parser.ReadLine();
+                    }
+
+                    // データ行の読み込み
+                    while (!parser.EndOfData)
+                    {
+                        string[] fields = parser.ReadFields();
+                        string[] subset = new string[2];
+                        if (fields.Length <= 13)
+                        {
+                            dt.Rows.Add(fields);
+                        }
+                        else
+                        {
+                            Array.Copy(fields, 0, subset, 0, 2);
+                            dt.Rows.Add(subset);
+                        }
+                        //}
+                    }
+                }
+
+                // DataGridViewにバインド
+                dgvStation.DataSource = dt;
+                //ソート禁止
+                foreach (DataGridViewColumn c in dgvStation.Columns)
+                    c.SortMode = DataGridViewColumnSortMode.NotSortable;
+                string[] tttStations = { "停車場名 (任意の文字列)", "時刻表に表示する停車場名", "到着時刻 (HH:mm:ss) (p: 通過駅)", "出発時刻または通過時刻 (HH:mm:ss) (t: 終着駅)", "標準停車時間 [s]", "駅にジャンプしたときの時刻 (HH:mm:ss)", "出発信号 (0: 最高現示 | 1: depertureTime の stoppageTime 前の時刻まで停止現示)", "降車時間 [s]", "出発時の乗車率", "ドアが開いたときに再生される音 (サウンドリストファイルで定義した soundKey)", "depertureTime の stoppageTime 前の時刻に再生される音 (サウンドリストファイルで定義した soundKey)", "ドアが再開閉される確率", "旅客がドアに挟まる時間 [s]" };
+                for (int i = 0; i < dt.Columns.Count; i++)
+                {
+                    dgvStation.Columns[i].HeaderCell.ToolTipText = tttStations[i];
+                }
+                //色付け
+                for (int i = 0; i < dgvStation.Rows.Count - 1; i++)
+                {
+                    string cellValue = dgvStation.Rows[i].Cells[0].Value.ToString();
+                    if (cellValue.Contains("#") || cellValue.Contains(";") || cellValue.Contains("//"))
+                    {
+                        dgvStation.Rows[i].DefaultCellStyle.BackColor = Color.LightBlue;
+                    }
+                    if (cellValue == "")
+                    {
+                        dgvStation.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
                     }
                 }
             }
         }
 
-        private void SoundListListUp()
+        private void SignalFileExtract(Encoding enc = null)
+        {
+            if (map.Signal != null && System.IO.File.Exists(map.Signal.FilePathAbs))
+            {
+                if (enc == null)
+                {
+                    // Shift_JISを指定して読み込む場合
+                    enc = GetEndcordFromFile(map.Signal.FilePathAbs, out int encMode);
+                    cbxSignalEnc.SelectedIndex = encMode;
+                }
+
+                dt = new DataTable();
+                int colnum = 0;
+                //一旦最大列数をカウント
+                using (TextFieldParser parser = new TextFieldParser(map.Signal.FilePathAbs, enc))
+                {
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(","); // カンマ区切り
+
+                    //1行目読み飛ばし
+                    if (!parser.EndOfData)
+                    {
+                        parser.ReadLine();
+                    }
+
+
+                    // 1行ずつ読み込む
+                    while (!parser.EndOfData)
+                    {
+                        string[] fields = parser.ReadFields();
+
+                        if (fields.Length > colnum)
+                        {
+                            colnum = fields.Length;
+                        }
+
+                    }
+
+                }
+                //データ配置
+                using (TextFieldParser parser = new TextFieldParser(map.Signal.FilePathAbs, enc))
+                {
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(","); // カンマ区切り
+
+                    //1行目読み飛ばし
+                    if (!parser.EndOfData)
+                    {
+                        parser.ReadLine();
+                    }
+
+                    // 1行ずつ読み込む
+                    while (!parser.EndOfData)
+                    {
+                        string[] fields = parser.ReadFields();
+
+                        // 最初の行で列数を確認してDataTableの列を追加する
+                        if (dt.Columns.Count == 0)
+                        {
+                            for (int i = 0; i < colnum; i++)
+                            {
+                                dt.Columns.Add((i + 1).ToString()); // 仮の列名
+                            }
+                        }
+                        // 行を追加
+                        dt.Rows.Add(fields);
+                    }
+                }
+
+                // DataGridViewにバインド
+                dgvSignal.DataSource = dt;
+                //ソート禁止
+                foreach (DataGridViewColumn c in dgvSignal.Columns)
+                    c.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+        }
+
+        private void StructureFileExtract(Encoding enc = null)
+        {
+            if (map != null && map.Structure != null && File.Exists(map.Structure.FilePathAbs))
+            {
+                if (enc == null)
+                {
+                    // Shift_JISを指定して読み込む場合
+                    enc = GetEndcordFromFile(map.Structure.FilePathAbs, out int encMode);
+                    cbxStructureEnc.SelectedIndex = encMode;
+                }
+
+                dt = new DataTable();
+                string[] strs = { "StructureNae", "FilePath", "Remarks" };
+                foreach (string field in strs)
+                {
+                    dt.Columns.Add(field);
+                }
+                using (TextFieldParser parser = new TextFieldParser(map.Structure.FilePathAbs, enc))
+                {
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(","); // カンマ区切り
+
+                    //1行目読み飛ばし
+                    if (!parser.EndOfData)
+                    {
+                        parser.ReadLine();
+                    }
+
+                    // データ行の読み込み
+                    while (!parser.EndOfData)
+                    {
+                        string[] fields = parser.ReadFields();
+                        // インデックス1から2つを新しい配列にコピー
+                        string[] subset = new string[3];
+                        string remark = "";
+                        char[] del = { '#', ';' };
+                        List<string> temp_str;
+                        bool flgFound = false;
+                        int flgFoundIndex = 0;
+                        for (int i = 1; i < fields.Length; i++)
+                        {
+                            if (fields[i].Contains("#") || fields[i].Contains(";"))
+                            {
+                                flgFound = true;
+                                flgFoundIndex = i;
+                                temp_str = fields[i].Split(del).ToList();
+                                fields[i] = temp_str[0];
+                                for (int j = 1; j < temp_str.Count; j++)
+                                {
+                                    if (temp_str[j].Length > 1)
+                                    {
+
+                                        remark = temp_str[j];
+                                    }
+                                }
+                            }
+                            if (flgFound && i > flgFoundIndex)
+                            {
+                                remark += fields[i];
+                            }
+                        }
+                        //備考を追記
+                        if (remark != "")
+                        {
+                            subset[2] = remark;
+                            Array.Resize(ref fields, 2);
+                            Array.Copy(fields, 0, subset, 0, fields.Length);
+                            fields = subset;
+                        }
+                        //field配列が3以上の場合の場合分け
+                        if (fields.Length <= 3)
+                        {
+                            dt.Rows.Add(fields);
+                        }
+                        else
+                        {
+                            Array.Copy(fields, 0, subset, 0, 2);
+                            dt.Rows.Add(subset);
+                        }
+                    }
+
+                }
+
+                // DataGridViewにバインド
+                dgvStructure.DataSource = dt;
+                //ソート禁止
+                foreach (DataGridViewColumn c in dgvStructure.Columns)
+                    c.SortMode = DataGridViewColumnSortMode.NotSortable;
+                string[] tttStructures = { "任意の文字列。このストラクチャー名は、マップファイル、信号現示リストファイル、他列車ファイルで使用します。", "ストラクチャーファイルの相対パス(ダブルクリックで開きます)。ストラクチャビューワ5にドラッグ＆ドロップで表示できます。", "備考" };
+                for (int i = 0; i < dt.Columns.Count; i++)
+                {
+                    dgvStructure.Columns[i].HeaderCell.ToolTipText = tttStructures[i];
+                }
+                //色付け
+                for (int i = 0; i < dgvStructure.Rows.Count - 1; i++)
+                {
+                    string cellValue = dgvStructure.Rows[i].Cells[1].Value.ToString();
+                    if (!File.Exists(PathCombineAbs(map.Structure.FilePathAbs, cellValue)) && cellValue != "")
+                    {
+                        dgvStructure.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                    }
+                    cellValue = dgvStructure.Rows[i].Cells[0].Value.ToString();
+                    if (cellValue.Contains("#") || cellValue.Contains(";") || cellValue.Contains("//"))
+                    {
+                        dgvStructure.Rows[i].DefaultCellStyle.BackColor = Color.LightBlue;
+                    }
+                    if (cellValue == "")
+                    {
+                        dgvStructure.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
+                    }
+                }
+            }
+        }
+
+        private void TrainFileExtract()
+        {
+            //他列車(Train)
+            // 1. DataTableを作成 (ヘッダー用)
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Key");
+            dt.Columns.Add("Value");
+            dt.Columns.Add("Remarks");
+
+            // ファイルが存在するか確認
+            if (File.Exists(cbxTrain.Text))
+            {
+                // Shift_JISを指定して読み込む場合
+                Encoding enc = GetEndcordFromFile(cbxTrain.Text, out int encMode);
+                cbxTrainFileEnc.SelectedIndex = encMode;
+                // 2. ファイルを読み込む
+                string[] lines = File.ReadAllLines(cbxTrain.Text, enc);
+
+                foreach (string line in lines)
+                {
+                    // 空行をスキップ
+                    if (string.IsNullOrWhiteSpace(line)) continue;
+
+                    // 3. '=' で分割する
+                    string[] parts = line.Split('=');
+
+                    if (parts.Length >= 2)
+                    {
+                        // ';' で分割する
+                        string[] parts2 = parts[1].Split(';');
+                        if (parts2.Length < 2)
+                        {
+                            // 分割されたデータ（前・後）をDataTableに追加
+                            dt.Rows.Add(parts[0].Trim(), parts[1].Trim());
+                        }
+                        else
+                        {
+                            // 分割されたデータ（前・後）をDataTableに追加
+                            dt.Rows.Add(parts[0].Trim(), parts2[0].Trim(), parts2[1].Trim());
+                        }
+                    }
+                    else if (parts.Length == 1)
+                    {
+                        // '='がない場合の処理（必要に応じて）
+                        dt.Rows.Add(parts[0].Trim(), "");
+                    }
+                }
+
+                // 4. DataGridViewにデータをセット
+                /////
+                dgvTrain.DataSource = dt;
+                if (dgvTrain.Rows.Count > 0)
+                {
+                    // 最初の行(インデックス0)を削除
+                    dgvTrain.Rows.RemoveAt(0);
+                }
+                //ソート禁止
+                foreach (DataGridViewColumn c in dgvTrain.Columns)
+                    c.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                //色付け
+                for (int i = 0; i < dgvTrain.Rows.Count - 1; i++)
+                {
+                    string cellValue = dgvTrain.Rows[i].Cells[0].Value.ToString();
+                    if (cellValue.Contains("#") || cellValue.Contains(";") || cellValue.Contains("//"))
+                    {
+                        dgvTrain.Rows[i].DefaultCellStyle.BackColor = Color.LightBlue;
+                    }
+                    else if (cellValue == "")
+                    {
+                        dgvTrain.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
+                    }
+                    else if (cellValue.Contains("["))
+                    {
+                        dgvTrain.Rows[i].DefaultCellStyle.BackColor = Color.LightGreen;
+                    }
+
+                }
+            }
+            else
+            {
+                dgvTrain.DataSource = null;
+                dgvTrain.Rows.Clear();
+
+            }
+        }
+
+        private void SoundListListUp(Encoding enc = null)
         {
             if (map != null && map.SoundList != null && File.Exists(map.SoundList.FilePathAbs))
             {
-                Encoding enc = GetEndcordFromFile(map.SoundList.FilePathAbs);
-
+                if (enc == null)
+                {
+                    enc = GetEndcordFromFile(tbSoundList.Text, out int encMode);
+                    cbxSoundListEnc.SelectedIndex = encMode;
+                }
                 dt = new DataTable();
                 using (TextFieldParser parser = new TextFieldParser(map.SoundList.FilePathAbs, enc))
                 {
@@ -2638,10 +2779,16 @@ namespace BveFileExplorer
             }
         }
 
-        private Encoding GetEndcordFromFile(string filePath)
+        /// <summary>
+        /// ファイルエンコードをヘッダから読み取るメソッド(Default:Utf-8)
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        private Encoding GetEndcordFromFile(string filePath, out int encMode)
         {
             // Shift_JISを指定して読み込む場合
             Encoding enc = Encoding.GetEncoding("utf-8");
+            encMode = 1;
 
             //文字エンコードを確認
             using (StreamReader sr_temp = new StreamReader(filePath))
@@ -2650,6 +2797,7 @@ namespace BveFileExplorer
                 if (tmp_str.IndexOf("shift_jis", StringComparison.OrdinalIgnoreCase) > 0 || tmp_str.IndexOf("shift-jis", StringComparison.OrdinalIgnoreCase) > 0)
                 {
                     enc = Encoding.GetEncoding("Shift_JIS");
+                    encMode = 2;
                 }
             }
 
@@ -2660,119 +2808,7 @@ namespace BveFileExplorer
         {
             // 新しく選択されたTabPageを取得
             TabPage currentTab = tabControlScenario.SelectedTab;
-            // タブのテキストやインデックスで処理を分岐
-            if (currentTab.Name == "tpRoute")
-            {
-                if (map != null && map.Structure != null && File.Exists(map.Structure.FilePathAbs))
-                {
-                    // Shift_JISを指定して読み込む場合
-                    Encoding enc = GetEndcordFromFile(map.Structure.FilePathAbs);
-
-                    dt = new DataTable();
-                    using (TextFieldParser parser = new TextFieldParser(map.Structure.FilePathAbs, enc))
-                    {
-                        parser.TextFieldType = FieldType.Delimited;
-                        parser.SetDelimiters(","); // カンマ区切り
-
-                        //1行目読み飛ばし
-                        if (!parser.EndOfData)
-                        {
-                            parser.ReadLine();
-                        }
-
-                        string[] strs = { "StructureNae", "FilePath" ,"Remarks"};
-                        foreach (string field in strs)
-                        {
-                            dt.Columns.Add(field);
-                        }
-
-
-                        // データ行の読み込み
-                        while (!parser.EndOfData)
-                        {
-                            string[] fields = parser.ReadFields();
-                            // インデックス1から2つを新しい配列にコピー
-                            string[] subset = new string[3];
-                            string remark = "";
-                            char[] del = { '#', ';' };
-                            List<string> temp_str;
-                            bool flgFound = false;
-                            int flgFoundIndex = 0;
-                            for (int i = 1; i < fields.Length; i++)
-                            {
-                                if (fields[i].Contains("#") || fields[i].Contains(";"))
-                                {
-                                    flgFound = true;
-                                    flgFoundIndex = i;
-                                    temp_str = fields[i].Split(del).ToList();
-                                    fields[i] = temp_str[0];
-                                    for (int j = 1; j < temp_str.Count; j++)
-                                    {
-                                        if (temp_str[j].Length > 1)
-                                        {
-                                            
-                                            remark = temp_str[j];
-                                        }
-                                    }
-                                }
-                                if (flgFound && i > flgFoundIndex )
-                                {
-                                    remark += fields[i];
-                                }
-                            }
-                            //備考を追記
-                            if (remark != "")
-                            {
-                                subset[2] = remark;
-                                Array.Resize(ref fields, 2);
-                                Array.Copy(fields, 0, subset, 0, fields.Length);
-                                fields = subset;
-                            }
-                            //field配列が3以上の場合の場合分け
-                            if (fields.Length <= 3)
-                            {
-                                dt.Rows.Add(fields);
-                            }
-                            else
-                            {
-                                Array.Copy(fields, 0, subset, 0, 2);
-                                dt.Rows.Add(subset);
-                            }
-                        }
-
-                    }
-
-                    // DataGridViewにバインド
-                    dgvStructure.DataSource = dt;
-                    //ソート禁止
-                    foreach (DataGridViewColumn c in dgvStructure.Columns)
-                        c.SortMode = DataGridViewColumnSortMode.NotSortable;
-                    string[] tttStructures = { "任意の文字列。このストラクチャー名は、マップファイル、信号現示リストファイル、他列車ファイルで使用します。", "ストラクチャーファイルの相対パス(ダブルクリックで開きます)。ストラクチャビューワ5にドラッグ＆ドロップで表示できます。" ,"備考"};
-                    for (int i = 0; i < dt.Columns.Count; i++)
-                    {
-                        dgvStructure.Columns[i].HeaderCell.ToolTipText = tttStructures[i];
-                    }
-                    //色付け
-                    for (int i = 0; i < dgvStructure.Rows.Count - 1; i++)
-                    {
-                        string cellValue = dgvStructure.Rows[i].Cells[1].Value.ToString();
-                        //MessageBox.Show($@"{Path.GetDirectoryName(map.FilePath)}\{cellValue}");
-                        if (!File.Exists(PathCombineAbs(map.Structure.FilePathAbs, cellValue)) && cellValue != "")
-                        {
-                            dgvStructure.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
-                        }
-                        cellValue = dgvStructure.Rows[i].Cells[0].Value.ToString();
-                        if (cellValue.Contains("#")|| cellValue.Contains(";") || cellValue.Contains("//"))
-                        {
-                            dgvStructure.Rows[i].DefaultCellStyle.BackColor = Color.LightBlue;
-                        }
-                        if (cellValue == "")
-                        {
-                            dgvStructure.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
-                        }
-                    }
-                }
-            }
+            
         }
 
         private void dgvStructure_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -2856,8 +2892,8 @@ namespace BveFileExplorer
                 // ファイルが存在するか確認
                 if (File.Exists(tbPerfoemanceCurve.Text))
                 {
-                    //DataTableに展開
-                    DataExpandToDataTable(dt, tbPerfoemanceCurve.Text);
+                    //DataTableに展開、エンコードを表示
+                    cbxPerformanceCurveEnc.SelectedIndex = DataExpandToDataTable(dt, tbPerfoemanceCurve.Text);
                     //DataGridView設定
                     DataGridViewSettingForVehicle(dt, dgvPerformanceCurve);
                     //色付け
@@ -2876,8 +2912,8 @@ namespace BveFileExplorer
                 // ファイルが存在するか確認
                 if (File.Exists(tbParameters.Text))
                 {
-                    //DataTableに展開
-                    DataExpandToDataTable(dt, tbParameters.Text);
+                    //DataTableに展開、エンコードを表示
+                    cbxParametersEnc.SelectedIndex = DataExpandToDataTable(dt, tbParameters.Text);
                     //DataGridView設定
                     DataGridViewSettingForVehicle(dt, dgvParameters,true);
                     //色付け
@@ -2897,66 +2933,8 @@ namespace BveFileExplorer
                 // ファイルが存在するか確認
                 if (File.Exists(tbPanel.Text))
                 {
-                    // Shift_JISを指定して読み込む場合
-                    Encoding enc = GetEndcordFromFile(tbPanel.Text);
-                    // 2. ファイルを読み込む
-                    string[] lines = File.ReadAllLines(tbPanel.Text, enc);
-
-                    foreach (string line in lines)
-                    {
-                        // 空行をスキップ
-                        if (string.IsNullOrWhiteSpace(line)) continue;
-
-                        // 3. '=' で分割する
-                        string[] parts = line.Split('=');
-
-                        if (parts.Length >= 2)
-                        {
-                            // partsのvalueを ',' で分割する
-                            string[] parts2 = parts[1].Split(',');
-                            if (parts2.Length < 2)
-                            {
-                                string[] parts3 = parts[1].Split(';');
-
-                                if (parts3.Length < 2)
-                                {
-                                    // 分割されたデータ（前・後）をDataTableに追加
-                                    dt.Rows.Add(parts[0].Trim(), parts[1].Trim());
-                                }
-                                else
-                                {
-                                    dt.Rows.Add(parts[0].Trim(), parts3[0].Trim(), "", parts3[1].Trim());
-                                }
-                            }
-                            else
-                            {
-                                string[] parts3 = parts2[1].Split(';');
-                                if (parts3.Length < 2)
-                                {
-                                    // 分割されたデータ（前・後）をDataTableに追加
-                                    dt.Rows.Add(parts[0].Trim(), parts2[0].Trim(), parts2[1].Trim());
-                                }
-                                else
-                                {
-                                    dt.Rows.Add(parts[0].Trim(), parts2[0].Trim(), parts3[0].Trim(), parts3[1].Trim());
-                                }
-                            }
-                        }
-                        else if (parts.Length == 1)
-                        {
-                            string[] parts2 = line.Split(';');
-                            if (parts2.Length < 2 || parts2[0].Length == 0)
-                            {
-                                // '='がない場合の処理（必要に応じて）
-                                dt.Rows.Add(parts[0].Trim(), "");
-                            }
-                            else
-                            {
-                                dt.Rows.Add(parts2[0].Trim(), "", "", parts2[1].Trim());
-                            }
-                        }
-                    }
-
+                    //DataTableに展開、エンコードを表示
+                    cbxPanelEnc.SelectedIndex = DataExpandToDataTableXY(dt, tbPanel.Text);
                     //DataGridView設定
                     DataGridViewSettingForVehicle(dt, dgvPanel, true);
                     //色付け
@@ -2975,14 +2953,14 @@ namespace BveFileExplorer
                 // ファイルが存在するか確認
                 if (File.Exists(tbSound.Text))
                 {
-                    DataExpandToDataTable(dt, tbSound.Text);
+                    cbxSoundEnc.SelectedIndex = DataExpandToDataTable(dt, tbSound.Text);
                     //DataGridView設定
                     DataGridViewSettingForVehicle(dt, dgvSound, true);
                     //色付け
                     DataGridViewColoringForVehicles(dgvSound);
                 }
             }
-            else if (currentTab.Name == "tpMorotNoise")
+            else if (currentTab.Name == "tpMotorNoise")
             {
                 //モーター音(MotorNoise)
                 // 1. DataTableを作成 (ヘッダー用)
@@ -2994,7 +2972,8 @@ namespace BveFileExplorer
                 // ファイルが存在するか確認
                 if (File.Exists(tbMotorNoise.Text))
                 {
-                    DataExpandToDataTable(dt, tbMotorNoise.Text);
+                    //DataTableに展開、エンコードを表示
+                    cbxMotorNoiseEnc.SelectedIndex = DataExpandToDataTable(dt, tbMotorNoise.Text);
                     //DataGridView設定
                     DataGridViewSettingForVehicle(dt, dgvMotorNoise, true);
                     //色付け
@@ -3002,6 +2981,75 @@ namespace BveFileExplorer
                 }
             }
         }
+
+        private int DataExpandToDataTableXY(DataTable dt, string filePath, Encoding enc = null)
+        {
+            int encMode = 0;
+            if (enc == null)
+            {
+                // Shift_JISを指定して読み込む場合
+                enc = GetEndcordFromFile(filePath, out encMode);
+            }
+            // 2. ファイルを読み込む
+            string[] lines = File.ReadAllLines(filePath, enc);
+
+            foreach (string line in lines)
+            {
+                // 空行をスキップ
+                if (string.IsNullOrWhiteSpace(line)) continue;
+
+                // 3. '=' で分割する
+                string[] parts = line.Split('=');
+
+                if (parts.Length >= 2)
+                {
+                    // partsのvalueを ',' で分割する
+                    string[] parts2 = parts[1].Split(',');
+                    if (parts2.Length < 2)
+                    {
+                        string[] parts3 = parts[1].Split(';');
+
+                        if (parts3.Length < 2)
+                        {
+                            // 分割されたデータ（前・後）をDataTableに追加
+                            dt.Rows.Add(parts[0].Trim(), parts[1].Trim());
+                        }
+                        else
+                        {
+                            dt.Rows.Add(parts[0].Trim(), parts3[0].Trim(), "", parts3[1].Trim());
+                        }
+                    }
+                    else
+                    {
+                        string[] parts3 = parts2[1].Split(';');
+                        if (parts3.Length < 2)
+                        {
+                            // 分割されたデータ（前・後）をDataTableに追加
+                            dt.Rows.Add(parts[0].Trim(), parts2[0].Trim(), parts2[1].Trim());
+                        }
+                        else
+                        {
+                            dt.Rows.Add(parts[0].Trim(), parts2[0].Trim(), parts3[0].Trim(), parts3[1].Trim());
+                        }
+                    }
+                }
+                else if (parts.Length == 1)
+                {
+                    string[] parts2 = line.Split(';');
+                    if (parts2.Length < 2 || parts2[0].Length == 0)
+                    {
+                        // '='がない場合の処理（必要に応じて）
+                        dt.Rows.Add(parts[0].Trim(), "");
+                    }
+                    else
+                    {
+                        dt.Rows.Add(parts2[0].Trim(), "", "", parts2[1].Trim());
+                    }
+                }
+            }
+            return encMode;
+        }
+
         /// <summary>
         /// DataGridViewの動作指定
         /// </summary>
@@ -3053,10 +3101,15 @@ namespace BveFileExplorer
             }
         }
 
-        private void DataExpandToDataTable(DataTable dt,string filePath)
+        private int DataExpandToDataTable(DataTable dt,string filePath, Encoding enc = null)
         {
-            // Shift_JISを指定して読み込む場合
-            Encoding enc = GetEndcordFromFile(filePath);
+            int encMode = 0;
+            if (enc == null)
+            {
+                // Shift_JISを指定して読み込む場合
+                enc = GetEndcordFromFile(filePath , out encMode);
+                cbxParametersEnc.SelectedIndex = encMode;
+            }
             // 2. ファイルを読み込む
             string[] lines = File.ReadAllLines(filePath, enc);
 
@@ -3089,6 +3142,7 @@ namespace BveFileExplorer
                     dt.Rows.Add(parts[0].Trim(), "");
                 }
             }
+            return encMode;
         }
 
         private void btnListBVE5_Click(object sender, EventArgs e)
@@ -3193,13 +3247,12 @@ namespace BveFileExplorer
 
         private void dgvFiles_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
             if (e != null && e.RowIndex >= 0 && e.RowIndex != indexDgvFiles)
             {
                 indexDgvFiles = e.RowIndex;
                 Reset();
                 string cellValue = dgvFiles.Rows[indexDgvFiles].Cells[0].Value.ToString();
-                string fullPath = tbScenarioDirectory.Text + @"\" + cellValue;
+                string fullPath = tbScenarioDirectory.Text + @"\" + cellValue;                
 
                 scenario = new Scenario(fullPath);
                 OpenScenario();
@@ -3305,6 +3358,7 @@ namespace BveFileExplorer
         private void dgvTrainFileList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             cbxTrain.SelectedIndex = e.RowIndex;
+            TrainFileExtract();
         }
 
         private DateTime _lastClickTime = DateTime.MinValue;
@@ -3497,7 +3551,7 @@ namespace BveFileExplorer
 
         private string PathCombineAbs(string directroy, string path)
         {
-            string filePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName (directroy), path));
+            string filePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName (directroy.Trim()), path.Trim()));
             return filePath;
         }
 
@@ -3525,6 +3579,144 @@ namespace BveFileExplorer
                     player.Dispose();
                 }
             }
+        }
+
+        private void dgvTrainFileList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ProcessStart(cbxTrain.Text,false);
+        }
+
+        private void cbxParametersEnc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //パラメータ表示(Parameter)
+            string[] columns = { "Key", "Value", "Remarks" };
+            ExtractDataGridView(columns, dgvParameters, tbParameters.Text, cbxParametersEnc.Text);
+        }
+
+        private void cbxPanelEnc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //パネル(Panel)
+            // 1. DataTableを作成 (ヘッダー用)
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Key");
+            dt.Columns.Add("Value1");
+            dt.Columns.Add("Value2");
+            dt.Columns.Add("Remarks");
+
+            // ファイルが存在するか確認
+            if (File.Exists(tbPanel.Text) && cbxPanelEnc.SelectedIndex > 0)
+            {
+                //エンコードを選択
+                Encoding enc = Encoding.GetEncoding(cbxParametersEnc.Text);
+                //DataTableに展開
+                DataExpandToDataTableXY(dt, tbPanel.Text,enc);
+                //DataGridView設定
+                DataGridViewSettingForVehicle(dt, dgvPanel, true);
+                //色付け
+                DataGridViewColoringForVehicles(dgvPanel);
+            }
+        }
+
+        private void cbxPerformanceCurveEnc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //性能曲線表示(PerformanceCurve)
+            string[] columns = { "Key", "Value", "Remarks" };
+            ExtractDataGridView(columns, dgvPerformanceCurve, tbPerfoemanceCurve.Text, cbxPerformanceCurveEnc.Text);
+        }
+
+        private void cbxSoundEnc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //サウンド(Sound)
+            string[] columns = { "Key", "Value", "Remarks" };
+            ExtractDataGridView(columns, dgvSound, tbSound.Text, cbxSoundEnc.Text);
+        }
+
+        private void cbxMotorNoiseEnc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //モーター音(MotorNoise)
+            string[] columns = { "Key", "Value", "Remarks" };
+            ExtractDataGridView(columns, dgvMotorNoise, tbMotorNoise.Text, cbxMotorNoiseEnc.Text);
+        }
+
+        private void ExtractDataGridView(string[] columns, DataGridView dgv, string filePath, string strEncode)
+        {
+            // 1. DataTableを作成 (ヘッダー用)
+            DataTable dt = new DataTable();
+            foreach (string c in columns)
+            {
+                dt.Columns.Add(c);
+            }
+
+            // ファイルが存在するか確認
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    //エンコードを選択
+                    Encoding enc = Encoding.GetEncoding(strEncode);
+                    //DataTableに展開、エンコードを表示
+                    DataExpandToDataTable(dt, filePath, enc);
+                    //DataGridView設定
+                    DataGridViewSettingForVehicle(dt, dgv, true);
+                    //色付け
+                    DataGridViewColoringForVehicles(dgv);
+                }
+                catch { }
+            }
+        }
+
+        private void cbxStructureEnc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (File.Exists(tbStructure.Text) && cbxStructureEnc.SelectedIndex > 0)
+            {
+                Encoding enc = Encoding.GetEncoding(cbxStructureEnc.Text);
+                StructureFileExtract(enc);
+            }
+        }
+
+        private void cbxSignalEnc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (File.Exists(tbSignal.Text) && cbxSignalEnc.SelectedIndex > 0)
+            {
+                Encoding enc = Encoding.GetEncoding(cbxSignalEnc.Text);
+                SignalFileExtract(enc);
+            }
+        }
+
+        private void cbxStationEnc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (File.Exists(tbStation.Text) && cbxStationEnc.SelectedIndex > 0)
+            {
+                Encoding enc = Encoding.GetEncoding(cbxStationEnc.Text);
+                StationFileExtract(enc);
+            }
+        }
+
+        private void cbxSoundListEnc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (File.Exists(map.SoundList.FilePathAbs) && cbxSoundListEnc.SelectedIndex > 0)
+            {
+                Encoding enc = Encoding.GetEncoding(cbxSoundListEnc.Text);
+                SoundListListUp(enc);
+            }
+        }
+
+        private void cbxSound3DListEnc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (File.Exists(tbSound3DList.Text) && cbxSound3DListEnc.SelectedIndex > 0)
+            {
+                Encoding enc = Encoding.GetEncoding(cbxSound3DListEnc.Text);
+                Sound3DListExtract(enc);
+            }
+
+        }
+
+        private void cbxScenarioEnc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            /*if (File.Exists(tbSeinarioFileName.Text) && cbxScenarioEnc.SelectedIndex > 0) {
+                scenario = new Scenario(tbSeinarioFileName.Text, Encoding.GetEncoding(cbxScenarioEnc.Text));
+                OpenScenario();
+            }*/
         }
     }
  
