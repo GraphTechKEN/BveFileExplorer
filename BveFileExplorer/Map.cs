@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -21,7 +22,9 @@ namespace BveFileExplorer
         public Contents_Map Sound3DList { get; private set; }
         public List<Contents_Map> Train { get; private set; } 
 
-        public Map(string mapFilePath, bool IsReadIndexOnly = false)
+        public int encMode { get; private set; } = 0; // 0:未判定, 1:utf-8, 2:shift_jis
+
+        public Map(string mapFilePath, bool IsReadIndexOnly = false,Encoding enc = null)
         {
             if (File.Exists(mapFilePath))
             {
@@ -32,6 +35,24 @@ namespace BveFileExplorer
                 Train = new List<Contents_Map>();
                 Log += "車両ファイル：" + mapFilePath + "\r\n";
 ;
+                //内容を読み込み、表示する
+                //エンコードを判定するために一度読み込む
+                using (StreamReader sr_temp = new StreamReader(mapFilePath))
+                {
+                    if (enc == null)
+                    {
+                        enc = Encoding.GetEncoding("utf-8"); encMode = 1;
+                        string tmp_str = sr_temp.ReadLine();
+                        if (tmp_str != null)
+                        {
+                            if (tmp_str.IndexOf("shift_jis", StringComparison.OrdinalIgnoreCase) > 0 || tmp_str.IndexOf("shift-jis", StringComparison.OrdinalIgnoreCase) > 0)
+                            {
+                                enc = Encoding.GetEncoding("shift_jis");
+                                encMode = 2;
+                            }
+                        }
+                    }
+                }
                 using (StreamReader sr = new StreamReader(mapFilePath))
 
                     //最後まで読込
@@ -120,26 +141,30 @@ namespace BveFileExplorer
             var match = Regex.Match(line, @"\((.*)\)");
             if (match.Success)
             {
-                // クォートを除去してカンマで分割
-                string content = match.Groups[1].Value.Replace("'", "").Replace("\"", "").Trim();
-                string[] parts = content.Split(',').Select(p => p.Trim()).ToArray();
+                // カンマで分割した後、各要素から引用符を取り除く
+                string[] parts = match.Groups[1].Value
+                    .Split(',')
+                    .Select(p => p.Trim().Trim('\'', '\"'))
+                    .ToArray();
 
-                if (line.Contains(","))
+                // 4つの引数がある場合 (Train.Add または Train[].Load)
+                if (parts.Length >= 4)
                 {
-                    // Train.Add の 4引数対応
-                    string tKey = parts.Length > 0 ? parts[0] : "";
-                    string fPath = parts.Length > 1 ? parts[1] : "";
-                    string trKey = parts.Length > 2 ? parts[2] : "";
-                    string dir = parts.Length > 3 ? parts[3] : "";
+                    string tKey = parts[0];
+                    string fPath = parts[1];
+                    string trKey = parts[2];
+                    string dir = parts[3];
 
                     FilePath = fPath;
                     TrainFilesList.Add((tKey, fPath, trKey, dir));
                 }
-                else
+                else if (parts.Length > 0)
                 {
-                    // 通常の Load(path) 形式
-                    FilePath = parts.Length > 0 ? parts[0] : "";
+                    // 引数が1つの場合 (通常の Load 形式)
+                    FilePath = parts[0];
                 }
+
+                // パス解決と存在確認
                 FilePathAbs = PathCombineAbs(filePath, FilePath);
                 if (File.Exists(FilePathAbs))
                 {
@@ -147,12 +172,11 @@ namespace BveFileExplorer
                 }
                 else
                 {
-                    Message = "Not Found or Supported" + filePath;
+                    Message = "Not Found or Supported: " + FilePathAbs;
                     Color = Color.LightYellow;
                     Ret = -1;
                 }
             }
-
             else
             {
                 Message = "Not Found : Not declared";

@@ -260,6 +260,7 @@ namespace BveFileExplorer
                     cbxMapFilePath.BackColor = SystemColors.Window;
 
                     OpenNewMapFile(this.listMapFilePath[0]);
+                    IncludeFileExtract();
 
                 }
 
@@ -313,6 +314,7 @@ namespace BveFileExplorer
                 List<string> listTrain = new List<string>();
 
                 map = new Map(filePath);
+                cbxMapEnc.SelectedIndex = map.encMode;
 
                 error += (PathControl_Map(ref tbStructure, ref btnStructureOpen, ref btnStructureDirectory, map.Structure, out _) <= 0) ? 1 : 0;
                 error += (PathControl_Map(ref tbStation, ref btnStationOpen, ref btnStationDirectory, map.Station, out _) <= 0) ? 1 : 0;
@@ -348,6 +350,7 @@ namespace BveFileExplorer
                 btnOpenVehicleFile.Enabled = true;
 
                 vehicle = new Vehicle(filePath);
+                cbxVehicleEnc.SelectedIndex = vehicle.encMode;
 
                 int error = 0;
 
@@ -1256,6 +1259,10 @@ namespace BveFileExplorer
             cbxSoundEnc.SelectedIndex= 0;
             cbxSound3DListEnc.SelectedIndex = 0;
             cbxTrainFileEnc.SelectedIndex = 0;
+            cbxVehicleEnc.SelectedIndex = 0;
+            cbxMapEnc.SelectedIndex = 0;
+            dgvIncludeList.DataSource = null;
+            dgvIncludeList.Columns.Clear();
 
 
             tabControlScenario.SelectTab(0);
@@ -1467,6 +1474,7 @@ namespace BveFileExplorer
             tbSignal.Text = "";
             tbSoundList.Text = "";
             tbSound3DList.Text = "";
+            cbxMapEnc.SelectedIndex = 0;
             /*cbxTrain.Text = "";
             cbxMapFilePath.Text = "";*/
             //コンボボックスのインデックスを取得
@@ -1475,6 +1483,7 @@ namespace BveFileExplorer
             {
                 //コンボボックスのインデックス番号のファイルパスで車両ファイルを開く
                 OpenNewMapFile(listMapFilePath[cbxMapIndex]);
+                IncludeFileExtract();
             }
         }
 
@@ -1602,6 +1611,7 @@ namespace BveFileExplorer
             tbAts64DetailModules.Text = "";
             dgvAts32.Rows.Clear();
             dgvAts64.Rows.Clear();
+            cbxVehicleEnc.SelectedIndex = 0;
 
             //コンボボックスのインデックスを取得
             cbxVehicleIndex = cbxVehicle.SelectedIndex;
@@ -2166,7 +2176,7 @@ namespace BveFileExplorer
             }
             else if (currentTab.Name == "tpSoundList")
             {
-                SoundListListUp();
+                SoundListFileExtract();
             }
             else if (currentTab.Name == "tpSound3D")
             {
@@ -2202,6 +2212,81 @@ namespace BveFileExplorer
                 dgvTrainFileList.DataSource = dtTrainFileList;
 
                 TrainFileExtract();
+            }
+        }
+
+        private void IncludeFileExtract(Encoding enc = null)
+        {
+            //導入ファイル(Include)
+            // 1. DataTableを作成 (ヘッダー用)
+            DataTable dt = new DataTable();
+            dt.Columns.Add("FilePath");
+            dt.Columns.Add("Remarks");
+
+            if (File.Exists(cbxMapFilePath.Text))
+            {
+                if (enc == null)
+                {
+                    enc = GetEndcordFromFile(cbxMapFilePath.Text, out int encMode);
+                    cbxTrainFileEnc.SelectedIndex = encMode;
+                }
+
+                string[] lines = File.ReadAllLines(cbxMapFilePath.Text, enc);
+
+                foreach (string line in lines)
+                {
+                    string trimmedLine = line.Trim();
+                    if (string.IsNullOrWhiteSpace(trimmedLine)) continue;
+                    // "include" が含まれる行を対象にする（大文字小文字を区別しない）
+                    if (trimmedLine.IndexOf("include", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        // ';' 以降をコメント（Remarks）として分割
+                        string[] parts = trimmedLine.Split(new[] { ';' }, 2);
+
+                        // filePath側の抽出: includeキーワードを消し、引用符 ' を削除
+                        string filePath = parts[0].Replace("include", "").Replace("'", "").Trim();
+
+                        // Remarks側の抽出: セミコロン以降があれば取得
+                        string remarks = (parts.Length >= 2) ? parts[1].Trim() : "";
+
+                        dt.Rows.Add(filePath, remarks);
+                    }
+                }
+
+                // バインド前にDataTable側で削除（安全策）
+                if (dt.Rows.Count > 0) dt.Rows.RemoveAt(0);
+
+                dgvIncludeList.DataSource = dt;
+
+                // ソート禁止
+                foreach (DataGridViewColumn c in dgvIncludeList.Columns)
+                    c.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                // 色付け
+                foreach (DataGridViewRow row in dgvIncludeList.Rows)
+                {
+                    if (row.IsNewRow) continue;
+
+                    // row.Cells[0] のNullチェックをしつつ取得
+                    string cellValue = row.Cells[0].Value?.ToString() ?? "";
+
+                    if (cellValue.Contains("#") || cellValue.Contains(";") || cellValue.Contains("//"))
+                    {
+                        row.DefaultCellStyle.BackColor = Color.LightBlue;
+                    }
+                    else if (string.IsNullOrEmpty(cellValue))
+                    {
+                        row.DefaultCellStyle.BackColor = Color.LightGray;
+                    }
+                    else if (cellValue.Contains("["))
+                    {
+                        row.DefaultCellStyle.BackColor = Color.LightGreen;
+                    }
+                }
+            }
+            else
+            {
+                dgvIncludeList.DataSource = null;
             }
         }
 
@@ -2296,12 +2381,6 @@ namespace BveFileExplorer
 
                 for (int i = 0; i < dgvSound3DList.Rows.Count - 1; i++)
                 {
-                    /*if (bools[i])
-                    {
-                        dgvSoundList.Rows[i].DefaultCellStyle.BackColor = Color.LightBlue;
-                    }
-                    else
-                    {*/
                     string cellValue = dgvSound3DList.Rows[i].Cells[1].Value.ToString();
                     if (!File.Exists(PathCombineAbs(map.Sound3DList.FilePathAbs, cellValue)) && cellValue != "")
                     {
@@ -2316,7 +2395,6 @@ namespace BveFileExplorer
                     {
                         dgvSound3DList.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
                     }
-                    //}
                 }
             }
         }
@@ -2671,7 +2749,7 @@ namespace BveFileExplorer
             }
         }
 
-        private void SoundListListUp(Encoding enc = null)
+        private void SoundListFileExtract(Encoding enc = null)
         {
             if (map != null && map.SoundList != null && File.Exists(map.SoundList.FilePathAbs))
             {
@@ -3270,10 +3348,9 @@ namespace BveFileExplorer
 
                 ProcessStart(fullPath, false);
             }
-
         }
 
-        private void dgvRoute_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvRoute_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             GetFileData_ProcessStart_FromDataGridView(e.ColumnIndex, e.RowIndex, 0, ref dgvRoute, tbSeinarioFileName.Text);
         }
@@ -3290,7 +3367,7 @@ namespace BveFileExplorer
             {
                 if (dgvSoundList.RowCount == 0 || dgvSoundList == null)
                 {
-                    SoundListListUp();
+                    SoundListFileExtract();
                 }
                 string tmp_str = dgvStation[e.ColumnIndex, e.RowIndex].Value.ToString();
                 if (!string.IsNullOrEmpty(tmp_str))
@@ -3503,7 +3580,7 @@ namespace BveFileExplorer
             {
                 if (dgvSoundList.RowCount == 0 || dgvSoundList == null)
                 {
-                    SoundListListUp();
+                    SoundListFileExtract();
                 }
                 string tmp_str = dgvStation[e.ColumnIndex, e.RowIndex].Value.ToString();
                 if (!string.IsNullOrEmpty(tmp_str))
@@ -3606,14 +3683,18 @@ namespace BveFileExplorer
             // ファイルが存在するか確認
             if (File.Exists(tbPanel.Text) && cbxPanelEnc.SelectedIndex > 0)
             {
-                //エンコードを選択
-                Encoding enc = Encoding.GetEncoding(cbxParametersEnc.Text);
-                //DataTableに展開
-                DataExpandToDataTableXY(dt, tbPanel.Text,enc);
-                //DataGridView設定
-                DataGridViewSettingForVehicle(dt, dgvPanel, true);
-                //色付け
-                DataGridViewColoringForVehicles(dgvPanel);
+                try
+                {
+                    //エンコードを選択
+                    Encoding enc = Encoding.GetEncoding(cbxParametersEnc.Text);
+                    //DataTableに展開
+                    DataExpandToDataTableXY(dt, tbPanel.Text, enc);
+                    //DataGridView設定
+                    DataGridViewSettingForVehicle(dt, dgvPanel, true);
+                    //色付け
+                    DataGridViewColoringForVehicles(dgvPanel);
+                }
+                catch { }
             }
         }
 
@@ -3697,7 +3778,7 @@ namespace BveFileExplorer
             if (File.Exists(map.SoundList.FilePathAbs) && cbxSoundListEnc.SelectedIndex > 0)
             {
                 Encoding enc = Encoding.GetEncoding(cbxSoundListEnc.Text);
-                SoundListListUp(enc);
+                SoundListFileExtract(enc);
             }
         }
 
@@ -3717,6 +3798,11 @@ namespace BveFileExplorer
                 scenario = new Scenario(tbSeinarioFileName.Text, Encoding.GetEncoding(cbxScenarioEnc.Text));
                 OpenScenario();
             }*/
+        }
+
+        private void dgvIncludeList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            GetFileData_ProcessStart_FromDataGridView(e.ColumnIndex, e.RowIndex, 0, ref dgvIncludeList, cbxMapFilePath.Text);
         }
     }
  

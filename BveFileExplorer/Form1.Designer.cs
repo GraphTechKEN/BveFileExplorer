@@ -40,6 +40,7 @@
             this.btnHelp = new System.Windows.Forms.Button();
             this.tabControlScenario = new System.Windows.Forms.TabControl();
             this.tpVehicle = new System.Windows.Forms.TabPage();
+            this.cbxVehicleEnc = new System.Windows.Forms.ComboBox();
             this.tabControlVehicle = new System.Windows.Forms.TabControl();
             this.tpVehicleFile = new System.Windows.Forms.TabPage();
             this.dgvVehicle = new System.Windows.Forms.DataGridView();
@@ -111,9 +112,13 @@
             this.lblVehicleVer = new System.Windows.Forms.Label();
             this.cbxVehicle = new System.Windows.Forms.ComboBox();
             this.tpRoute = new System.Windows.Forms.TabPage();
+            this.cbxMapEnc = new System.Windows.Forms.ComboBox();
             this.tabControlMaps = new System.Windows.Forms.TabControl();
             this.tpRouteFile = new System.Windows.Forms.TabPage();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.dgvRoute = new System.Windows.Forms.DataGridView();
+            this.lblInclude = new System.Windows.Forms.Label();
+            this.dgvIncludeList = new System.Windows.Forms.DataGridView();
             this.tpStructure = new System.Windows.Forms.TabPage();
             this.cbxStructureEnc = new System.Windows.Forms.ComboBox();
             this.dgvStructure = new System.Windows.Forms.DataGridView();
@@ -152,7 +157,6 @@
             this.cbxTrain = new System.Windows.Forms.ComboBox();
             this.btnTrainDirectory = new System.Windows.Forms.Button();
             this.btnTrainOpen = new System.Windows.Forms.Button();
-            this.tpInclude = new System.Windows.Forms.TabPage();
             this.cbxMapFilePath = new System.Windows.Forms.ComboBox();
             this.btnMapDirectory = new System.Windows.Forms.Button();
             this.btnMapOpen = new System.Windows.Forms.Button();
@@ -247,7 +251,12 @@
             this.tpRoute.SuspendLayout();
             this.tabControlMaps.SuspendLayout();
             this.tpRouteFile.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoute)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvIncludeList)).BeginInit();
             this.tpStructure.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStructure)).BeginInit();
             this.tpSignal.SuspendLayout();
@@ -397,6 +406,7 @@
             // tpVehicle
             // 
             this.tpVehicle.BackColor = System.Drawing.Color.LightGray;
+            this.tpVehicle.Controls.Add(this.cbxVehicleEnc);
             this.tpVehicle.Controls.Add(this.tabControlVehicle);
             this.tpVehicle.Controls.Add(this.lblVehicleVer);
             this.tpVehicle.Controls.Add(this.cbxVehicle);
@@ -408,6 +418,22 @@
             this.tpVehicle.Size = new System.Drawing.Size(1069, 636);
             this.tpVehicle.TabIndex = 1;
             this.tpVehicle.Text = "車両ファイル";
+            // 
+            // cbxVehicleEnc
+            // 
+            this.cbxVehicleEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxVehicleEnc.Enabled = false;
+            this.cbxVehicleEnc.FormattingEnabled = true;
+            this.cbxVehicleEnc.Items.AddRange(new object[] {
+            "Encode",
+            "UTF-8",
+            "Shift_JIS"});
+            this.cbxVehicleEnc.Location = new System.Drawing.Point(938, 9);
+            this.cbxVehicleEnc.Name = "cbxVehicleEnc";
+            this.cbxVehicleEnc.Size = new System.Drawing.Size(114, 20);
+            this.cbxVehicleEnc.TabIndex = 30;
+            this.cbxVehicleEnc.TabStop = false;
+            this.cbxVehicleEnc.Text = "Encording";
             // 
             // tabControlVehicle
             // 
@@ -452,7 +478,7 @@
             this.dgvVehicle.Size = new System.Drawing.Size(1048, 534);
             this.dgvVehicle.TabIndex = 11;
             this.dgvVehicle.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicle_CellClick);
-            this.dgvVehicle.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicle_CellContentDoubleClick);
+            this.dgvVehicle.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicle_CellContentDoubleClick);
             // 
             // tpPerformanceCurve
             // 
@@ -1227,7 +1253,7 @@
             this.cbxVehicle.FormattingEnabled = true;
             this.cbxVehicle.Location = new System.Drawing.Point(397, 9);
             this.cbxVehicle.Name = "cbxVehicle";
-            this.cbxVehicle.Size = new System.Drawing.Size(654, 20);
+            this.cbxVehicle.Size = new System.Drawing.Size(535, 20);
             this.cbxVehicle.TabIndex = 3;
             this.cbxVehicle.TabStop = false;
             this.cbxVehicle.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cbxVehicle_DrawItem);
@@ -1236,6 +1262,7 @@
             // tpRoute
             // 
             this.tpRoute.BackColor = System.Drawing.Color.LightGray;
+            this.tpRoute.Controls.Add(this.cbxMapEnc);
             this.tpRoute.Controls.Add(this.tabControlMaps);
             this.tpRoute.Controls.Add(this.cbxMapFilePath);
             this.tpRoute.Controls.Add(this.btnMapDirectory);
@@ -1245,6 +1272,22 @@
             this.tpRoute.Size = new System.Drawing.Size(1069, 636);
             this.tpRoute.TabIndex = 2;
             this.tpRoute.Text = "マップファイル";
+            // 
+            // cbxMapEnc
+            // 
+            this.cbxMapEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxMapEnc.Enabled = false;
+            this.cbxMapEnc.FormattingEnabled = true;
+            this.cbxMapEnc.Items.AddRange(new object[] {
+            "Encode",
+            "UTF-8",
+            "Shift_JIS"});
+            this.cbxMapEnc.Location = new System.Drawing.Point(938, 9);
+            this.cbxMapEnc.Name = "cbxMapEnc";
+            this.cbxMapEnc.Size = new System.Drawing.Size(114, 20);
+            this.cbxMapEnc.TabIndex = 30;
+            this.cbxMapEnc.TabStop = false;
+            this.cbxMapEnc.Text = "Encording";
             // 
             // tabControlMaps
             // 
@@ -1258,7 +1301,6 @@
             this.tabControlMaps.Controls.Add(this.tpSoundList);
             this.tabControlMaps.Controls.Add(this.tpSound3D);
             this.tabControlMaps.Controls.Add(this.tpTrain);
-            this.tabControlMaps.Controls.Add(this.tpInclude);
             this.tabControlMaps.Location = new System.Drawing.Point(3, 37);
             this.tabControlMaps.Name = "tabControlMaps";
             this.tabControlMaps.SelectedIndex = 0;
@@ -1268,13 +1310,30 @@
             // 
             // tpRouteFile
             // 
-            this.tpRouteFile.Controls.Add(this.dgvRoute);
+            this.tpRouteFile.Controls.Add(this.splitContainer3);
             this.tpRouteFile.Location = new System.Drawing.Point(4, 22);
             this.tpRouteFile.Name = "tpRouteFile";
             this.tpRouteFile.Size = new System.Drawing.Size(1053, 570);
             this.tpRouteFile.TabIndex = 7;
             this.tpRouteFile.Text = "路線ファイル(Route)";
             this.tpRouteFile.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Location = new System.Drawing.Point(4, 4);
+            this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.dgvRoute);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.lblInclude);
+            this.splitContainer3.Panel2.Controls.Add(this.dgvIncludeList);
+            this.splitContainer3.Size = new System.Drawing.Size(1046, 563);
+            this.splitContainer3.SplitterDistance = 515;
+            this.splitContainer3.TabIndex = 13;
             // 
             // dgvRoute
             // 
@@ -1284,13 +1343,37 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvRoute.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvRoute.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRoute.Location = new System.Drawing.Point(3, 33);
+            this.dgvRoute.Location = new System.Drawing.Point(3, 32);
             this.dgvRoute.Name = "dgvRoute";
             this.dgvRoute.RowTemplate.Height = 21;
-            this.dgvRoute.Size = new System.Drawing.Size(1047, 534);
+            this.dgvRoute.Size = new System.Drawing.Size(509, 528);
             this.dgvRoute.TabIndex = 12;
             this.dgvRoute.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoute_CellClick);
-            this.dgvRoute.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoute_CellContentDoubleClick);
+            this.dgvRoute.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoute_CellDoubleClick);
+            // 
+            // lblInclude
+            // 
+            this.lblInclude.AutoSize = true;
+            this.lblInclude.Location = new System.Drawing.Point(9, 10);
+            this.lblInclude.Name = "lblInclude";
+            this.lblInclude.Size = new System.Drawing.Size(41, 12);
+            this.lblInclude.TabIndex = 14;
+            this.lblInclude.Text = "Include";
+            // 
+            // dgvIncludeList
+            // 
+            this.dgvIncludeList.AllowUserToAddRows = false;
+            this.dgvIncludeList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvIncludeList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvIncludeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvIncludeList.Location = new System.Drawing.Point(3, 32);
+            this.dgvIncludeList.Name = "dgvIncludeList";
+            this.dgvIncludeList.RowTemplate.Height = 21;
+            this.dgvIncludeList.Size = new System.Drawing.Size(519, 528);
+            this.dgvIncludeList.TabIndex = 13;
+            this.dgvIncludeList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvIncludeList_CellDoubleClick);
             // 
             // tpStructure
             // 
@@ -1790,15 +1873,6 @@
             this.btnTrainOpen.UseVisualStyleBackColor = true;
             this.btnTrainOpen.Click += new System.EventHandler(this.btnTrainOpen_Click);
             // 
-            // tpInclude
-            // 
-            this.tpInclude.Location = new System.Drawing.Point(4, 22);
-            this.tpInclude.Name = "tpInclude";
-            this.tpInclude.Size = new System.Drawing.Size(1053, 570);
-            this.tpInclude.TabIndex = 6;
-            this.tpInclude.Text = "その他ファイル(Include)";
-            this.tpInclude.UseVisualStyleBackColor = true;
-            // 
             // cbxMapFilePath
             // 
             this.cbxMapFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1806,14 +1880,14 @@
             this.cbxMapFilePath.FormattingEnabled = true;
             this.cbxMapFilePath.Location = new System.Drawing.Point(397, 9);
             this.cbxMapFilePath.Name = "cbxMapFilePath";
-            this.cbxMapFilePath.Size = new System.Drawing.Size(654, 20);
+            this.cbxMapFilePath.Size = new System.Drawing.Size(535, 20);
             this.cbxMapFilePath.TabIndex = 6;
             this.cbxMapFilePath.SelectedIndexChanged += new System.EventHandler(this.cbxMapFilePath_SelectedIndexChanged);
             // 
             // btnMapDirectory
             // 
             this.btnMapDirectory.Enabled = false;
-            this.btnMapDirectory.Location = new System.Drawing.Point(337, 5);
+            this.btnMapDirectory.Location = new System.Drawing.Point(336, 5);
             this.btnMapDirectory.Name = "btnMapDirectory";
             this.btnMapDirectory.Size = new System.Drawing.Size(54, 26);
             this.btnMapDirectory.TabIndex = 3;
@@ -2169,7 +2243,7 @@
             this.btnBootBVE5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBootBVE5.Enabled = false;
-            this.btnBootBVE5.Location = new System.Drawing.Point(8, 148);
+            this.btnBootBVE5.Location = new System.Drawing.Point(8, 48);
             this.btnBootBVE5.Name = "btnBootBVE5";
             this.btnBootBVE5.Size = new System.Drawing.Size(166, 42);
             this.btnBootBVE5.TabIndex = 20;
@@ -2193,7 +2267,7 @@
             this.btnBve5BootChooseVehicle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBve5BootChooseVehicle.Enabled = false;
-            this.btnBve5BootChooseVehicle.Location = new System.Drawing.Point(8, 48);
+            this.btnBve5BootChooseVehicle.Location = new System.Drawing.Point(8, 96);
             this.btnBve5BootChooseVehicle.Name = "btnBve5BootChooseVehicle";
             this.btnBve5BootChooseVehicle.Size = new System.Drawing.Size(166, 44);
             this.btnBve5BootChooseVehicle.TabIndex = 20;
@@ -2206,7 +2280,7 @@
             this.btnBve5BootChooseMap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBve5BootChooseMap.Enabled = false;
-            this.btnBve5BootChooseMap.Location = new System.Drawing.Point(8, 98);
+            this.btnBve5BootChooseMap.Location = new System.Drawing.Point(8, 146);
             this.btnBve5BootChooseMap.Name = "btnBve5BootChooseMap";
             this.btnBve5BootChooseMap.Size = new System.Drawing.Size(166, 44);
             this.btnBve5BootChooseMap.TabIndex = 20;
@@ -2269,7 +2343,7 @@
             this.btnBve6BootChooseVehicle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBve6BootChooseVehicle.Enabled = false;
-            this.btnBve6BootChooseVehicle.Location = new System.Drawing.Point(8, 48);
+            this.btnBve6BootChooseVehicle.Location = new System.Drawing.Point(8, 98);
             this.btnBve6BootChooseVehicle.Name = "btnBve6BootChooseVehicle";
             this.btnBve6BootChooseVehicle.Size = new System.Drawing.Size(166, 44);
             this.btnBve6BootChooseVehicle.TabIndex = 20;
@@ -2282,7 +2356,7 @@
             this.btnBve6BootChooseMap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBve6BootChooseMap.Enabled = false;
-            this.btnBve6BootChooseMap.Location = new System.Drawing.Point(8, 98);
+            this.btnBve6BootChooseMap.Location = new System.Drawing.Point(8, 146);
             this.btnBve6BootChooseMap.Name = "btnBve6BootChooseMap";
             this.btnBve6BootChooseMap.Size = new System.Drawing.Size(166, 44);
             this.btnBve6BootChooseMap.TabIndex = 20;
@@ -2295,7 +2369,7 @@
             this.btnBootBVE6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBootBVE6.Enabled = false;
-            this.btnBootBVE6.Location = new System.Drawing.Point(8, 148);
+            this.btnBootBVE6.Location = new System.Drawing.Point(8, 50);
             this.btnBootBVE6.Name = "btnBootBVE6";
             this.btnBootBVE6.Size = new System.Drawing.Size(166, 42);
             this.btnBootBVE6.TabIndex = 20;
@@ -2468,7 +2542,7 @@
             this.dgvFiles.Size = new System.Drawing.Size(482, 868);
             this.dgvFiles.TabIndex = 36;
             this.dgvFiles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFiles_CellClick);
-            this.dgvFiles.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFiles_CellDoubleClick);
+            this.dgvFiles.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFiles_CellDoubleClick);
             // 
             // btnListOther
             // 
@@ -2548,6 +2622,7 @@
             // cbxScenarioEnc
             // 
             this.cbxScenarioEnc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxScenarioEnc.Enabled = false;
             this.cbxScenarioEnc.FormattingEnabled = true;
             this.cbxScenarioEnc.Items.AddRange(new object[] {
             "Encode",
@@ -2673,7 +2748,13 @@
             this.tpRoute.ResumeLayout(false);
             this.tabControlMaps.ResumeLayout(false);
             this.tpRouteFile.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            this.splitContainer3.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoute)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvIncludeList)).EndInit();
             this.tpStructure.ResumeLayout(false);
             this.tpStructure.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStructure)).EndInit();
@@ -2881,7 +2962,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.TabPage tpInclude;
         private System.Windows.Forms.Button btnListBVE5;
         private System.Windows.Forms.Button btnListBVE6;
         private System.Windows.Forms.Button btnListNoVehicle;
@@ -2914,6 +2994,11 @@
         private System.Windows.Forms.ComboBox cbxSound3DListEnc;
         private System.Windows.Forms.ComboBox cbxTrainFileEnc;
         private System.Windows.Forms.ComboBox cbxScenarioEnc;
+        private System.Windows.Forms.ComboBox cbxVehicleEnc;
+        private System.Windows.Forms.ComboBox cbxMapEnc;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.DataGridView dgvIncludeList;
+        private System.Windows.Forms.Label lblInclude;
     }
 }
 

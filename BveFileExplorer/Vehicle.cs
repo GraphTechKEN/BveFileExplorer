@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -27,7 +28,9 @@ namespace BveFileExplorer
         public Contents_Vehicle MotorNoise { get; private set; }
         public Contents_Vehicle Ats64 { get; private set; }
 
-        public Vehicle(string vehicleFilePath, bool IsReadIndexOnly = false)
+        public int encMode { get; private set; } = 0; // 0:未判定, 1:utf-8, 2:shift_jis
+
+        public Vehicle(string vehicleFilePath, bool IsReadIndexOnly = false, Encoding enc = null)
         {
 
             FilePath = vehicleFilePath;
@@ -39,7 +42,25 @@ namespace BveFileExplorer
 
             if (File.Exists(vehicleFilePath))
             {
-                using (StreamReader sr = new StreamReader(vehicleFilePath))
+                //内容を読み込み、表示する
+                //エンコードを判定するために一度読み込む
+                using (StreamReader sr_temp = new StreamReader(vehicleFilePath))
+                {
+                    if (enc == null)
+                    {
+                        enc = Encoding.GetEncoding("utf-8"); encMode = 1;
+                        string tmp_str = sr_temp.ReadLine();
+                        if (tmp_str != null)
+                        {
+                            if (tmp_str.IndexOf("shift_jis", StringComparison.OrdinalIgnoreCase) > 0 || tmp_str.IndexOf("shift-jis", StringComparison.OrdinalIgnoreCase) > 0)
+                            {
+                                enc = Encoding.GetEncoding("shift_jis");
+                                encMode = 2;
+                            }
+                        }
+                    }
+                }
+                using (StreamReader sr = new StreamReader(vehicleFilePath,enc))
                 {
                     //最後まで読込
                     while ((line = sr.ReadLine()) != null)
