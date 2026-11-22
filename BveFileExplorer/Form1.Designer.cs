@@ -1,4 +1,4 @@
-﻿namespace BveFileExplorer
+namespace BveFileExplorer
 {
     partial class Form1
     {
@@ -312,7 +312,6 @@
             this.btnOpenScenarioFile.TabIndex = 5;
             this.btnOpenScenarioFile.Text = "開く";
             this.btnOpenScenarioFile.UseVisualStyleBackColor = true;
-            this.btnOpenScenarioFile.Click += new System.EventHandler(this.btnOpenRouteFile_Click);
             // 
             // btnOpenVehicleFile
             // 
@@ -323,7 +322,6 @@
             this.btnOpenVehicleFile.TabIndex = 6;
             this.btnOpenVehicleFile.Text = "開く";
             this.btnOpenVehicleFile.UseVisualStyleBackColor = true;
-            this.btnOpenVehicleFile.Click += new System.EventHandler(this.btnOpenVehicleFile_Click);
             // 
             // btnAts32OpenDirectory
             // 
@@ -334,7 +332,6 @@
             this.btnAts32OpenDirectory.TabIndex = 8;
             this.btnAts32OpenDirectory.Text = "フォルダ";
             this.btnAts32OpenDirectory.UseVisualStyleBackColor = true;
-            this.btnAts32OpenDirectory.Click += new System.EventHandler(this.btnOpenAts32Directory_Click);
             // 
             // btnOpenVehicleDirectory
             // 
@@ -345,7 +342,6 @@
             this.btnOpenVehicleDirectory.TabIndex = 9;
             this.btnOpenVehicleDirectory.Text = "フォルダ";
             this.btnOpenVehicleDirectory.UseVisualStyleBackColor = true;
-            this.btnOpenVehicleDirectory.Click += new System.EventHandler(this.btnOpenVehicleDirectory_Click);
             // 
             // pbVehicleImage
             // 
@@ -400,7 +396,6 @@
             this.tabControlScenario.SelectedIndex = 0;
             this.tabControlScenario.Size = new System.Drawing.Size(1077, 662);
             this.tabControlScenario.TabIndex = 18;
-            this.tabControlScenario.SelectedIndexChanged += new System.EventHandler(this.tabControlScenario_SelectedIndexChanged);
             this.tabControlScenario.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
             // tpVehicle
@@ -434,6 +429,7 @@
             this.cbxVehicleEnc.TabIndex = 30;
             this.cbxVehicleEnc.TabStop = false;
             this.cbxVehicleEnc.Text = "Encording";
+            this.cbxVehicleEnc.SelectedIndexChanged += new System.EventHandler(this.cbxVehicleEnc_SelectedIndexChanged);
             // 
             // tabControlVehicle
             // 
@@ -544,7 +540,6 @@
             this.btnPerfoemanceCurveOpen.TabIndex = 0;
             this.btnPerfoemanceCurveOpen.Text = "開く";
             this.btnPerfoemanceCurveOpen.UseVisualStyleBackColor = true;
-            this.btnPerfoemanceCurveOpen.Click += new System.EventHandler(this.btnPerfoemanceCurveOpen_Click);
             // 
             // btnPerfoemanceCurveDirectory
             // 
@@ -555,7 +550,6 @@
             this.btnPerfoemanceCurveDirectory.TabIndex = 9;
             this.btnPerfoemanceCurveDirectory.Text = "フォルダ";
             this.btnPerfoemanceCurveDirectory.UseVisualStyleBackColor = true;
-            this.btnPerfoemanceCurveDirectory.Click += new System.EventHandler(this.btnPerfoemanceCurveDirectory_Click);
             // 
             // tpParameters
             // 
@@ -620,7 +614,6 @@
             this.btnParametersOpen.TabIndex = 0;
             this.btnParametersOpen.Text = "開く";
             this.btnParametersOpen.UseVisualStyleBackColor = true;
-            this.btnParametersOpen.Click += new System.EventHandler(this.btnParametersOpen_Click);
             // 
             // btnParametersDirectory
             // 
@@ -631,7 +624,6 @@
             this.btnParametersDirectory.TabIndex = 9;
             this.btnParametersDirectory.Text = "フォルダ";
             this.btnParametersDirectory.UseVisualStyleBackColor = true;
-            this.btnParametersDirectory.Click += new System.EventHandler(this.btnParametersDirectory_Click);
             // 
             // tpPanel
             // 
@@ -696,7 +688,6 @@
             this.btnPanelOpen.TabIndex = 0;
             this.btnPanelOpen.Text = "開く";
             this.btnPanelOpen.UseVisualStyleBackColor = true;
-            this.btnPanelOpen.Click += new System.EventHandler(this.btnPanelOpen_Click);
             // 
             // btnPanelDirectory
             // 
@@ -707,7 +698,6 @@
             this.btnPanelDirectory.TabIndex = 9;
             this.btnPanelDirectory.Text = "フォルダ";
             this.btnPanelDirectory.UseVisualStyleBackColor = true;
-            this.btnPanelDirectory.Click += new System.EventHandler(this.btnPanelDirectory_Click);
             // 
             // tpSound
             // 
@@ -773,7 +763,6 @@
             this.btnSoundOpen.TabIndex = 0;
             this.btnSoundOpen.Text = "開く";
             this.btnSoundOpen.UseVisualStyleBackColor = true;
-            this.btnSoundOpen.Click += new System.EventHandler(this.btnSoundOpen_Click);
             // 
             // btnSoundDirectory
             // 
@@ -784,7 +773,6 @@
             this.btnSoundDirectory.TabIndex = 9;
             this.btnSoundDirectory.Text = "フォルダ";
             this.btnSoundDirectory.UseVisualStyleBackColor = true;
-            this.btnSoundDirectory.Click += new System.EventHandler(this.btnSoundDirectory_Click);
             // 
             // tpMotorNoise
             // 
@@ -849,7 +837,6 @@
             this.btnMotorNoiseOpen.TabIndex = 0;
             this.btnMotorNoiseOpen.Text = "開く";
             this.btnMotorNoiseOpen.UseVisualStyleBackColor = true;
-            this.btnMotorNoiseOpen.Click += new System.EventHandler(this.btnMotorNoiseOpen_Click);
             // 
             // btnMotorNoiseDirectory
             // 
@@ -860,7 +847,6 @@
             this.btnMotorNoiseDirectory.TabIndex = 9;
             this.btnMotorNoiseDirectory.Text = "フォルダ";
             this.btnMotorNoiseDirectory.UseVisualStyleBackColor = true;
-            this.btnMotorNoiseDirectory.Click += new System.EventHandler(this.btnMotorNoiseDirectory_Click);
             // 
             // tpAts
             // 
@@ -959,7 +945,6 @@
             this.btnAts32Open2.TabIndex = 12;
             this.btnAts32Open2.Text = "開く";
             this.btnAts32Open2.UseVisualStyleBackColor = true;
-            this.btnAts32Open2.Click += new System.EventHandler(this.btnAts32Open2_Click);
             // 
             // dgvAts32
             // 
@@ -1089,7 +1074,6 @@
             this.btnAts64Open2.TabIndex = 14;
             this.btnAts64Open2.Text = "開く";
             this.btnAts64Open2.UseVisualStyleBackColor = true;
-            this.btnAts64Open2.Click += new System.EventHandler(this.btnAts64Open2_Click);
             // 
             // dgvAts64
             // 
@@ -1159,7 +1143,6 @@
             this.btnAts32Open.TabIndex = 0;
             this.btnAts32Open.Text = "開く";
             this.btnAts32Open.UseVisualStyleBackColor = true;
-            this.btnAts32Open.Click += new System.EventHandler(this.btnOpenAts32_Click);
             // 
             // btnAts32Check
             // 
@@ -1182,7 +1165,6 @@
             this.btnAts64OpenDirectory.Text = "フォルダ";
             this.btnAts64OpenDirectory.UseVisualStyleBackColor = true;
             this.btnAts64OpenDirectory.Visible = false;
-            this.btnAts64OpenDirectory.Click += new System.EventHandler(this.btnOpenAts64Directory_Click);
             // 
             // btnAts64Check
             // 
@@ -1206,7 +1188,6 @@
             this.btnAts64Open.Text = "開く";
             this.btnAts64Open.UseVisualStyleBackColor = true;
             this.btnAts64Open.Visible = false;
-            this.btnAts64Open.Click += new System.EventHandler(this.btnAts64Open_Click);
             // 
             // lblAts64
             // 
@@ -1288,6 +1269,7 @@
             this.cbxMapEnc.TabIndex = 30;
             this.cbxMapEnc.TabStop = false;
             this.cbxMapEnc.Text = "Encording";
+            this.cbxMapEnc.SelectedIndexChanged += new System.EventHandler(this.cbxMapEnc_SelectedIndexChanged);
             // 
             // tabControlMaps
             // 
@@ -1439,7 +1421,6 @@
             this.btnStructureDirectory.TabIndex = 3;
             this.btnStructureDirectory.Text = "フォルダ";
             this.btnStructureDirectory.UseVisualStyleBackColor = true;
-            this.btnStructureDirectory.Click += new System.EventHandler(this.btnStructureDirectory_Click);
             // 
             // btnStructureOpen
             // 
@@ -1450,7 +1431,6 @@
             this.btnStructureOpen.TabIndex = 3;
             this.btnStructureOpen.Text = "開く";
             this.btnStructureOpen.UseVisualStyleBackColor = true;
-            this.btnStructureOpen.Click += new System.EventHandler(this.btnStructureOpen_Click_1);
             // 
             // tpSignal
             // 
@@ -1514,7 +1494,6 @@
             this.btnSignalDirectory.TabIndex = 3;
             this.btnSignalDirectory.Text = "フォルダ";
             this.btnSignalDirectory.UseVisualStyleBackColor = true;
-            this.btnSignalDirectory.Click += new System.EventHandler(this.btnSignalDirectory_Click);
             // 
             // btnSignalOpen
             // 
@@ -1525,7 +1504,6 @@
             this.btnSignalOpen.TabIndex = 3;
             this.btnSignalOpen.Text = "開く";
             this.btnSignalOpen.UseVisualStyleBackColor = true;
-            this.btnSignalOpen.Click += new System.EventHandler(this.btnSignalOpen_Click);
             // 
             // tpStation
             // 
@@ -1593,7 +1571,6 @@
             this.btnStationDirectory.TabIndex = 3;
             this.btnStationDirectory.Text = "フォルダ";
             this.btnStationDirectory.UseVisualStyleBackColor = true;
-            this.btnStationDirectory.Click += new System.EventHandler(this.btnStationDirectory_Click);
             // 
             // btnStationOpen
             // 
@@ -1604,7 +1581,6 @@
             this.btnStationOpen.TabIndex = 3;
             this.btnStationOpen.Text = "開く";
             this.btnStationOpen.UseVisualStyleBackColor = true;
-            this.btnStationOpen.Click += new System.EventHandler(this.btnStationOpen_Click);
             // 
             // tpSoundList
             // 
@@ -1671,7 +1647,6 @@
             this.btnSoundListDirectory.TabIndex = 3;
             this.btnSoundListDirectory.Text = "フォルダ";
             this.btnSoundListDirectory.UseVisualStyleBackColor = true;
-            this.btnSoundListDirectory.Click += new System.EventHandler(this.btnSoundListDirectory_Click);
             // 
             // btnSoundListOpen
             // 
@@ -1682,7 +1657,6 @@
             this.btnSoundListOpen.TabIndex = 3;
             this.btnSoundListOpen.Text = "開く";
             this.btnSoundListOpen.UseVisualStyleBackColor = true;
-            this.btnSoundListOpen.Click += new System.EventHandler(this.btnSoundListOpen_Click);
             // 
             // tpSound3D
             // 
@@ -1749,7 +1723,6 @@
             this.btnSound3DListDirectory.TabIndex = 3;
             this.btnSound3DListDirectory.Text = "フォルダ";
             this.btnSound3DListDirectory.UseVisualStyleBackColor = true;
-            this.btnSound3DListDirectory.Click += new System.EventHandler(this.btnSound3DListDirectory_Click);
             // 
             // btnSound3DListOpen
             // 
@@ -1760,7 +1733,6 @@
             this.btnSound3DListOpen.TabIndex = 3;
             this.btnSound3DListOpen.Text = "開く";
             this.btnSound3DListOpen.UseVisualStyleBackColor = true;
-            this.btnSound3DListOpen.Click += new System.EventHandler(this.btnSound3DListOpen_Click);
             // 
             // tpTrain
             // 
@@ -1860,7 +1832,6 @@
             this.btnTrainDirectory.TabIndex = 3;
             this.btnTrainDirectory.Text = "フォルダ";
             this.btnTrainDirectory.UseVisualStyleBackColor = true;
-            this.btnTrainDirectory.Click += new System.EventHandler(this.btnTrainDirectory_Click);
             // 
             // btnTrainOpen
             // 
@@ -1871,7 +1842,6 @@
             this.btnTrainOpen.TabIndex = 3;
             this.btnTrainOpen.Text = "開く";
             this.btnTrainOpen.UseVisualStyleBackColor = true;
-            this.btnTrainOpen.Click += new System.EventHandler(this.btnTrainOpen_Click);
             // 
             // cbxMapFilePath
             // 
@@ -1893,7 +1863,6 @@
             this.btnMapDirectory.TabIndex = 3;
             this.btnMapDirectory.Text = "フォルダ";
             this.btnMapDirectory.UseVisualStyleBackColor = true;
-            this.btnMapDirectory.Click += new System.EventHandler(this.btnMapDirectory_Click);
             // 
             // btnMapOpen
             // 
@@ -1904,7 +1873,6 @@
             this.btnMapOpen.TabIndex = 3;
             this.btnMapOpen.Text = "開く";
             this.btnMapOpen.UseVisualStyleBackColor = true;
-            this.btnMapOpen.Click += new System.EventHandler(this.btnMapOpen_Click_1);
             // 
             // tpAtsPlugin
             // 
@@ -2692,7 +2660,6 @@
             this.btnOpenScenarioDirectory.TabIndex = 5;
             this.btnOpenScenarioDirectory.Text = "開く";
             this.btnOpenScenarioDirectory.UseVisualStyleBackColor = true;
-            this.btnOpenScenarioDirectory.Click += new System.EventHandler(this.btnOpenScenarioDirectory_Click);
             // 
             // Form1
             // 

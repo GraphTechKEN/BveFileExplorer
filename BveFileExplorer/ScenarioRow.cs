@@ -1,4 +1,4 @@
-﻿namespace BveFileExplorer
+namespace BveFileExplorer
 {
     public class ScenarioRow
     {

@@ -1,16 +1,18 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 
 namespace BveFileExplorer
 {
     public class Scenario
     {
+        private readonly StringBuilder _log = new StringBuilder();
+
         public string FilePath { get; private set; }
-        public string Log { get; private set; }
+        public string Log => _log.ToString();
         public string VehicleTitle { get; private set; }
         public string ImagePath { get; private set; }
         public string RouteTitle { get; private set; }
@@ -20,13 +22,13 @@ namespace BveFileExplorer
         public List<string> VehicleFiles { get; private set; }
 
         public List<(string FileName, double Ratio)> VehicleFilesList { get; private set; }
-        public List<string> VehicleFilesAbs { get; private set; }
+        public List<string> VehicleFilesAbs { get; private set; } = new List<string>();
 
-        public List<bool> VehicleFilesExists { get; private set; }
+        public List<bool> VehicleFilesExists { get; private set; } = new List<bool>();
         public List<string> MapFiles { get; private set; }
 
         public List<(string FileName, double Ratio)> MapFilesList { get; private set; }
-        public List<string> MapFilesAbs { get; private set; }
+        public List<string> MapFilesAbs { get; private set; } = new List<string>();
 
         public int VehicleFilesCount { get; private set; }
         public int MapFilesCount { get; private set; }
@@ -34,187 +36,141 @@ namespace BveFileExplorer
         public int VehicleFilesExistsCount { get; private set; }
         public int VehicleFilesNotExistsCount { get; private set; }
 
-        public int encMode { get; private set; } = 0;
+        public int encMode { get; private set; } = EncodingDetector.ModeUnknown;
+
+        /// <summary>読み込みに使用したエンコード</summary>
+        public Encoding FileEncoding { get; private set; }
+
+        /// <summary>ファイルヘッダーが仕様から外れている場合の警告(手動指定時・問題なしは空文字)</summary>
+        public string HeaderWarning { get; private set; } = "";
 
         public Scenario(string senarioFilePath, Encoding enc = null)
         {
-            if (Path.GetExtension(senarioFilePath) == ".txt")
+            if (!string.Equals(Path.GetExtension(senarioFilePath), ".txt", StringComparison.OrdinalIgnoreCase)) return;
+
+            FilePath = senarioFilePath;
+            string scenarioDir = Path.GetFullPath(Path.GetDirectoryName(FilePath));
+
+            // エンコード: 指定があればそれを使い、なければ1行目のヘッダー(":shift_jis" 等)から判定する
+            if (enc == null)
             {
-                FilePath = senarioFilePath;
-                VehicleFilesAbs = new List<string>();
-                VehicleFilesExists = new List<bool>();
-                MapFilesAbs = new List<string>();
+                EncodingDetector.HeaderInfo header = EncodingDetector.Analyze(senarioFilePath);
+                enc = header.Encoding;
+                HeaderWarning = header.Warning;
+            }
+            FileEncoding = enc;
+            encMode = EncodingDetector.ModeOf(enc);
 
-                //内容を読み込み、表示する
-                //string dir = Path.GetDirectoryName(senarioFilePath);
-                using (StreamReader sr_temp = new StreamReader(senarioFilePath))
+            using (StreamReader sr = new StreamReader(senarioFilePath, enc))
+            {
+                _log.Append("路線ファイル：").Append(senarioFilePath).Append("\r\n");
+
+                string line;
+                while ((line = sr.ReadLine()) != null)
                 {
-                    if (enc == null)
+                    line = line.Trim();
+                    _log.Append(line).Append("\r\n");
+
+                    // コメント行は対象外。「=」を含む行のみ
+                    if (line.StartsWith(";") || line.StartsWith("#") || !line.Contains("=")) continue;
+
+                    string[] str = line.Split(new[] { '=' }, 2);
+                    string item = str[0].Trim().ToLower();
+                    string contents = str[1].Trim();
+                    if (string.IsNullOrEmpty(contents)) continue;
+
+                    switch (item)
                     {
-                        enc = Encoding.GetEncoding("utf-8"); encMode = 1;
-                        string tmp_str = sr_temp.ReadLine();
-                        if (tmp_str != null)
-                        {
-                            if (tmp_str.IndexOf("shift_jis", StringComparison.OrdinalIgnoreCase) > 0 || tmp_str.IndexOf("shift-jis", StringComparison.OrdinalIgnoreCase) > 0)
+                        case "vehicletitle": //車両タイトル
+                            VehicleTitle = FirstName(contents);
+                            break;
+
+                        case "vehicle": //車両ファイル
+                            VehicleFilesList = StringLineAnalysis(contents);
+                            VehicleFiles = VehicleFilesList.Select(x => x.FileName).ToList();
+
+                            foreach (string vehicleFile in VehicleFiles)
                             {
-                                enc = Encoding.GetEncoding("shift_jis");
-                                encMode = 2;
-                            }
-                        }
-                    }
-                }
-
-                using (StreamReader sr = new StreamReader(senarioFilePath, enc))
-                {
-                    string line = "";
-                    Log += "路線ファイル：" + senarioFilePath + "\r\n";
-
-                    //最後まで読込
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        //余計な文字列をトリム
-                        line = line.Trim();
-                        //読込ログに追記
-                        Log += line + "\r\n";
-
-                        //先頭文字が「;」と「#」でないときで「=」を含むとき
-                        if ((!line.StartsWith(";") || !line.StartsWith("#")) && line.Contains("="))
-                        {
-                            string[] str = line.Split(new[] { '=' }, 2);
-                            //"="より前の項目
-                            string item = str[0].Trim().ToLower();
-                            //"="より後の内容
-                            string contents = str[1].Trim();
-                            if (!string.IsNullOrEmpty(contents))
-                            {
-                                switch (item)
+                                if (string.IsNullOrEmpty(vehicleFile))
                                 {
-                                    case "vehicletitle"://車両タイトル
-                                        VehicleTitle = StringLineAnalysis(contents).Select(x => x.Item1).ToList()[0];
-                                        break;
-
-                                    case "vehicle"://車両ファイル
-                                        VehicleFilesList = StringLineAnalysis(contents);
-                                        VehicleFiles = VehicleFilesList.Select(x => x.FileName).ToList();
-
-                                        for (int i = 0; i < VehicleFiles.Count; i++)
-                                        {
-                                            string vehicleAbsPath = Path.GetFullPath(Path.GetDirectoryName(FilePath)) + @"\" + VehicleFiles[i];
-                                            if (string.IsNullOrEmpty(VehicleFiles[i]))
-                                            {
-                                                vehicleAbsPath = "";
-                                                VehicleFilesExists.Add(false);
-                                                VehicleFilesNotExistsCount += 1;
-                                            }
-                                            else
-                                            {
-                                                VehicleFilesExists.Add(File.Exists(vehicleAbsPath));
-                                                VehicleFilesNotExistsCount += !File.Exists(vehicleAbsPath) ? 1 : 0;
-                                            }
-                                            VehicleFilesAbs.Add(vehicleAbsPath);
-
-                                        }
-
-                                        break;
-                                    case "image"://Imageファイル抽出
-                                        ImagePath = Path.GetDirectoryName(senarioFilePath) + @"\" + StringLineAnalysis(contents).Select(x => x.Item1).ToList()[0];
-                                        break;
-
-                                    case "routetitle"://マップタイトル
-                                        RouteTitle = StringLineAnalysis(contents).Select(x => x.Item1).ToList()[0];
-                                        break;
-
-                                    case "route":
-                                        MapFilesList = StringLineAnalysis(contents);
-                                        MapFiles = StringLineAnalysis(contents).Select(x => x.Item1).ToList();
-                                        for (int i = 0; i < MapFiles.Count; i++)
-                                        {
-                                            string mapAbsPath = Path.GetFullPath(Path.GetDirectoryName(FilePath)) + @"\" + MapFiles[i];
-                                            if (string.IsNullOrEmpty(MapFiles[i]))
-                                            {
-                                                mapAbsPath = "";
-                                                //MapFilesExists.Add(false);
-                                                //MapFilesNotExistsCount += 1;
-                                            }
-                                            else
-                                            {
-                                                //MapFilesExists.Add(File.Exists(mapAbsPath));
-                                                //MapFilesNotExistsCount += !File.Exists(mapAbsPath) ? 1 : 0;
-                                            }
-                                            MapFilesAbs.Add(mapAbsPath);
-
-                                        }
-                                        break;
-
-                                    case "title":
-                                        Title = StringLineAnalysis(contents).Select(x => x.Item1).ToList()[0];
-                                        break;
-
-                                    case "author":
-                                        Author = StringLineAnalysis(contents).Select(x => x.Item1).ToList()[0];
-                                        break;
-
-                                    case "comment":
-                                        Comment = StringLineAnalysis(contents).Select(x => x.Item1).ToList()[0];
-                                        break;
+                                    VehicleFilesAbs.Add("");
+                                    VehicleFilesExists.Add(false);
+                                    VehicleFilesNotExistsCount += 1;
+                                }
+                                else
+                                {
+                                    string vehicleAbsPath = scenarioDir + @"\" + vehicleFile;
+                                    bool exists = File.Exists(vehicleAbsPath);
+                                    VehicleFilesAbs.Add(vehicleAbsPath);
+                                    VehicleFilesExists.Add(exists);
+                                    if (!exists) VehicleFilesNotExistsCount += 1;
                                 }
                             }
-                        }
+                            break;
+
+                        case "image": //Imageファイル
+                            ImagePath = Path.GetDirectoryName(senarioFilePath) + @"\" + FirstName(contents);
+                            break;
+
+                        case "routetitle": //マップタイトル
+                            RouteTitle = FirstName(contents);
+                            break;
+
+                        case "route":
+                            MapFilesList = StringLineAnalysis(contents);
+                            MapFiles = MapFilesList.Select(x => x.FileName).ToList();
+                            foreach (string mapFile in MapFiles)
+                            {
+                                MapFilesAbs.Add(string.IsNullOrEmpty(mapFile) ? "" : scenarioDir + @"\" + mapFile);
+                            }
+                            break;
+
+                        case "title":
+                            Title = FirstName(contents);
+                            break;
+
+                        case "author":
+                            Author = FirstName(contents);
+                            break;
+
+                        case "comment":
+                            Comment = FirstName(contents);
+                            break;
                     }
                 }
-                if (VehicleFiles != null)
-                {
-                    VehicleFilesCount = VehicleFiles.Count;
-                    VehicleFilesExistsCount = VehicleFiles.Count - VehicleFilesNotExistsCount;
-                }
-                else
-                {
-                    VehicleFilesCount = 0;
-                    VehicleFilesExistsCount = 0;
-                }
-
-                if (MapFiles != null)
-                {
-                    MapFilesCount = MapFiles.Count;
-                }
-                else
-                {
-                    MapFilesCount = 0;
-                }
-                
             }
+
+            VehicleFilesCount = VehicleFiles?.Count ?? 0;
+            VehicleFilesExistsCount = VehicleFilesCount - VehicleFilesNotExistsCount;
+            MapFilesCount = MapFiles?.Count ?? 0;
         }
-        
 
-        private List<(string,double)> StringLineAnalysis(string contents)
+        private string FirstName(string contents) => StringLineAnalysis(contents)[0].FileName;
+
+        /// <summary>
+        /// "a.txt * 2 | b.txt" → [(a.txt, 2), (b.txt, 1)]
+        /// </summary>
+        private List<(string FileName, double Ratio)> StringLineAnalysis(string contents)
         {
-            List<(string,double)> listStr = new List<(string, double)>();
-            double ratio = 1.0;
-            //文字列中に「=」以降文字列が存在するとき
-            if (contents.Length > 0)
+            var listStr = new List<(string FileName, double Ratio)>();
+            if (contents.Length == 0)
             {
-                List<string> result = contents.Split('|').ToList();
-                foreach (string path in result)
-                {
-                    ratio = 1.0;
-                    List<string> result2 = path.Split('*').ToList();
-                    string path2 = result2[0].Trim();
-                    if (result2.Count > 1)
-                    {
-                        double.TryParse(result2[1], out ratio);
-                    }
-                    //パスリストに追加
-                    listStr.Add((path2, ratio));
-                    //MessageBox.Show(ratio.ToString());
-                }
+                listStr.Add(("", 1.0));
+                return listStr;
             }
-            //文字列がない時空白
-            else
+
+            foreach (string path in contents.Split('|'))
             {
-                listStr.Add(("", ratio));
+                string[] pathAndRatio = path.Split('*');
+                double ratio = 1.0;
+                if (pathAndRatio.Length > 1 &&
+                    !double.TryParse(pathAndRatio[1].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out ratio))
+                {
+                    ratio = 0; // 解析できない値(従来どおり0)
+                }
+                listStr.Add((pathAndRatio[0].Trim(), ratio));
             }
             return listStr;
         }
-
     }
 }
