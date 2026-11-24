@@ -43,6 +43,10 @@ namespace BveFileExplorer
             this.cbxVehicleEnc = new System.Windows.Forms.ComboBox();
             this.tabControlVehicle = new System.Windows.Forms.TabControl();
             this.tpVehicleFile = new System.Windows.Forms.TabPage();
+            this.lblVehicleListInfo = new System.Windows.Forms.Label();
+            this.btnVehicleSaveAs = new System.Windows.Forms.Button();
+            this.btnVehicleRemove = new System.Windows.Forms.Button();
+            this.btnVehicleAdd = new System.Windows.Forms.Button();
             this.dgvVehicle = new System.Windows.Forms.DataGridView();
             this.tpPerformanceCurve = new System.Windows.Forms.TabPage();
             this.cbxPerformanceCurveEnc = new System.Windows.Forms.ComboBox();
@@ -117,6 +121,10 @@ namespace BveFileExplorer
             this.tpRouteFile = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.dgvRoute = new System.Windows.Forms.DataGridView();
+            this.btnRouteAdd = new System.Windows.Forms.Button();
+            this.btnRouteRemove = new System.Windows.Forms.Button();
+            this.btnRouteSaveAs = new System.Windows.Forms.Button();
+            this.lblRouteListInfo = new System.Windows.Forms.Label();
             this.lblInclude = new System.Windows.Forms.Label();
             this.dgvIncludeList = new System.Windows.Forms.DataGridView();
             this.tpStructure = new System.Windows.Forms.TabPage();
@@ -125,6 +133,7 @@ namespace BveFileExplorer
             this.tbStructure = new System.Windows.Forms.TextBox();
             this.btnStructureDirectory = new System.Windows.Forms.Button();
             this.btnStructureOpen = new System.Windows.Forms.Button();
+            this.btnStructurePreview = new System.Windows.Forms.Button();
             this.tpSignal = new System.Windows.Forms.TabPage();
             this.cbxSignalEnc = new System.Windows.Forms.ComboBox();
             this.dgvSignal = new System.Windows.Forms.DataGridView();
@@ -452,6 +461,10 @@ namespace BveFileExplorer
             // 
             // tpVehicleFile
             // 
+            this.tpVehicleFile.Controls.Add(this.lblVehicleListInfo);
+            this.tpVehicleFile.Controls.Add(this.btnVehicleSaveAs);
+            this.tpVehicleFile.Controls.Add(this.btnVehicleRemove);
+            this.tpVehicleFile.Controls.Add(this.btnVehicleAdd);
             this.tpVehicleFile.Controls.Add(this.dgvVehicle);
             this.tpVehicleFile.Location = new System.Drawing.Point(4, 22);
             this.tpVehicleFile.Name = "tpVehicleFile";
@@ -459,6 +472,47 @@ namespace BveFileExplorer
             this.tpVehicleFile.TabIndex = 6;
             this.tpVehicleFile.Text = "車両ファイル(Vehicle)";
             this.tpVehicleFile.UseVisualStyleBackColor = true;
+            // 
+            // lblVehicleListInfo
+            // 
+            this.lblVehicleListInfo.AutoSize = true;
+            this.lblVehicleListInfo.Location = new System.Drawing.Point(270, 11);
+            this.lblVehicleListInfo.Name = "lblVehicleListInfo";
+            this.lblVehicleListInfo.Size = new System.Drawing.Size(0, 12);
+            this.lblVehicleListInfo.TabIndex = 15;
+            // 
+            // btnVehicleSaveAs
+            // 
+            this.btnVehicleSaveAs.Enabled = false;
+            this.btnVehicleSaveAs.Location = new System.Drawing.Point(150, 4);
+            this.btnVehicleSaveAs.Name = "btnVehicleSaveAs";
+            this.btnVehicleSaveAs.Size = new System.Drawing.Size(110, 26);
+            this.btnVehicleSaveAs.TabIndex = 14;
+            this.btnVehicleSaveAs.Text = "別名で保存...";
+            this.btnVehicleSaveAs.UseVisualStyleBackColor = true;
+            this.btnVehicleSaveAs.Click += new System.EventHandler(this.btnVehicleSaveAs_Click);
+            // 
+            // btnVehicleRemove
+            // 
+            this.btnVehicleRemove.Enabled = false;
+            this.btnVehicleRemove.Location = new System.Drawing.Point(84, 4);
+            this.btnVehicleRemove.Name = "btnVehicleRemove";
+            this.btnVehicleRemove.Size = new System.Drawing.Size(60, 26);
+            this.btnVehicleRemove.TabIndex = 13;
+            this.btnVehicleRemove.Text = "削除";
+            this.btnVehicleRemove.UseVisualStyleBackColor = true;
+            this.btnVehicleRemove.Click += new System.EventHandler(this.btnVehicleRemove_Click);
+            // 
+            // btnVehicleAdd
+            // 
+            this.btnVehicleAdd.Enabled = false;
+            this.btnVehicleAdd.Location = new System.Drawing.Point(3, 4);
+            this.btnVehicleAdd.Name = "btnVehicleAdd";
+            this.btnVehicleAdd.Size = new System.Drawing.Size(75, 26);
+            this.btnVehicleAdd.TabIndex = 12;
+            this.btnVehicleAdd.Text = "追加...";
+            this.btnVehicleAdd.UseVisualStyleBackColor = true;
+            this.btnVehicleAdd.Click += new System.EventHandler(this.btnVehicleAdd_Click);
             // 
             // dgvVehicle
             // 
@@ -475,6 +529,9 @@ namespace BveFileExplorer
             this.dgvVehicle.TabIndex = 11;
             this.dgvVehicle.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicle_CellClick);
             this.dgvVehicle.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicle_CellContentDoubleClick);
+            this.dgvVehicle.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvVehicle_CellValidating);
+            this.dgvVehicle.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicle_CellValueChanged);
+            this.dgvVehicle.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvVehicle_DataError);
             // 
             // tpPerformanceCurve
             // 
@@ -1302,11 +1359,18 @@ namespace BveFileExplorer
             // 
             // splitContainer3
             // 
+            this.splitContainer3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer3.Location = new System.Drawing.Point(4, 4);
             this.splitContainer3.Name = "splitContainer3";
             // 
             // splitContainer3.Panel1
             // 
+            this.splitContainer3.Panel1.Controls.Add(this.lblRouteListInfo);
+            this.splitContainer3.Panel1.Controls.Add(this.btnRouteSaveAs);
+            this.splitContainer3.Panel1.Controls.Add(this.btnRouteRemove);
+            this.splitContainer3.Panel1.Controls.Add(this.btnRouteAdd);
             this.splitContainer3.Panel1.Controls.Add(this.dgvRoute);
             // 
             // splitContainer3.Panel2
@@ -1332,6 +1396,50 @@ namespace BveFileExplorer
             this.dgvRoute.TabIndex = 12;
             this.dgvRoute.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoute_CellClick);
             this.dgvRoute.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoute_CellDoubleClick);
+            this.dgvRoute.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvRoute_CellValidating);
+            this.dgvRoute.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoute_CellValueChanged);
+            this.dgvRoute.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvRoute_DataError);
+            // 
+            // btnRouteAdd
+            // 
+            this.btnRouteAdd.Enabled = false;
+            this.btnRouteAdd.Location = new System.Drawing.Point(3, 3);
+            this.btnRouteAdd.Name = "btnRouteAdd";
+            this.btnRouteAdd.Size = new System.Drawing.Size(75, 26);
+            this.btnRouteAdd.TabIndex = 13;
+            this.btnRouteAdd.Text = "追加...";
+            this.btnRouteAdd.UseVisualStyleBackColor = true;
+            this.btnRouteAdd.Click += new System.EventHandler(this.btnRouteAdd_Click);
+            // 
+            // btnRouteRemove
+            // 
+            this.btnRouteRemove.Enabled = false;
+            this.btnRouteRemove.Location = new System.Drawing.Point(84, 3);
+            this.btnRouteRemove.Name = "btnRouteRemove";
+            this.btnRouteRemove.Size = new System.Drawing.Size(60, 26);
+            this.btnRouteRemove.TabIndex = 14;
+            this.btnRouteRemove.Text = "削除";
+            this.btnRouteRemove.UseVisualStyleBackColor = true;
+            this.btnRouteRemove.Click += new System.EventHandler(this.btnRouteRemove_Click);
+            // 
+            // btnRouteSaveAs
+            // 
+            this.btnRouteSaveAs.Enabled = false;
+            this.btnRouteSaveAs.Location = new System.Drawing.Point(150, 3);
+            this.btnRouteSaveAs.Name = "btnRouteSaveAs";
+            this.btnRouteSaveAs.Size = new System.Drawing.Size(110, 26);
+            this.btnRouteSaveAs.TabIndex = 15;
+            this.btnRouteSaveAs.Text = "別名で保存...";
+            this.btnRouteSaveAs.UseVisualStyleBackColor = true;
+            this.btnRouteSaveAs.Click += new System.EventHandler(this.btnRouteSaveAs_Click);
+            // 
+            // lblRouteListInfo
+            // 
+            this.lblRouteListInfo.AutoSize = true;
+            this.lblRouteListInfo.Location = new System.Drawing.Point(266, 10);
+            this.lblRouteListInfo.Name = "lblRouteListInfo";
+            this.lblRouteListInfo.Size = new System.Drawing.Size(0, 12);
+            this.lblRouteListInfo.TabIndex = 16;
             // 
             // lblInclude
             // 
@@ -1365,6 +1473,7 @@ namespace BveFileExplorer
             this.tpStructure.Controls.Add(this.tbStructure);
             this.tpStructure.Controls.Add(this.btnStructureDirectory);
             this.tpStructure.Controls.Add(this.btnStructureOpen);
+            this.tpStructure.Controls.Add(this.btnStructurePreview);
             this.tpStructure.Location = new System.Drawing.Point(4, 22);
             this.tpStructure.Name = "tpStructure";
             this.tpStructure.Size = new System.Drawing.Size(1053, 570);
@@ -1400,16 +1509,17 @@ namespace BveFileExplorer
             this.dgvStructure.RowTemplate.Height = 21;
             this.dgvStructure.Size = new System.Drawing.Size(1047, 534);
             this.dgvStructure.TabIndex = 1;
-            this.dgvStructure.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStructure_CellDoubleClick);
+            this.dgvStructure.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStructure_CellDoubleClick);
             this.dgvStructure.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvStructure_MouseDown);
+            this.dgvStructure.CurrentCellChanged += new System.EventHandler(this.dgvStructure_CurrentCellChanged);
             // 
             // tbStructure
             // 
             this.tbStructure.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbStructure.Location = new System.Drawing.Point(135, 8);
+            this.tbStructure.Location = new System.Drawing.Point(226, 8);
             this.tbStructure.Name = "tbStructure";
-            this.tbStructure.Size = new System.Drawing.Size(790, 19);
+            this.tbStructure.Size = new System.Drawing.Size(699, 19);
             this.tbStructure.TabIndex = 4;
             // 
             // btnStructureDirectory
@@ -1431,6 +1541,16 @@ namespace BveFileExplorer
             this.btnStructureOpen.TabIndex = 3;
             this.btnStructureOpen.Text = "開く";
             this.btnStructureOpen.UseVisualStyleBackColor = true;
+            // 
+            // btnStructurePreview
+            // 
+            this.btnStructurePreview.Location = new System.Drawing.Point(135, 4);
+            this.btnStructurePreview.Name = "btnStructurePreview";
+            this.btnStructurePreview.Size = new System.Drawing.Size(85, 26);
+            this.btnStructurePreview.TabIndex = 17;
+            this.btnStructurePreview.Text = "3Dプレビュー";
+            this.btnStructurePreview.UseVisualStyleBackColor = true;
+            this.btnStructurePreview.Click += new System.EventHandler(this.btnStructurePreview_Click);
             // 
             // tpSignal
             // 
@@ -2686,6 +2806,7 @@ namespace BveFileExplorer
             this.tpVehicle.PerformLayout();
             this.tabControlVehicle.ResumeLayout(false);
             this.tpVehicleFile.ResumeLayout(false);
+            this.tpVehicleFile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehicle)).EndInit();
             this.tpPerformanceCurve.ResumeLayout(false);
             this.tpPerformanceCurve.PerformLayout();
@@ -2716,6 +2837,7 @@ namespace BveFileExplorer
             this.tabControlMaps.ResumeLayout(false);
             this.tpRouteFile.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel1.PerformLayout();
             this.splitContainer3.Panel2.ResumeLayout(false);
             this.splitContainer3.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
@@ -2801,6 +2923,7 @@ namespace BveFileExplorer
         private System.Windows.Forms.Button btnMapOpen;
         private System.Windows.Forms.TextBox tbStructure;
         private System.Windows.Forms.Button btnStructureOpen;
+        private System.Windows.Forms.Button btnStructurePreview;
         private System.Windows.Forms.TextBox tbStation;
         private System.Windows.Forms.Button btnStationOpen;
         private System.Windows.Forms.TextBox tbSoundList;
@@ -2936,11 +3059,19 @@ namespace BveFileExplorer
         private System.Windows.Forms.Button btnListOther;
         private System.Windows.Forms.TabPage tpVehicleFile;
         private System.Windows.Forms.DataGridView dgvVehicle;
+        private System.Windows.Forms.Button btnVehicleAdd;
+        private System.Windows.Forms.Button btnVehicleRemove;
+        private System.Windows.Forms.Button btnVehicleSaveAs;
+        private System.Windows.Forms.Label lblVehicleListInfo;
         private System.Windows.Forms.ProgressBar pgBarList;
         private System.Windows.Forms.DataGridView dgvFiles;
         private System.Windows.Forms.Label lblPgBarStatus;
         private System.Windows.Forms.TabPage tpRouteFile;
         private System.Windows.Forms.DataGridView dgvRoute;
+        private System.Windows.Forms.Button btnRouteAdd;
+        private System.Windows.Forms.Button btnRouteRemove;
+        private System.Windows.Forms.Button btnRouteSaveAs;
+        private System.Windows.Forms.Label lblRouteListInfo;
         private System.Windows.Forms.DataGridView dgvTrainFileList;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Button btnStrview5;

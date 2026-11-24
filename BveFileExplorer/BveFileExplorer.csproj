@@ -84,6 +84,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -117,6 +122,10 @@
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form1.ScenarioLists.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Common\BveVersion.cs" />
     <Compile Include="Common\EncodingDetector.cs" />
     <Compile Include="Common\GridHelper.cs" />
@@ -124,11 +133,15 @@
     <Compile Include="Common\IniTableLoader.cs" />
     <Compile Include="Common\ListFileLoader.cs" />
     <Compile Include="Common\PathUtil.cs" />
+    <Compile Include="Common\XFileParser.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScenarioRow.cs" />
     <Compile Include="Scenario.cs" />
+    <Compile Include="StructureViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Vehicle.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

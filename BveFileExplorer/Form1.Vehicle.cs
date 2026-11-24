@@ -334,12 +334,10 @@ namespace BveFileExplorer
             }
         }
 
+        /// <summary>一覧の行をクリックすると、その車両を表示する(パスで対応付け)</summary>
         private void dgvVehicle_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.RowIndex < cbxVehicle.Items.Count)
-            {
-                cbxVehicle.SelectedIndex = e.RowIndex;
-            }
+            SelectEntryFile(_vehicleList, e.RowIndex);
         }
 
         private void dgvVehicle_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
