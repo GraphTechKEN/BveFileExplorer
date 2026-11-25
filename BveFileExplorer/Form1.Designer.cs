@@ -35,14 +35,16 @@ namespace BveFileExplorer
             this.btnAts32OpenDirectory = new System.Windows.Forms.Button();
             this.btnOpenVehicleDirectory = new System.Windows.Forms.Button();
             this.pbVehicleImage = new System.Windows.Forms.PictureBox();
-            this.btnAtsPluginSelect = new System.Windows.Forms.Button();
-            this.lblAtsPluginFile = new System.Windows.Forms.Label();
             this.btnHelp = new System.Windows.Forms.Button();
             this.tabControlScenario = new System.Windows.Forms.TabControl();
             this.tpVehicle = new System.Windows.Forms.TabPage();
             this.cbxVehicleEnc = new System.Windows.Forms.ComboBox();
             this.tabControlVehicle = new System.Windows.Forms.TabControl();
             this.tpVehicleFile = new System.Windows.Forms.TabPage();
+            this.lblVehicleListInfo = new System.Windows.Forms.Label();
+            this.btnVehicleSaveAs = new System.Windows.Forms.Button();
+            this.btnVehicleRemove = new System.Windows.Forms.Button();
+            this.btnVehicleAdd = new System.Windows.Forms.Button();
             this.dgvVehicle = new System.Windows.Forms.DataGridView();
             this.tpPerformanceCurve = new System.Windows.Forms.TabPage();
             this.cbxPerformanceCurveEnc = new System.Windows.Forms.ComboBox();
@@ -116,6 +118,10 @@ namespace BveFileExplorer
             this.tabControlMaps = new System.Windows.Forms.TabControl();
             this.tpRouteFile = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.lblRouteListInfo = new System.Windows.Forms.Label();
+            this.btnRouteSaveAs = new System.Windows.Forms.Button();
+            this.btnRouteRemove = new System.Windows.Forms.Button();
+            this.btnRouteAdd = new System.Windows.Forms.Button();
             this.dgvRoute = new System.Windows.Forms.DataGridView();
             this.lblInclude = new System.Windows.Forms.Label();
             this.dgvIncludeList = new System.Windows.Forms.DataGridView();
@@ -125,6 +131,7 @@ namespace BveFileExplorer
             this.tbStructure = new System.Windows.Forms.TextBox();
             this.btnStructureDirectory = new System.Windows.Forms.Button();
             this.btnStructureOpen = new System.Windows.Forms.Button();
+            this.btnStructurePreview = new System.Windows.Forms.Button();
             this.tpSignal = new System.Windows.Forms.TabPage();
             this.cbxSignalEnc = new System.Windows.Forms.ComboBox();
             this.dgvSignal = new System.Windows.Forms.DataGridView();
@@ -160,32 +167,6 @@ namespace BveFileExplorer
             this.cbxMapFilePath = new System.Windows.Forms.ComboBox();
             this.btnMapDirectory = new System.Windows.Forms.Button();
             this.btnMapOpen = new System.Windows.Forms.Button();
-            this.tpAtsPlugin = new System.Windows.Forms.TabPage();
-            this.label10 = new System.Windows.Forms.Label();
-            this.gbxBve6Converter = new System.Windows.Forms.GroupBox();
-            this.lblDetailManager = new System.Windows.Forms.Label();
-            this.btnBve5Recovery = new System.Windows.Forms.Button();
-            this.lblConvert = new System.Windows.Forms.Label();
-            this.tbDetailModuleStoreDetail = new System.Windows.Forms.TextBox();
-            this.tbDetailManagerDetail = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.lblDetailModuleStore = new System.Windows.Forms.Label();
-            this.btnBve6Convert = new System.Windows.Forms.Button();
-            this.btnDetailModuleStoreClear = new System.Windows.Forms.Button();
-            this.btnDetailManagerBve6Clear = new System.Windows.Forms.Button();
-            this.btnDetailManagerBve6Select = new System.Windows.Forms.Button();
-            this.btnDetailModuleSelect = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tbAts32RelatePath = new System.Windows.Forms.TextBox();
-            this.tbAtsPluginFile = new System.Windows.Forms.TextBox();
-            this.tbAts64RelatePath = new System.Windows.Forms.TextBox();
-            this.btnAts32Add = new System.Windows.Forms.Button();
-            this.btnAts32RelatePathGen = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.btnAts64Add = new System.Windows.Forms.Button();
-            this.lblDetailModule32AddPath = new System.Windows.Forms.Label();
-            this.btnAts64RelatePathGen = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslDisp = new System.Windows.Forms.ToolStripStatusLabel();
@@ -225,6 +206,33 @@ namespace BveFileExplorer
             this.btnStrview5 = new System.Windows.Forms.Button();
             this.btnScenarioReload = new System.Windows.Forms.Button();
             this.btnOpenScenarioDirectory = new System.Windows.Forms.Button();
+            this.tpAtsPluginEdit = new System.Windows.Forms.TabPage();
+            this.gbxBve6Converter = new System.Windows.Forms.GroupBox();
+            this.lblDetailManager = new System.Windows.Forms.Label();
+            this.btnBve5Recovery = new System.Windows.Forms.Button();
+            this.lblConvert = new System.Windows.Forms.Label();
+            this.tbDetailModuleStoreDetail = new System.Windows.Forms.TextBox();
+            this.tbDetailManagerDetail = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.lblDetailModuleStore = new System.Windows.Forms.Label();
+            this.btnBve6Convert = new System.Windows.Forms.Button();
+            this.btnDetailModuleStoreClear = new System.Windows.Forms.Button();
+            this.btnDetailManagerBve6Clear = new System.Windows.Forms.Button();
+            this.btnDetailManagerBve6Select = new System.Windows.Forms.Button();
+            this.btnDetailModuleSelect = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnAtsPluginSelect = new System.Windows.Forms.Button();
+            this.lblAtsPluginFile = new System.Windows.Forms.Label();
+            this.tbAts32RelatePath = new System.Windows.Forms.TextBox();
+            this.tbAtsPluginFile = new System.Windows.Forms.TextBox();
+            this.tbAts64RelatePath = new System.Windows.Forms.TextBox();
+            this.btnAts32Add = new System.Windows.Forms.Button();
+            this.btnAts32RelatePathGen = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btnAts64Add = new System.Windows.Forms.Button();
+            this.lblDetailModule32AddPath = new System.Windows.Forms.Label();
+            this.btnAts64RelatePathGen = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbVehicleImage)).BeginInit();
             this.tabControlScenario.SuspendLayout();
             this.tpVehicle.SuspendLayout();
@@ -274,9 +282,6 @@ namespace BveFileExplorer
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrainFileList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrain)).BeginInit();
-            this.tpAtsPlugin.SuspendLayout();
-            this.gbxBve6Converter.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.gbxBve5.SuspendLayout();
             this.gbxBve6.SuspendLayout();
@@ -288,6 +293,9 @@ namespace BveFileExplorer
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).BeginInit();
+            this.tpAtsPluginEdit.SuspendLayout();
+            this.gbxBve6Converter.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOpenScenario
@@ -352,27 +360,6 @@ namespace BveFileExplorer
             this.pbVehicleImage.TabIndex = 10;
             this.pbVehicleImage.TabStop = false;
             // 
-            // btnAtsPluginSelect
-            // 
-            this.btnAtsPluginSelect.BackColor = System.Drawing.SystemColors.Control;
-            this.btnAtsPluginSelect.Enabled = false;
-            this.btnAtsPluginSelect.Location = new System.Drawing.Point(15, 18);
-            this.btnAtsPluginSelect.Name = "btnAtsPluginSelect";
-            this.btnAtsPluginSelect.Size = new System.Drawing.Size(216, 25);
-            this.btnAtsPluginSelect.TabIndex = 13;
-            this.btnAtsPluginSelect.Text = "追加するATSプラグインを選択";
-            this.btnAtsPluginSelect.UseVisualStyleBackColor = false;
-            this.btnAtsPluginSelect.Click += new System.EventHandler(this.btnAtsPluginSelect_Click);
-            // 
-            // lblAtsPluginFile
-            // 
-            this.lblAtsPluginFile.AutoSize = true;
-            this.lblAtsPluginFile.Location = new System.Drawing.Point(300, 43);
-            this.lblAtsPluginFile.Name = "lblAtsPluginFile";
-            this.lblAtsPluginFile.Size = new System.Drawing.Size(71, 12);
-            this.lblAtsPluginFile.TabIndex = 14;
-            this.lblAtsPluginFile.Text = "ATSプラグイン";
-            // 
             // btnHelp
             // 
             this.btnHelp.Location = new System.Drawing.Point(911, 38);
@@ -390,7 +377,6 @@ namespace BveFileExplorer
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlScenario.Controls.Add(this.tpVehicle);
             this.tabControlScenario.Controls.Add(this.tpRoute);
-            this.tabControlScenario.Controls.Add(this.tpAtsPlugin);
             this.tabControlScenario.Location = new System.Drawing.Point(5, 244);
             this.tabControlScenario.Name = "tabControlScenario";
             this.tabControlScenario.SelectedIndex = 0;
@@ -452,6 +438,10 @@ namespace BveFileExplorer
             // 
             // tpVehicleFile
             // 
+            this.tpVehicleFile.Controls.Add(this.lblVehicleListInfo);
+            this.tpVehicleFile.Controls.Add(this.btnVehicleSaveAs);
+            this.tpVehicleFile.Controls.Add(this.btnVehicleRemove);
+            this.tpVehicleFile.Controls.Add(this.btnVehicleAdd);
             this.tpVehicleFile.Controls.Add(this.dgvVehicle);
             this.tpVehicleFile.Location = new System.Drawing.Point(4, 22);
             this.tpVehicleFile.Name = "tpVehicleFile";
@@ -459,6 +449,47 @@ namespace BveFileExplorer
             this.tpVehicleFile.TabIndex = 6;
             this.tpVehicleFile.Text = "車両ファイル(Vehicle)";
             this.tpVehicleFile.UseVisualStyleBackColor = true;
+            // 
+            // lblVehicleListInfo
+            // 
+            this.lblVehicleListInfo.AutoSize = true;
+            this.lblVehicleListInfo.Location = new System.Drawing.Point(270, 11);
+            this.lblVehicleListInfo.Name = "lblVehicleListInfo";
+            this.lblVehicleListInfo.Size = new System.Drawing.Size(0, 12);
+            this.lblVehicleListInfo.TabIndex = 15;
+            // 
+            // btnVehicleSaveAs
+            // 
+            this.btnVehicleSaveAs.Enabled = false;
+            this.btnVehicleSaveAs.Location = new System.Drawing.Point(150, 4);
+            this.btnVehicleSaveAs.Name = "btnVehicleSaveAs";
+            this.btnVehicleSaveAs.Size = new System.Drawing.Size(110, 26);
+            this.btnVehicleSaveAs.TabIndex = 14;
+            this.btnVehicleSaveAs.Text = "別名で保存...";
+            this.btnVehicleSaveAs.UseVisualStyleBackColor = true;
+            this.btnVehicleSaveAs.Click += new System.EventHandler(this.btnVehicleSaveAs_Click);
+            // 
+            // btnVehicleRemove
+            // 
+            this.btnVehicleRemove.Enabled = false;
+            this.btnVehicleRemove.Location = new System.Drawing.Point(84, 4);
+            this.btnVehicleRemove.Name = "btnVehicleRemove";
+            this.btnVehicleRemove.Size = new System.Drawing.Size(60, 26);
+            this.btnVehicleRemove.TabIndex = 13;
+            this.btnVehicleRemove.Text = "削除";
+            this.btnVehicleRemove.UseVisualStyleBackColor = true;
+            this.btnVehicleRemove.Click += new System.EventHandler(this.btnVehicleRemove_Click);
+            // 
+            // btnVehicleAdd
+            // 
+            this.btnVehicleAdd.Enabled = false;
+            this.btnVehicleAdd.Location = new System.Drawing.Point(3, 4);
+            this.btnVehicleAdd.Name = "btnVehicleAdd";
+            this.btnVehicleAdd.Size = new System.Drawing.Size(75, 26);
+            this.btnVehicleAdd.TabIndex = 12;
+            this.btnVehicleAdd.Text = "追加...";
+            this.btnVehicleAdd.UseVisualStyleBackColor = true;
+            this.btnVehicleAdd.Click += new System.EventHandler(this.btnVehicleAdd_Click);
             // 
             // dgvVehicle
             // 
@@ -475,6 +506,9 @@ namespace BveFileExplorer
             this.dgvVehicle.TabIndex = 11;
             this.dgvVehicle.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicle_CellClick);
             this.dgvVehicle.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicle_CellContentDoubleClick);
+            this.dgvVehicle.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvVehicle_CellValidating);
+            this.dgvVehicle.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVehicle_CellValueChanged);
+            this.dgvVehicle.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvVehicle_DataError);
             // 
             // tpPerformanceCurve
             // 
@@ -875,6 +909,7 @@ namespace BveFileExplorer
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlDetailModules.Controls.Add(this.tpAts32);
             this.tabControlDetailModules.Controls.Add(this.tpAts64);
+            this.tabControlDetailModules.Controls.Add(this.tpAtsPluginEdit);
             this.tabControlDetailModules.Location = new System.Drawing.Point(3, 64);
             this.tabControlDetailModules.Name = "tabControlDetailModules";
             this.tabControlDetailModules.SelectedIndex = 0;
@@ -1302,11 +1337,18 @@ namespace BveFileExplorer
             // 
             // splitContainer3
             // 
+            this.splitContainer3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer3.Location = new System.Drawing.Point(4, 4);
             this.splitContainer3.Name = "splitContainer3";
             // 
             // splitContainer3.Panel1
             // 
+            this.splitContainer3.Panel1.Controls.Add(this.lblRouteListInfo);
+            this.splitContainer3.Panel1.Controls.Add(this.btnRouteSaveAs);
+            this.splitContainer3.Panel1.Controls.Add(this.btnRouteRemove);
+            this.splitContainer3.Panel1.Controls.Add(this.btnRouteAdd);
             this.splitContainer3.Panel1.Controls.Add(this.dgvRoute);
             // 
             // splitContainer3.Panel2
@@ -1316,6 +1358,47 @@ namespace BveFileExplorer
             this.splitContainer3.Size = new System.Drawing.Size(1046, 563);
             this.splitContainer3.SplitterDistance = 515;
             this.splitContainer3.TabIndex = 13;
+            // 
+            // lblRouteListInfo
+            // 
+            this.lblRouteListInfo.AutoSize = true;
+            this.lblRouteListInfo.Location = new System.Drawing.Point(266, 10);
+            this.lblRouteListInfo.Name = "lblRouteListInfo";
+            this.lblRouteListInfo.Size = new System.Drawing.Size(0, 12);
+            this.lblRouteListInfo.TabIndex = 16;
+            // 
+            // btnRouteSaveAs
+            // 
+            this.btnRouteSaveAs.Enabled = false;
+            this.btnRouteSaveAs.Location = new System.Drawing.Point(150, 3);
+            this.btnRouteSaveAs.Name = "btnRouteSaveAs";
+            this.btnRouteSaveAs.Size = new System.Drawing.Size(110, 26);
+            this.btnRouteSaveAs.TabIndex = 15;
+            this.btnRouteSaveAs.Text = "別名で保存...";
+            this.btnRouteSaveAs.UseVisualStyleBackColor = true;
+            this.btnRouteSaveAs.Click += new System.EventHandler(this.btnRouteSaveAs_Click);
+            // 
+            // btnRouteRemove
+            // 
+            this.btnRouteRemove.Enabled = false;
+            this.btnRouteRemove.Location = new System.Drawing.Point(84, 3);
+            this.btnRouteRemove.Name = "btnRouteRemove";
+            this.btnRouteRemove.Size = new System.Drawing.Size(60, 26);
+            this.btnRouteRemove.TabIndex = 14;
+            this.btnRouteRemove.Text = "削除";
+            this.btnRouteRemove.UseVisualStyleBackColor = true;
+            this.btnRouteRemove.Click += new System.EventHandler(this.btnRouteRemove_Click);
+            // 
+            // btnRouteAdd
+            // 
+            this.btnRouteAdd.Enabled = false;
+            this.btnRouteAdd.Location = new System.Drawing.Point(3, 3);
+            this.btnRouteAdd.Name = "btnRouteAdd";
+            this.btnRouteAdd.Size = new System.Drawing.Size(75, 26);
+            this.btnRouteAdd.TabIndex = 13;
+            this.btnRouteAdd.Text = "追加...";
+            this.btnRouteAdd.UseVisualStyleBackColor = true;
+            this.btnRouteAdd.Click += new System.EventHandler(this.btnRouteAdd_Click);
             // 
             // dgvRoute
             // 
@@ -1332,6 +1415,9 @@ namespace BveFileExplorer
             this.dgvRoute.TabIndex = 12;
             this.dgvRoute.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoute_CellClick);
             this.dgvRoute.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoute_CellDoubleClick);
+            this.dgvRoute.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvRoute_CellValidating);
+            this.dgvRoute.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoute_CellValueChanged);
+            this.dgvRoute.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvRoute_DataError);
             // 
             // lblInclude
             // 
@@ -1365,6 +1451,7 @@ namespace BveFileExplorer
             this.tpStructure.Controls.Add(this.tbStructure);
             this.tpStructure.Controls.Add(this.btnStructureDirectory);
             this.tpStructure.Controls.Add(this.btnStructureOpen);
+            this.tpStructure.Controls.Add(this.btnStructurePreview);
             this.tpStructure.Location = new System.Drawing.Point(4, 22);
             this.tpStructure.Name = "tpStructure";
             this.tpStructure.Size = new System.Drawing.Size(1053, 570);
@@ -1400,16 +1487,17 @@ namespace BveFileExplorer
             this.dgvStructure.RowTemplate.Height = 21;
             this.dgvStructure.Size = new System.Drawing.Size(1047, 534);
             this.dgvStructure.TabIndex = 1;
-            this.dgvStructure.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStructure_CellDoubleClick);
+            this.dgvStructure.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStructure_CellDoubleClick);
+            this.dgvStructure.CurrentCellChanged += new System.EventHandler(this.dgvStructure_CurrentCellChanged);
             this.dgvStructure.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvStructure_MouseDown);
             // 
             // tbStructure
             // 
             this.tbStructure.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbStructure.Location = new System.Drawing.Point(135, 8);
+            this.tbStructure.Location = new System.Drawing.Point(226, 8);
             this.tbStructure.Name = "tbStructure";
-            this.tbStructure.Size = new System.Drawing.Size(790, 19);
+            this.tbStructure.Size = new System.Drawing.Size(699, 19);
             this.tbStructure.TabIndex = 4;
             // 
             // btnStructureDirectory
@@ -1431,6 +1519,16 @@ namespace BveFileExplorer
             this.btnStructureOpen.TabIndex = 3;
             this.btnStructureOpen.Text = "開く";
             this.btnStructureOpen.UseVisualStyleBackColor = true;
+            // 
+            // btnStructurePreview
+            // 
+            this.btnStructurePreview.Location = new System.Drawing.Point(135, 4);
+            this.btnStructurePreview.Name = "btnStructurePreview";
+            this.btnStructurePreview.Size = new System.Drawing.Size(85, 26);
+            this.btnStructurePreview.TabIndex = 17;
+            this.btnStructurePreview.Text = "3Dプレビュー";
+            this.btnStructurePreview.UseVisualStyleBackColor = true;
+            this.btnStructurePreview.Click += new System.EventHandler(this.btnStructurePreview_Click);
             // 
             // tpSignal
             // 
@@ -1873,314 +1971,6 @@ namespace BveFileExplorer
             this.btnMapOpen.TabIndex = 3;
             this.btnMapOpen.Text = "開く";
             this.btnMapOpen.UseVisualStyleBackColor = true;
-            // 
-            // tpAtsPlugin
-            // 
-            this.tpAtsPlugin.Controls.Add(this.label10);
-            this.tpAtsPlugin.Controls.Add(this.gbxBve6Converter);
-            this.tpAtsPlugin.Controls.Add(this.groupBox1);
-            this.tpAtsPlugin.Location = new System.Drawing.Point(4, 22);
-            this.tpAtsPlugin.Name = "tpAtsPlugin";
-            this.tpAtsPlugin.Size = new System.Drawing.Size(1069, 636);
-            this.tpAtsPlugin.TabIndex = 3;
-            this.tpAtsPlugin.Text = "車両ATSプラグイン関連";
-            this.tpAtsPlugin.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(312, 286);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(475, 12);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "※プレイ前に変更は保存してください。Drag && Dropで順序を入れ替えられます。Delで削除できます。";
-            // 
-            // gbxBve6Converter
-            // 
-            this.gbxBve6Converter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbxBve6Converter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.gbxBve6Converter.Controls.Add(this.lblDetailManager);
-            this.gbxBve6Converter.Controls.Add(this.btnBve5Recovery);
-            this.gbxBve6Converter.Controls.Add(this.lblConvert);
-            this.gbxBve6Converter.Controls.Add(this.tbDetailModuleStoreDetail);
-            this.gbxBve6Converter.Controls.Add(this.tbDetailManagerDetail);
-            this.gbxBve6Converter.Controls.Add(this.label19);
-            this.gbxBve6Converter.Controls.Add(this.label18);
-            this.gbxBve6Converter.Controls.Add(this.lblDetailModuleStore);
-            this.gbxBve6Converter.Controls.Add(this.btnBve6Convert);
-            this.gbxBve6Converter.Controls.Add(this.btnDetailModuleStoreClear);
-            this.gbxBve6Converter.Controls.Add(this.btnDetailManagerBve6Clear);
-            this.gbxBve6Converter.Controls.Add(this.btnDetailManagerBve6Select);
-            this.gbxBve6Converter.Controls.Add(this.btnDetailModuleSelect);
-            this.gbxBve6Converter.Location = new System.Drawing.Point(10, 8);
-            this.gbxBve6Converter.Name = "gbxBve6Converter";
-            this.gbxBve6Converter.Size = new System.Drawing.Size(1013, 133);
-            this.gbxBve6Converter.TabIndex = 30;
-            this.gbxBve6Converter.TabStop = false;
-            this.gbxBve6Converter.Text = "BVE6 車両簡易コンバータ (JR線車両パック[2022-10-18版]使用車両向け)";
-            // 
-            // lblDetailManager
-            // 
-            this.lblDetailManager.AutoSize = true;
-            this.lblDetailManager.Location = new System.Drawing.Point(14, 54);
-            this.lblDetailManager.Name = "lblDetailManager";
-            this.lblDetailManager.Size = new System.Drawing.Size(154, 12);
-            this.lblDetailManager.TabIndex = 12;
-            this.lblDetailManager.Text = "BVE6(64bit)DetailManager.dll";
-            this.lblDetailManager.Visible = false;
-            // 
-            // btnBve5Recovery
-            // 
-            this.btnBve5Recovery.Enabled = false;
-            this.btnBve5Recovery.Location = new System.Drawing.Point(237, 102);
-            this.btnBve5Recovery.Name = "btnBve5Recovery";
-            this.btnBve5Recovery.Size = new System.Drawing.Size(54, 23);
-            this.btnBve5Recovery.TabIndex = 10;
-            this.btnBve5Recovery.Text = "復元";
-            this.btnBve5Recovery.UseVisualStyleBackColor = true;
-            this.btnBve5Recovery.Visible = false;
-            this.btnBve5Recovery.Click += new System.EventHandler(this.btnBve5Recovery_Click);
-            // 
-            // lblConvert
-            // 
-            this.lblConvert.AutoSize = true;
-            this.lblConvert.Location = new System.Drawing.Point(302, 107);
-            this.lblConvert.Name = "lblConvert";
-            this.lblConvert.Size = new System.Drawing.Size(350, 12);
-            this.lblConvert.TabIndex = 12;
-            this.lblConvert.Text = "コンバート後、[BVE6 DetailModules]タブで読込状況を確認してください。";
-            // 
-            // tbDetailModuleStoreDetail
-            // 
-            this.tbDetailModuleStoreDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbDetailModuleStoreDetail.Location = new System.Drawing.Point(297, 77);
-            this.tbDetailModuleStoreDetail.Name = "tbDetailModuleStoreDetail";
-            this.tbDetailModuleStoreDetail.Size = new System.Drawing.Size(706, 19);
-            this.tbDetailModuleStoreDetail.TabIndex = 1;
-            this.tbDetailModuleStoreDetail.Text = "推奨例:32bit DetailManager.dll格納フォルダ直下または同列に[x64]や[ATS64]フォルダを作成します";
-            this.tbDetailModuleStoreDetail.Visible = false;
-            // 
-            // tbDetailManagerDetail
-            // 
-            this.tbDetailManagerDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbDetailManagerDetail.Location = new System.Drawing.Point(297, 51);
-            this.tbDetailManagerDetail.Name = "tbDetailManagerDetail";
-            this.tbDetailManagerDetail.Size = new System.Drawing.Size(706, 19);
-            this.tbDetailManagerDetail.TabIndex = 1;
-            this.tbDetailManagerDetail.Text = "例:\\BveTs\\Scenarios\\UchAibo20\\E217r\\Ats\\x64\\DetailManager.dll等";
-            this.tbDetailManagerDetail.Visible = false;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.ForeColor = System.Drawing.Color.Red;
-            this.label19.Location = new System.Drawing.Point(19, 34);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(767, 12);
-            this.label19.TabIndex = 12;
-            this.label19.Text = "注意：BVE5用(32bit)ATSプラグイン自身をBVE6(64bit)に変換するツールではありません。内容のわかる方のみご使用ください。DetailManag" +
-    "er使用車両向けです。";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(19, 16);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(711, 12);
-            this.label18.TabIndex = 12;
-            this.label18.Text = "説明：JR車両パック内のプラグインパスを自動変換します。それ以外は手動で追記・変更・確認をお願いします。※無効プラグインはコメントアウトします。";
-            // 
-            // lblDetailModuleStore
-            // 
-            this.lblDetailModuleStore.AutoSize = true;
-            this.lblDetailModuleStore.Location = new System.Drawing.Point(15, 80);
-            this.lblDetailModuleStore.Name = "lblDetailModuleStore";
-            this.lblDetailModuleStore.Size = new System.Drawing.Size(131, 12);
-            this.lblDetailModuleStore.TabIndex = 12;
-            this.lblDetailModuleStore.Text = "detailmodules.txt 保存先";
-            this.lblDetailModuleStore.Visible = false;
-            // 
-            // btnBve6Convert
-            // 
-            this.btnBve6Convert.Enabled = false;
-            this.btnBve6Convert.Location = new System.Drawing.Point(17, 102);
-            this.btnBve6Convert.Name = "btnBve6Convert";
-            this.btnBve6Convert.Size = new System.Drawing.Size(214, 23);
-            this.btnBve6Convert.TabIndex = 10;
-            this.btnBve6Convert.Text = "BVE6対応車両へコンバート(簡易)";
-            this.btnBve6Convert.UseVisualStyleBackColor = true;
-            this.btnBve6Convert.Visible = false;
-            this.btnBve6Convert.Click += new System.EventHandler(this.btnBve6Convert_Click);
-            // 
-            // btnDetailModuleStoreClear
-            // 
-            this.btnDetailModuleStoreClear.Location = new System.Drawing.Point(237, 75);
-            this.btnDetailModuleStoreClear.Name = "btnDetailModuleStoreClear";
-            this.btnDetailModuleStoreClear.Size = new System.Drawing.Size(54, 23);
-            this.btnDetailModuleStoreClear.TabIndex = 11;
-            this.btnDetailModuleStoreClear.Text = "クリア";
-            this.btnDetailModuleStoreClear.UseVisualStyleBackColor = true;
-            this.btnDetailModuleStoreClear.Visible = false;
-            this.btnDetailModuleStoreClear.Click += new System.EventHandler(this.btnDetailModuleStoreDetailClear_Click);
-            // 
-            // btnDetailManagerBve6Clear
-            // 
-            this.btnDetailManagerBve6Clear.Location = new System.Drawing.Point(237, 49);
-            this.btnDetailManagerBve6Clear.Name = "btnDetailManagerBve6Clear";
-            this.btnDetailManagerBve6Clear.Size = new System.Drawing.Size(54, 23);
-            this.btnDetailManagerBve6Clear.TabIndex = 11;
-            this.btnDetailManagerBve6Clear.Text = "クリア";
-            this.btnDetailManagerBve6Clear.UseVisualStyleBackColor = true;
-            this.btnDetailManagerBve6Clear.Visible = false;
-            this.btnDetailManagerBve6Clear.Click += new System.EventHandler(this.btnDetailManagerBve6Clear_Click);
-            // 
-            // btnDetailManagerBve6Select
-            // 
-            this.btnDetailManagerBve6Select.Location = new System.Drawing.Point(177, 49);
-            this.btnDetailManagerBve6Select.Name = "btnDetailManagerBve6Select";
-            this.btnDetailManagerBve6Select.Size = new System.Drawing.Size(54, 23);
-            this.btnDetailManagerBve6Select.TabIndex = 11;
-            this.btnDetailManagerBve6Select.Text = "選択";
-            this.btnDetailManagerBve6Select.UseVisualStyleBackColor = true;
-            this.btnDetailManagerBve6Select.Visible = false;
-            this.btnDetailManagerBve6Select.Click += new System.EventHandler(this.btnDetailManagerBve6Select_Click);
-            // 
-            // btnDetailModuleSelect
-            // 
-            this.btnDetailModuleSelect.Location = new System.Drawing.Point(177, 75);
-            this.btnDetailModuleSelect.Name = "btnDetailModuleSelect";
-            this.btnDetailModuleSelect.Size = new System.Drawing.Size(54, 23);
-            this.btnDetailModuleSelect.TabIndex = 11;
-            this.btnDetailModuleSelect.Text = "選択";
-            this.btnDetailModuleSelect.UseVisualStyleBackColor = true;
-            this.btnDetailModuleSelect.Visible = false;
-            this.btnDetailModuleSelect.Click += new System.EventHandler(this.btnDetailModuleSelect_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.groupBox1.Controls.Add(this.btnAtsPluginSelect);
-            this.groupBox1.Controls.Add(this.lblAtsPluginFile);
-            this.groupBox1.Controls.Add(this.tbAts32RelatePath);
-            this.groupBox1.Controls.Add(this.tbAtsPluginFile);
-            this.groupBox1.Controls.Add(this.tbAts64RelatePath);
-            this.groupBox1.Controls.Add(this.btnAts32Add);
-            this.groupBox1.Controls.Add(this.btnAts32RelatePathGen);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.btnAts64Add);
-            this.groupBox1.Controls.Add(this.lblDetailModule32AddPath);
-            this.groupBox1.Controls.Add(this.btnAts64RelatePathGen);
-            this.groupBox1.Location = new System.Drawing.Point(10, 147);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1013, 128);
-            this.groupBox1.TabIndex = 29;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "ATSプラグイン情報 && detailmodules.txt自動追記";
-            // 
-            // tbAts32RelatePath
-            // 
-            this.tbAts32RelatePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAts32RelatePath.Enabled = false;
-            this.tbAts32RelatePath.Location = new System.Drawing.Point(297, 73);
-            this.tbAts32RelatePath.Name = "tbAts32RelatePath";
-            this.tbAts32RelatePath.Size = new System.Drawing.Size(706, 19);
-            this.tbAts32RelatePath.TabIndex = 1;
-            // 
-            // tbAtsPluginFile
-            // 
-            this.tbAtsPluginFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAtsPluginFile.Enabled = false;
-            this.tbAtsPluginFile.Location = new System.Drawing.Point(297, 21);
-            this.tbAtsPluginFile.Name = "tbAtsPluginFile";
-            this.tbAtsPluginFile.Size = new System.Drawing.Size(706, 19);
-            this.tbAtsPluginFile.TabIndex = 1;
-            // 
-            // tbAts64RelatePath
-            // 
-            this.tbAts64RelatePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAts64RelatePath.Enabled = false;
-            this.tbAts64RelatePath.Location = new System.Drawing.Point(297, 98);
-            this.tbAts64RelatePath.Name = "tbAts64RelatePath";
-            this.tbAts64RelatePath.Size = new System.Drawing.Size(706, 19);
-            this.tbAts64RelatePath.TabIndex = 1;
-            this.tbAts64RelatePath.Visible = false;
-            // 
-            // btnAts32Add
-            // 
-            this.btnAts32Add.BackColor = System.Drawing.SystemColors.Control;
-            this.btnAts32Add.Enabled = false;
-            this.btnAts32Add.Location = new System.Drawing.Point(177, 70);
-            this.btnAts32Add.Name = "btnAts32Add";
-            this.btnAts32Add.Size = new System.Drawing.Size(54, 24);
-            this.btnAts32Add.TabIndex = 5;
-            this.btnAts32Add.Text = "追記";
-            this.btnAts32Add.UseVisualStyleBackColor = false;
-            this.btnAts32Add.Click += new System.EventHandler(this.btnAts32Add_Click);
-            // 
-            // btnAts32RelatePathGen
-            // 
-            this.btnAts32RelatePathGen.BackColor = System.Drawing.SystemColors.Control;
-            this.btnAts32RelatePathGen.Enabled = false;
-            this.btnAts32RelatePathGen.Location = new System.Drawing.Point(118, 70);
-            this.btnAts32RelatePathGen.Name = "btnAts32RelatePathGen";
-            this.btnAts32RelatePathGen.Size = new System.Drawing.Size(54, 24);
-            this.btnAts32RelatePathGen.TabIndex = 5;
-            this.btnAts32RelatePathGen.Text = "生成";
-            this.btnAts32RelatePathGen.UseVisualStyleBackColor = false;
-            this.btnAts32RelatePathGen.Click += new System.EventHandler(this.btnAts32RPathGen_Click);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(13, 101);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(93, 12);
-            this.label9.TabIndex = 14;
-            this.label9.Text = "BVE6用 相対パス";
-            this.label9.Visible = false;
-            // 
-            // btnAts64Add
-            // 
-            this.btnAts64Add.BackColor = System.Drawing.SystemColors.Control;
-            this.btnAts64Add.Enabled = false;
-            this.btnAts64Add.Location = new System.Drawing.Point(177, 95);
-            this.btnAts64Add.Name = "btnAts64Add";
-            this.btnAts64Add.Size = new System.Drawing.Size(54, 24);
-            this.btnAts64Add.TabIndex = 5;
-            this.btnAts64Add.Text = "追記";
-            this.btnAts64Add.UseVisualStyleBackColor = false;
-            this.btnAts64Add.Visible = false;
-            this.btnAts64Add.Click += new System.EventHandler(this.btnAts64Add_Click);
-            // 
-            // lblDetailModule32AddPath
-            // 
-            this.lblDetailModule32AddPath.AutoSize = true;
-            this.lblDetailModule32AddPath.Location = new System.Drawing.Point(13, 76);
-            this.lblDetailModule32AddPath.Name = "lblDetailModule32AddPath";
-            this.lblDetailModule32AddPath.Size = new System.Drawing.Size(93, 12);
-            this.lblDetailModule32AddPath.TabIndex = 14;
-            this.lblDetailModule32AddPath.Text = "BVE5用 相対パス";
-            // 
-            // btnAts64RelatePathGen
-            // 
-            this.btnAts64RelatePathGen.BackColor = System.Drawing.SystemColors.Control;
-            this.btnAts64RelatePathGen.Enabled = false;
-            this.btnAts64RelatePathGen.Location = new System.Drawing.Point(118, 95);
-            this.btnAts64RelatePathGen.Name = "btnAts64RelatePathGen";
-            this.btnAts64RelatePathGen.Size = new System.Drawing.Size(54, 24);
-            this.btnAts64RelatePathGen.TabIndex = 5;
-            this.btnAts64RelatePathGen.Text = "生成";
-            this.btnAts64RelatePathGen.UseVisualStyleBackColor = false;
-            this.btnAts64RelatePathGen.Visible = false;
-            this.btnAts64RelatePathGen.Click += new System.EventHandler(this.btnAts64RPathGen_Click);
             // 
             // statusStrip1
             // 
@@ -2661,6 +2451,314 @@ namespace BveFileExplorer
             this.btnOpenScenarioDirectory.Text = "開く";
             this.btnOpenScenarioDirectory.UseVisualStyleBackColor = true;
             // 
+            // tpAtsPluginEdit
+            // 
+            this.tpAtsPluginEdit.Controls.Add(this.gbxBve6Converter);
+            this.tpAtsPluginEdit.Controls.Add(this.groupBox1);
+            this.tpAtsPluginEdit.Location = new System.Drawing.Point(4, 22);
+            this.tpAtsPluginEdit.Name = "tpAtsPluginEdit";
+            this.tpAtsPluginEdit.Size = new System.Drawing.Size(1039, 477);
+            this.tpAtsPluginEdit.TabIndex = 2;
+            this.tpAtsPluginEdit.Text = "簡易車両プラグインBVE6コンバータ";
+            this.tpAtsPluginEdit.UseVisualStyleBackColor = true;
+            // 
+            // gbxBve6Converter
+            // 
+            this.gbxBve6Converter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbxBve6Converter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.gbxBve6Converter.Controls.Add(this.lblDetailManager);
+            this.gbxBve6Converter.Controls.Add(this.btnBve5Recovery);
+            this.gbxBve6Converter.Controls.Add(this.lblConvert);
+            this.gbxBve6Converter.Controls.Add(this.tbDetailModuleStoreDetail);
+            this.gbxBve6Converter.Controls.Add(this.tbDetailManagerDetail);
+            this.gbxBve6Converter.Controls.Add(this.label19);
+            this.gbxBve6Converter.Controls.Add(this.label18);
+            this.gbxBve6Converter.Controls.Add(this.lblDetailModuleStore);
+            this.gbxBve6Converter.Controls.Add(this.btnBve6Convert);
+            this.gbxBve6Converter.Controls.Add(this.btnDetailModuleStoreClear);
+            this.gbxBve6Converter.Controls.Add(this.btnDetailManagerBve6Clear);
+            this.gbxBve6Converter.Controls.Add(this.btnDetailManagerBve6Select);
+            this.gbxBve6Converter.Controls.Add(this.btnDetailModuleSelect);
+            this.gbxBve6Converter.Location = new System.Drawing.Point(3, 3);
+            this.gbxBve6Converter.Name = "gbxBve6Converter";
+            this.gbxBve6Converter.Size = new System.Drawing.Size(1033, 133);
+            this.gbxBve6Converter.TabIndex = 32;
+            this.gbxBve6Converter.TabStop = false;
+            this.gbxBve6Converter.Text = "BVE6 車両簡易コンバータ (JR線車両パック[2022-10-18版]使用車両向け)";
+            // 
+            // lblDetailManager
+            // 
+            this.lblDetailManager.AutoSize = true;
+            this.lblDetailManager.Location = new System.Drawing.Point(14, 54);
+            this.lblDetailManager.Name = "lblDetailManager";
+            this.lblDetailManager.Size = new System.Drawing.Size(154, 12);
+            this.lblDetailManager.TabIndex = 12;
+            this.lblDetailManager.Text = "BVE6(64bit)DetailManager.dll";
+            this.lblDetailManager.Visible = false;
+            // 
+            // btnBve5Recovery
+            // 
+            this.btnBve5Recovery.Enabled = false;
+            this.btnBve5Recovery.Location = new System.Drawing.Point(237, 102);
+            this.btnBve5Recovery.Name = "btnBve5Recovery";
+            this.btnBve5Recovery.Size = new System.Drawing.Size(54, 23);
+            this.btnBve5Recovery.TabIndex = 10;
+            this.btnBve5Recovery.Text = "復元";
+            this.btnBve5Recovery.UseVisualStyleBackColor = true;
+            this.btnBve5Recovery.Visible = false;
+            // 
+            // lblConvert
+            // 
+            this.lblConvert.AutoSize = true;
+            this.lblConvert.Location = new System.Drawing.Point(302, 107);
+            this.lblConvert.Name = "lblConvert";
+            this.lblConvert.Size = new System.Drawing.Size(350, 12);
+            this.lblConvert.TabIndex = 12;
+            this.lblConvert.Text = "コンバート後、[BVE6 DetailModules]タブで読込状況を確認してください。";
+            // 
+            // tbDetailModuleStoreDetail
+            // 
+            this.tbDetailModuleStoreDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbDetailModuleStoreDetail.Location = new System.Drawing.Point(297, 77);
+            this.tbDetailModuleStoreDetail.Name = "tbDetailModuleStoreDetail";
+            this.tbDetailModuleStoreDetail.Size = new System.Drawing.Size(726, 19);
+            this.tbDetailModuleStoreDetail.TabIndex = 1;
+            this.tbDetailModuleStoreDetail.Text = "推奨例:32bit DetailManager.dll格納フォルダ直下または同列に[x64]や[ATS64]フォルダを作成します";
+            this.tbDetailModuleStoreDetail.Visible = false;
+            // 
+            // tbDetailManagerDetail
+            // 
+            this.tbDetailManagerDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbDetailManagerDetail.Location = new System.Drawing.Point(297, 51);
+            this.tbDetailManagerDetail.Name = "tbDetailManagerDetail";
+            this.tbDetailManagerDetail.Size = new System.Drawing.Size(726, 19);
+            this.tbDetailManagerDetail.TabIndex = 1;
+            this.tbDetailManagerDetail.Text = "例:\\BveTs\\Scenarios\\UchAibo20\\E217r\\Ats\\x64\\DetailManager.dll等";
+            this.tbDetailManagerDetail.Visible = false;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.ForeColor = System.Drawing.Color.Red;
+            this.label19.Location = new System.Drawing.Point(19, 34);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(767, 12);
+            this.label19.TabIndex = 12;
+            this.label19.Text = "注意：BVE5用(32bit)ATSプラグイン自身をBVE6(64bit)に変換するツールではありません。内容のわかる方のみご使用ください。DetailManag" +
+    "er使用車両向けです。";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(19, 16);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(711, 12);
+            this.label18.TabIndex = 12;
+            this.label18.Text = "説明：JR車両パック内のプラグインパスを自動変換します。それ以外は手動で追記・変更・確認をお願いします。※無効プラグインはコメントアウトします。";
+            // 
+            // lblDetailModuleStore
+            // 
+            this.lblDetailModuleStore.AutoSize = true;
+            this.lblDetailModuleStore.Location = new System.Drawing.Point(15, 80);
+            this.lblDetailModuleStore.Name = "lblDetailModuleStore";
+            this.lblDetailModuleStore.Size = new System.Drawing.Size(131, 12);
+            this.lblDetailModuleStore.TabIndex = 12;
+            this.lblDetailModuleStore.Text = "detailmodules.txt 保存先";
+            this.lblDetailModuleStore.Visible = false;
+            // 
+            // btnBve6Convert
+            // 
+            this.btnBve6Convert.Enabled = false;
+            this.btnBve6Convert.Location = new System.Drawing.Point(17, 102);
+            this.btnBve6Convert.Name = "btnBve6Convert";
+            this.btnBve6Convert.Size = new System.Drawing.Size(214, 23);
+            this.btnBve6Convert.TabIndex = 10;
+            this.btnBve6Convert.Text = "BVE6対応車両へコンバート(簡易)";
+            this.btnBve6Convert.UseVisualStyleBackColor = true;
+            this.btnBve6Convert.Visible = false;
+            // 
+            // btnDetailModuleStoreClear
+            // 
+            this.btnDetailModuleStoreClear.Location = new System.Drawing.Point(237, 75);
+            this.btnDetailModuleStoreClear.Name = "btnDetailModuleStoreClear";
+            this.btnDetailModuleStoreClear.Size = new System.Drawing.Size(54, 23);
+            this.btnDetailModuleStoreClear.TabIndex = 11;
+            this.btnDetailModuleStoreClear.Text = "クリア";
+            this.btnDetailModuleStoreClear.UseVisualStyleBackColor = true;
+            this.btnDetailModuleStoreClear.Visible = false;
+            // 
+            // btnDetailManagerBve6Clear
+            // 
+            this.btnDetailManagerBve6Clear.Location = new System.Drawing.Point(237, 49);
+            this.btnDetailManagerBve6Clear.Name = "btnDetailManagerBve6Clear";
+            this.btnDetailManagerBve6Clear.Size = new System.Drawing.Size(54, 23);
+            this.btnDetailManagerBve6Clear.TabIndex = 11;
+            this.btnDetailManagerBve6Clear.Text = "クリア";
+            this.btnDetailManagerBve6Clear.UseVisualStyleBackColor = true;
+            this.btnDetailManagerBve6Clear.Visible = false;
+            // 
+            // btnDetailManagerBve6Select
+            // 
+            this.btnDetailManagerBve6Select.Location = new System.Drawing.Point(177, 49);
+            this.btnDetailManagerBve6Select.Name = "btnDetailManagerBve6Select";
+            this.btnDetailManagerBve6Select.Size = new System.Drawing.Size(54, 23);
+            this.btnDetailManagerBve6Select.TabIndex = 11;
+            this.btnDetailManagerBve6Select.Text = "選択";
+            this.btnDetailManagerBve6Select.UseVisualStyleBackColor = true;
+            this.btnDetailManagerBve6Select.Visible = false;
+            // 
+            // btnDetailModuleSelect
+            // 
+            this.btnDetailModuleSelect.Location = new System.Drawing.Point(177, 75);
+            this.btnDetailModuleSelect.Name = "btnDetailModuleSelect";
+            this.btnDetailModuleSelect.Size = new System.Drawing.Size(54, 23);
+            this.btnDetailModuleSelect.TabIndex = 11;
+            this.btnDetailModuleSelect.Text = "選択";
+            this.btnDetailModuleSelect.UseVisualStyleBackColor = true;
+            this.btnDetailModuleSelect.Visible = false;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.groupBox1.Controls.Add(this.btnAtsPluginSelect);
+            this.groupBox1.Controls.Add(this.lblAtsPluginFile);
+            this.groupBox1.Controls.Add(this.tbAts32RelatePath);
+            this.groupBox1.Controls.Add(this.tbAtsPluginFile);
+            this.groupBox1.Controls.Add(this.tbAts64RelatePath);
+            this.groupBox1.Controls.Add(this.btnAts32Add);
+            this.groupBox1.Controls.Add(this.btnAts32RelatePathGen);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.btnAts64Add);
+            this.groupBox1.Controls.Add(this.lblDetailModule32AddPath);
+            this.groupBox1.Controls.Add(this.btnAts64RelatePathGen);
+            this.groupBox1.Location = new System.Drawing.Point(3, 142);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1033, 128);
+            this.groupBox1.TabIndex = 31;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "ATSプラグイン情報 && detailmodules.txt自動追記";
+            // 
+            // btnAtsPluginSelect
+            // 
+            this.btnAtsPluginSelect.BackColor = System.Drawing.SystemColors.Control;
+            this.btnAtsPluginSelect.Enabled = false;
+            this.btnAtsPluginSelect.Location = new System.Drawing.Point(15, 18);
+            this.btnAtsPluginSelect.Name = "btnAtsPluginSelect";
+            this.btnAtsPluginSelect.Size = new System.Drawing.Size(216, 25);
+            this.btnAtsPluginSelect.TabIndex = 13;
+            this.btnAtsPluginSelect.Text = "追加するATSプラグインを選択";
+            this.btnAtsPluginSelect.UseVisualStyleBackColor = false;
+            // 
+            // lblAtsPluginFile
+            // 
+            this.lblAtsPluginFile.AutoSize = true;
+            this.lblAtsPluginFile.Location = new System.Drawing.Point(300, 43);
+            this.lblAtsPluginFile.Name = "lblAtsPluginFile";
+            this.lblAtsPluginFile.Size = new System.Drawing.Size(71, 12);
+            this.lblAtsPluginFile.TabIndex = 14;
+            this.lblAtsPluginFile.Text = "ATSプラグイン";
+            // 
+            // tbAts32RelatePath
+            // 
+            this.tbAts32RelatePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbAts32RelatePath.Enabled = false;
+            this.tbAts32RelatePath.Location = new System.Drawing.Point(297, 73);
+            this.tbAts32RelatePath.Name = "tbAts32RelatePath";
+            this.tbAts32RelatePath.Size = new System.Drawing.Size(726, 19);
+            this.tbAts32RelatePath.TabIndex = 1;
+            // 
+            // tbAtsPluginFile
+            // 
+            this.tbAtsPluginFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbAtsPluginFile.Enabled = false;
+            this.tbAtsPluginFile.Location = new System.Drawing.Point(297, 21);
+            this.tbAtsPluginFile.Name = "tbAtsPluginFile";
+            this.tbAtsPluginFile.Size = new System.Drawing.Size(726, 19);
+            this.tbAtsPluginFile.TabIndex = 1;
+            // 
+            // tbAts64RelatePath
+            // 
+            this.tbAts64RelatePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbAts64RelatePath.Enabled = false;
+            this.tbAts64RelatePath.Location = new System.Drawing.Point(297, 98);
+            this.tbAts64RelatePath.Name = "tbAts64RelatePath";
+            this.tbAts64RelatePath.Size = new System.Drawing.Size(726, 19);
+            this.tbAts64RelatePath.TabIndex = 1;
+            this.tbAts64RelatePath.Visible = false;
+            // 
+            // btnAts32Add
+            // 
+            this.btnAts32Add.BackColor = System.Drawing.SystemColors.Control;
+            this.btnAts32Add.Enabled = false;
+            this.btnAts32Add.Location = new System.Drawing.Point(177, 70);
+            this.btnAts32Add.Name = "btnAts32Add";
+            this.btnAts32Add.Size = new System.Drawing.Size(54, 24);
+            this.btnAts32Add.TabIndex = 5;
+            this.btnAts32Add.Text = "追記";
+            this.btnAts32Add.UseVisualStyleBackColor = false;
+            // 
+            // btnAts32RelatePathGen
+            // 
+            this.btnAts32RelatePathGen.BackColor = System.Drawing.SystemColors.Control;
+            this.btnAts32RelatePathGen.Enabled = false;
+            this.btnAts32RelatePathGen.Location = new System.Drawing.Point(118, 70);
+            this.btnAts32RelatePathGen.Name = "btnAts32RelatePathGen";
+            this.btnAts32RelatePathGen.Size = new System.Drawing.Size(54, 24);
+            this.btnAts32RelatePathGen.TabIndex = 5;
+            this.btnAts32RelatePathGen.Text = "生成";
+            this.btnAts32RelatePathGen.UseVisualStyleBackColor = false;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(13, 101);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(93, 12);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "BVE6用 相対パス";
+            this.label9.Visible = false;
+            // 
+            // btnAts64Add
+            // 
+            this.btnAts64Add.BackColor = System.Drawing.SystemColors.Control;
+            this.btnAts64Add.Enabled = false;
+            this.btnAts64Add.Location = new System.Drawing.Point(177, 95);
+            this.btnAts64Add.Name = "btnAts64Add";
+            this.btnAts64Add.Size = new System.Drawing.Size(54, 24);
+            this.btnAts64Add.TabIndex = 5;
+            this.btnAts64Add.Text = "追記";
+            this.btnAts64Add.UseVisualStyleBackColor = false;
+            this.btnAts64Add.Visible = false;
+            // 
+            // lblDetailModule32AddPath
+            // 
+            this.lblDetailModule32AddPath.AutoSize = true;
+            this.lblDetailModule32AddPath.Location = new System.Drawing.Point(13, 76);
+            this.lblDetailModule32AddPath.Name = "lblDetailModule32AddPath";
+            this.lblDetailModule32AddPath.Size = new System.Drawing.Size(93, 12);
+            this.lblDetailModule32AddPath.TabIndex = 14;
+            this.lblDetailModule32AddPath.Text = "BVE5用 相対パス";
+            // 
+            // btnAts64RelatePathGen
+            // 
+            this.btnAts64RelatePathGen.BackColor = System.Drawing.SystemColors.Control;
+            this.btnAts64RelatePathGen.Enabled = false;
+            this.btnAts64RelatePathGen.Location = new System.Drawing.Point(118, 95);
+            this.btnAts64RelatePathGen.Name = "btnAts64RelatePathGen";
+            this.btnAts64RelatePathGen.Size = new System.Drawing.Size(54, 24);
+            this.btnAts64RelatePathGen.TabIndex = 5;
+            this.btnAts64RelatePathGen.Text = "生成";
+            this.btnAts64RelatePathGen.UseVisualStyleBackColor = false;
+            this.btnAts64RelatePathGen.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2686,6 +2784,7 @@ namespace BveFileExplorer
             this.tpVehicle.PerformLayout();
             this.tabControlVehicle.ResumeLayout(false);
             this.tpVehicleFile.ResumeLayout(false);
+            this.tpVehicleFile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVehicle)).EndInit();
             this.tpPerformanceCurve.ResumeLayout(false);
             this.tpPerformanceCurve.PerformLayout();
@@ -2716,6 +2815,7 @@ namespace BveFileExplorer
             this.tabControlMaps.ResumeLayout(false);
             this.tpRouteFile.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel1.PerformLayout();
             this.splitContainer3.Panel2.ResumeLayout(false);
             this.splitContainer3.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
@@ -2744,12 +2844,6 @@ namespace BveFileExplorer
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrainFileList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrain)).EndInit();
-            this.tpAtsPlugin.ResumeLayout(false);
-            this.tpAtsPlugin.PerformLayout();
-            this.gbxBve6Converter.ResumeLayout(false);
-            this.gbxBve6Converter.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.gbxBve5.ResumeLayout(false);
@@ -2764,6 +2858,11 @@ namespace BveFileExplorer
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).EndInit();
+            this.tpAtsPluginEdit.ResumeLayout(false);
+            this.gbxBve6Converter.ResumeLayout(false);
+            this.gbxBve6Converter.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2776,8 +2875,6 @@ namespace BveFileExplorer
         private System.Windows.Forms.Button btnAts32OpenDirectory;
         private System.Windows.Forms.Button btnOpenVehicleDirectory;
         private System.Windows.Forms.PictureBox pbVehicleImage;
-        private System.Windows.Forms.Button btnAtsPluginSelect;
-        private System.Windows.Forms.Label lblAtsPluginFile;
         private System.Windows.Forms.Button btnHelp;
         private System.Windows.Forms.TabControl tabControlScenario;
         private System.Windows.Forms.TabPage tpVehicle;
@@ -2801,6 +2898,7 @@ namespace BveFileExplorer
         private System.Windows.Forms.Button btnMapOpen;
         private System.Windows.Forms.TextBox tbStructure;
         private System.Windows.Forms.Button btnStructureOpen;
+        private System.Windows.Forms.Button btnStructurePreview;
         private System.Windows.Forms.TextBox tbStation;
         private System.Windows.Forms.Button btnStationOpen;
         private System.Windows.Forms.TextBox tbSoundList;
@@ -2827,16 +2925,6 @@ namespace BveFileExplorer
         private System.Windows.Forms.TextBox tbSeinarioFileName;
         private System.Windows.Forms.Button btnAts32Check;
         private System.Windows.Forms.Button btnAts64Check;
-        private System.Windows.Forms.TextBox tbAtsPluginFile;
-        private System.Windows.Forms.TextBox tbAts32RelatePath;
-        private System.Windows.Forms.TextBox tbAts64RelatePath;
-        private System.Windows.Forms.Label lblDetailModule32AddPath;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button btnAts32Add;
-        private System.Windows.Forms.Button btnAts64Add;
-        private System.Windows.Forms.Button btnAts32RelatePathGen;
-        private System.Windows.Forms.Button btnAts64RelatePathGen;
-        private System.Windows.Forms.TabPage tpAtsPlugin;
         private System.Windows.Forms.GroupBox gbxSenario;
         private System.Windows.Forms.Button btnPanelDirectory;
         private System.Windows.Forms.Button btnParametersDirectory;
@@ -2849,22 +2937,7 @@ namespace BveFileExplorer
         private System.Windows.Forms.Button btnSoundListDirectory;
         private System.Windows.Forms.Button btnSignalDirectory;
         private System.Windows.Forms.Button btnStationDirectory;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label lblDetailModuleStore;
-        private System.Windows.Forms.Button btnDetailModuleSelect;
-        private System.Windows.Forms.Button btnBve6Convert;
-        private System.Windows.Forms.Label lblDetailManager;
-        private System.Windows.Forms.Button btnDetailManagerBve6Select;
-        private System.Windows.Forms.Button btnBve5Recovery;
-        private System.Windows.Forms.GroupBox gbxBve6Converter;
-        private System.Windows.Forms.Label lblConvert;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.ComboBox cbxTrain;
-        private System.Windows.Forms.TextBox tbDetailManagerDetail;
-        private System.Windows.Forms.Button btnDetailManagerBve6Clear;
-        private System.Windows.Forms.TextBox tbDetailModuleStoreDetail;
-        private System.Windows.Forms.Button btnDetailModuleStoreClear;
         private System.Windows.Forms.GroupBox gbxImage;
         private System.Windows.Forms.TextBox tbSound3DList;
         private System.Windows.Forms.Button btnSound3DListOpen;
@@ -2872,7 +2945,6 @@ namespace BveFileExplorer
         private System.Windows.Forms.ContextMenuStrip cmsDelete;
         private System.Windows.Forms.ToolStripMenuItem tsmi32Delete;
         private System.Windows.Forms.Button btnScenarioClear;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnSenarioDirectoryOpen;
         private System.Windows.Forms.TextBox tbScenarioDirectory;
         private System.Windows.Forms.ToolStripStatusLabel tsslDisp;
@@ -2936,11 +3008,19 @@ namespace BveFileExplorer
         private System.Windows.Forms.Button btnListOther;
         private System.Windows.Forms.TabPage tpVehicleFile;
         private System.Windows.Forms.DataGridView dgvVehicle;
+        private System.Windows.Forms.Button btnVehicleAdd;
+        private System.Windows.Forms.Button btnVehicleRemove;
+        private System.Windows.Forms.Button btnVehicleSaveAs;
+        private System.Windows.Forms.Label lblVehicleListInfo;
         private System.Windows.Forms.ProgressBar pgBarList;
         private System.Windows.Forms.DataGridView dgvFiles;
         private System.Windows.Forms.Label lblPgBarStatus;
         private System.Windows.Forms.TabPage tpRouteFile;
         private System.Windows.Forms.DataGridView dgvRoute;
+        private System.Windows.Forms.Button btnRouteAdd;
+        private System.Windows.Forms.Button btnRouteRemove;
+        private System.Windows.Forms.Button btnRouteSaveAs;
+        private System.Windows.Forms.Label lblRouteListInfo;
         private System.Windows.Forms.DataGridView dgvTrainFileList;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Button btnStrview5;
@@ -2966,6 +3046,33 @@ namespace BveFileExplorer
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.DataGridView dgvIncludeList;
         private System.Windows.Forms.Label lblInclude;
+        private System.Windows.Forms.TabPage tpAtsPluginEdit;
+        private System.Windows.Forms.GroupBox gbxBve6Converter;
+        private System.Windows.Forms.Label lblDetailManager;
+        private System.Windows.Forms.Button btnBve5Recovery;
+        private System.Windows.Forms.Label lblConvert;
+        private System.Windows.Forms.TextBox tbDetailModuleStoreDetail;
+        private System.Windows.Forms.TextBox tbDetailManagerDetail;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label lblDetailModuleStore;
+        private System.Windows.Forms.Button btnBve6Convert;
+        private System.Windows.Forms.Button btnDetailModuleStoreClear;
+        private System.Windows.Forms.Button btnDetailManagerBve6Clear;
+        private System.Windows.Forms.Button btnDetailManagerBve6Select;
+        private System.Windows.Forms.Button btnDetailModuleSelect;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnAtsPluginSelect;
+        private System.Windows.Forms.Label lblAtsPluginFile;
+        private System.Windows.Forms.TextBox tbAts32RelatePath;
+        private System.Windows.Forms.TextBox tbAtsPluginFile;
+        private System.Windows.Forms.TextBox tbAts64RelatePath;
+        private System.Windows.Forms.Button btnAts32Add;
+        private System.Windows.Forms.Button btnAts32RelatePathGen;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnAts64Add;
+        private System.Windows.Forms.Label lblDetailModule32AddPath;
+        private System.Windows.Forms.Button btnAts64RelatePathGen;
     }
 }
 

@@ -53,6 +53,8 @@ namespace BveFileExplorer
 
         private void btnScenarioClear_Click(object sender, EventArgs e)
         {
+            if (!ConfirmDiscardEntryListChanges()) return;
+
             Reset();
             indexDgvFiles = -1;
             _scenarioEncOverride = null;
@@ -65,8 +67,11 @@ namespace BveFileExplorer
         /// シナリオファイルを読み込む。
         /// </summary>
         /// <param name="enc">null の場合、同じシナリオに手動指定があればそれを、なければヘッダーから判定</param>
-        private void LoadScenario(string scenarioFilePath, Encoding enc = null)
+        /// <returns>読み込んだ場合 true(未保存の変更の破棄をキャンセルした場合 false)</returns>
+        private bool LoadScenario(string scenarioFilePath, Encoding enc = null)
         {
+            if (!ConfirmDiscardEntryListChanges()) return false;
+
             // シナリオのエンコード手動指定は、同じシナリオの読み直し(リロード等)の間だけ維持する
             if (enc == null && string.Equals(scenarioFilePath, _scenarioEncOverridePath, StringComparison.OrdinalIgnoreCase))
             {
@@ -79,6 +84,7 @@ namespace BveFileExplorer
 
             scenario = new Scenario(scenarioFilePath, enc);
             OpenScenario();
+            return true;
         }
 
         /// <summary>
@@ -92,7 +98,11 @@ namespace BveFileExplorer
             string path = scenario?.FilePath;
             if (!File.Exists(path)) return;
 
-            LoadScenario(path, EncodingDetector.FromMode(cbxScenarioEnc.SelectedIndex));
+            if (!LoadScenario(path, EncodingDetector.FromMode(cbxScenarioEnc.SelectedIndex)))
+            {
+                // キャンセルされたら表示を元に戻す
+                SetEncIndex(cbxScenarioEnc, scenario.encMode);
+            }
         }
 
         private void OpenScenario()
@@ -132,6 +142,8 @@ namespace BveFileExplorer
             dgvScenario.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
 
             ShowScenarioVehicles();
+            ShowEntryList(_vehicleList, scenario.VehicleFilesList);
+            ShowEntryList(_routeList, scenario.MapFilesList);
             ShowScenarioMaps();
             FlushMessages();
         }
@@ -177,22 +189,6 @@ namespace BveFileExplorer
             if (tbAtsPluginFile.Text != "" && File.Exists(tbAtsPluginFile.Text))
             {
                 AddAtsPlugin(tbAtsPluginFile.Text);
-            }
-
-            // 車両データ(Vehicle)
-            dgvVehicle.DataSource = scenario.VehicleFilesList.Select(x => new { FilePath = x.FileName, Ratio = x.Ratio }).ToList();
-            dgvVehicle.Columns[0].HeaderCell.ToolTipText = "相対パス";
-            dgvVehicle.Columns[1].HeaderCell.ToolTipText = "出現割合(未指定の場合は1)";
-            dgvVehicle.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            GridHelper.DisableSort(dgvVehicle);
-
-            // リンク切れを黄色に
-            for (int i = 0; i < dgvVehicle.Rows.Count && i < scenario.VehicleFilesExists.Count; i++)
-            {
-                if (!scenario.VehicleFilesExists[i])
-                {
-                    dgvVehicle.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
-                }
             }
         }
 
@@ -244,12 +240,6 @@ namespace BveFileExplorer
                 cbxMapFilePath.BackColor = Color.LightYellow;
                 strDisp += "マップファイルが見つかりません。\n";
             }
-
-            // 路線データ(Route)
-            dgvRoute.DataSource = scenario.MapFilesList.Select(x => new { FilePath = x.FileName, Ratio = x.Ratio }).ToList();
-            dgvRoute.Columns[0].HeaderCell.ToolTipText = "相対パス";
-            dgvRoute.Columns[1].HeaderCell.ToolTipText = "出現割合(未指定の場合は1)";
-            dgvRoute.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
         #endregion
@@ -270,29 +260,13 @@ namespace BveFileExplorer
             string tempFile = TempScenarioPath();
 
             // 読み込んだときと同じエンコード(手動指定を含む)で読み書きする
-            Encoding enc = scenario.FileEncoding ?? EncodingDetector.Detect(source, out _);
+            Encoding enc = ScenarioEncodingForWrite();
             string[] lines = File.ReadAllLines(source, enc);
-
-            // ヘッダーの記載漏れ等で手動指定している場合、BVE が正しく読めるようヘッダーを実際のエンコードに合わせる
-            if (lines.Length > 0)
-            {
-                EncodingDetector.HeaderInfo header = EncodingDetector.ParseHeader(lines[0]);
-                if (header.Encoding.CodePage != enc.CodePage || header.Warning != "")
-                {
-                    lines[0] = EncodingDetector.RewriteHeader(lines[0], enc);
-                }
-            }
+            FixScenarioHeader(lines, enc);
 
             for (int i = 0; i < lines.Length; i++)
             {
-                string line = lines[i].TrimStart();
-                if (line.StartsWith(";") || line.StartsWith("#")) continue;
-
-                int eq = line.IndexOf('=');
-                if (eq < 0) continue;
-
-                // "VehicleTitle" や "RouteTitle" は対象外(キーの完全一致で判定)
-                if (string.Equals(line.Substring(0, eq).Trim(), key, StringComparison.OrdinalIgnoreCase))
+                if (IsScenarioKeyLine(lines[i], key))
                 {
                     lines[i] = key + " = " + PathUtil.GenerateRelativePath(source, targetFilePath);
                 }
@@ -300,6 +274,50 @@ namespace BveFileExplorer
 
             File.WriteAllLines(tempFile, lines, enc);
             return tempFile;
+        }
+
+        /// <summary>
+        /// シナリオファイルを書き出すときのエンコード。読込時のエンコード(手動指定を含む)に合わせ、
+        /// UTF-8 の場合は元ファイルの BOM の有無も合わせる。
+        /// </summary>
+        private Encoding ScenarioEncodingForWrite()
+        {
+            Encoding enc = scenario.FileEncoding ?? EncodingDetector.Detect(scenario.FilePath, out _);
+            if (enc.CodePage != 65001) return enc;
+
+            bool hasBom = false;
+            using (FileStream fs = new FileStream(scenario.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                byte[] head = new byte[3];
+                hasBom = fs.Read(head, 0, 3) == 3 && head[0] == 0xEF && head[1] == 0xBB && head[2] == 0xBF;
+            }
+            return new UTF8Encoding(hasBom);
+        }
+
+        /// <summary>
+        /// ヘッダーの記載漏れ等で手動指定している場合、BVE が正しく読めるようヘッダーを実際のエンコードに合わせる
+        /// </summary>
+        private static void FixScenarioHeader(string[] lines, Encoding enc)
+        {
+            if (lines.Length == 0) return;
+
+            EncodingDetector.HeaderInfo header = EncodingDetector.ParseHeader(lines[0]);
+            if (header.Encoding.CodePage != enc.CodePage || header.Warning != "")
+            {
+                lines[0] = EncodingDetector.RewriteHeader(lines[0], enc);
+            }
+        }
+
+        /// <summary>
+        /// "key = ..." の行か(コメント行は除く)。"VehicleTitle" や "RouteTitle" は "Vehicle"/"Route" と一致しない
+        /// </summary>
+        private static bool IsScenarioKeyLine(string rawLine, string key)
+        {
+            string line = rawLine.TrimStart();
+            if (line.StartsWith(";") || line.StartsWith("#")) return false;
+
+            int eq = line.IndexOf('=');
+            return eq >= 0 && string.Equals(line.Substring(0, eq).Trim(), key, StringComparison.OrdinalIgnoreCase);
         }
 
         #endregion
@@ -497,8 +515,10 @@ namespace BveFileExplorer
         {
             if (e != null && e.RowIndex >= 0 && e.RowIndex != indexDgvFiles)
             {
-                indexDgvFiles = e.RowIndex;
-                LoadScenario(ScenarioListFilePath(e.RowIndex));
+                if (LoadScenario(ScenarioListFilePath(e.RowIndex)))
+                {
+                    indexDgvFiles = e.RowIndex;
+                }
             }
         }
 

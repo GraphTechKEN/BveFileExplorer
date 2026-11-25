@@ -64,13 +64,14 @@ namespace BveFileExplorer
         {
             InitializeComponent();
 
-            _hiddenTabPage = tabControlScenario.TabPages[2];
-            tabControlScenario.TabPages.Remove(_hiddenTabPage);
+            //_hiddenTabPage = tabControlScenario.TabPages[2];
+            //tabControlScenario.TabPages.Remove(_hiddenTabPage);
 
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             this.Text += " ( Beta ver " + version.ToString() + " )";
 
             InitVehicleTabs();
+            InitScenarioEntryLists();
             BindFileButtons();
             btnPlayStop.Click += BtnPlayStop_Click;
         }
@@ -293,6 +294,11 @@ namespace BveFileExplorer
             map = null;
             vehicle = null;
             _encodingOverrides.Clear();
+            foreach (ScenarioEntryList list in EntryLists)
+            {
+                list.Dirty = false;
+                list.Info.Text = "";
+            }
             cbxScenarioEnc.Enabled = false;
             cbxVehicleEnc.Enabled = false;
             cbxMapEnc.Enabled = false;
@@ -323,7 +329,9 @@ namespace BveFileExplorer
                 btnSoundListOpen, btnSoundListDirectory,
                 btnSound3DListOpen, btnSound3DListDirectory,
                 btnTrainOpen, btnTrainDirectory,
-                btnBve6Convert, btnDetailModuleStoreClear })
+                btnBve6Convert, btnDetailModuleStoreClear,
+                btnVehicleAdd, btnVehicleRemove, btnVehicleSaveAs,
+                btnRouteAdd, btnRouteRemove, btnRouteSaveAs })
             {
                 c.Enabled = false;
             }
@@ -464,6 +472,12 @@ namespace BveFileExplorer
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (!ConfirmDiscardEntryListChanges())
+            {
+                e.Cancel = true;
+                return;
+            }
+
             StopSound();
             TempFileChecker();
             Settings.Default.Save();

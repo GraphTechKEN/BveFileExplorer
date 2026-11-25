@@ -26,7 +26,7 @@ namespace BveFileExplorer
         private static readonly string[] StructureToolTips =
         {
             "任意の文字列。このストラクチャー名は、マップファイル、信号現示リストファイル、他列車ファイルで使用します。",
-            "ストラクチャーファイルの相対パス(ダブルクリックで開きます)。ストラクチャビューワ5にドラッグ＆ドロップで表示できます。",
+            "ストラクチャーファイルの相対パス。ダブルクリックで3Dプレビュー、Shift+ダブルクリックで関連付けアプリで開きます。ストラクチャビューワ5にドラッグ＆ドロップで表示できます。",
             "備考",
         };
 
@@ -50,6 +50,9 @@ namespace BveFileExplorer
         private const int StationDepartureSoundColumn = 10;
 
         private SoundPlayer player;
+
+        /// <summary>ストラクチャ簡易ビューア(開いていなければ null)</summary>
+        private StructureViewerForm _structureViewer;
         private DateTime _lastClickTime = DateTime.MinValue;
         private DataGridViewCell _lastClickedCell = null;
 
@@ -170,12 +173,10 @@ namespace BveFileExplorer
             IncludeFileExtract();
         }
 
+        /// <summary>一覧の行をクリックすると、そのマップを表示する(パスで対応付け)</summary>
         private void dgvRoute_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.RowIndex < cbxMapFilePath.Items.Count)
-            {
-                cbxMapFilePath.SelectedIndex = e.RowIndex;
-            }
+            SelectEntryFile(_routeList, e.RowIndex);
         }
 
         private void dgvRoute_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -260,9 +261,32 @@ namespace BveFileExplorer
             if (IsUserEncodingChange(cbxStructureEnc)) StructureFileExtract(Encoding.GetEncoding(cbxStructureEnc.Text));
         }
 
+        /// <summary>ダブルクリックで3Dプレビュー(Shift+ダブルクリックで関連付けアプリで開く)</summary>
         private void dgvStructure_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            OpenFileFromGrid(dgvStructure, e.RowIndex, e.ColumnIndex, 1, map?.Structure?.FilePathAbs);
+            if (e.RowIndex >= 0) ActivateStructureRow(e.RowIndex);
+        }
+
+        /// <summary>同じダブルクリックを MouseDown 側と二重に処理しないための時刻</summary>
+        private DateTime _lastStructureActivate = DateTime.MinValue;
+
+        /// <summary>
+        /// ストラクチャ一覧の行をダブルクリックしたときの処理。
+        /// 通常は3Dプレビュー、Shift を押しながらなら関連付けアプリで .x を開く。
+        /// </summary>
+        private void ActivateStructureRow(int rowIndex)
+        {
+            if ((DateTime.Now - _lastStructureActivate).TotalMilliseconds < SystemInformation.DoubleClickTime) return;
+            _lastStructureActivate = DateTime.Now;
+
+            if ((Control.ModifierKeys & Keys.Shift) != 0)
+            {
+                OpenFileFromGrid(dgvStructure, rowIndex, 1, 1, map?.Structure?.FilePathAbs);
+            }
+            else
+            {
+                ShowStructurePreview(rowIndex, openIfClosed: true);
+            }
         }
 
         /// <summary>
@@ -272,6 +296,11 @@ namespace BveFileExplorer
         private void dgvStructure_MouseDown(object sender, MouseEventArgs e)
         {
             DataGridView.HitTestInfo hit = dgvStructure.HitTest(e.X, e.Y);
+            if (hit.RowIndex >= 0)
+            {
+                // プレビューを開いていれば、クリックした行のストラクチャを表示する
+                ShowStructurePreview(hit.RowIndex, openIfClosed: false);
+            }
             if (hit.RowIndex < 0 || hit.ColumnIndex != 1) return;
 
             DataGridViewCell clickedCell = dgvStructure.Rows[hit.RowIndex].Cells[hit.ColumnIndex];
@@ -288,7 +317,7 @@ namespace BveFileExplorer
 
             if (duration.TotalMilliseconds < SystemInformation.DoubleClickTime && _lastClickedCell == clickedCell)
             {
-                OpenFileFromGrid(dgvStructure, hit.RowIndex, hit.ColumnIndex, 1, map?.Structure?.FilePathAbs);
+                ActivateStructureRow(hit.RowIndex);
                 _lastClickTime = DateTime.MinValue;
                 _lastClickedCell = null;
             }
@@ -297,6 +326,65 @@ namespace BveFileExplorer
                 _lastClickTime = DateTime.Now;
                 _lastClickedCell = clickedCell;
             }
+        }
+
+        #endregion
+
+        #region ストラクチャ簡易ビューア
+
+        private void btnStructurePreview_Click(object sender, EventArgs e)
+        {
+            int row = dgvStructure.CurrentCell?.RowIndex ?? -1;
+            if (row >= 0)
+            {
+                ShowStructurePreview(row, openIfClosed: true);
+            }
+            else
+            {
+                OpenStructureViewer();
+            }
+        }
+
+        /// <summary>キー操作で行を移動したときもプレビューを更新する</summary>
+        private void dgvStructure_CurrentCellChanged(object sender, EventArgs e)
+        {
+            int row = dgvStructure.CurrentCell?.RowIndex ?? -1;
+            if (row >= 0) ShowStructurePreview(row, openIfClosed: false);
+        }
+
+        private StructureViewerForm OpenStructureViewer()
+        {
+            if (_structureViewer == null || _structureViewer.IsDisposed)
+            {
+                _structureViewer = new StructureViewerForm();
+                _structureViewer.Show(this); // メインフォームの手前に表示(一緒に閉じる)
+            }
+            else if (!_structureViewer.Visible)
+            {
+                _structureViewer.Show(this);
+            }
+            if (_structureViewer.WindowState == FormWindowState.Minimized)
+            {
+                _structureViewer.WindowState = FormWindowState.Normal;
+            }
+            return _structureViewer;
+        }
+
+        /// <summary>
+        /// ストラクチャ一覧の行のファイルをビューアに表示する。
+        /// </summary>
+        /// <param name="openIfClosed">ビューアが閉じていれば開くか(false の場合は開いているときだけ更新)</param>
+        private void ShowStructurePreview(int rowIndex, bool openIfClosed)
+        {
+            bool isOpen = _structureViewer != null && !_structureViewer.IsDisposed && _structureViewer.Visible;
+            if (!isOpen && !openIfClosed) return;
+            if (rowIndex < 0 || rowIndex >= dgvStructure.Rows.Count || dgvStructure.Columns.Count < 2) return;
+
+            string relative = GridHelper.CellText(dgvStructure.Rows[rowIndex], 1);
+            string path = PathUtil.CombineAbs(map?.Structure?.FilePathAbs, relative);
+
+            StructureViewerForm viewer = OpenStructureViewer();
+            if (path != "") viewer.LoadFile(path);
         }
 
         #endregion
