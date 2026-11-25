@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Media;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace BveFileExplorer
@@ -455,28 +456,53 @@ namespace BveFileExplorer
             if (path != null) OpenFile(path);
         }
 
+        /// <summary>停車場リストの時刻列</summary>
+        private const int StationArrivalTimeColumn = 2;   // arrivalTime   (p: 通過)
+        private const int StationDepartureTimeColumn = 3; // depertureTime (t: 終着)
+        private const int StationDefaultTimeColumn = 5;   // defaultTime
+
+        /// <summary>時刻 H:mm:ss / HH:mm:ss (24時以降の深夜帯も許可)</summary>
+        private static readonly Regex StationTimeRegex = new Regex(@"^\d{1,2}:[0-5]?\d:[0-5]?\d$", RegexOptions.CultureInvariant);
+
+        /// <summary>停車場リストの時刻列の値が正しいか(空白は常に可)</summary>
+        private static bool IsValidStationTime(int column, string input)
+        {
+            if (string.IsNullOrEmpty(input)) return true;
+
+            // 到着時刻は p (通過)、出発時刻は t (終着) のみ許可。大文字小文字は区別しない
+            if (column == StationArrivalTimeColumn && input.Equals("p", StringComparison.OrdinalIgnoreCase)) return true;
+            if (column == StationDepartureTimeColumn && input.Equals("t", StringComparison.OrdinalIgnoreCase)) return true;
+
+            return StationTimeRegex.IsMatch(input);
+        }
+
         private void dgvStation_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            if (e.ColumnIndex != 2 && e.ColumnIndex != 3 && e.ColumnIndex != 5) return;
+            if (e.RowIndex < 0) return;
+            if (e.ColumnIndex != StationArrivalTimeColumn &&
+                e.ColumnIndex != StationDepartureTimeColumn &&
+                e.ColumnIndex != StationDefaultTimeColumn) return;
 
-            string input = e.FormattedValue.ToString().Trim();
+            // 編集していないセルはフォーカス移動・再読込時に検証しない(既存データで閉じ込めない)
+            DataGridView grid = (DataGridView)sender;
+            if (!grid.IsCurrentCellInEditMode) return;
 
-            // 空白ならOK
-            if (string.IsNullOrEmpty(input)) return;
+            string input = Convert.ToString(e.FormattedValue)?.Trim();
+            if (IsValidStationTime(e.ColumnIndex, input)) return;
 
-            // T または P ならOK (大文字小文字を区別しない)
-            if ((e.ColumnIndex == 2 || e.ColumnIndex == 3) &&
-                (input.Equals("T", StringComparison.OrdinalIgnoreCase) || input.Equals("P", StringComparison.OrdinalIgnoreCase)))
+            string msg;
+            switch (e.ColumnIndex)
             {
-                return;
+                case StationArrivalTimeColumn:
+                    msg = "arrivalTime は「空白」「P」(通過駅) または「HH:MM:SS」形式で入力してください。";
+                    break;
+                case StationDepartureTimeColumn:
+                    msg = "depertureTime は「空白」「T」(終着駅) または「HH:MM:SS」形式で入力してください。";
+                    break;
+                default:
+                    msg = "defaultTime は「空白」または「HH:MM:SS」形式で入力してください。";
+                    break;
             }
-
-            // HH:mm:ss 形式ならOK
-            if (TimeSpan.TryParseExact(input, @"hh\:mm\:ss", null, out _)) return;
-
-            string msg = (e.ColumnIndex == 5)
-                ? "「空白」または「HH:MM:SS」形式で入力してください。"
-                : "「空白」「T」「P」または「HH:MM:SS」形式で入力してください。";
             MessageBox.Show(msg, "入力エラー", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             e.Cancel = true;
         }
